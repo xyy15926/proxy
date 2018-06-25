@@ -1,0 +1,240 @@
+python包、依赖管理工具
+
+a.	pip：python包、依赖管理工具
+
+	1.	pip包都是源码包
+
+		a.	需要在安装时编译，因此可能在安装时因为系统原因出错
+
+		b.	当然现在有了wheels也可以安装二进制包
+
+	2.	pip通过纯文本文件（一般命名为requirements.txt）来记录、管理某个python项目的依赖
+
+		a.	pip freeze：按照package_name=version的格式输出已安装的包
+
+		b.	pip install：可以按照指定文件（requirements.txt）安装包
+
+	3.	一般编译安装python都会包括pip、setuptools
+	
+		a.	如果时系统全局安装pip，一般apt，yum等工具可以直接安装
+		
+		b.	虚拟python环境，无法使用系统包管理工具安装pip，则只能下载pip包setuptools安装
+
+b.	virtualenv/venv：虚拟python环境管理器
+
+	1.	将多个项目的python依赖隔离开，避免多个项目的包依赖、python版本冲突
+
+	2.	包依赖可以安装在项目处，避免需要全局安装python包的权限要求、影响
+
+	3.	可以直接使用pip安装
+
+c.	pyenv：python版本管理器，包括各种python发行版
+
+	1.	安装：不需要事先安装python
+	
+		a.	从github获取pyenv：github：git://github.com/yyuu/pyenv.git
+
+		b.	将以下配置写入用户配置文件，建议是.bashrc（可参考配置文件执行顺序的问题），当然也可以在shell里面直接执行以暂时使用
+
+			export PYENV_ROOT="$HOME/pyenv路径"
+			export PATH="$PYENV_ROOT/bin:$PATH"
+			eval "$(pyenv init -)"
+
+			以上配置可参见home_config/bashrc_addon，以项目详情为准
+
+	2.	pyenv安装python发行版问题#todo
+	
+		a.	?使用pyenv安装python时一般是从PYTHON_BUILD_MIRROR_URL表示的地址下载安装文件
+			（或者说整个系统都是从这个地址下载），缺省是pypi.python.org，但国内很慢)
+
+		b.	手动export这个环境变量为国内的镜像站，如
+			http://mirrors.sohu.com/python，但这个好像没用
+
+		c.	手动在镜像站点下载安装包，放在pyenv/cache文件夹下（没有就新建）
+
+		d.	pyenv编译安装python也需要先安装依赖
+
+	3.	pyenv实现原理
+
+		a.	修改$PATH环境变量
+		
+			1.	手动设置将PYENV_ROOT/bin放至$PATH首位
+
+			2.	初始化pyenv时会将PYENV_ROOT/shims放至$PATH首位
+
+				a.	shims、bin放在最前，优先使用pyenv中安装的命令，
+
+				b.	bin中包含的是pyenv自身命令（还有其他可执行文件，但是无法直接执行?）
+
+				c.	shims则包含的是“所有”已经安装python组件
+
+					1.	包括python、可以执行python包、无法直接执行的python包
+
+					2.	这些组件是内容相同的脚本文件，仅名称是pyenv所有安装过的python包
+
+						a.	用于截取python相关的命令
+
+						b.	并根据设置python发行版做出相应的反应
+
+						c.	因此命令行call已安装过的python包，pyenv会给提示
+							即使不是安装在当前python环境中
+
+			3.	因此一般将命令放在.profile文件中，这样每次登陆都会设置好pyenv
+				放在.bashrc中会设置两次（虽然没有太大关系）
+
+		b.	使用指定python发行版
+
+			1.	pyenv的local指定是在文件夹下生成.python-version文件，写明python版本
+
+			2.	所有的python相关的命令都被shims中的脚本文件截取
+
+			3.	pyenv应该是逐层向上查找.python-version文件
+
+				a.	查找到文件则按照相应的python发行版进行执行
+
+				b.	否则按global版本
+
+d.	conda：通用包管理器
+
+	1.	功能
+
+		a.	（管理任何语言、类型的软件）
+
+		b.	也可以管理虚拟python环境（包括python版本）
+
+	2.	conda默认可以从repo.continuum.io安装已经编译好的二进制包，
+		但是有些pip的包conda没有
+
+	2.	安装
+
+		a.	conda在Miniconda，Anaconda发行版中默认安装
+			事实上Miniconda就是只包括conda的发行版（除pip、setuptools）
+
+		b.	在其他的发行版中可以直接使用pip安装
+
+e.	pipenv：pip、virtualenv、Pipfile（版本控制）功能的综合
+
+	1.	事实上就依赖于pip、virtualenv（功能封装）
+
+		a.	pipenv sync/install替代pip install
+
+		b.	pipenv shell替代activate，pipenv run甚至可以不用激活虚拟环境运行某些命令
+
+		c.	Pipfile控制dev、release包管理，Pipfile.lock#todo
+
+	2.	安装
+
+		a.	使用pip直接安装
+
+		b.	系统安装源里有pipenv，也可以用系统包管理工具安装
+
+	3.	pipenv工作原理
+	
+		a.	pipenv和virtualenv一样指定python版本也需要已经安装该python版本
+
+			1.	$PATH中的路径无法寻找到相应的python版本就需要手动指定
+
+			2.	不是有版本转换，将当前已安装版本通过类似2to3的“中间层”转换为目标版本
+
+		b.	pipenv会在~/.local/share/virtualenv文件夹下为所有的虚拟python环境生成文件夹
+
+			1.	文件夹名字应该是“虚拟环境文件夹名称-文件夹全路径hash”
+
+			2.	包括已安装的python包和python解释器
+
+			3.	结构和virtualenv的内容类似，但virtualenv是放在项目目录下
+
+			4.	python shell启动虚拟环境就是以上文件夹路径放在$PATH最前
+
+		c.	pipenv通过Pipfile管理环境
+
+			1.	默认安装：pipenv install pkg
+
+				a.	作为默认包依赖安装pkg，并记录于Pipfile文件[packages]条目下
+
+				b.	相应的pipenv install则会根据Pipfile文件中[packages]条目安装默认环境包依赖
+
+			2.	开发环境安装：pipenv install --dev pkg
+
+				a.	作为开发环境包依赖安装pkg，并记录于Pipfile文件[dev-packages]条目下
+
+				b.	相应的pipenv intall --dev则会根据Pipfile文件中[dev-packages]安装开发环境包依赖
+
+			3.	Pipfile和Pipfile.lock
+
+				1.	Pipfile中是包依赖**可用（install时用户指定）**版本
+
+				2.	Pipfile.lock则是包依赖**具体**版本
+
+					a.	是pipenv安装包依赖时具体安装的版本，由安装时包源的决定
+
+					b.	Pipfile.lock中甚至还有存储包的hash值保证版本一致
+
+					c.	Pipfile是用户要求，Pipfile.lock是实际情况
+
+				3.	所以pipenv install（pipenv sync）优先依照Pipfile.lock安装具体版本包，
+					即使有更新版本的包也满足Pipfile的要求
+
+				4.	所以Pipfile和Pipfile.lock是同时更新、内容“相同”，而不是手动锁定
+					且手动更新Pipfile，再安装包时会默认更新lock
+
+			4.	默认环境和开发环境切换
+
+				1.	pipenv没有像git那样的切换功能
+
+				2.	默认环境“切换”为dev环境：pipenv install --dev
+
+				3.	dev环境“切换”为默认环境：pipenv uninstall --all-dev
+
+			5.	同步：pipenv sync
+
+				a.	官方是说从Pipfile.lock读取包依赖安装
+
+				b.	但是手动修改Pipfile后pipenv sync也会先更新lock，然后安装包依赖
+
+				c.	感觉上和pipenv install差不多
+
+	4.	pipenv特性
+
+		a.	pipenv可以找到pyenv已安装的python发行版，且不是通过$PATH中shims获得实际路径，因为：
+
+			1.	pipenv能够找到pyenv实际安装python发行版的路径versions，而不是脚本目录shims
+
+			2.	pipenv指定的是python版本，不是python发行版，但是在pyenv已安装Anaconda3和3.6并指定local python发行版为3.6的情况下pipenv --three生成的虚拟python环境使用的居然是Anaconda3（此时还未系统全局安装python34）
+			
+			3.	后来系统全局安装python34，无local的情况下pipenv --three仍然是使用Aanconda(此时bin、shims仍然存在于$PATH中，pyenv命令可以正常使用）
+
+			4.	再后面，注释调pyenv的初始化命令重新登陆，pipenv --three就使用python34了
+
+			5.	目前还是无法确定pipenv如何选择python解释器，但是根据以上测试和github上的feature介绍可以确定的是和pyenv命令有关
+
+
+		b.	pipenv和pyenv一起使用可以出现一些很蠢的用法，比如：pyenv指定的local发行版中安装pipenv，然后用这pipenv可以将目录设置为一个另外版本虚拟python环境（已经系统安装或者是pyenv安装）
+
+f.	总结：
+
+	1.	除了以上的包管理、配置工具，系统包管理工具也可以看作是python的包管理工具
+	
+		a.	事实上conda就可以看作是pip和系统包管理工具的交集
+
+		b.	系统python初始没有pip一般通过系统包管理工具安装
+
+	2.	优先级：pip > conda > 系统包管理工具
+
+		a.	纯python库优先使用pip安装，需要额外编译的库使用conda
+
+		b.	conda源和系统源都有的二进制包，优先conda，版本比较新
+
+	3.	根据2018/04/06的经验，最后最合适的多版本管理是安装pipenv
+
+		a.	系统一般自带python2.7，所以用系统包管理工具安装一个python3
+
+		b.	使用新安装的python3安装pipenv，因为系统自带的python2.7安装的很多包版过低
+
+		c.	最后如果对python版本要求非常严格
+
+			1.	还可以再使用pyenv安装其他版本
+
+			2.	然后仅手动启用pyenv用于指示pipenv使用目标python版本
+
+

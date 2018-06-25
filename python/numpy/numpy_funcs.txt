@@ -1,0 +1,45 @@
+numpy函数笔记
+
+1.	np.random as npr
+
+	a.	0~1之间random
+
+		1.	ndarray(f64)=npr.random(size=None(1)/tuple)
+
+		2.	ndarray(f64)=npr.rand(*args(int))：0~1
+
+	b.	正态分布
+
+		1.	ndarray(f64)=npr.normal(loc=0.0, scale=1.0, size=None(1)/tuple)：自定义参数
+
+		2.	ndarray(f64)=npr.randn(*args(int))：标准正态
+
+	c.	其他分布
+
+		1.	npr.binomial(n(int), p(float), size=None(1)/tuple)
+
+			a.	二项分布
+
+	c.	给定范围
+
+		1.	ndarray(dtype)=npr.randint(low(int), high=None/int, size=None(1)/tuple, dtype='l'/'i'...)
+
+			a.	类似于range，只给出low时表示上限，0起始
+
+			b.	dtype可以选择整数类型，默认值'l'表示np.int
+
+		2.	list/tuple=npr.shuffle(list/tuple)：乱序
+
+		3.	ndarray=npr.choice(a(int/list), size=None(1)/tuple, replace=True, p=None(uniform distribution)/list)
+
+	d.	其他
+
+		1.	mtrand.RandomState=npr.RandomState(seed=None/int)
+
+			a.	返回指定种子值的mtrand.Random对象
+
+			b.	对象可以按照传递种子值，执行random中方法
+
+			c.	对于确定的种子值，同一中随机方法得到的结果相同
+
+		2.	None=npr.seed(seed=None/int)：设置全局种子

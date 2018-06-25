@@ -1,0 +1,61 @@
+不常用shell命令
+
+1.	systemctl：替代service更加强大
+
+	a.	start：启动服务
+
+	b.	stop：关闭服务
+
+	c.	enable：开机自启动服务
+
+	d.	disable：关闭开机自启动服务
+
+2.	字体
+
+	a.	fc-list :lang=zh：查找系统已安装字体，参数表示中文字体
+
+	b.	fc-cache：创建字体信息缓存文件
+
+	c.	mkfontdir/mkfontscale：创建字体文件index
+
+		1.	还不清楚这个字体index有啥用
+
+		2.	man这两个命令作用差不多，只是后者是说创建scalable字体文件index
+
+		3.	网上信息是说这两个命令配合fc-cache用于安装字体，
+			但是好像没啥用，把字体文件复制到/usr/share/fonts（系统）或
+			~/.local/share/fonts（用户），不用执行这两个命令，直接
+			fc-cache就行
+			#todo
+
+3.	文件压缩
+
+	a.	zip：zip dest-file [source-files]
+
+4.	远程连接服务器
+
+	a.	命令行登陆ssh：ssh user_name@host
+
+	b.	文件传输scp（secure cp）
+	
+		1.	本机到远程：scp /path/to/file user_name@host:/path/to/dest
+
+		2.	远程到本机：scp user_name@host:/path/to/file /path/to/dest
+
+		3.	这个命令应该在本机上使用，不是ssh环境下
+
+			a.	ssh环境下使用命令表示在远程主机上操作 
+
+			b.	而本机host一般是未知的（不是在远程主机上不是localhost）
+
+5.	ldd：显示共享库依赖情况（列出二进制文件依赖）
+
+6.	tee：将标准输出**复制**到指定文件
+
+7.	rpm2cpio：将rpm包转变为cpio格式文件，然后可以用cpio解压
+	rpm2cpio rpm_pkg | cpio -div
+
+8.	temp
+export http_proxy = socks://ip
+export https_proxy = sock5://ip
+当前terminal使用此代理

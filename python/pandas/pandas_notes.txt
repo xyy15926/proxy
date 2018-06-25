@@ -1,0 +1,219 @@
+python数据分析pandas笔记
+
+1.	DataFrame：可以看作包含两个Index类（index、columns）、一个二维ndarray类（values）
+
+	a.	df1= pd.DataFrame(data=np.darray/dict/df2, columns=list, index=list)
+
+		1.	values：必须是二维数据，即使是具有层级索引的DF对象
+
+		2.	columns：指定DF对象列名称
+
+			a.	使用dict对象时，默认将所有键值对生成DF对象
+
+			b.	可以用columns指定部分dict中的键名，此时只使用该部分生成DF对象
+
+		3.	index：指定DF对象index名称
+
+			a.	可以是integer，且默认使用RangeIndex
+
+				1.	注意python是强类型语言，index名称注意区别'1'、1，不能混用
+
+				2.	使用integer作为index时注意df1.ix[]的逻辑
+
+		4.	层级索引
+
+			a.	columns/index=[level0_list, level1_list,...]（隐式指定）
+
+			b.	columns/index=pd.MultiIndex.from_arrays([level0_list, level1_list,...])
+
+				1.	down_list的长度必须相等，且层级由在list的次序决定
+
+				2.	不会自动合并不连续的同一个index名称
+
+			c.	columns/index=pd.MultiIndex.from_tuples([(level0_1, level1_1),....]
+
+			d.	columns/index=pd.MultiIndex.from_product([level0_type_list, level1_type_list,...])
+
+				1.	from_arrays是类似于from_tuples的列举出了所有“索引组合”
+
+				2.	from_product则只给处各层级的索引名称，函数自动配对得到所有“索引组合”
+
+		5.	关于DF对象的看法
+
+			a.	结构和数据库表结构相似，也可以照此理解：列表示属性，行表示个体
+
+			b.	DF对象应该是
+
+				1.	二维value + 结构化index + 结构化columns
+
+				2.	values自己还有两根只能使用integer索引的轴
+
+	b.	DF对象的行列逻辑
+	
+		1.	获取数据
+
+			a.	列优先
+
+				1.	取列返回Series对象
+
+					a.	df[column_name]
+
+					b.	df.column_name
+
+				2.	单独值
+
+					a.	df1[column_name][index_name]（老版本可能df1[column_name, index_name])
+
+					b.	df1.column_name.index_name
+
+				3.	注意
+
+					a.	属性方式要求*_name为字符串
+
+					b.	“.”和“[]”都是“函数”，实际上是先得到一个Series对象
+
+			b.	行优先
+
+				1.	df1.loc[]：行优先,逻辑和df1[]列优先类似，不同点如下：
+
+					a.	还可以：df1.loc[index_name, column_name]
+
+					b.	不能：df1.loc.index_name
+
+				2.	df1.iloc[]
+
+					a.	应视为对value（ndarray）进行操作，index和columns的结构对其没有任何影响
+
+					b.	df1.iloc[val_row_index]：返回value某行的Series对象
+
+						1.	val_row_index：values部分序号，从0开始
+
+						2.	没有层级索引的情况下，返回值和df1.loc[]对应
+
+						3.	行层级索引时，此返回值仍然是Series对象
+
+					c.	df1.iloc[val_row_index, val_col_index]：类似于df1.loc得到某个值
+
+				3.	df1.ix[]是df1.loc[]、df1iloc[]封装
+
+					a.	df1.ix[]根据参数类型自动选择函数
+
+					b.	优先使用df1.loc[]，index为integer时注意逻辑
+
+						1.	df1.iloc[0]始终是“索引组合”（values）第1行
+
+						2.	df1.ix[0]可能是df1.loc[0]
+
+				4.	快速版本：只能取一个值，不能用于获取切片
+
+					a.	df1.at[index_name, column_name]
+
+					b.	df1.iat[val_row_index, val_col_index]（类似于直接在ndarray中操作）
+
+			c.	层级索引
+
+				1.	获取数据：整体来说和一般的DF对象类似
+
+					a.	列优先
+
+						1.	索引有层级，df1[level0_column_name]返回的是DF对象
+
+						2.	获取某列Series对象，需要指定多层索引
+
+							a.	根据函数作用顺序，显然
+
+								1.	df1[level0_column][leve1_column]
+
+								2.	df1.level0_column.level_column
+
+							b.	df1[level0_column, leve1_column]也可以
+
+								a.	但是层级超过2层时，不能df1[level0, level1, level2]
+
+								b.	根据低层级#todo
+
+						3.	获取具体值类似：df1[l0_col][l1_col][l0_index][l1_index]
+
+					b	行优先
+
+						1.	df1.loc[]和df1[]类似
+
+							a.	“属性”写法依然不允许，但“[]”仍然最多只能有两个键
+
+							b.	需要注意的是df1.loc[name1, name2]中
+
+								1.	name1为level0_index_name
+
+								2.	name2不是level1_index_name，而是level0_col_name
+
+								3.	所以返回值实际是DF对象，而不是层级索引的Series对象
+
+								4.	可以视为df1.loc[name1][name2]的语法糖，或者本身也好理解
+
+						2.	df1.iloc[]、df1.iat[]逻辑没有变化
+
+						3.	df1.at[]好像用法有点问题，不管怎样都报错#todo
+
+		2.	切片操作：应该分为value切片，index切片
+
+			a.	index切片：切片对象是索引
+
+				1.	列索引切片：df1[[column_name1,...]]
+
+				2.	行索引切片：df1.ix[[index_name1,...]]（df1.loc[]也可以）
+
+			b.	value切片：切片的对象是value行
+
+				1.	df1[start:end]（应该是df.ix[]、df.iloc[]的语法糖）
+
+				2.	非层级索引情况下，value切片和行index切片结果时一样的
+
+				3.	行层级索引情况下，value切片操作单位是value行，而index行切片是level0索引
+
+			c.	含有层级索引的切片#todo
+
+				1.	顶级切片正常操作
+
+				2.	低级：df1[:, level1_column_name]
+
+		注：下面需要删改#todo
+		3.	df1.T可以更改行、列逻辑，但df1数据（values）共享的逻辑比较特殊
+
+			a.	增加列情况下数据共享情况
+
+				1.	df1T = df1.T，此时df1T和df1共享数据，df1T可以看作是df1的视图
+
+				2.	df1T['t_new_column']添加一个新列之后，df1T和df1仍然共享其公共部分的数据，但是df1T中新添加的列不会反映在df1行中（对df1添加新列同理）
+
+				3.	继续df1['new_column']添加新列，此时df1和df1T所有数据均独立
+
+			b.	使用del删除列得到的结果类似
+
+			c.	df1返回的DataFrame对象应该是"默认尽可能"共享数据，直到无法处理（数据区同时增加、删除行、列）
+
+			d.	注意：df1.reindex()返回的DataFrame对象不共享数据
+
+2.	Series：可以看作是包含一个Index类（index，存放标签）、一个一维ndarray类（values，存放数据）
+
+	a.	ser=pd.Series(data=np.darray/dict, index=list)
+
+	b.	Series对象可以处理标签不一致的数据，但是只有标签的交集才能得到有意义的结果，其余为NaN
+
+	c.	其余性质类似于DataFrame对象
+
+3.	Index属性#todo
+
+	a.	index属性
+
+		1.	df1.columns=[]：更改列名称，index同
+
+		2.	df1.columns.names=[]：更改列名，index同
+
+4.	pandas库中的其他一些问题
+
+	a.	数据类型转换：Series对象和DF对象在运算过程中dtype类型可能发生"无意义"的转换
+
+		1.	dtype=i8的对象之间的+、-结果为dtype=f8类型的对象（当然这个可能是保持和\的一致性）
+
+		2.	SeriesObj.reindex(new_index)会"可能"会改变原有数据类型（由i8->f8）（有增加新index时）
+

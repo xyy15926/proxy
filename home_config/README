@@ -1,0 +1,9 @@
+This directory containes setting files for $HOME, except files in
+	./addon.
+
+For convenience, all hidden file/direcotry, named with
+	'^\.(.+)$' are renamed with '^\1\.$'.
+
+Some system-dependent files, .bashrc for example, are not established.
+	Instead, file-addon are created for those files, which should be
+	called or included by the original files.

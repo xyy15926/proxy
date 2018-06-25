@@ -1,0 +1,80 @@
+rust错误处理、测试
+
+1.	错误处理
+
+		1.	panic!与不可预期（不可恢复）错误
+		
+			a.	panic!程序默认开始展开（unwinding）、回溯栈并清理函数数据
+			
+			b.	如果希望二进制文件尽量小，可以选择“终止（abort）”，此时
+				程序内存由操作系统进行清理
+
+				1.	在Cargo.toml [profile]部分增加：panic='abort'
+
+				2.	如发布模式panic时终止
+					[profile.release]
+					panic='abort'
+
+		2.	Result与潜在（可预期、可恢复）错误
+
+			a.	Result<T, E>{
+					Ok<T>,
+					Err<E>,
+				}
+
+				1.	T：成功时Ok成员中的数据类型
+
+				2.	E：失败时Err成员中返回的数据类型
+
+			b.	处理方法
+
+				1.	直接处理
+
+					a.	对Result对象进行模式匹配，分别处理
+						let f = File::open("hello.txt");
+						let mut f = match f {
+							Ok(file) => file,
+							Err(error) => panic!("error:{:?}", error),
+						}
+			
+					b.	使用Result上定义的方法（类似以上）
+
+						1.	Result.unwrap
+
+							a.	Ok<T>.unwrap()返回T
+
+							b.	Err<E>.unwrap()调用panic!，使用默认panic!
+								信息
+
+						2.	Result.expect
+
+							a.	Ok<T>.expect(&str)返回T
+
+							b.	Err<E>.expect(&str)使用&str参数调用!panic
+
+				2.	传播错误（propagating）
+
+					a.	对Result对象进行匹配，提前返回Err<E>
+						let f = File:open("hello.txt");
+						let mut f match f {
+							Ok(file) => file,
+							Err(error) => return Err(error),
+						}
+
+						1.	需要注意rust返回值问题，尤其是在可能存在多处
+							潜在错误需要返回
+
+					b.	"?"简略写法（效果同上）
+						let mut f = File::open("hello.txt")?
+
+						1.	"?"会把Err(error)传递给from函数（定义在
+							标准库From trait中），将错误从一种类型转换
+							未另一种类型
+
+						2.	潜在错误类型都实现了from函数，定义如何将其
+							转换为**返回值**中的错误类型，"?"会自动处理
+							这些转换
+
+						3.	"?"只能用于返回值为Result类型的函数，因为其
+							返回值就是Err(E)（如果有）
+

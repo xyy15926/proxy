@@ -1,0 +1,101 @@
+Readme
+
+1.	函数书写声明：return = func(essential(type), optional=defaults/type, *args, **kwargs)
+
+	a.	格式说明
+
+		1.	参数
+
+			a.	essential参数
+
+				1.	essential参数只能最先定义，规定没有“=”表示essential参数
+
+				2.	type表示参数取值类型
+
+			b.	optional参数
+
+				1.	第一个值如果为具体值，表示默认参数值
+
+				2.	默认参数值为None
+
+					a.	函数内部有默认行为
+
+					b.	None(默认行为等价参数值)
+
+				3.	之后表示可能取值类型
+
+			b.	args参数
+
+				1.	args“参数名”仅是标记作用，不能关键字传参
+
+				2.	“[参数名]”表示参数可选 
+
+					a.	首参数值为具体值表示函数默认行为
+
+					b.	其后为参数值类型
+
+				3.	必须参数后只有参数类型
+
+			c.	kwargs参数 
+
+				1.	参数默认为可选参数，规则类似args可选参数
+
+			d.	其他
+
+				1.	参数名后有“?”表示参数名待确定
+
+				2.	参数首字母大写表示唯一参数
+
+		2.	返回值
+
+			a.	返回值类型由返回对象名称蕴含
+
+		3.	对象类型
+
+			a.	obj(type)中type表示“包含”元素类型
+
+		4.	其他
+
+			a.	DF对象和Series对象都具有的函数属性列出DF对象
+
+	b.	pandas常用参数说明
+
+		1.	aixs=0/1/'index'/'columns'：作用方向
+
+			a.	默认为0/'index'：一般表示row-wise（行变动）方向
+
+		2.	inplace=False/True：是否直接在原对象更改
+
+			a.	默认为False：不更改，返回新DF对象（为True时无返回值）
+
+			b.	大部分df1.func()类型函数都有这个参数
+
+		3.	level=0/1/level_name...：作用索引层级
+
+			a.	大部分默认为0：顶层级（也有默认为底层级）
+
+			b.	level默认参数使用：t(top，顶层级0）/b（bottom，底层级)给出默认参数值
+
+			c.	默认值为None表示所有层级
+
+	c.	matplotlib.plot常用参数说明
+
+		1.	data=dict
+
+			a.	属于kwargs中参数
+
+			b.	传参时，相应键值对替代对应参数
+
+	d.	numpy常用参数说明
+
+		1.	size=None(1)/int/tuple(int)
+
+			a.	ndarray形状
+
+			b.	默认值一般是None，返回一个值
+
+		2.	dtype=str/np.int/np.float...
+
+			a.	ndarray中数据类型
+
+			b.	可以是字符串形式，也可以是”np.“对象形式

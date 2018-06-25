@@ -1,0 +1,229 @@
+rust代码技巧
+
+1.	语法技巧
+
+	a.	for i in i.iter()
+
+	b.	array[m..n]
+
+	c.	结构体
+		struct stct{
+			field1:i32,
+			field2:String,
+		}
+
+		1.	变量字段同名简略写法
+			let field1 = 1;
+			let stct={
+				field1,
+				field2=String::from("fy"),
+			}
+
+		2.	结构体更新语法
+			let struct1 = stct{
+				field1: 1,
+				..struct2
+			}
+
+		3.	元组结构体
+			struct tuple_stct=(i32, i32, i32)
+
+			a.	有结构体名称提供的含义，但只有字段类型没有字段名
+
+			b.	用于命名元组、指定类型，区别于其他相同（结构）的元组
+
+		4.	类单元结构体（unit-like struct）
+
+			a.	不定义任何字段，类似于“()”
+
+			b.	常用于再某个类型上实现trait，但不需要在类型内存储数据时
+				发挥作用
+
+	d.	枚举（enum）
+
+		1.	基础版本
+			enum IpArr{
+				V4,
+				V6,
+			}
+
+		2.	附加数据版本
+			enum IpArr{
+				V4(u8, u8, u8, u8},
+				V6(String),
+			}
+
+		3.	匿名结构体版本
+			enum Message{
+				Quit,
+				Move{x: i32, y:i32},
+				Write(String),
+				ChangeColor(i32, i32, i32),
+			}
+
+		4.	rust枚举比较像是：enum+struct
+
+			a.	enum：定义了新的枚举类型，取值范围有限
+
+			b.	struct：枚举成员可以关联数据类型，且可以定义方法
+
+		5.	枚举类型处理null值
+
+			a.	rust标准库中实现，且被包含在prelude中（包括其成员）
+				enum Option<T>{
+					Some<T>,
+					None,
+				}
+				rust标准库中唯一支持创建任何类型枚举值的枚举类型
+
+			b.	rust不允许像有效的T类型的数据一样处理Option<T>类型数据，
+				要求在使用之前处理为None的情况
+				
+			c.	此即能够保证在可能为空的值会被处理
+
+	e.	模式匹配
+
+		1.	match控制流（Message枚举类型为例）
+			match var {
+				Message::Move{x: x, y: y} => (x, y),
+				Message::Write(&str)	=> {
+					println!("write {}", str);
+					(1,1)
+				},
+				Message::ChangeColor => (1,0)
+				_ => println!("quit");
+				(0,0)
+			}
+
+			a.	枚举匹配“类型”必须完全一致
+
+				1.	Message::Write不是Message的一个枚举成员，必须
+					Message::Write(str)才能匹配
+
+				2.	这样匹配不会出现无法获得想要的类型，即使是结构体
+
+					a.	若是类似Move的匿名结构体，本就不不应该被获取，
+						因为其没有定义具体类型，作用域只在Message内
+
+					b.	若是普通结构体，类是Write(str)即可
+
+			b.	返回类型必须一致
+
+			c.	匹配必须是穷尽的，可以使用通配符“_”（匹配所有的值）代替
+
+				1.	match是匹配到就退出，不像switch一样会继续下沉）
+
+				2.	if let[else]可以代替match，不进行穷尽检查
+
+				3.	通配符不总是需要的，对于枚举类型只要含有所有枚举
+					成员的分支
+
+			d.	待匹配的模式后match guard
+
+				1.	放在“=>”之前的if语句
+
+				2.	match分支的额外条件，条件为真才会继续执行分支代码
+
+			e.	match分支中
+
+				1.	“&”匹配一个引用并返回其引用值
+
+				2.	“ref”匹配一个值，并返回其的一个引用
+
+				3.	很正常，match分支本身就是用来“匹配”
+
+			e.	结构体的变量名称相同简略写法在模式匹配中同样有效
+
+				1.	move的模式匹配中，可以省略为
+					Move{x, y}（编译器会提醒warning）
+
+		2.	if let[else]简洁控制流
+
+			a.	只匹配关心的一个模式
+
+			b.	没有穷尽性检查
+
+			c.	可以添加else语句，类似match通配符匹配
+
+	f.	vec使用枚举类型存储多种不同类型（Message为例）
+		vec![Message::Write(String::from("ab"), Message::Move{x:5, y:6}]
+
+		1.	vec必须在编译前知道所有存储元素所需内存、允许的元素类型，
+			否则存在多种类型时对vec进行操作可能会出错
+
+		2.	使用enum+match就能保证处理所有类型，不会出错
+
+	g.	字符串
+
+		1.	包括两种
+
+			a.	rust核心中的字符串slice（&str）：存储在别处的utf-8编码
+				字节序列的引用
+
+				1.	字符串slice是&str类型，这个好像体现了rust引用更像指针
+
+				2.	字符串字面值应该是一系列字节序列（流）存储，所以
+					”返回值“应该是”首地址“，因此是引用类型
+
+			b.	rust标准库中String类型：可增长、可变、有所有权、utf-8编码
+
+				1.	是Vec<u8>的封装
+
+			c.	通常意义上的字符串往往是以上两种的”综合“
+
+		2.	特性
+
+			a.	两种字符串都不支持索引
+
+				1.	字符串都是utf-8编码，索引返回类型不明确
+
+				2.	“字形簇“并不全是可见字符，索引意义不明确
+
+				3.	遍历方法
+				
+					a.	for char in &str.chars()
+
+					b.	for b in &str.bytes()
+
+			b.	但是支持字符串slice
+
+				1.	注意，如果slice不是有效的utf-8字节序列会panic
+
+	h.	hash map
+
+		1.	键、值必须是同质的
+
+		2.	相对来说使用频率较低，没有引入prelude
+
+		3.	函数、方法技巧
+
+			a.	map.insert(key, val)
+
+			b.	map = vec1.iter().zip(vec2.iter()).collect()
+
+			c.	map.entry(key).or_insert(val)
+
+				1.	entry检查map中是否存在该key，返回一个枚举类型Entry
+				
+				2.	Entry.or_insert是定义在枚举类型Entry上的方法
+
+					a.	Entry表示是map存在该key时，直接返回Entry
+
+					b.	Entry表示该map不存在该key时，插入(key, value)
+						键值对，并返回对应的Entry
+
+					c.	教程上说“or_insert返回值实际上就是&mut val”
+
+		4.	rust默认使用一种密码学安全、可以抵抗DoS攻击的哈希函数，可以
+			自行指定其他的hasher（实现了BuilderHasher trait的类型）
+
+
+2.	细节问题
+
+	a.	slice
+
+		1.	也是左闭右开区间
+
+	b.	通过编译器得到某个函数返回值类型
+
+	c.	

@@ -1,0 +1,14 @@
+# bashrc_addon 
+
+# this should contains some initial moves that needs to be done when non-login interactive shell is started, and should be called in ~/.bashrc(or file with another name, but doing the same thing), the reasons why establish this file rather than edit ~/.bashrc are as follows:
+
+#	1. the name of .bashrc depends on linux release version
+#	2. .bashrc may does different things
+#	3. this file is not necessary
+
+# usage:add this at the end of ~/.bashrc
+#
+#if [ -f ~/Code/proxy/home_config/bashrc_addon ]; then
+#	. ~/Code/proxy/home_config/bashrc_addon
+#fi
+

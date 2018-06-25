@@ -1,0 +1,22 @@
+# tmp directories
+tmp/
+temp/
+
+# executable directories
+bin/
+gen/
+out/
+build/
+__pycache__/
+
+# executable files
+*.pyc
+*.exe
+
+# log files
+*.log
+
+# setting files
+.classpath
+.project
+
