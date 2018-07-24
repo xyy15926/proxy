@@ -422,7 +422,7 @@ match msg{
 }
 ```
 
-##	闭包closures
+##	闭包closures和函数指针
 
 闭包是可以保存进变量或作为参数传递给其他函数的匿名函数，
 可以在一个地方创建闭包，而在不同的上下文执行闭包。和函数
@@ -495,7 +495,47 @@ struct Cacher<T>
 }
 ```
 
->	函数实现了以上**全部**3个`Fn`trait
+###	Function Pointer `fn`
+
+```rust
+fn add_one(x: i32) -> i32{
+	x + 1
+}
+fn do_twice(f: fn(i32) -> i32, arg: i32) -> i32{
+	//`f`是`fn`函数指针类型
+	f(arg) + f(arg)
+}
+fn main(){
+	let answer = do_twice(add_one, 5);
+	println!("the anwser is: {}", anwser);
+}
+```
+
+函数指针类型实现了以上**全部**`Fn`、`FnMut`、`FnOnce`三个
+trait，所以总是可以在调用期望闭包作为参数的函数时传递函数
+指针，因此倾向于使用泛型和闭包trait bound的函数，这样可以
+同时使用闭包、函数指针作为参数。
+
+```rust
+let list_of_numbers = vec![1, 2, 3];
+let list_of_Strings: Vec<String> = list_of_numbers
+	.iter()
+	.map(|i| i.to_string())
+		//闭包作为参数传递
+	.collect();
+
+let list_of_strings: Vec<String> = list_of_numbers
+	.iter()
+	.map(ToString::to_string)
+		//函数作为参数传递
+		//使用了完全限定语法，因为存在多个`to_string`函数
+		//标准库为所有实现了`Display`的类型实现了此trait
+	.collect();
+```
+
+与不存在闭包的外部代码（如C语言，只有函数没有闭包）交互时，
+只能使用函数作为参数，不能使用闭包。
+
 
 ###	`move`关键字
 
@@ -510,6 +550,19 @@ fn main(){
 		//此时`x`的所有权已经转移进闭包，不能在闭包外使用
 	let y = vec![1, 2, 3];
 	assert!(equal_to_x(y));
+```
+
+###	返回闭包
+
+闭包表现为trait，没有确定的类型、大小，无法直接返回，也不
+允许使用函数指针`fn`作为返回值类型，需要使用trait对象返回
+闭包
+
+```rust
+fn return_closure() -> Box<Fn(i32) -> i32>{
+	//trait对象作为返回值
+	Box::new(|x| x + 1)
+}
 ```
 
 ##	迭代器Iterator

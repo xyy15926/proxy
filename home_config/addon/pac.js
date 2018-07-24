@@ -32,7 +32,8 @@ domains = {
     //'stackoverflow.com': 1,
     't66y.com': 1,
     'soundcloud.com': 1,
-    'pornhub.com': 1
+    'pornhub.com': 1,
+	'steamcommunity.com': 1
 };
 
 var proxy = 'SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080';

@@ -1,6 +1,11 @@
 # bash_profile_addon
 
-# this should contains some initial moves that needs to be done when bash is invoked as an login-shell(namely when logining in), and should be called in ~/.bash_profile(or file with another name, but doing the same thing), the reasons why establish this file rather than edit ~/.bash_profile are as follows:
+# this should contains some initial moves that needs to be
+# done when bash is invoked as an login-shell(namely when
+# logining in), and should be called in ~/.bash_profile(or
+# file with another name, but doing the same thing), the
+# reasons why establish this file rather than edit 
+# `~/.bash_profile` are as follows:
 
 #	1. the name of .bash_profile depends on linux release version
 #	2. .bash_profile may does different things

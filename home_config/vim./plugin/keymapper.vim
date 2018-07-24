@@ -35,9 +35,11 @@ inoremap <leader>; <esc>mqA;<esc>`qa
 	"<leader>; to add a `;` at the end of a line
 onoremap in( :<c-u>normal! f(vi(<cr>
 	"select content in next parentheses
-onoremap il( :<c-u>normal! f)vi(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
 	"select content in current parentheses, if in a 
 	"parentheses, or next
+nnoremap <leader><localleader>e  60\|
+	"jump to column 60, which should be the maxium length
 
 iabbrev @1 xyy15926@163.com
 iabbrev @2 xyy15926@gmail.com

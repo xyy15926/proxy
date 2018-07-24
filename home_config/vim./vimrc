@@ -55,13 +55,19 @@ set showmatch
 	"#todo
 set list
 	"display tab, trail-space, etc(with displayable chars)
-set listchars=tab:»·,trail:-,precedes:?,extends:?,eol:↩︎
+"set listchars=tab:»·,trail:-,precedes:?,extends:?,eol:↩︎
+set listchars=tab:»⋅,trail:-,precedes:?,extends:?,eol:«
 	"set how those chars display
 	"tab -> <tab>, trail -> <space> at the end of a line
 	"precedes -> left text out of view, extends -> right
 	"eol -> end of a line(<enter>)
 	"try `:digraphs` to get specialkeys‘ input-key-bonds
 	"and their codes, then <c-k> key-bonds to input
+	"`⋅`: <.P>
+	"`∙`: <Sb>
+	"`»`: <>>>
+	"`«`: <<<>
+	"
 set scrolloff=5
 	"position(lines-count) where to begin scrolling off
 set wrap
@@ -117,7 +123,7 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 	"cooperate with ctags
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 "Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
 call plug#end()

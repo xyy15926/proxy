@@ -27,12 +27,13 @@ nnoremap <buffer> <localleader>cc ^hi-<esc>lli`<esc>f：i`<esc>
 nnoremap <buffer> <localleader>lt :<c-u>ilist /^#\{1,6\}[ \t]\+<cr>
 	"list all tiltes marked with `#`
 	"`:dlist` also functioned well with `:set define`
-nnoremap <buffer> <localleader>e  60\|
-	"jump to column 60, which should be the maxium length
+nnoremap <buffer> <localleader>nt :<c-u>/^##\+<cr>
+nnoremap <buffer> <localleader>pt :<c-u>?^##\+<cr>
+	"find next/previous title
 if ! exists("b:lang")
 	let b:lang = input("about what lang?")
 endif
-inoremap <buffer> ``` ```<esc>"=b:lang<c-m>po```<esc>O
+inoremap <buffer> <localleader>cb ```<esc>"=b:lang<c-m>po```<esc>O
 	"ask user what language is this md-file about, so to
 	"input code block easier
 
