@@ -45,8 +45,16 @@ set softtabstop=4
 set noexpandtab
 	"don't replace <tab> with <space>, set here just in
 	"case, for it's default setting
+	"if `set expandtab`, <c-v> can be used to insert a
+	"real tab
 set shiftwidth=4
 	"indent length len
+set smarttab
+	"<tab>/<backspace> will add/delete `shiftwidth` space
+	"instead of determined by `softtabstop` and `tabstop`
+"the indent setting could be written in file to tell vim
+"how to handle the indent with the file like this:
+"/*vim:tabstop=4:softtabstop=4:shiftwidth=4:noexpandtab=4:smarttab*/
 set autoindent
 	"#todo
 set smartindent
@@ -67,6 +75,9 @@ set listchars=tab:»⋅,trail:-,precedes:?,extends:?,eol:«
 	"`∙`: <Sb>
 	"`»`: <>>>
 	"`«`: <<<>
+	"'‹': <1<>
+	"'›': <>1>
+	"'∗': <*->
 	"
 set scrolloff=5
 	"position(lines-count) where to begin scrolling off

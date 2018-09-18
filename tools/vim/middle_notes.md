@@ -1,4 +1,4 @@
-#	vimscripts基础
+#	Vimscripts基础
 
 ##	打印信息
 
