@@ -130,13 +130,18 @@ let maplocalleader=","
 call plug#begin('~/.vim/bundles')
 	"send the path where to store the plugins as param
 Plug 'scrooloose/nerdtree'
-Plug 'vim-scripts/taglist.vim'
+"Plug 'vim-scripts/taglist.vim'
 Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 	"cooperate with ctags
 "Plug 'Valloric/YouCompleteMe'
+"Plug 'tomtom/tlib_vim'
+"Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'garbas/vim-snipmate'
 "Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
+Plug 'vim-syntastic/syntastic'
+"Plug 'ivanov/vim-ipython'
 call plug#end()
 
 "nerdtree settings
@@ -236,6 +241,10 @@ let g:tagbar_type_rust = {
 		\'i:impls,trait implementations',
 	\]
 \}
+"}}}
+
+" SnipMate setting {{{
+" inoremap <c-j> <Plug>snipMateNextOrTrigger
 "}}}
 
 "vim-markdown settings

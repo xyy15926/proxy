@@ -2,7 +2,6 @@
 
 ##	原生数据类型
 
-
 ###	List
 
 ####	List的边界、Index问题
@@ -14,7 +13,66 @@
 	-	尤切片操作涉及左、右边界，应取模以[0,len-1]中的
 		“标准”index作为左（小）右（大）边界
 
+####	相关函数
+
+```python
+List = sorted(
+	iterable(iterable),
+	/,
+	*,
+	key=None,
+	reverse=False)
+	# `key`：自定义排序排序函数
+		# 以iterable元素为参数
+		# 根据返回值排序
+
+List = list1 + list2
+	# 列表对象直接相加
+
+None = list1.append(
+	[object](val)
+)
+	# 添加元素至list末尾
+
+None = list1.insert(
+	[index](int),
+	[object](val)
+)
+	# 这两个参数都是POSITION_ONLY类型
+
+None = list1.remove(
+	[value](val)
+)
+	# 删除按顺序**第一个**值相同的元素
+```
+
 ###	Dict
+
+####	相关函数
+
+```python
+Val = dict1.get(k[, d])
+	# 存在则返回`dict1[k]`，否则返回`d`
+
+Val = dict1.setdefault(k[, d])
+	# 存在则返回`dict1[k]`，否则设置为`d`并返回
+
+Val = getattr(
+	object,
+	name,
+	[default])
+	# 获取`object` `name`属性
+	# `default`未设置，`name`不存在则`AttributeError`
+
+(key, val) = dict1.items()
+
+bool = dict.has_key(str)
+
+dict_keys = dict1.keys()
+
+dict_values = dict1.values()
+
+```
 
 ###	Tuple
 
@@ -138,7 +196,8 @@ func_b("test", a=1, b=2)
 
 只能通过位置传值的参数，Python没有明确的语法定义一个只能通过
 位置传值的参数，但在很多内置、扩展模块的函数中接受这种类型的
-参数
+参数，大概率python中其他语言编写的二进制包，比如numpy中
+`np.random.randn`
 
 #####	获取函数参数
 
@@ -230,6 +289,67 @@ python只有一种参数传递方式：传对象引用
 	不会影响原对象
 -	可更改对象，引用传递后可以直接更改，影响到原对象
 
+###	变量作用域
+
+-	python中，对变量的**搜索**按照LEGB规则进行，“内层”
+	作用域可以**访问（修改无效）**“外层”作用域变量
+	-	local：本地作用域
+	-	enclosing function locals：嵌套作用域
+	-	global：全局作用域
+	-	builtins：内置变量作用域
+
+-	但在函数内部为变量**赋值**时，并不是按照LEGB规则搜索再
+	赋值，而总是**创建或改变local的变量名（对应变量），除非
+	在函数中已经被声明为全局变量**
+
+####	`global`
+
+`global`关键字**获取、创建**global作用域中的变量，然后可以
+对其进行修改
+
+-	`global`修饰的变量之前可以不存在，即可以创建全局变量
+
+```python
+x = 99
+
+def local_change():
+	x = 88
+
+def global_func():
+	global x
+	x = 88
+
+local_change()
+print(x)
+	# `x`未改变，输出99
+
+global_func()
+print(x)
+	# `x`发生改变，输出88
+```
+
+####	`nonlocal`
+
+`nonlocal`可以在被嵌套函数中**获取**嵌套作用域中的变量，然后
+可以对其修改
+
+-	`nonlocal`修饰（获取）的变量必须在嵌套作用域中已存在
+
+```python
+def func():
+	count = 1
+	def change():
+		count = 12
+	def outer_change():
+		count 12
+
+	change()
+	print(count)
+		# `count`未改变，仍然输出1
+	outer_change()
+	print(12)
+		# `count`改变，输出12
+```
 
 ##	函数说明
 

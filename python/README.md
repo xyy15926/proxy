@@ -35,6 +35,10 @@ return = func(essential(type), optional=defaults/type,
 -	`kwargs`参数：`[param_name=defaults/type]`
 	-	参数默认为可选参数，格式规则类似`args`参数
 
+-	POSITION_ONLY参数：`[param_name](defaults/type)`
+	-	POSITION_ONLY参数同样没有默认值一说，只是表示默认
+		行为方式（对应参数值）
+
 补充：
 -	参数名后有`?`表示参数名待确定
 -	参数首字母大写表示唯一参数
@@ -98,4 +102,25 @@ return = func(essential(type), optional=defaults/type,
 	-	默认值：`None`，有内部操作，选择合适、不影响精度类型
 	-	其他
 		-	可以是字符串形式，也可以是`np.`对象形式
+-	`order = "C"/"F"/"K"/"A"
+	-	含义：NDA对象在内存中的存储方式
+		-	"C"：`C`存储方式，行优先
+		-	"F"：`Fortran`存储方式，列优先
+		-	"K"：原为"C"/"F"方式则保持不变，否则按照较接近
+			方式
+		-	"A"：除非原为"F"方式，否则为"C"方式
+	-	默认值："C"/"K"
 
+>	Numpy包中大部分应该是调用底层包，参数形式不好确认
+
+###	threading
+
+-	`block/blocking = True/False`
+
+	-	含义：是否阻塞
+	-	默认：大部分为`True`（阻塞）
+
+-	`timeout = None/num`
+
+	-	含义：延迟时间，单位一般是秒
+	-	默认：None，无限时间

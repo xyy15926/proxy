@@ -155,7 +155,7 @@ def test():
 	c.start()
 ```
 
-##	线程唤醒
+##	线程同步
 
 ###	`Event`
 
@@ -254,6 +254,40 @@ def test():
 ```
 
 ###	`Semaphore`
+
+```python
+class Semaphore(builtins.object):
+	def __init__(self, value):
+		pass
+	
+	# `value`：起始许可证数量（最多允许同时执行线程数目）
+
+	def acquire(self,
+		blocking=True,
+		timeout=None):
+		pass
+
+		# 获取信号量，内部计数（许可证）`-1`
+			# 内部计数`>0`，`-1`立即返回`True`
+			# 内部计数`<=0`，阻塞直到其他线程调用`release`
+				# 使内部计数`>0`
+				# 中途可能被`release`选中结束阻塞
+		# 成功获取许可证数量返回`True`
+
+	def release():
+		pass
+
+		# 释放信号量，内部计数（许可证）`+1`
+		# 内部计数`<0`，表明有些线程阻塞，**随机**选择线程
+			# 继续执行
+```
+
+信号量对象是建立在共享计数器基础上的同步原语
+
+-	计数器不为0，`with`语句将计数器-1，线程继续执行
+-	计数器为0，`with`阻塞线程直到其他线程将计数器+1
+-	可以像标准锁一样是使用信号量作线程同步，但会增加复杂性
+	影响性能，更适用于需要在线程间引入信号、限制的程序
 
 ```python
 from threading import Thread, Semaphore
@@ -436,22 +470,23 @@ class PriortyQueue:
 			return heapq.heappop(self._queue)[-1]
 ```
 
-##	加锁
+##	锁
 
 对多线程程序中的临界区加锁避免竞争条件
 
-###	`threading.Lock`
+###	关键部分加锁
+
+####	`threading.Lock`
 
 `Lock`对象和`with`语句块一起使用可以保证互斥执行
-	-	`with`语句会在代码块执行前自动获取锁，执行结束后自动
-		释放
-	-	每次只能有一个线程可以执行`with`语句包含的代码块
-	-	也可以使用`Lock().acquire()`、`Lock().release()`显式
-		获取、释放锁，但是可能会出现忘记`release`、获取锁
-		之后产生异常，使用`with`语句可以保证依然能够正确释放
-		锁
-	-	为了避免出现死锁，每个线程应该一次只允许获取一个锁，
-		否则应该使用更高级死锁避免机制
+
+-	`with`语句会在代码块执行前自动获取锁，执行结束后自动释放
+-	每次只能有一个线程可以执行`with`语句包含的代码块
+-	也可以使用`Lock().acquire()`、`Lock().release()`显式
+	获取、释放锁，但是可能会出现忘记`release`、获取锁之后
+	产生异常，使用`with`语句可以保证依然能够正确释放锁
+-	为了避免出现死锁，每个线程应该一次只允许获取一个锁，
+	否则应该使用更高级死锁避免机制
 
 线程调度本质上是不确定的，在多线程中错误使用锁机制可能会导致
 随机数据损坏、其他异常行为，即**竞争条件**，为此最好只在
@@ -482,24 +517,31 @@ class SharedCounter:
 		with self._value_lock:
 			self._value -= delta
 
-	def decr(self, delta=1):
+	def decr_explicitly(self, delta=1):
 		self._value_ok.acquire()
 		self._value -= delta
 		self._value_ok.release()
 ```
 
-###	`threading.RLock`
+####	`threading.RLock`
 
 `RLock`（可重入锁）可以被同一个线程多次获取，用于实现基于
 检测对象模式的锁定、同步
 
 -	当锁被持有时，只有一个线程可以使用完整的函数/方法
+-	与标准锁不同的是，已经持有这个锁的方法调用**使用这个锁**
+	的方法时，无需再次获取锁
 
 ```python
 from threading import RLock
 
 class ShareCounter:
 	_lock = RLock()
+		# 没有对每个实例中的可变对象加锁，而是一个被所有实例
+			# 共享的类级锁
+		# 无论类有多个实例都只要一个锁
+			# 需要大量使用计数器情况下内存效率更高
+			# 但使用大量线程并频繁更新计数器时会有争用锁问题
 	def __init__(self, initial_value=0):
 		self._value = initial_value
 
@@ -509,6 +551,79 @@ class ShareCounter:
 
 	def decr(self, delta = 1):
 		with SharedCounter._lock:
+			# 已经获取锁`_lock`，调用同样使用这个锁的方法
+				# `decr`时，无需再次获取锁
 			self.incr(-delta)
 ```
 
+####	`threading.Semaphore`
+
+使用信号量限制一段代码的并发访问量
+
+```python
+from threading import Semaphore
+import urllib.request
+
+def fetch_url(url, sema):
+	with sema:
+		return urllib.request.urlopen(url)
+
+def test():
+	_fetch_url_sema = Semaphore(5)
+```
+
+###	防止死锁
+
+线程需要一次获取多个锁，需要避免死锁问题
+
+####	`contextlib.contextmanager`
+
+```python
+from threading import local
+from contextlib import contextmanager
+
+_local = local()
+@contextmanager
+def acquire(*locks):
+	locks = sorted(locks, key=lambda x: id(x))
+		# 根据object identifier对locks排序
+		# 之后根据此list请求锁都会按照固定顺序获取
+	acquired = getattr(_local, "acquired", [ ])
+	if acquired and max(id(lock)) for lock in acquired >= id(locks[0]):
+		# `_local`中已有锁不能比新锁`id`大，否则有顺序问题
+		raise RuntimeError("lock order violation")
+
+	acquired.extend(locks)
+	_local.acquired = acquired
+
+	try:
+		for lock in locks:
+			lock.acquire()
+		yield
+	finally:
+		for lock in reversed(locks):
+			lock.release()
+		del acquired[-len(locks):]
+
+def thread_1(x_lock, y_lock):
+	while True:
+		with acquire(y_xlock, y_lock):
+			print("Thread_1")
+
+def thread_2(x_lock, y_lock):
+	while True:
+		with acquire(y_lock, x_lock):
+			print("Thread_2")
+
+def test():
+	x_lock = threading.Lock()
+	y_lock = threading.Lock()
+
+	t1 = threading.Thread(target=thread_1, args=(x_lock, y_lock)):
+	t1.daemon = True
+	t1.start()
+
+	t1 = threading.Thread(target=thread_2, args=(x_lock, y_lock))
+	t2.daemon = True
+	t2.start()
+```

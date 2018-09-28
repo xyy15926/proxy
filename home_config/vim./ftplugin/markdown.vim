@@ -7,11 +7,11 @@
 " Description: settings especially for markdown
 "----------------------------------------------------------
 
-if exists("b:did_ftplugin")
+if exists("b:md_ftplugin")
 	finish
 	"stop execute following commands in the vimscripts
 endif
-let b:did_ftplugin = 1
+let b:md_ftplugin = 1
 	"avoid executing the same plugin twice for the same
 	"buffer, when using `:edit` command without arguments
 	"for example.

@@ -52,6 +52,11 @@ Val = df1[(col_level_0, col_level_1,...)]\
 Val = df1.col_level_0.col_level_1....\
 	.index_level_0.index_level_1...
 	# 对层级索引取值
+
+DF = df1[cond1 & cond2 &...]
+DF = df1[cond1][cond2]...
+	# `condX`为Ser(bool)
+	# 两种讲道理应该没差
 ```
 
 #####	行优先

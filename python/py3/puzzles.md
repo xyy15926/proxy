@@ -30,7 +30,7 @@ python2中`str`类型实际上应该看作是**字节串**，`str`索引是按
 python3使用utf-8编码方案，默认将输入字节流视为utf-8编码
 字节流
 
-#####	Python3中的`str`类型
+####	Python3中的`str`类型
 
 -	`str`类型的逻辑变成真正的**字符串**，虽然每个字符长度
 	可能不同
@@ -53,27 +53,39 @@ python3使用utf-8编码方案，默认将输入字节流视为utf-8编码
 #	todo
 python解释器和terminal编码方案不同测试
 
-##	Module、Package
+###	Module、Package
 
 -	module：模块，`.py`文件
 -	package：包，含有`__init__.py`的文件夹
 
 ###	导入模块
 
--	`import module`导入单个文件，那么`module.attr`可以直接
-	使用，不需要单独导入
+就导入模块而言，python对modules、packages的处理有些差异，
+不能将mudules、packages的导入等同
 
--	`import package`导入文件夹，则`package.module`不能直接
-	使用，需要额外导入
+|-----|-----|-----|-----|
+|操作|`import`|`from`|`self.cld`|
+|packages|是|是|取决于`__init__.py`|
+|modules|是|是|是|
+|attrs|否|是|是|
+|imported|否|是|同以上中某个|
 
-	-	其实`import pck`应该就是导入`pck/__init__.py`单个
-		文件
+其中
 
-	-	有的package可以直接`pck.mdl`，因为在`___init__.py`
-		中导入module
-
-	-	但`import pck.mdl`可以导入单独的module，而不定需要
-		`from pck import mdl`
+-	`import`；能否通过`import`语句导入
+-	`from`：能否通过`from ... import ...`语句导入
+-	`self.cld`：能否使用`self.cld`
+	-	对于modules、attrs显然可以，`cld`必然在`dir()`中
+	-	对于packages，导入可以看作是导入`__init__.py`单个
+		文件，因此取决于`__init__.py`中是否导入**显式**相应
+		**后代**modules、attrs
+		-	对于外部元素，`from outer import *`即可添加进
+			命名空间
+		-	而**后代**元素必须**显式**依次导入名称
+-	imported：被导入**非子元素**（packages、modules、attrs）
+	-	可以通过`from`语句导入
+	-	`import`导入`ModuleNotFoundError`暗示，`import`是
+		是按照**文件**处理（也解释`import`无法导入attrs）
 
 ####	`import`
 
@@ -116,15 +128,21 @@ from os import path, walk, unlink\
 
 ```python
 
-# __init__.py
+'''
+__init__.py
+'''
 from . import subpackage1
 from . import subpackage2
 
-# subpackage1/__init__.py
+'''
+subpackage1/__init__.py
+'''
 from . import module_x
 from . import module_y
 
-# subpackage1/module_x.py
+'''
+subpackage1/module_x.py
+'''
 from . module_y import spam as ham
 def main():
 	ham()
@@ -133,7 +151,9 @@ if __name__ == "__main__":
 	main()
 	# `$ python module_x.py`报错，脚本模式不支持相对导入
 
-# subpackage1/module_y.py
+'''
+subpackage1/module_y.py
+'''
 def spam():
 	print("spam" * 3)
 ```
@@ -151,7 +171,7 @@ except ImportError:
 		# for python2.5-2.7
 		from httplib import responses
 	except:
-#		# for python2.4
+		# for python2.4
 		from BaseHTTPServer import BaseHTTPResponseHandler as _BHRH
 		responses = dict([(k, v[0]) for k, v in _BHRH response.items()])
 
@@ -214,7 +234,7 @@ export PYTHONPATH=$PYTHONPATH:/path/to/fold/contains/module
 为需要添加的路径
 
 ```conf
-# extras.pth
+ # extras.pth
 /path/to/fold/contains/module
 ```
 简单、推荐，python在遍历已知库文件目录过程中，遇到`.pth`文件

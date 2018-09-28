@@ -478,6 +478,8 @@ DF = df1/dfgb1.transform(
 	-	应用于DFGB对象时，无价值，和应用于原DF对象结果一样，
 		仅剔除groupby label
 
+###	替换
+
 ####	`replace`
 
 ```python
@@ -518,8 +520,6 @@ DF = df1.replace(
 		，如果需要替换整个str，需要`^.*str.*$`匹配整个str
 	-	但为{regex:int}时，不需要`^.*str.*$`也会匹配整个str
 		并替换为int
-
-###	选择
 
 ####	`where`
 
@@ -573,6 +573,24 @@ DF = df1.mask(
 ```
 
 -	说明：`True`、`False` mask规则同`where`相反，其他同
+
+###	筛选
+
+####	`isin`
+
+```python
+DF = df1.isin(
+	values(iterable/{}/DF))
+```
+
+-	说明：判断元素是否存在于`values`中
+
+-	参数
+	-	`values`
+		-	iterable：元素在iterable中为`True`
+		-	{}：`df1`元素在dict中对应键**值**中存在为`True`
+		-	DF：`df1`元素在DF对应index、columns labels存在
+			才为`True`
 
 ###	类型转换
 

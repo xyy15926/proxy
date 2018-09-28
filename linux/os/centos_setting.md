@@ -1,5 +1,37 @@
 #	CentOS7常用配置
 
+##	网络配置
+
+编辑`/etc/sysconfig/network-scripts/ifcfg-ens33`
+
+```cnf
+TYPE = Ethernet				# 网卡类型：以太网
+PROXY_METHOD=none			# 代理方式：无
+BROWSER_ONLY=no				# 仅浏览器：否
+BOOTPROTO=dhcp				# 网卡引导协议
+DEFROUTE=yes				# 默认路由：是
+IPV4_FAILURE_FATAL=no		# 开启IPV4致命错误检测：否
+IPV6INIT=yes				# IPV6自动初始化：是
+IPV6_AUTOCONF=yes			# IPV6自动配置：是
+IPV6_DEFROUTE=yes			# IPV6是否可为默认路由：是
+IPV6_FAILURE_FATAL=no		# 开启IPV6致命错误检测：否
+IPV6_ADDR_GEN_MODE=stable-privacy
+							# IPV6地地址生成模型：stable-privacy
+NAME=ens33					# 网卡物理设备名称
+UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+							# 通用唯一识别码
+DEVICE=ens33				# 网卡设备名称
+ONBOOT=yes					# 开启启动：是
+DNS1=xxx.xxx.xxx.xxx		# DNS地址
+IPADDR=xxx.xxx.xxx.xxx		# IP地址
+PREFIX=24					# 子网掩码
+GATEWAY=xxx.xxx.xxx.xxx		# 网关
+```
+
+-	UUID不能相同相同
+-	`ifcfg-ens33`这个文件感觉像是个模板，但是不知道真正应用
+	配置文件在哪
+
 ##	常用应用源
 
 ###	EPEL
