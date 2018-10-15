@@ -142,6 +142,8 @@ Plug 'vim-airline/vim-airline'
 "Plug 'plasticboy/vim-markdown'
 Plug 'vim-syntastic/syntastic'
 "Plug 'ivanov/vim-ipython'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
 call plug#end()
 
 "nerdtree settings
@@ -247,6 +249,7 @@ let g:tagbar_type_rust = {
 " inoremap <c-j> <Plug>snipMateNextOrTrigger
 "}}}
 
-"vim-markdown settings
+" vim-jsx setting
+let g:jsx_ext_required = 0
 
 "}}}

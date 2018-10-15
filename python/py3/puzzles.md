@@ -53,7 +53,7 @@ python3使用utf-8编码方案，默认将输入字节流视为utf-8编码
 #	todo
 python解释器和terminal编码方案不同测试
 
-###	Module、Package
+##	Module、Package
 
 -	module：模块，`.py`文件
 -	package：包，含有`__init__.py`的文件夹
@@ -250,4 +250,125 @@ export PYTHONPATH=$PYTHONPATH:/path/to/fold/contains/module
 	空间抹除，需要reload(sys)才能调用
 
 -	py3中好像直接移除这个方法了
+
+##	Python继承实现
+
+###	MRO列表
+
+-	对定义的每个类，python会计算一个所谓的方法解析顺序
+	（MRO）列表
+
+	-	一个简单的包含所有基类的线性顺序表
+	-	可以通过**类**的`__mro__`属性访问
+
+-	MRO列表是通过C3线性化算法实现的，其合并所有父类的MRO
+	列表，并遵循如下3条原则
+
+	-	子类先于父类检查
+	-	多个父类会根据其在列表中的顺序被检查
+	-	如果对下一个类存在多个合法的选择，选择第一个父类
+
+-	为了实现继承，python会在MRO列表上从左到右开始查找基类，
+	直到第一个匹配这个属性的类为止
+
+###	`super`
+
+-	调用`super`函数时，python会在MRO表中上继续搜索下个类
+	，只要每个重定义的方法统一使用`super`并调用一次，
+	控制流会遍历整个MRO列表，每个方法也只会调用一次
+
+	-	所以，在类继承中，尽量使用`super`函数调用超类方法，
+		而不要直接使用超类调用方法，否则可能会多次调用同一个
+		超类的方法
+	-	事实上，`super`并不一定查找到的是某个类在MRO中的下个
+		直接父类，甚至可以不是父类
+
+-	因为`super`方法可能调用的不是想要的方法，所以需要遵循
+	以下原则
+
+	-	继承体系中，所有相同名字的方法拥有可兼容的参数名，
+		比如：相同参数个数、名称
+	-	最好确保最顶层类提供这个方法的实现，这样保证MRO上的
+		查找链肯定可以找到某个方法
+
+```python
+class A:
+	def spam(self):
+		print("A.spam")
+		super().spam()
+			# 类`A`没有含有`spam`方法的父类
+
+class B:
+	def spam(self):
+		print("B.spam")
+
+class C(A, B):
+	pass
+
+def test():
+	c = C()
+	c.spam()
+		# `C`从`A`继承`spam`方法
+		# `A`中的`spam`方法中的`super`调用了其非父类的类`B`
+			# 的`spam`方法
+```
+
+##	GC机制
+
+-	python的垃圾回收机制基于简单的引用计数
+
+	-	对象引用计数变成0时才会立即删除的
+	-	对于循环引用，对象的引用计数永远不可能为0
+
+-	python还有另外的垃圾回收器专门针对循环引用，但是触发机制
+	不能信任，手动触发影响代码美观
+
+	```python
+	import gc
+	gc.collec()
+		# 强制启动垃圾回收器
+	```
+
+###	`weakref`
+
+通过`weakref`创建弱引用避免循环引用的问题
+
+-	弱引用是一个对象指针，不会增加其引用计数
+-	访问弱引用所引用对象，可以/需要像函数一样调用
+
+```python
+import weakref
+
+class Node:
+	def __init__(self, value):
+		self.value = value
+		self._parent = None
+		self.children = [ ]
+
+	def __repr__(self):
+		return "Node({!r})".format(self.value)
+
+	@property
+	def parent(self):
+		return None if self._parent is None else self._parent()
+			# 访问弱引用需要/可以像函数一样调用
+
+	@parent.setter
+	def parent(self, node):
+		self._parent = weakref.ref(node)
+		# 这里建立的是弱引用，如果直接赋值建立强引用，那么
+			# 父节点、子节点互相拥有对方的引用，引用计数
+			# 永远不能为0
+
+	def add_child(self, child):
+		self.children.append(child)
+		child.parent = self
+
+def test():
+	root = Node("parent")
+	c1 = Node("child")
+	root.add_child(c1)
+	del root
+		# 没有对`root`的强引用，可以正常删除
+```
 

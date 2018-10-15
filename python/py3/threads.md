@@ -470,6 +470,31 @@ class PriortyQueue:
 			return heapq.heappop(self._queue)[-1]
 ```
 
+###	`thread.local`
+
+```python
+from socket import socket, AF_INET, SOCK_STREAM
+import threading
+
+class LazyConnection:
+	def __init__(self, address, family=AF_INET, type=SOCK_STREAM):
+		self.address = address
+		self.family = family
+		self.type = type
+		self.local = threading.loca()
+
+	def __enter__(self):
+		if hasattr(self.local, "sock"):
+			raise RuntimeError("already connected")
+			self.local.sock = socket(self.family, self.type)
+			self.local.sock.connect(self.address)
+			return self.local.sock
+
+	def __exit__(self, exc_ty, exc_val, tb):
+		self.local.sock.close()
+		del self.local.sock
+```
+
 ##	锁
 
 对多线程程序中的临界区加锁避免竞争条件
@@ -481,10 +506,13 @@ class PriortyQueue:
 `Lock`对象和`with`语句块一起使用可以保证互斥执行
 
 -	`with`语句会在代码块执行前自动获取锁，执行结束后自动释放
+
 -	每次只能有一个线程可以执行`with`语句包含的代码块
+
 -	也可以使用`Lock().acquire()`、`Lock().release()`显式
 	获取、释放锁，但是可能会出现忘记`release`、获取锁之后
 	产生异常，使用`with`语句可以保证依然能够正确释放锁
+
 -	为了避免出现死锁，每个线程应该一次只允许获取一个锁，
 	否则应该使用更高级死锁避免机制
 

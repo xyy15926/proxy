@@ -311,9 +311,10 @@ def typeasssert(*ty_args, **ty_kwargs):
     return decorator
 ```
 
-####	类装饰器
+####	装饰器类
 
-为了定义类装饰器，类需要实现`__call__`、`__get__`方法
+为了定义类装饰器，类需要实现`__call__`、`__get__`方法，然后
+就可以当作普通的的装饰器函数使用
 
 ```python
 import types
@@ -337,52 +338,20 @@ class Profiled:
 			return types.MethodType(self, instance)
 ```
 
-####	方法装饰器
+####	装饰器方法
 
 在类中定义装饰器方法，可以将多个装饰器关联于同一个类的实例，
 方便在装饰器中记录、绑定、共享信息
 
-#####	`@property`
+-	`@property`装饰器类：可以将类方法`method_atrr`“转变”为
+	属性
+	-	设置完成之后，会创建2个以方法名开头的装饰器
+		`method_attr.setter`、`method_attr.deleter`用于装饰
+		**同名**的方法
+	-	分别对应其中包含`setter`、`deleter`、`getter`
+		（`@property`自身）三个方法
 
-`@property`类将方法转变为属性，同时设置三个方法名开头装饰器
-
--	`@attr.setter`：将setter-like方法转换成`attr`属性，在
-	对`.attr`赋值时将被调用
--	`@attr.deleter`：将deleter-like方法转换为`attr`属性，在
-	`del(.attr)`时将被调用
--	`@attr.getter`：这个好像不用，`@property`本身就是把
-	getter-like方法转换为`attr`属性，在“访问”时调用
-
-```python
-class Student(object):
-
-	@property
-		# 将一个getter-like方法变为属性
-		# `@property`同时会创建装饰器`@method.setter`
-	def birth(self):
-		return self._birth
-
-	@birth.setter
-		# `@property`对应，将setter-like方法变为属性
-	def birth(self, value):
-		if not instance(value, int):
-			raise ValueError("birth must be an integer")
-		if value < 1900 or value > 2020:
-			raise ValueError("birth must between 1900 ~ 2020")
-		self._birth = value
-
-	@birth.deleter
-		# 同`@property`对应，在`del`时调用
-	def birth(self):
-		del(self._age)
-		del(self._birth)
-
-	@property
-		# 只设置`@property`而没有设置对应`@birth.setter`
-		# 这样`birth`就成了只读属性
-	def age(self):
-		return 2018 - self._birth
-```
+	>	详情查看`clsobj`
 
 ####	装饰类、静态方法
 

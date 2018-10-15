@@ -1847,7 +1847,7 @@ public class MementoPatternDemo{
 }
 ```
 
-###	观察者模式 State Pattern
+###	观察者模式 Observer Pattern
 
 -	意图：定义对象间的一种一对多的依赖关系，档一个对象状态
 	发生改变时，所以依赖他的对象都得到通知并被自动更新
@@ -1948,7 +1948,7 @@ public class ObserverPatternDemo{
 }
 ```
 
-###	空对象模式 Null Object Pattern
+###	状态模式 State Pattern
 
 创建表示各种状态的对象和一个行为随着状态改变而改变的context
 对象
@@ -2248,9 +2248,10 @@ public class TemplatePatternDemo{
 	-	符合单一职责原则
 	-	优秀的扩展性、灵活性
 -	缺点
-	-	具体元素对访问者公布细节，违反迪米特ypze
+	-	具体元素对访问者公布细节，违反迪米特原则
 	-	具体元素变更困难
 	-	违反依赖倒置原则，依赖具体类而不是抽象类
+	-	依赖递归，如果数据结构嵌套层次太深可能有问题
 
 ```java
 // step1
@@ -2332,7 +2333,7 @@ public class VisitorPatternDemo{
 
 ##	J2EE模式
 
-特别关注表示层，有Sun Java Center鉴定
+特别关注表示层，由Sun Java Center鉴定
 
 ###	MVC模式 MVC Pattern
 
