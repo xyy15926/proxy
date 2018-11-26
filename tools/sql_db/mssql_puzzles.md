@@ -23,3 +23,16 @@ SQL默认阻止对组件`Ad Hoc Distributed Queries`的*STATEMENT*
 	exec sp_configure 'show advanced options',0
 	reconfigure
 	```
+
+##	特殊语法
+
+###	数据导入
+
+-	mssql中换行符设置为`\n`表示的是`\r\n`，即永远无法单独
+	指定`\n`或者`\r`，尽量使用ASCII码`0xXX`表示
+
+	```sql
+	> bulk insert tbl_name from /path/to/file with (FILEDTERMINATOR="|", ROWTERMINATOR="0x0a");
+	```
+
+

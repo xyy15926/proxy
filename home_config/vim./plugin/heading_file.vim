@@ -3,7 +3,7 @@
 "   Name: heading_file.vim
 "   Author: xyy15926
 "   Created at: 2018-05-20 15:30:37
-"   Updated at: 2018-08-18 18:28:39
+"   Updated at: 2018-11-04 14:25:26
 "   Description: vim-scripts for auto-adding file information
 "----------------------------------------------------------
 
@@ -49,7 +49,7 @@ function SetHead()
 		call setline(7, "//  Description: ")
 		call setline(8, "//----------------------------------------------------------")
 	elseif &filetype ==# "sh"
-		call setline(1, "\#!  /usr/bin/bash")
+		call setline(1, "\#!  /bin/bash")
 		call setline(2, "\#----------------------------------------------------------")
 		call setline(3, "\#   Name: " . file)
 		call setline(4, "\#   Author: " . author)

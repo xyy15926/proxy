@@ -1,5 +1,16 @@
 #	Shell命令
 
+-	builtin command：shell程序的一部分，包含简练的Linux系统
+	命令
+	-	由shell程序识别并在shell内部完成运行
+	-	在linux系统加载运行时shell被加载并驻留在系统内存
+
+-	external command：linux系统中的实用程序部分
+	-	功能比较强大、包含的程序量更大
+	-	需要时才被调进内存
+	-	实体未包含在shell中，但是其执行过程由shell程序控制，
+		shell程序管理外部命令执行路径查找、加载、存放
+
 ##	系统级查看、设置
 
 ###	进程、服务管理
@@ -14,20 +25,104 @@
 -	`timeout`：在指定时间后仍然运行则终止进程
 -	`wait`：等待指定进程
 -	`fuser`：显示使用指定文件、socket的进程
--	`nohup`：运行指定的命令不受挂起
 -	`pmap`：报告进程的内存映射
 -	`lsof`：列出打开的文件
 -	`chkconfig`：为系统服务更新、查询运行级别信息
--	`bg`：恢复在后台暂停工作的作业
--	`fg`：将程序、命令放在前台执行
--	`jobs`：列出活动的作业
+
+####	进程、作业
+
+#####	`&`
+
+放在命令之后，命令后台执行
+
+```shell
+$ ./pso > pso.file 2>&1 &
+	# 将`pso`放在后台运行，把终端输出（包括标准错误）
+		# 重定向的到文件中
+```
+
+#####	`nohup`
+
+不挂起job，即使shell退出
+
+```shell
+$ nohup ./pso > pso.file 2>&1 &
+	# 不挂起任务，输出重定向到文件
+$ nohup -p PID
+	# 不挂起某个进程
+	```
+
+
+#####	`jobs`
+
+列出活动的作业
+
+`-l`：返回任务编号、进程号
+
+#####	`bg`
+
+恢复在后台暂停工作的作业
+
+```shell
+$ bg %n
+	# 将编号为`n`的任务转后台运行
+```
+
+#####	`fg`
+
+将程序、命令放在前台执行
+
+```shell
+$ fg %n
+	# 将编号为`n`的任务转前台运行
+```
+
+#####	`setsid`
+
+在一个新的会话中运行程序
+
+```shell
+$ setsid ./test.sh &`
+	# 新会话中非中断执行程序，此时当前shell退出不会终止job
+$ (./test.sh &)
+	# 同`setsid`，用`()`括起，进程在subshell中执行
+```
+
+#####	`disown
+
+```shell
+$ disown -h %job_id
+	# *放逐*已经在后台运行的job，
+	# 则即使当前shell退出，job也不会结束
+```
+
+#####	`screen`
+
+创建断开模式的虚拟终端
+
+```bash
+$ screen -dmS screen_test
+	# 创建断开（守护进程）模式的虚拟终端screen_test
+$ screen -list
+	# 列出虚拟终端
+$ screen -r screen_test
+	# 重新连接screen_test，此时执行的任何命令都能达到nohup
+	```
+
+#####	其他
+
+-	`<c-z>`：挂起当前任务
+-	`<c-c>`：结束当前任务
+
+####	System
 
 -	`systemctl`：替代service更加强大
 
 	-	`start`：启动服务
 	-	`stop`：关闭服务
 	-	`enable`：开机自启动服务
-	-	`disable`：关闭开机自启动服务
+	-	`disable`：关闭开机自启动服务，`enable`启动后的服务
+		仅仅`disable`不会立刻停止服务
 
 	`systemctl`通过`d-bus`和systemd交流，在docker和wsl中可能
 	没有systemd-daemon，此命令可能不能使用，使用`service`
@@ -51,11 +146,34 @@
 
 ###	任务计划
 
--	`crontab`：针对用户维护的crontab文件
--	`at`：在指定时间执行命令
 -	`atq`：列出用户等待执行的作业
--	`atrm`：删除作业
+-	`atrm`：删除用户等待执行的作业
 -	`watch`：定期执行程序
+
+####	`at`
+
+设置在某个时间执行任务
+
+```shell
+at now+2minutes/ now+5hours
+	# 从现在开始计时
+at 5:30pm/ 17:30 [today]
+	# 当前时间
+at 17:30 7.11.2018/ 17:30 11/7/2018/ 17:30 Nov 7
+	# 指定日期时间
+	# 输入命令之后，`<c-d>`退出编辑，任务保存
+```
+
+####	`crontab`
+
+针对用户维护的`/var/spool/cron/crontabs/user_name`文件，其中
+保存了cron调度的内容（根据用户名标识）
+
+-	`-e`：编辑
+-	`-l`：显示
+-	`-r`：删除
+
+任务计划格式见文件部分
 
 ###	字体
 
@@ -79,6 +197,26 @@
 	-	`-n`：取消导出变量，原shell仍可用
 	-	`-p`：列出所有shell赋予的环境变量
 
+###	包管理
+
+####	`apt`
+
+-	`install`
+-	`update`
+-	`remove`
+-	`autoremove`
+-	`clean`
+
+####	`rpm`
+
+####	`yum`
+
+####	`dpkg`
+
+####	`zypper`
+
+####	`pacman`
+
 ##	文件、目录
 
 ###	目录、文件操作
@@ -96,6 +234,7 @@
 -	`file`：查询文件的文件类型
 -	`du`：显示目录、文件磁盘占用量（文件系统数据库情况）
 -	`wc`：统计文件行数、单词数、字节数、字符数
+	-	`-l, -w, -c`
 -	`tree`：树状图逐级列出目录内容
 -	`cksum`：显示文件CRC校验值、字节统计
 -	`mk5sum`：显示、检查MD5（128bit）校验和
@@ -108,7 +247,6 @@
 
 ###	文件、目录权限、属性
 
--	`chmod`：更改文件、目录模式
 -	`chown`：更改文件、目录的用户所有者、组群所有者
 -	`chgrp`：更改文件、目录所属组
 -	`umask`：显示、设置文件、目录创建默认权限掩码
@@ -117,6 +255,32 @@
 -	`chacl`：更改文件、目录ACL
 -	`lsattr`：查看文件、目录属性
 -	`chattr`：更改文件、目录属性
+
+####	`chmod`
+
+-	权限分类
+	-	读取权限：浏览文件/目录权限
+	-	写入权限：修改文件/添加、删除、重命名目录文件内容
+	-	执行权限：执行文件/进入目录
+
+-	用户分类
+	-	Owner：建立文件、目录的用户
+	-	Group：文件所属群组的所有用户
+	-	Other：其他用户
+
+-	`drwxrwxrwx`表示权限
+	-	1：目录权限
+	-	2-4：文件所有者权限
+	-	5-7：文件所属组权限
+	-	8-10：其他用户权限
+
+```md
+$ chmod a+x file1
+	# `a`所有用户、`o`其他用户
+	# `+`添加权限、`-`删除权限
+$ chmod 777 file1
+	# `777`表示权限，位表示
+```
 
 ###	显示文本文件
 
@@ -150,6 +314,8 @@
 -	`whereis`：插卡指定文件、命令、手册页位置
 -	`whatis`：在whatis数据库中搜索特定命令
 -	`which`：显示可执行命令路径
+-	`type`：输出命令信息
+	-	可以用于判断命令是否为内置命令
 
 ###	文本编辑器
 
@@ -199,32 +365,103 @@
 
 ###	远程连接服务器
 
--	`ssh`：ssh登陆服务器
-	-	`ssh user_name@host`
-	-	配置文件格式
-		```conf
-		Host link_name
-			HostName host
-			User user_name
-			Port 22
-			IdentityFile private_key
-		```
+####	`ssh`
 
--	`scp`：secure cp，安全传输（cp）文件
-	-	本机到远程
-		`scp /path/to/file user_name@host:/path/to/dest`
-	-	远程到本机
-		`scp user_name@host:/path/to/file /path/to/dest`
-	-	这个命令应该在本机上使用，不是ssh环境下
-		-	ssh环境下使用命令表示在远程主机上操作 
-		-	而本机host一般是未知的（不是localhost）
+ssh登陆服务器
 
--	`ssh-keygen`：生成ssh需要的rsa密钥
+-	`$ ssh user_name@host`
+-	可以使用`~/.ssh/config`配置文件简化登陆
 
--	`ssh-add`：添加密钥给`ssh-agent`（避免每次输入密码？）
+####	`scp`
+
+secure cp，安全传输（cp）文件
+
+-	本机到远程
+	`$ scp /path/to/file user_name@host:/path/to/dest`
+-	远程到本机
+	`$ scp user_name@host:/path/to/file /path/to/dest`
+-	这个命令应该在本机上使用，不是ssh环境下
+	-	ssh环境下使用命令表示在远程主机上操作 
+	-	而本机host一般是未知的（不是localhost）
+
+####	`ssh-keygen`
+
+生成ssh需要的rsa密钥
+
+-	`$ ssh-keygen -t rsa`：生成rsa密钥
+-	`$ ssh-keygen -r rsa -P '' -f ~/.ssh/id_rsa`
+
+####	`ssh-add`
+
+添加密钥给`ssh-agent`（避免每次输入密码？）
+
+####	`/etc/init.d/sshd`
+
+ssh连接的服务器守护程序（进程）
+
+```shell
+$ sudo systemctl start sshd
+	# 使用`systemctl`启动
+$ /etc/init.d/sshd restart
+	# 直接启动进程
+```
+
+###	网络
+
+####	`ping`
+
+向被测试目的主机地址发送ICMP报文并收取回应报文
+
+-	`-c`：要求回应的次数
+-	`-i`：发送ICMP报文时间间隔
+-	`-R`：记录路由过程
+-	`-s`：数据包大小
+-	`-t`：存活数值（路由跳数限制）
+
+####	`ifconfig`
+
+显示、设置网络
+
+-	`netmask`：设置网卡子网掩码
+-	`up`：启动指定网卡
+-	`down`：关闭指定网络设备
+-	`ip`：指定网卡ip地址
+
+####	`netstat`
+
+显示与网络相关的状态信息：查看网络连接状态、接口配置信息、
+检查路由表、取得统计信息
+
+-	`-a`：显示网络所有连接中的scoket
+-	`-c`：持续列出网络状态
+-	`-i`：显示网络界面信息表单
+-	`-n`：直接使用IP地址而不是主机名称
+-	`-N`：显示网络硬件外围设备号连接名称
+-	`-s`：显示网络工作信息统计表
+-	`-t`：显示TCP传输协议连接状况
+
+####	`route`
+
+查看、配置Linux系统上的路由信息
+
+####	`traceroute`
+
+跟踪UDP路由数据报
+
+-	`-g`：设置来源来路由网关
+-	`-n`：直接使用IP地址而不是主机名称
+-	`-p`：设置UDP传输协议的通信端口
+-	`-s`：设置本地主机送出数据包的IP地址
+-	`-w`：超时秒数（等待远程主机回报时间）
+
 
 
 ##	用户、登陆
+
+-	用户类型
+	-	超级用户：root用户
+	-	系统用户：与系统服务相关的用户，安装软件包时创建
+	-	普通用户：root用户创建，权限有限
 
 ###	显示登陆用户
 
@@ -238,14 +475,9 @@
 
 ###	用户、用户组
 
--	`useradd`：创建用户账户
--	`adduser`：`useradd`命令的符号链接
 -	`newusers`：更新、批量创建新用户
 -	`lnewusers`：从标准输入中读取数据创建用户
--	`usermod`：修改用户账户树形
 -	`userdel`：删除用户账户
--	`groupadd`：创建用户组
--	`groupmod`：修改用户组
 -	`groupdel`：删除用户组
 -	`passwd`：设置、修改用户密码
 -	`chpassws`：成批修改用户口令
@@ -262,6 +494,42 @@
 -	`su`：切换值其他用户账户登陆
 -	`sudo`：以superuser用户执行命令
 
+####	`useradd/adduser`
+
+创建用户账户（`adduser`：`useradd`命令的符号链接）
+
+-	`-c`：用户描述
+-	`-d`：用户起始目录
+-	`-g`：指定用户所属组
+-	`-n`：取消建立以用户为名称的群组
+-	`-u`：指定用户ID
+
+####	`usermod`
+
+修改用户
+
+-	`-e`：账户有效期限
+-	`-f`：用户密码过期后关闭账号天数
+-	`-g`：用户所属组
+-	`-G`：用户所属附加组
+-	`-l`：用户账号名称
+-	`-L`：锁定用户账号密码
+-	`-U`：解除密码锁定
+
+####	`groupadd`
+
+新建群组
+
+-	`-g`：强制把某个ID分配给已经存在的用户组，必须唯一、非负
+-	`-p`：用户组密码
+-	`-r`：创建系统用户组
+
+####	`groupmod`
+
+-	`-g`：设置GID
+-	`-o`：允许多个用户组使用同一个GID
+-	`-n`：设置用户组名
+
 ###	登陆、退出、关机、重启
 
 -	`login`：登陆系统
@@ -276,3 +544,21 @@
 -	`reboot`：重启系统
 -	`init 0/6`：关机/重启
 
+##	硬件
+
+###	磁盘
+
+-	`df`：文件系统信息
+-	`fdisk`：查看系统分区
+-	`mkfs`：格式化分区
+-	`fsck`：检查修复文件系统
+-	`mount`：查看已挂载的文件系统、挂载分区
+-	`umount`：卸载指定设备
+
+##	服务
+
+###	常用服务
+
+-	`mysqld`/`mariadb`：
+-	`sshd`
+-	`firewalld`

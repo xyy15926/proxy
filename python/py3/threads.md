@@ -184,12 +184,12 @@ import time
 
 def countdown(n, start_evt):
 	print("countdown starting")
-	started_evt.set()
-		# 设置信标为`True`
 	while n > 0:
 		print("T-minus", n)
 		n -= 1
 		time.sleep(5)
+	started_evt.set()
+		# 设置信标为`True`
 
 def test():
 	start_evt = Event()
@@ -286,7 +286,7 @@ class Semaphore(builtins.object):
 
 -	计数器不为0，`with`语句将计数器-1，线程继续执行
 -	计数器为0，`with`阻塞线程直到其他线程将计数器+1
--	可以像标准锁一样是使用信号量作线程同步，但会增加复杂性
+-	可以像标准锁一样使用信号量作线程同步，但会增加复杂性
 	影响性能，更适用于需要在线程间引入信号、限制的程序
 
 ```python

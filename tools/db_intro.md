@@ -23,4 +23,19 @@
 -	NewSQL数据库
 -	GPU数据库
 
+##	数据查询
+
+-	Project Pushdown：投影下推
+	-	只读取、查询需要的**列**
+	-	减少每次查询的IO数据量
+
+-	Predicate Pushdown：谓词下推
+	-	将过滤条件尽快执行，跳过不满足条件**行**
+
+##	数据压缩算法
+
+-	Run Length Encoding：重复数据
+-	Delta Encoding：有序数据集
+-	Dictionary Encoding：小规模数据集合
+-	Prefix Encoding：字符串版Delta Encoding
 

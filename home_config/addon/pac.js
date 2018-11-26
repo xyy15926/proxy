@@ -24,16 +24,16 @@ domains = {
     'pepitastore.com': 1,
     't.co': 1,
     'appspot.com': 1,
-    //'indiegala.com': 1,
-    'bundlestars.com': 1,
-    'groupees.com': 1,
-    'dlh.net': 1,
-    'hrkgame.com': 1,
-    //'stackoverflow.com': 1,
     't66y.com': 1,
-    'soundcloud.com': 1,
     'pornhub.com': 1,
-	'steamcommunity.com': 1
+    'soundcloud.com': 1,
+    // 'indiegala.com': 1,
+	// 'bundlestars.com': 1,
+	// 'groupees.com': 1,
+    // 'dlh.net': 1,
+	// 'hrkgame.com': 1,
+    // 'stackoverflow.com': 1,
+	// 'steamcommunity.com': 1
 };
 
 var proxy = 'SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080';

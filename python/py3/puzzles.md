@@ -63,8 +63,8 @@ python解释器和terminal编码方案不同测试
 就导入模块而言，python对modules、packages的处理有些差异，
 不能将mudules、packages的导入等同
 
-|-----|-----|-----|-----|
 |操作|`import`|`from`|`self.cld`|
+|-----|-----|-----|-----|
 |packages|是|是|取决于`__init__.py`|
 |modules|是|是|是|
 |attrs|否|是|是|

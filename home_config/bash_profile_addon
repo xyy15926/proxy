@@ -28,3 +28,9 @@ eval "$(pyenv init -)"
 
 # set python package-searching path
 export PYTHONPATH="$PAHT:$HOME/Code/pyutils"
+
+alias rm="rm -i"
+alias ping="ping -c 3"
+alias ll="ls -l"
+alias l="ls -la"
+

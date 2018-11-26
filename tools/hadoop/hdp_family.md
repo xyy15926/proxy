@@ -3,7 +3,7 @@
 -	*Hadoop*（核心）：*HDFS*和*MapReduce/YARN*
 -	*Hadoop家族*：建立在*Hadoop*基础上的一系列开源工具
 
-![hadoop_relations](../resources/images/hadoop_relations.jpg)
+![hadoop_relations](hadoop_relations.jpg)
 
 ##	Hadoop
 
@@ -31,120 +31,29 @@ Yet Another Resource Negotiator，通用任务、集群资源分配框架
 
 -	YARN将classic/MapReduce1中Jobtracker职能划分为多个独立
 	实体，改善了其面临的扩展瓶颈问题
+
 -	YARN比MapReduce更具一般性，MapReduce只是YARN应用的一种
 	形式，可以运行Spark、Storm等其他通用计算框架
+
 -	YARN精妙的设计可以让不同的YARN应用在同一个集群上共存，
 	如一个MapReduce应用可以同时作为MPI应用运行，提高可管理性
 	和集群利用率
 
-####	YARN中的实体
-
--	RM：resource manager，管理集群上的资源使用
-
--	AM：application master，管理集群上运行任务生命周期
-	-	对每个job都有一个专用的AM，运行在job运行期间
-
--	NM：node manager，管理每个节点上的资源、任务
-	-	定期向RM汇报该节点的资源使用情况、个体containers的
-		运行状态
-	-	接受并处理AM的tasks启动、停止等请求
-
-
--	containers：YARN为将来的资源隔离提出的框架，每个job
-	对应一个container，只能在container中运行
-	-	容器有特定的内存上限
-	-	由NM监视，确保job使用的资源不会超过分配的资源
-
-####	Job运行过程
-
-1.	作业提交
-	-	从RM获取新的作业ID
-	-	作业客户端检查作业输出说明，计算输入分片（也可以配置
-		在集群中产生分片）
-	-	将作业资源复制到HDFS
-	-	调用RM上的`submitApplication`方法提交作业
-
-2.	作业初始化
-
-	1.	RM收到调用`submitApplication`消息后，将请求传递给
-		内部scheduler，scheduler分配一个container
-	2.	NM在RM的管理下在容器中启动应用程序的master进程AM，
-		其对作业进行初始化
-	3.	AM创建多个簿记对象用于接受任务进度、完成报告，保持
-		对作业进度的跟踪
-	4.	AM接受来自共享文件系统的在客户端计算的输入分片，对
-		每个分片创建一个map对象，及由`mapreduce.job.reduces`
-		属性确定的多个reduce任务对象
-	5.	AM根据任务大小决定如何运行job，如果在新容器中分配、
-		运行任务的开销大于并行运行时的开销，AM会在单个节点
-		上运行，这样的作业称为*uberized*
-	6.	AM在任何tasks执行之前通过job的`setup`方法设置job的
-		`OutputCommiter`，建立作业输出目录
-	
-3.	任务分配
-
-	1.	若作业不适合作为*uber*任务运行，AM为该作业中所有map
-		、reduce任务向RM请求容器
-	2.	请求附着heart beat，包括每个map任务的数据本地化信息
-		，特别是输入分片所在的主机、机架信息，scheduler据此
-		做调度决策
-		-	理想化情况下任务分配到数据本地化节点
-		-	否则优先使用机架本地化
-	3.	请求同时指定了任务内存需求，YARN中的资源分为更细粒度
-		，task可以请求最小到最大限制范围、任意最小值倍数的
-		内存容量
-
-4.	任务执行
-
-	1.	当NM的scheduler为task分配了container，AM就可以通过
-		与NM通信启动容器
-	2.	任务由`YarnChild`执行，在执行任务之前，需要将任务
-		所需资源本地化，包括作业的配置、JAR文件、所有来自
-		分布式缓存的文件，然后运行map、reduce任务
-	3.	对于Streaming、Pipes程序，`YarnChild`启动Streaming、
-		Pipes进程，使用标准输入输出、socket与其通信（以
-		MapReduce1方式运行）
-
-5.	进度和状态更新
-
-	1.	task每3s通过`umbilical`接口向AM汇报进度、状态（包括
-		计数器），作为job的aggregate view
-	2.	客户端则默认没1s查询AM接受进度更新
-
-6.	作业完成
-
-	1.	客户端每5s通过调用job的`waitForCompletion`检查作业
-		是否完成，也可以通过HTTP callback完成作业
-	2.	作业完成后AM和task容器清理工作状态，OutputCommiter
-		作业清理方法被调用
-
 ###	Hadoop MapReduce
 
-*YARN*基础上的大数据集并行处理系统
+*YARN*基础上的大数据集并行处理系统（框架）
 
 -	包括两个阶段
-
 	-	*Map*：映射
 	-	*Reduce*：归一
-	-	在分布式系统上进行计算操作基本都是由这两个概念步骤
-		组成，因为分布式系统，不像一般的数据库、文件系统，
-		无法从上至下、从头到尾进行求和等操作，需要由分散的
-		节点不断向一个点聚拢的计算过程
+
+-	在分布式系统上进行计算操作基本都是由Map、Reduce概念步骤
+	组成
+	-	分布式系统，不像一般的数据库、文件系统，无法从上至下
+		、从头到尾进行求和等操作
+	-	需要由分散的节点不断向一个点聚拢的计算过程
 
 -	不适合实时性要求的应用，只适合大数据离线处理
-
-####	MapReduce执行引擎
-
-MapReduce执行引擎运行在HDFS上
-
--	JobTracker：运行在NameNode上
-	-	分解客户端提交的job为数据处理tasks，分发给集群里相关
-		节点上的TaskTacker运行
-	-	发送任务原则：尽量把任务推送到离数据最近的节点上，
-		甚至推送到数据所在的节点上运行
-
--	TaskTracker：运行在DataNode上
-	-	
 
 ##	Apache下*Hadoop*相关项目
 

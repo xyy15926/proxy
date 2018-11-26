@@ -90,6 +90,17 @@ password=
 database=（可选）
 ```
 
+####	注意
+
+-	mysql中默认存在一个用户名为空的账户，只要在本地，可以
+	不用账户、密码登陆mysql，因为这个账号存在，使用新建用户
+	无法通过密码登陆，需要在
+	```sql
+	$ use mysql;
+	$ delete from user where User="";
+	$ flush privileges;
+	```
+
 ###	Mysql交互命令
 
 ####	Show信息类
@@ -188,17 +199,21 @@ database=（可选）
 -	shell内
 
 -	mysql命令行内
-	```
-	load data infile '/path/to/file' into table tbl_name
+
+	```sql
+	load data [local] infile '/path/to/file' into table tbl_name
 	fields terminated by 'sep_char'
 	optionally enclosed by 'closure_char'
 	escaped by 'esc_char'
 	lines terminated by `\r\n`;
 	```
-	若`/path/to/file`不是绝对路径，则被认为是相对于当前
-	数据库存储数据目录的相对路径，而不是当前目录
 
-####	导入数据
+	-	若`/path/to/file`不是绝对路径，则被认为是相对于当前
+		数据库存储数据目录的相对路径，而不是当前目录
+	-	关键字`local`表示从客户端主机导入数据，否则从服务器
+		导入数据
+
+####	导出数据
 
 -	shell内
 

@@ -11,7 +11,9 @@
 
 ###	查看实际路径
 
-`python -c 'import matplotlib as mpl; print(mpl.matplotlib_fname())'`
+```shell
+$ python -c 'import matplotlib as mpl; print(mpl.matplotlib_fname())'
+```
 
 ##	中文问题
 
@@ -126,3 +128,7 @@ from matplotlib import pyplot as plt
 	// `mpl.use("Agg")` must be put before this
 ```
 
+也可以将配置文件`backend`改为`TkAgg`
+```python
+backend: TkAgg
+```

@@ -16,3 +16,11 @@
 #	. ~/Code/proxy/home_config/bashrc_addon
 #fi
 
+user_name="\[\033[0;36m\]\u"
+time_24="\[\033[1;31m\]\t"
+pc_name="\[\033[1;34m\]\h"
+dir_base="\[\033[0;33m\]\W"
+dir_name="\[\033[0;32m\]\w"
+director_char="\[\033[1;32m\]\$"
+input_content="\[\033[0;37m\]"
+# PS1=[$user_name-$time_24@$pc_name\ $dir_base]$director_char$input_content\ 

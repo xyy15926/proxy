@@ -124,7 +124,130 @@ DF <- read.table(
 		-	设为FALSE可以提升读取速度
 	-	`text`：读取、处理的字符串，而不是`file`
 
-##	数据结构
+###	常用函数
+
+```r
+print()
+	# 浏览对象取值
+str()
+	# 查看对象结构
+ls()
+	# 管理对象
+remove()
+rm()
+	# 删除指定对象
+```
+
+##	数据模式（类型）
+
+-	数据模式是指R存储数据的方式
+-	即从存储角度对R数据对象划分
+-	`class`函数就是返回数据模式（类型）
+
+###	Logical
+
+只需要1byte存储
+
+-	`TRUE/T`
+-	`FALSE/F`
+
+###	Integer
+
+占用2-4byte
+
+-	`2L`、`0L`
+
+###	Numeric
+
+可进一步分
+
+-	`float`占用4byte
+-	`double`占用8byte
+
+R中数值型数据默认为`double`
+
+-	`12.3`、`4`
+
+###	Complex
+
+-	`comlplex`：`3+2i`
+
+###	Character
+
+R中`'`、`"`对中的任何值视为字符串
+
+-	`'`、`"`必须在开头、结尾成对存在
+-	`'`、`"`结尾的字符串中，只能插入对方
+
+####	`paste`
+
+连接多个字符串
+
+```r
+Chars = paste(
+	...,
+		# 要组合的任意数量变量
+	sep = " ",
+		# 分隔符
+	collapse = NULL)
+		# 消除两个字符串之间空格
+```
+
+####	`format`
+
+将数字、字符串格式为特定样式
+
+```r
+Chars = format(
+	x([num, chars],
+		# 向量
+	digits(int),
+		# 显示的总位数
+	nsmall(int),
+		# 小数点右边最小位数
+	scientific=FALSE/TRUE,
+		# `TRUE`则显示科学计数法
+	width(int),
+		# 在开始处填充空白来显示的最小宽度
+	justify = c("left", "right", "centre", "none"))
+		# 字符串显示位置
+```
+
+####	`nchar`
+
+计算包括空格在内的字符串长度
+
+```r
+int = nchar(
+	x(chars)
+)
+```
+
+####	`toupper`、`tolower`
+
+改变字符串大小写
+
+```r
+chars = toupper(
+	x(chars)
+)
+chars = tolower(
+	x(chars)
+)
+```
+
+####	`substring`
+
+获取字符串子串
+
+```r
+chars = substring(
+	x(chars),
+	first(int),
+	last(int)
+)
+	# 包括头尾
+```
 
 -	R对象是指可以赋值给变量的任何事物，包括常量、数据结构、
 	函数
@@ -132,21 +255,13 @@ DF <- read.table(
 -	对象拥有某个“类”，向`print`这样的泛型函数表明如何处理
 	此对象
 
-###	数据模式（类型）
+###	Raw
 
-R对象的数据类型为其变量的数据类型，这些最基础的变量共有6种，
-即6种原子向量
-
--	`logical`：`TRUE`、`False`
--	`numeric`：`12.3`、`4`
--	`integer`：`2L`、`0L`
--	`comlplex`：`3+2i`
--	`character`：`"a"`、`"good"`、`"TRUE"`
 -	`raw`：`v <- charToRaw("Hello")`（byte类型）
 
-`class`函数就是返回数据模式（类型）
+##	结构角度划分R对象
 
-###	向量Vector
+###	Vector
 
 用于存储数值型、字符型、逻辑型数据的一维**数组**
 
@@ -163,28 +278,84 @@ apple[1: 3]
 apple[7] = "seven"
 	# 将值赋给某个向量、矩阵、数组或列表中一个不存在的元素时
 		# R将自动扩展其以容纳新值，中间部分设为`NA`
+
+is.vector(apple)
 ```
 
-###	矩阵Matrix
+####	创建向量
 
-二维数组
+```r
+rep(start: end, each=repeat_time)
+	# 元素重复
+rep(start: end, times=repeat_time)
+	# 向量重复
+
+seq(from=start, to=end, by=step)
+	# 指定步长
+seq(from=start, to=end, length=len)
+	# 指定个数
+
+vector(length=len)
+	# 元素为`FALSE`
+```
+
+####	访问向量元素
+
+```r
+a[1]
+a[1:2]
+a[c(1,3)]
+a[c(T, F, T)]
+
+a[-c(1:2)]
+	# 负号不能用于逻辑向量
+```
+
+###	Matrix
+
+二维数组：组织具有相同存储类型的一组变量
 
 -	每个元素都拥有相同的模式（数值型、字符型、逻辑型）
+
+####	创建矩阵
 
 ```r
 mtx <- matrix(
 	vector,
 	nrow(int)
 	ncol(int),
-	byrow = FALSE/FALSE,
+	byrow = FALSE/TRUE,
 	dimnames = list(
 		c(row_names),
 		c(col_names)
 	)
 )
+
+is.matrix()
+
+cbind()
+	# 将多个已有向量（列）合并为矩阵
 ```
 
-###	数组Array
+####	矩阵信息
+
+```r
+dim(mtx)
+	# 显示矩阵行、列
+colnames(mtx)
+colnames(mtx[, col_start: col_end])
+rownames(mtx)
+ronnames(mtx[row_start: row_end, ])
+```
+
+####	访问矩阵元素
+
+```r
+
+
+```
+
+###	Array
 
 类似于矩阵，但是维度可以大于2
 
@@ -198,7 +369,7 @@ arr <- array(
 )
 ```
 
-###	数据框Data.Frame
+###	Data.Frame
 
 数据帧是表、二维数组类似结构
 
@@ -362,7 +533,7 @@ with(emp.data, {
 		# 特殊赋值符保存至“全局”变量中
 ```
 
-###	因子Factor
+###	Factor
 
 分类变量、有序变量在R中称为因子，其决定了数据的分析方式、
 如何进行视觉呈现
@@ -391,7 +562,7 @@ fctr <- factor(
 	-	有序变量：按字母序映射可能与逻辑顺序不一致，可以使用
 		参数`levels`指定顺序
 
-###	列表List
+###	List
 
 一些对象、成分的有序集合
 
@@ -413,82 +584,6 @@ l <- list(
 list1 <- list(c(2, 5, 3), 21, 3, sin)
 print(list1)
 print(class(list1))
-```
-
-###	字符串
-
-R中`'`、`"`对中的任何值视为字符串
--	`'`、`"`必须在开头、结尾成对存在
--	`'`、`"`结尾的字符串中，只能插入对方
-
-####	`paste`
-
-连接多个字符串
-
-```r
-Chars = paste(
-	...,
-		# 要组合的任意数量变量
-	sep = " ",
-		# 分隔符
-	collapse = NULL)
-		# 消除两个字符串之间空格
-```
-
-####	`format`
-
-将数字、字符串格式为特定样式
-
-```r
-Chars = format(
-	x([num, chars],
-		# 向量
-	digits(int),
-		# 显示的总位数
-	nsmall(int),
-		# 小数点右边最小位数
-	scientific=FALSE/TRUE,
-		# `TRUE`则显示科学计数法
-	width(int),
-		# 在开始处填充空白来显示的最小宽度
-	justify = c("left", "right", "centre", "none"))
-		# 字符串显示位置
-```
-
-####	`nchar`
-
-计算包括空格在内的字符串长度
-
-```r
-int = nchar(
-	x(chars)
-)
-```
-
-####	`toupper`、`tolower`
-
-改变字符串大小写
-
-```r
-chars = toupper(
-	x(chars)
-)
-chars = tolower(
-	x(chars)
-)
-```
-
-####	`substring`
-
-获取字符串子串
-
-```r
-chars = substring(
-	x(chars),
-	first(int),
-	last(int)
-)
-	# 包括头尾
 ```
 
 ##	运算符
