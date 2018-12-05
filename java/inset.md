@@ -99,11 +99,13 @@ OpenJDK相较于JDK有些功能缺失
 OpenJDK不能使用Java商标，安装OpenJDK的机器上的，输入
 `$ java --version`，输出`OpenJDK`
 
-##	配置
+
+###	配置
 
 ```shell
 export JAVA_HOME=/opt/jdk
 	# 安装是jdk，所以目录直接由jdk就好
+	# 或者保留原版本号，创建符号链接`java`执行原目录
 	# 可自定以部分
 export JRE_HOME=$JAVA_HOME/jre
 export PATH=$PATH:$JAVA_HOME/bin
@@ -111,5 +113,15 @@ export CLASSPATH=$CLASSPATH:$JRE_HOME/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOM
 	# jar包是java文件的集合，可以/需要看作是文件夹
 	# java的`CLASSPATH`所以需要添加的是jar包
 ```
+
+##	Scala
+
+###	配置
+
+```shell
+export SCALA_HOME=/opt/scala
+export PATH=$PATH:$SCALA_HOME/bin:$SCALA_HOME/sbin
+```
+
 
 

@@ -10,9 +10,12 @@
 
 -	用户名
 -	口令：在`/etc/passwd`文件中以`x`显示
--	用户ID：UID，标识用户，linux事实上不直接处理用户名，
-	只识别UID
--	组群ID：GID，用户的默认用户组标识
+-	user-id：UID，用户标识
+	-	linux事实上不直接处理用户名，只识别UID
+	-	UID对用户是唯一的
+-	group-id：GID，用户的默认组标识
+	-	用户可以隶属多个不同的组，但是只有一个默认组，即用户
+		创建文件默认隶属的组
 -	描述：用户描述
 -	用户主目录：用户登陆目录
 -	登陆shell：用户登陆系统使用的shell
@@ -359,4 +362,50 @@ xxx.xxx.xxx.xxx domain.name
 -	`maillog`：邮件服务器信息
 -	`message`：系统运行过程相关信息，包括IO、网络
 -	`secure`：系统安全信息
+
+##	标准输出
+
+###	文件状态
+
+![ls_results.png](imgs/ls_results.png)
+
+-	文件权限：包括10个字符
+
+	-	第1字符：文件类型
+		-	`-`；普通文件
+		-	`d`：目录
+		-	`l`：link，符号链接
+		-	`s`：socket
+		-	`b`：block，块设备
+		-	`c`：charactor，字符设备（流）
+		-	`p`：FIFO Pipe
+	-	第2-4字符：owner，文件属主权限
+	-	第5-7字符：group，同组用户权限
+	-	第8-10字符：other，其他用户权限
+		-	权限分别为`r`读、`w`写、`x`执行
+		-	相应位置为`-`表示没有此权限
+	-	执行位还可能是其他特殊字符
+		-	user`s`：文件set-user-id、执行权限同时被置位
+		-	group`s`：文件set-group-id、执行权限同时被置位
+		-	user`S`：文件set-user-id被置位，执行权限未置位
+		-	group`S`：文件set-group-id被置位，执行权限未置位
+		-	other`t`：文件sticky bit、执行权限均被置位
+		-	other`T`：文件sticky bit被置位、执行权限未置位
+
+	>	关于权限具体含义，参见`shell_puzzles.md`
+
+-	文件数量
+
+	-	一般文件：硬链接数目
+	-	目录：目录中第一级子目录个数
+
+-	文件属主名
+
+-	文件属主默认用户组名
+
+-	文件大小（Byte）
+
+-	最后修改时间
+
+-	文件名
 

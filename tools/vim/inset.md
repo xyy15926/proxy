@@ -1,4 +1,4 @@
-#	Vimscripts基础
+#	Vimscripts基础--Setting
 
 ##	打印信息
 
@@ -257,3 +257,25 @@ leader：作为“前缀”的不常用的按键，后接其他字符作为整�
 -	`set foldlevelstart=0`：设置默认折叠所有添加折叠注释
 -	`set foldleve=num`：折叠比num level高的可折叠
 
+##	Vim安装
+
+###	安装选项
+
+```shell
+$ ./configure --with-features=huge\
+	--enable-multibyte \
+	--enable-python3interp \
+	--with-python3-config-dir=/usr/lib64/python3.4/config-3.4m/ \
+	--enable-pythoninterp \
+	--with-python-config-dir=/usr/lib64/python2.7/config/ \
+	--prefix=/usr/local
+	--enable-cscope
+```
+-	按照以上命令配置，编译出的Vim版本中是**动态**支持
+	`+python/dyn`和 `+python3/dyn`
+	
+-	此时Vim看似有python支持，但是在Vim内部
+	`:echo has("python")`和`:echo has("python3")`都返回`0`
+
+-	之后无意中尝试去掉对`python`的支持，编译出来的Vim就是
+	可用的`python3`，不直到为啥

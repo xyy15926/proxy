@@ -285,33 +285,74 @@ $$
 
 ####	信息熵
 
-信息消除不确定性的度量
+-	熵：则是在概率分布上对随机变量X的不确定性/混乱程度的度量
+-	信息熵：信息消除不确定性的度量
+
 $$
 \begin{align*}
 Ent(U) & = \sum_i P(u_i) log_2 \frac 1 {P(u_i)} \\
 	& = - \sum_i P(u_i) log_2 P(u_i) \\
 \end{align*}
-其中：u_i为随机变量各个取值，P(u_i)对应概率
 $$
+
+其中
+
+-	$u_i$为随机变量各个取值，$P(u_i)$对应概率
+	-	若有事件i发生概率$p_i=0$，此时约定$p_ilog(p_i)$为0
 
 -	信息熵为0，$\exists j, P(u_j)=1$，无不确定性，随机变量
 	只能取一个值
+
 -	若$\forall j, P(u_j)=1/k$，信息熵最大为$log_2 k$，随机
 	变量在任意取值概率相等，不确定性最大
 
 #####	后验熵
 
-$$
-\begin{align*}
-Ent(U|v_j) & = \sum_i(P(u_i|v_j) log_2 \frac 1 {P(u_i|v_j} \\
-	& = - \sum_i P(u_i|v_j) log_2 P(u_i|v_j) \\
-\end{align*}
-\begin{align*}
-后验熵期望：Ent(U|V) & = \sum_j P(v_j) sum_i P(u_i|v_j) log_2 \frac 1 {P(u_i|v_j)}
-	& = \sum_j P(v_j)(-\sum_i P(u_i|v_j) log_2 P(u_i|v_j))
-\end{align*}
-信息增益：Gains(U|V) = Ent(U) - Ent(U|V)
-$$
+-	后验熵为
+
+	$$
+	\begin{align*}
+	Ent(U|v_j) & = \sum_i(P(u_i|v_j) log_2 \frac 1 {P(u_i|v_j)} \\
+		& = - \sum_i P(u_i|v_j) log_2 P(u_i|v_j) \\
+	\end{align*}
+	$$
+
+-	后验熵期望为
+
+	$$
+	\begin{align*}
+	Ent(U|V) & = \sum_j P(v_j) sum_i P(u_i|v_j)
+		log_2 \frac 1 {P(u_i|v_j)} \\
+		& = \sum_j P(v_j)(-\sum_i P(u_i|v_j) log_2 P(u_i|v_j))
+	\end{align*}
+	$$
+
+-	信息增益
+
+	$$
+	Gains(U|V) = Ent(U) - Ent(U|V)
+	$$
+
+#####	熵的性质
+
+-	若X、Y相互独立
+	$$
+	H(X, Y) = H(X) + H(Y)
+	$$
+
+-	一般的
+	$$
+	H(X, Y) = H(X) + H(Y|X) \\
+	H(X, Y) = H(Y) + H(X|Y) \\
+	H(X|Y) \ltslant H(x) \\
+	H(X, Y) \ltslant H(X) + H(Y) \\
+	$$
+
+####	误分率
+
+####	KLP统计量
+
+####	卡方统计量
 
 
 ##	抽样技术
@@ -419,6 +460,34 @@ $$
 
 -	应用
 	-	深度学习：往往样本量大，无法直接估计
+
+##	距离
+
+$dist(x,y)$：不一定是空间距离，应该认为是两个对象x、y之间的
+相似程度
+
+-	距离和相似度是互补的
+-	可以根据处理问题的情况，自定义距离
+
+###	单点距离
+
+####	欧几里得距离
+
+####	切比雪夫距离
+
+####	闵科夫斯基距离
+
+####	曼哈顿距离
+
+####	Consine Similarity余弦相似度
+
+###	组间距离
+
+####	Single Linkage
+
+####	Average Linkage
+
+####	Complete Linkage
 
 
 

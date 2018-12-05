@@ -1,6 +1,6 @@
 #	MapReduce YARN
 
-##	MapReduce1.0
+##	MapReduce1.0组件
 
 MapReduce1.0是指Hadoop1.0中组件，不是指MapReduce计算模型
 
@@ -13,10 +13,7 @@ MapReduce1.0是指Hadoop1.0中组件，不是指MapReduce计算模型
 
 ###	局限
 
--	模型表达能力有限
-	-	仅仅支持一种MapReduce一种计算模型
-	-	复杂数据处理任务，如：机器学习算法、SQL连接查询很难
-		表达为单一一个Job
+-	MapReduce计算模型问题（参见*MapReduce计算模型*）
 
 -	数据处理延迟大
 	-	MapReduce作业在Map阶段、Reduce阶段执行过程中，需要
@@ -233,18 +230,45 @@ YARN为将来的资源隔离提出的框架，是一组资源的集合，每个t
 2.	作业完成后AM和task容器清理工作状态，OutputCommiter
 	作业清理方法被调用
 
-##	计算模型
+#todo：这里逻辑有问题，要删
+
+##	MapReduce计算模型
+
+-	分布式系统，不像一般的数据库、文件系统，无法从上至下
+	、从头到尾进行求和等操作
+-	需要由分散的节点不断向一个点聚拢的计算过程，即分布式系统
+	上计算模型基本都是由map、reduce步骤组成
 
 ###	MapReduce
 
--	包括两个阶段
-	-	*Map*：映射
-	-	*Reduce*：归一
+MapReduce每步数据处理流程包括两个阶段
 
-###	DAG
+-	*Map*：映射
+	-	map过程相互独立、各mapper见不通信，所以mapreduce
+		只适合处理**独立计算**的任务
 
-Directed Acyclic Graph，定义一个数据处理应用程序的数据处理
-流程
+-	*Reduce*：归一
+	-	reduce直接处理map的输出，reduce的**键**为map输出
+		**值**
+
+####	数据处理过程
+
+-	需要把任何计算任务转换为一系列MapReduce作业，然后依次
+	执行这些作业
+	
+-	计算过程的各个步骤之间，各个作业输出的中间结果需要存盘，
+	然后才能被下个步骤使用（因为各个步骤之间没有明确流程）
+
+-	One Pass Computation：只需要一遍扫描处理的计算任务
+	MapReduce计算模型非常有效
+	
+-	Multi Pass Computation：需要在数据上进行多遍扫描、处理
+	的计算任务，需要执行多个MapReduce作业计算任务，因为
+	多副本复制、磁盘存取，其效率不高
+
+###	Mapred on DAG
+
+Directed Acyclic Graph；表示数据处理流程的有向无环图
 
 -	顶点：数据处理任务，反映一定的业务逻辑，即如何对数据进行
 	转换和分析
@@ -252,17 +276,40 @@ Directed Acyclic Graph，定义一个数据处理应用程序的数据处理
 
 ###	比较
 
--	DAG显著提高了数据处理效率，对小规模、低延迟和大规模、
-	高吞吐量的负载均有效
+|比较方面|MapReduce|DAG|
+|------|------|------|
+|操作原语|map、reduce|较多|
+|抽象层次|低|高|
+|表达能力|差|强|
+|易用性|要手动处理job之间依赖关系，易用性差|DAG本身体现数据处理流程|
+|可读性|处理逻辑隐藏在代码中，没有整体逻辑|较好|
 
-	-	由于DAG的表达能力强于MapReduce，对某些处理逻辑，DAG
+-	正是MapReduce提供操作原语少、抽象层次低，所以其表达能力
+	差，同时需要用户处理更多的逻辑，易用性、可读性差
+
+	-	复杂数据处理任务，如：机器学习算法、SQL连接查询很难
+		表示用MapReduce计算默认表达
+
+	-	操作原语多并不是DAG本身的要求，DAG本身只是有向无环图，
+		只是使用DAG计算模型可以提供更多的操作原语
+
+-	由于DAG的表达能力强于MapReduce，对某些处理逻辑，DAG
 		所需作业数目小于MapReduce，消除不必要的任务
 
-	-	MapReduce需要通过把中间结果存盘实现同步，而DAG整合
-		部分MapReduce作业，减少同步Barrier（磁盘I/O）
+	-	DAG显著提高了数据处理效率，对小规模、低延迟和大规模、
+		高吞吐量的负载均有效
 
--	DAG部分计算模型也由map-reduce任务构成，只是不像传统，
-	Map-Reduce必须成对出现
+	-	MapReduce需要通过把中间结果存盘实现同步，而DAG整合
+		部分MapReduce作业，减少磁盘I/O
+
+	-	reduce任务需要等待map任务全部完成才能继续，DAG优化
+		数据处理流程，减少同步Barrier
+
+-	DAG部分计算模型也由map、reduce任务构成，只是不像传统
+	MapReduce计算模型中map、reduce必须成对出现
+
+	-	或者说DAG只有一次map任务（扫描数据时），其余都是
+		reduce任务？
 
 	-	从MapReduce配置也可以看出，MapReduce可以选择基于
 		`yarn`或`yarn-tez`

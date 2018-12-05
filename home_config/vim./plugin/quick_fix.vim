@@ -7,7 +7,7 @@
 "	Description: quick_fix window related
 "----------------------------------------------------------
 
-nnoremap <leader>qf :call QuickfixToggle()
+nnoremap <leader>qf :call QuickfixToggle()<cr>
 
 let g:quickfix_is_open=0
 	"define a global variable to store quick fix window

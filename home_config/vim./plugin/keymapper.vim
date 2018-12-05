@@ -9,9 +9,9 @@
 
 "set JK to normal
 "
-inoremap JK <esc>
-vnoremap JK <esc>
-nnoremap JK <NUL>
+inoremap KK <esc>
+vnoremap KK <esc>
+nnoremap KK <NUL>
 "inoremap <esc> <nop>
 	"<nop>: no operation, disable <esc> to normal mode
 
@@ -31,7 +31,9 @@ inoremap <c-u> <esc>viwUea
 inoremap <s-cr> <esc>o
 	"shift-enter to start a new line
 	"though this can work only in Gvim
-inoremap <leader>; <esc>mqA;<esc>`qa
+inoremap <leader>a <esc>A
+	" just for convinience
+" inoremap <leader>; <esc>mqA;<esc>`qa
 	"<leader>; to add a `;` at the end of a line
 onoremap in( :<c-u>normal! f(vi(<cr>
 	"select content in next parentheses

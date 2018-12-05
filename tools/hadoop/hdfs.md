@@ -560,5 +560,13 @@ Parquet为hadoop生态系统中的所有项目，提供支持高压缩率的
 
 -	HDFS的用户就是当前linux登陆的用户
 
+##	Hadoop组件
+
+###	Hadoop Streaming
+
+
+
+
+
 
 

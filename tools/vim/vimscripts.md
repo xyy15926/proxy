@@ -7,19 +7,22 @@
 创建变量、变量赋值都需要用到`let`关键字
 
 ```vim
-:let foo = "bar"
-:echo foo
-:let foo = "foo"
-:echo foo
+let foo = "bar"
+echo foo
+let foo = "foo"
+echo foo
 ```
 
 ####	数字
 
 -	`Number`32位带符号整形（整形之间除法同c）
+
 	-	`:echo 0xef`：16进制
 	-	`:echo 017`：8进制（鉴于以下，不建议使用）
 	-	`:echo 019`：10进制（9不可能出现，vim自动处理）
+
 -	`Float`
+
 	-	`:echo 5.1e-3`：科学计数法）
 	-	`:echo 5.0e3`：科学计数法中一定要有小数点
 
@@ -27,22 +30,24 @@
 
 ####	字符串
 
--	`+`、`if`这些“运算”中：
-	vim会强制转换变量类型，对于数字开头的字符串会转为相应
-	`Number`（即使符合Float也会舍弃小数点后），而非数字开头
-	则转换为0
+#####	类型转换
 
--	连接`.`：
-	`.`连接时vim可以自动将Number转换为字符串然后连接，但是
-	对于 Float，vim不能自动转换
+-	`+`、`if`这些“运算”中，vim会强制转换变量类型
+	-	数字开头的字符串会转为相应`Number`（即使符合Float也
+		会舍弃小数点后）
+	-	而非数字开头 则转换为0
+
+-	连接`.`
+	-	`.`连接时vim可以自动将Number转换为字符串然后连接
+	-	但是对于 Float，vim不能自动转换
 
 -	转义`\`：
-	需要注意`echom "foo\nbar"`类似的输出时，`echom`不会像
-	`echo`一样输出两行，而是将换行输出为vim**默认**
-	（即使设置了`listchars`）的“换行符”
+	-	注意`echom "foo\nbar"`类似的输出时，`echom`不会像
+		`echo`一样输出两行，而是将换行输出为vim**默认**
+		（即使设置了`listchars`）的“换行符”
 
--	字符串字面量`''`：
-	所见即所得（py中r'')，注意连续两个单引号表示一个单引号 
+-	字符串字面量`''`
+	-	所见即所得（py中r'')，注意连续两个单引号表示单引号
 
 -	内建字符串函数
 	-	`strlen(str)`（len(str)效果对字符串同）
@@ -54,22 +59,23 @@
 -	字符串比较`==`、`==？`、`==#`
 
 	-	`==`：对字符串比较是否大小写敏感取决于设置
+		```vimscript
+		set noignorecase
+		if "foo"=="Foo"
+			echo "bar"（不会输出）
+		endif
 
-			:set noignorecase
-			:if "foo"=="Foo"
-			:	echo "bar"（不会输出）
-			:endif
-
-			:set ignorecase
-			:if "foo"=="Foo"
-			:	echo "bar"（会输出）
-			:endif
+		set ignorecase
+		if "foo"=="Foo"
+			echo "bar"（会输出）
+		endif
+		```
 
 	-	`==?`：对字符串比较大小写永远不敏感
 
 	-	`==#`：对字符串比较大小写永远敏感
 
-	>	`<`、`>`：同上，也有3种
+-	`<`、`>`：同上，也有3种
 
 ###	集合类型变量
 
@@ -106,8 +112,11 @@ vim列表特点
 -	值是异质的，键可以不是字符串，但是会被强制转换为字符串，
 	因此，在查找值时也可以使用非字符串`dict[100]`，同样会被
 	强制转换为字符串`dict["100"]`之后查找
+
 -	支持属性`.`查找，甚至可以后接`Number`
+
 -	添加新元素就和普通赋值一样：`let dict.100 = 100`
+
 -	移除字典中的元素
 	-	`remove(dict, index)`
 	-	`unlet dict.index`/`unlet dict[index]`
@@ -115,50 +124,59 @@ vim列表特点
 
 >	允许定义时多一个`,`
 
-内建函数
+#####	内建函数
 
 -	`get(dict, index, default_val)`：同列表
+
 -	`has_key(dict, index)`：检查字典中是否有给定键，返回
 	`1`（真）或`0`（假）
+
 -	`item(dict)`：返回字典键值对，和字典一样无序
+
 -	`keys(dict)`：返回字典所有键
+
 -	`values(dict)`：返回字典所有值
 
 
 ###	作为变量的选项
 
 -	bool选项输出0、1
-
-		:set wrap
-		:echo nowrap
+	```vimscript
+	:set wrap
+	:set nowrap
+	```
 
 -	键值选项
-
-		:set textwidth=80
-		:echo &textwidth
+	```vimscript
+	:set textwidth=80
+	:echo &textwidth
+	```
 
 -	本地选项（`l:`作用域下）
+	```vimscript
+	let &l:number=1
+	```
 
-		:let &l:number=1
-
-选项变量还可以参与运算
-
-	:let &textwidth=100
-	:let &textwidht = &textwidth + 10
+-	选项变量还可以参与运算
+	```vimscript
+	let &textwidth=100
+	let &textwidht = &textwidth + 10
+	```
 
 ###	作为变量的寄存器
 
-	:let @a = "hello"
-	:echo @a
-	:echo @"
-	:echo @/
+```vimscript
+let @a = "hello"
+echo @a
+echo @"
+echo @/
+```
 
 ###	变量作用域
 
 以`<char>:`开头表示作用域变量
 
--	变量默认其全局变量
-
+-	变量默认为全局变量
 -	`b:`：当前缓冲区作用域变量
 -	`g:`：全局变量
 
@@ -173,14 +191,14 @@ vim中没有`not`关键字，可以使用`!`表示否定
 -	`&&`：与
 
 ```vim
-:if "1one"
-:	echo "one"（会输出）
-:endif
-:if ! "one"
-:	echo "one"（会输出）
-:else
-:	echo "two"
-:endif
+if "1one"
+	echo "one"（会输出）
+endif
+if ! "one"
+	echo "one"（会输出）
+else
+	echo "two"
+endif
 ```
 
 ####	`finish`关键字
@@ -192,23 +210,23 @@ vim中没有`not`关键字，可以使用`!`表示否定
 ####	`for`语句
 
 ```vim
-:let c = 0
-:for i in [1,2,3]
-:	let c+=i
-:endfor
-:echom c
+let c = 0
+for i in [1,2,3]
+	let c+=i
+endfor
+echom c
 ```
 
 ####	`while`语句
 
 ```vim
-:let c = 1
-:let total = 0
-:while c<=4
-:	let total+=c
-:	let c+=1
-:endwhile
-:echom total
+let c = 1
+let total = 0
+while c<=4
+	let total+=c
+	let c+=1
+endwhile
+echom total
 ```
 
 ##	函数
@@ -217,14 +235,14 @@ vim中没有`not`关键字，可以使用`!`表示否定
 （有作用域限制最好也是大写字母开头）
 
 ```vim
-:func Func(arg1,...)
-:	echo "Func"
-:	echo a:arg1（arg1）
-:	echo a:0（额外（可变）参数数量）
-:	echo a:1（第一个额外参数）
-:	echo a:000（所有额外参数的list）
-:	return "Func"
-:endfunction
+func Func(arg1,...)
+	echo "Func"
+	echo a:arg1（arg1）
+	echo a:0（额外（可变）参数数量）
+	echo a:1（第一个额外参数）
+	echo a:000（所有额外参数的list）
+	return "Func"
+endfunction
 ```
 
 >	当`function`后没有紧跟`!`时，函数已经被定义，将会给出

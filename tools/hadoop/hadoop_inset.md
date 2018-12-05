@@ -491,7 +491,7 @@ JAVA_HOME=/opt/java/jdk
 JAVA_HEAP_MAX=Xmx3072m
 ```
 
-####	初始化、启动
+####	初始化、启动、测试
 
 #####	HDFS
 
@@ -529,6 +529,15 @@ JAVA_HEAP_MAX=Xmx3072m
 		# 至本地文件系统，并检查
 	$ hdfs dfs -cat output/*
 		# 或者之间查看分布式文件系统上的输出文件
+
+
+	$ hadoop jar /opt/hadoop/share/hadoop/tools/lib/hadoop-streaming-2.7.7.jar \
+		-input /path/to/hdfs_file \
+		-output /path/to/hdfs_dir \
+		-mapper "/bin/cat" \
+		-reducer "/user/bin/wc" \
+		-file /path/to/local_file \
+		-numReduceTasks 1
 	```
 
 #####	YARN
@@ -821,6 +830,9 @@ $ hive --service hiveserver2 --stop
 
 #####	Hive可用性
 
+需要先启动hdfs、YARN、metastore database（mysql），如果有
+设置独立metastore server，还需要在正确端口启动
+
 ```sql
 hive>	create table if not exists words(id INT, word STRING)
 		row format delimited fields terminated by " "
@@ -935,7 +947,7 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_HOME/*:$TEZ_HOME/lib/*
 
 -	模板：`conf/tez-default-tmplate.xml`
 
-```md
+```shell
 <property>
 	<name>tez.lib.uris</name>
 	<value>${fs.defaultFS}/apps/tez.tar.gz</value>
@@ -948,13 +960,6 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_HOME/*:$TEZ_HOME/lib/*
 <property>
 内存不足时-->
 ```
-
-	```xml
-	<?xml version="1.0" encoding="UTF-8"?>
-	<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-	<configuration>
-	</configuration>
-	```
 
 #####	`mapred-site.xml`
 
@@ -1005,5 +1010,662 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_HOME/*:$TEZ_HOME/lib/*
 ```
 
 ###	其他
+
+##	Spark
+
+###	依赖
+
+-	java
+-	scala
+-	python：一般安装anaconda，需要额外配置
+	```shell
+	export PYTHON_HOME=/opt/anaconda3
+	export PATH=$PYTHON_HOME/bin:$PATH
+	```
+-	相应资源管理框架，如果不以standalone模式运行
+
+###	机器环境配置
+
+####	`~/.bashrc`
+
+```shell
+export SPARK_HOME=/opt/spark
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+export PYTHON_PATH=$PYTHON_PATH:$SPARK_HOME/python:$SPARK_HOME/python/lib
+	# `pyshark`、`py4j`模块
+```
+
+###	Standalone
+
+####	环境设置文件
+
+#####	`conf/spark-env.sh`
+
+-	模板：`conf/spark-env.sh.template`
+
+这里应该有些配置可以省略、移除#todo
+
+```shell
+export JAVA_HOME=/opt/jdk
+export HADOOP_HOME=/opt/hadoop
+export hADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+export HIVE_HOME=/opt/hive
+
+export SCALA_HOME=/opt/scala
+export SCALA_LIBRARY=$SPARK_HOME/lib
+	# `~/.bashrc`设置完成之后，前面这段应该就这个需要设置
+
+export SPARK_HOME=/opt/spark
+export SPARK_DIST_CLASSPATH=$(hadoop classpath)
+	# 这里是执行命令获取classpath
+	# todo
+	# 这里看文档的意思，应该也是类似于`$HADOOP_CLASSPATH`
+	# 可以直接添加进`$CLASSPATH`而不必设置此变量
+export SPARK_LIBRARY_PATH=$SPARK_HOME/lib
+
+export SPARK_MASTER_HOST=hd-master
+export SPARK_MASTER_PORT=7077
+export SPARK_MASTER_WEBUI_PORT=8080
+export SPARK_WORKER_WEBUI_PORT=8081
+export SPARK_WORKER_MEMORY=1024m
+	# spark能在一个container内执行多个task
+export SPARK_LOCAL_DIRS=$SPARK_HOME/data
+	# 需要手动创建
+
+export SPARK_MASTER_OPTS=
+export SPARK_WORKER_OPTS=
+export SPARK_DAEMON_JAVA_OPTS=
+export SPARK_DAEMON_MEMORY=
+export SPARK_DAEMON_JAVA_OPTS=
+```
+
+#####	文件夹建立
+
+```shell
+$ mkdir /opt/spark/spark_data
+	# for `$SPARK_LOCAL_DIRS`
+```
+
+####	Spark配置
+
+#####	`conf/slaves`
+
+文件不存在，则在当前主机单节点运行
+
+-	模板：`conf/slaves.template`
+
+```cnf
+hd-slave1
+hd-slave2
+```
+
+#####	`conf/hive-site.xml`
+
+这里只是配置Spark，让Spark作为“thrift客户端”能正确连上
+metastore server
+
+-	模板：`/opt/hive/conf/hive-site.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+	<property>
+		<name>hive.metastore.uris</name>
+		<value>thrift://192.168.31.129:19083</value>
+		<description>Thrift URI for the remote metastor. Used by metastore client to connect to remote metastore</description>
+	</property>
+	<property>
+		<name>hive.server2.thrift.port</name>
+		<value>10011</value>
+	</property>
+	<!--配置spark对外界thrift服务，以便可通过JDBC客户端存取spark-->
+	<!--这里启动端口同hive的配置，所以两者不能默认同时启动-->
+	<property>
+		<name>hive.server2.thrift.bind.host</name>
+		<value>hd-master</value>
+	</property>
+</configuration>
+```
+
+####	测试
+
+#####	启动Spark服务
+
+需要启动hdfs、正确端口启动的metastore server
+
+```shell
+$ start-master.sh
+	# 在执行**此命令**机器上启动master实例
+$ start-slaves.sh
+	# 在`conf/slaves`中的机器上启动worker实例
+$ start-slave.sh
+	# 在执行**此命令**机器上启动worker实例
+
+$ stop-master.sh
+$ stop-slaves.sh
+$ stop-slave.sh
+```
+
+#####	启动Spark Thrift Server
+
+```shell
+$ start-thriftserver.sh --master spark://hd-master:7077 \
+	--hiveconf hive.server2.thrift.bind.host hd-master \
+	--hiveconf hive.server2.thrift.port 10011
+	# 这里在命令行启动thrift server时动态指定host、port
+		# 如果在`conf/hive-site.xml`有配置，应该不需要
+
+	# 然后使用beeline连接thrift server，同hive
+```
+
+#####	Spark-Sql测试
+
+```sql
+$ spark-sql --master spark://hd-master:7077
+	# 在含有配置文件的节点上启动时，配置文件中已经指定`MASTER`
+		# 因此不需要指定后面配置
+
+spark-sql> set spark.sql.shuffle.partitions=20;
+spark-sql> select id, count(*) from words group by id order by id;
+```
+
+#####	pyspark测试
+
+```python
+$ MASTER=spark://hd-master:7077 pyspark
+	# 这里应该是调用`$PATH`中第一个python，如果未默认指定
+
+from pyspark.sql import HiveContext
+sql_ctxt = HiveContext(sc)
+	# 此`sc`是pyspark启动时自带的，是`SparkContext`类型实例
+	# 每个连接只能有一个此实例，不能再次创建此实例
+
+ret = sql_ctxt.sql("show tables").collect()
+	# 这里语句结尾不能加`;` 
+
+file = sc.textFile("hdfs://hd-master:9000/user/root/input/capacity-scheduler.xml")
+file.count()
+file.first()
+```
+
+#####	Scala测试
+
+```scala
+$ MASTER=spark://hd-master:7077 spark-shell \
+	executor-memory 1024m \
+	--total-executor-cores 2 \
+	--excutor-cores 1 \
+	# 添加参数启动`spark-shell`
+
+import org.apache.spark.sql.SQLContext
+val sqlContext = new org.apache.spark.sql.hive.HiveContext(sc)
+sqlContext.sql("select * from words").collect().foreach(println)
+sqlContext.sql("select id, word from words order by id").collect().foreach(println)
+
+sqlContext.sql("insert into words values(7, \"jd\")")
+val df = sqlContext.sql("select * from words");
+df.show()
+
+var df = spark.read.json("file:///opt/spark/example/src/main/resources/people.json")
+df.show()
+```
+
+###	Spark on YARN
+
+###	其他
+
+####	可能错误
+
+>	Initial job has not accepted any resources;
+
+-	原因：内存不足，spark提交application时内存超过分配给
+	worker节点内存
+
+-	说明
+
+	-	根据结果来看，`pyspark`、`spark-sql`需要内存比
+		`spark-shell`少？
+		（设置worker内存512m，前两者可以正常运行）
+	-	但是前两者的内存分配和scala不同，scala应该是提交任务
+		、指定内存大小的方式，这也可以从web-ui中看出来，只有
+		spark-shell开启时才算是*application*
+
+-	解决方式
+	-	修改`conf/spark-env.sh`中`SPARK_WORKER_MEMORY`更大，
+		（spark默认提交application内存为1024m）
+	-	添加启动参数`--executor-memory XXXm`不超过分配值
+
+>	 ERROR KeyProviderCache:87 - Could not find uri with key [dfs.encryption.key.provider.uri] to create a keyProvider
+
+-	无影响
+
+##	HBase
+
+###	依赖
+
+-	java
+-	hadoop
+-	zookeeper：建议，否则日志不好管理
+
+###	机器环境
+
+####	`~/.bashrc`
+
+```shell
+export HBASE_HOME=/opt/hbase
+export PATH=$PAHT:$HBASE_HOME/bin
+export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$HBASE_HOME/lib/*
+```
+
+####	建立目录
+
+```shell
+$ mkdir /tmp/hbase/tmpdir
+```
+###	HBase配置
+
+####	环境变量
+
+#####	`conf/hbase-env.sh`
+
+```shell
+export HBASE_MANAGES_ZK=false
+	# 不使用自带zookeeper
+```
+
+#####	`conf/zoo.cfg`
+
+若设置使用独立zookeeper，需要复制zookeeper配置至HBase配置
+文件夹中
+
+```md
+$ cp /opt/zookeeper/conf/zoo.cfg /opt/hbase/conf
+```
+
+
+####	Standalone模式
+
+#####	`conf/hbase-site.xml`
+
+```xml
+<configuration>
+	<property>
+		<name>hbase.rootdir</name>
+		<value>file://${HBASE_HOME}/data</value>
+	</property>
+	<property>
+		<name>hbase.zookeeper.property.dataDir</name>
+		<value>/tmp/zookeeper/zkdata</value>
+	</property>
+</configuration>
+```
+
+####	Pseudo-Distributed模式
+
+#####	`conf/hbase-site.xml`
+
+-	在Standalone配置上修改
+
+```xml
+<proeperty>
+	<name>hbase.cluster.distributed</name>
+	<value>true</value>
+</property>
+<property>
+	<name>hbase.rootdir</name>
+	<value>hdfs://hd-master:9000/hbase</value>
+</property>
+```
+
+####	Fully-Distributed模式
+
+#####	`conf/hbase-site.xml`
+
+```xml
+<property>
+	<name>hbase.rootdir</name>
+	<value>hdfs://hd-master:9000/hbase</value>
+</property>
+<property>
+	<name>hbase.cluster.distributed</name>
+	<value>true</name>
+</property>
+<property>
+	<name>hbase.zookeeper.quorum</name>
+	<value>hd-master,hd-slave1,hd-slave2</value>
+</property>
+<property>
+	<name>hbase.zookeeper.property.dataDir</name>
+	<value>/tmp/zookeeper/zkdata</value>
+</property>
+```
+
+####	测试
+
+-	需要首先启动HDFS、YARN
+-	使用独立zookeeper还需要先行在每个节点启动zookeeper
+
+```md
+$ start-hbase.sh
+	# 启动HBase服务
+$ local-regionservers.sh start 2 3 4 5
+	# 启动额外的4个RegionServer
+$ hbase shell
+hbase> create 'test', 'cf'
+hbase> list 'test'
+hbase> put 'test', 'row7', 'cf:a', 'value7a'
+	put 'test', 'row7', 'cf:b', 'value7b'
+	put 'test', 'row7', 'cf:c', 'value7c'
+	put 'test', 'row8', 'cf:b', 'value8b',
+	put 'test', 'row9', 'cf:c', 'value9c'
+hbase> scan 'test'
+hbase> get 'test', 'row7'
+hbase> disable 'test'
+hbase> enable 'test'
+hbaee> drop 'test'
+hbase> quit
+```
+
+##	Zookeeper
+
+###	依赖
+
+-	java
+
+-	注意：zookeeper集群中工作超过半数才能对外提供服务，所以
+	一般配置服务器数量为奇数
+
+###	机器环境
+
+####	`~/.bashrc`
+
+```shell
+export ZOOKEEPER_HOME=/opt/zookeeper
+export PATH=$PATH:$ZOOKEEPER_HOME/bin
+export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$ZOOKEEPER_HOME/lib
+```
+####	创建文件夹
+
+-	在所有节点都需要创建相应文件夹、`myid`文件
+
+```shell
+mkdir -p /tmp/zookeeper/zkdata /tmp/zookeeper/zkdatalog
+echo 0 > /tmp/zookeeper/zkdatalog/myid
+
+ssh centos2 mkdir -p /tmp/zookeeper/zkdata /tmp/zookeeper/zkdatalog
+ssh centos3 mkdir -p /tmp/zookeeper/zkdata /tmp/zookeeper/zkdatalog
+ssh centos2 "echo 2 > /tmp/zookeeper/zkdata/myid"
+ssh centos3 "echo 3 > /tmp/zookeeper/zkdata/myid"
+```
+
+###	Zookeeper配置
+
+####	Conf
+
+#####	`conf/zoo.cfg`
+
+```cnf
+tickTime=2000
+	# The number of milliseconds of each tick
+initLimit=10
+	# The number of ticks that the initial
+	# synchronization phase can take
+syncLimit=5
+	# The number of ticks that can pass between
+	# sending a request and getting an acknowledgement
+dataDir=/tmp/zookeeper/zkdata
+dataLogDir=/tmp/zookeeper/zkdatalog
+	# the directory where the snapshot is stored.
+	# do not use /tmp for storage, /tmp here is just
+	# example sakes.
+clientPort=2181
+	# the port at which the clients will connect
+
+autopurge.snapRetainCount=3
+	# Be sure to read the maintenance section of the
+	# administrator guide before turning on autopurge.
+	# http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance
+	# The number of snapshots to retain in dataDir
+autopurge.purgeInterval=1
+	# Purge task interval in hours
+	# Set to "0" to disable auto purge feature
+
+server.0=hd-master:2888:3888
+server.1=hd-slave1:2888:3888
+server.2=hd-slave2:2888:3888
+	# Determine the zookeeper servers
+	# fromation: server.NO=HOST:PORT1:PORT2
+		# PORT1: port used to communicate with leader
+		# PORT2: port used to reelect leader when current leader fail
+```
+
+#####	`$dataDir/myid`
+
+-	`$dataDir`是`conf/zoo.cfg`中指定目录
+-	`myid`文件里就一个id，指明当前zookeeper server的id，服务
+	启动时读取文件确定其id，需要自行创建
+
+```cnf
+0
+```
+
+####	启动、测试、清理
+
+启动zookeeper
+
+```shell
+$ zkServer.sh start
+	# 开启zookeeper服务
+	# zookeeper服务要在各个节点分别手动启动
+
+$ zkServer.sh status
+	# 查看服务状态
+
+$ zkCleanup.sh
+	# 清理旧的快照、日志文件
+```
+
+##	Flume
+
+###	依赖
+
+-	java
+
+###	机器环境配置
+
+####	`~/.bashrc`
+
+```shell
+export PATH=$PATH:/opt/flume/bin
+```
+
+###	Flume配置
+
+####	环境设置文件
+
+#####	`conf/flume-env.sh`
+
+-	模板：`conf/flume-env.sh.template`
+
+```shell
+JAVA_HOME=/opt/jdk
+```
+
+####	Conf文件
+
+#####	`conf/flume.conf`
+
+-	模板：`conf/flume-conf.properties.template`
+
+```md
+agent1.channels.ch1.type=memory
+	# define a memory channel called `ch1` on `agent1`
+agent1.sources.avro-source1.channels=ch1
+agent1.sources.avro-source1.type=avro
+agent1.sources.avro-source1.bind=0.0.0.0
+agent1.sources.avro-source1.prot=41414
+	# define an Avro source called `avro-source1` on `agent1` and tell it
+agent1.sink.log-sink1.channels=ch1
+agent1.sink.log-sink1.type=logger
+	# define a logger sink that simply logs all events it receives
+agent1.channels=ch1
+agent1.sources=avro-source1
+agent1.sinks=log-sink1
+	# Finally, all components have been defined, tell `agent1` which one to activate
+```
+
+####	启动、测试
+
+```md
+$ flume-ng agent --conf /opt/flume/conf \
+	-f /conf/flume.conf \
+	-D flume.root.logger=DEBUG,console \
+	-n agent1
+	# the agent name specified by -n agent1` must match an agent name in `-f /conf/flume.conf`
+
+$ flume-ng avro-client --conf /opt/flume/conf \
+	-H localhost -p 41414 \
+	-F /opt/hive-test.txt \
+	-D flume.root.logger=DEBUG, Console
+	# 测试flume
+```
+
+###	其他
+
+##	Kafka
+
+###	依赖
+
+-	java
+-	zookeeper
+
+###	机器环境变量
+
+####	`~/.bashrc`
+
+```shell
+export PATH=$PATH:/opt/kafka/bin
+export KAFKA_HOME=/opt/kafka
+```
+
+###	多brokers配置
+
+####	Conf
+
+#####	`config/server-1.properties`
+
+-	模板：`config/server.properties`
+-	不同节点`broker.id`不能相同
+-	可以多编写几个配置文件，在不同节点使用不同配置文件启动
+
+```cnf
+broker.id=0
+listeners=PLAINTEXT://:9093
+zookeeper.connect=hd-master:2181, hd-slave1:2181, hd-slave2:2181
+```
+
+####	测试
+
+-	启动zookeeper
+
+```shell
+$ kafka-server-start.sh /opt/kafka/config/server.properties &
+	# 开启kafka服务（broker）
+	# 这里是指定使用单个默认配置文件启动broker
+		# 启动多个broker需要分别使用多个配置启动多次
+$ kafka-server-stop.sh /opt/kafka/config/server.properties
+
+$ kafka-topics.sh --create --zookeeper localhost:2181 \
+	--replication-factor 1 \
+	--partitions 1 \
+	--topic test1
+	# 开启话题
+$ kafka-topics.sh --list zookeeper localhost:2181
+	# 
+$ kafka-topics.shd --delete --zookeeper localhost:2181
+	--topic test1
+	# 关闭话题
+
+$ kafka-console-producer.sh --broker-list localhost:9092 \
+	--topic test1
+	# 新终端开启producer，可以开始发送消息
+
+$ kafka-console-consumer.sh --bootstrap-server localhost:9092 \
+	--topic test1 \
+	--from-beginning
+
+$ kafka-console-consumer.sh --zookeeper localhost:2181 \
+	--topic test1 \
+	--from beginning
+	# 新终端开启consumer，可以开始接收信息
+	# 这个好像是错的
+```
+
+###	其他
+
+##	Storm
+
+###	依赖
+
+-	java
+-	zookeeper
+-	python2.6+
+-	ZeroMQ、JZMQ
+
+###	机器环境配置
+
+####	`~/.bashrc`
+
+```shell
+export STORM_HOME=/opt/storm
+export PAT=$PATH:$STORM_HOME/bin
+```
+
+###	Storm配置
+
+####	配置文件
+
+#####	`conf/storm.yaml`
+
+-	模板：`conf/storm.yarml`
+
+```shell
+storm.zookeeper.servers:
+	-hd-master
+	-hd-slave1
+	-hd-slave2
+storm.zookeeper.port: 2181
+
+nimbus.seeds: [hd-master]
+storm.local.dir: /tmp/storm/tmp
+nimbus.host: hd-master
+supervisor.slots.ports:
+	-6700
+	-6701
+	-6702
+	-6703
+```
+
+####	启动、测试
+
+```shell
+storm nimbus &> /dev/null &
+storm logviewer &> /dev/null &
+storm ui &> /dev/null &
+	# master节点启动nimbus
+
+storm sueprvisor &> /dev/null &
+storm logviewer &> /dev/nulla &
+	# worker节点启动
+
+
+storm jar /opt/storm/example/..../storm-start.jar \
+	storm.starter.WordCountTopology
+	# 测试用例
+stom kill WordCountTopology
+```
+
+
 
 <http://hadoop.apache.org/docs/r3.1.1>

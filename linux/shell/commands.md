@@ -8,7 +8,7 @@
 -	external command：linux系统中的实用程序部分
 	-	功能比较强大、包含的程序量更大
 	-	需要时才被调进内存
-	-	实体未包含在shell中，但是其执行过程由shell程序控制，
+		-	实体未包含在shell中，但是其执行过程由shell程序控制，
 		shell程序管理外部命令执行路径查找、加载、存放
 
 ##	系统级查看、设置
@@ -51,7 +51,6 @@ $ nohup ./pso > pso.file 2>&1 &
 $ nohup -p PID
 	# 不挂起某个进程
 	```
-
 
 #####	`jobs`
 
@@ -304,7 +303,67 @@ $ chmod 777 file1
 -	`tee`：将标准输入复制到指定温婉
 -	`awk`：模式扫描和处理语言
 	#todo
--	`sed`：过滤、转换文本的流编辑器
+
+####	`sed`
+
+过滤、转换文本的流编辑器
+
+-	sed按行处理文本数据，每次处理一行在行尾添加换行符
+
+```shell
+$ sed [-hnV] [-e<script>][-f<script-file>][infile]
+```
+
+#####	参数
+
+-	`-e<script>/--expression=<script>`：以指定script
+	处理infile（默认参数）
+	-	默认不带参数即为`-e`
+
+-	`-f<script-file>/--file=<script-file>`：以指定的script
+	文件处理输入文本文件
+	-	文件内容为sed的动作
+
+-	`-i`：直接修改原文件
+
+-	`-n/--quiet`：仅显示script处理后结果
+
+-	`-h/--help`：帮助
+
+-	`-V/--version`：版本信息
+
+#####	动作
+
+-	`[n]a\string`：行添加，在`n`行后添加新行`string`
+-	`[n]i\string`：行插入
+-	`[n]c\string`：行替换
+-	`[n,m]d`：删除，删除`n-m`行
+-	`[start[,end]]p`：打印数据
+-	`[start[,end]]s/expr/ctt[/g]`：正则替换
+
+#####	高级语法
+
+#####	示例
+
+```md
+$ sed '2anewline' ka.file
+$ sed '2a newline' ka.file
+$ sed 2anewline ka.file
+$ sed 2a newline ka.file
+	# 在第2行添加新行`newline`
+
+$ sed 2,$d ka.file
+	# 删除2至最后行
+
+$ sed 2s/old/new ka.file
+	# 替换第2行的`old`为`new`
+
+$ nl ka.file | sed 7,9p
+	# 打印7-9行
+
+$ sed ":a;N;s/\n//g;ta" a.txt
+	# 替换换行符
+```
 
 ###	查找字符串、文件
 

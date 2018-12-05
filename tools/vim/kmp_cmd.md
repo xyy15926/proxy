@@ -1,5 +1,39 @@
 # Vim生存笔记
 
+##	Vim模式
+
+###	Normal模式
+
+###	Insert模式
+
+###	Visual模式
+
+###	Quickfix模式
+
+quickfix模式主要思想时保存一个位置列表，然后提供一系列命令，
+实现在这个位置列表中的跳转
+
+-	位置列表来源
+
+	-	编译器输出信息
+	-	`grep`命令输出信息（`cscope`命令）
+	-	`:vimgrep`命令
+
+-	quickfix中常用的命令有
+
+	-	`:copen`：打开quickfix模式窗口
+	-	`:cc`：显示详细错误信息
+	-	`:cp`：跳至下一个错误
+	-	`:cn`：跳至上一个错误
+	-	`:cl`：列出所有错误
+	-	`:cw`：如果有错误列表，则打开quickfix窗口
+	-	`:colder/col`：到前一个旧错误列表
+	-	`:cnewer/cnew`：到后一个新错误列表
+
+###	Ex模式
+
+###	Paste模式
+
 ##	 Motion快捷键
 
 normal模式下移动，visual模式下选取，无特殊说明visual和normal
@@ -139,6 +173,8 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 
 ####	查找
 
+#####	`/`/`?`
+
 `:/foo`向下查找，`:?foo`向上查找
 
 -	`set ingorecase`时，不敏感查找；`set smartcase`时，如果
@@ -146,11 +182,32 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 -	`:/foo\c`手动强制大小写不敏感，`:/foo\C`强制敏感
 -	`n`、`N`重复同向、反向之前查找
 
+#####	`:vimgrep`
+
+文件间搜索
+
+```md
+:vim[grep] /pattern/[g][j] files
+```
+
+-	选项
+	-	`g`：全局匹配（匹配每行全部）
+	-	`j`：查找完毕后，进更新quickfix列表，光标不跳转
+
+-	`files`
+	-	`%`：所有缓冲区文件
+	-	`**/xxxx`：当前目录及子目录所有满足`xxxx`模式文件
+	-	`pattern`：满足`pattern`的文件
+
 ####	替换
 
-`:s/foo/bar`
+#####	`:s`
 
--	替换区域，默认只替换当前行
+```vimscripts
+:[start,end]s/foo/bar[/i][I][g]
+```
+
+-	替换区域：默认只替换当前行
 	-	手动指定具体行号：`:2,4s/foo/bar`（左闭右开）
 	-	特殊符号
 		-	全文替换`%`：`:%s/foo/bar`
@@ -162,14 +219,22 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 	-	大小写不敏感`/i`、`\c`：`:%s/foo/bar/i`或`:%s/foo\c/bar`
 	-	大小写敏感`/I`、`\C`：`%s/foo/bar/I`或`:%s/foo\C/bar`
 	-	全局替换`/g`（替换每行全部模式）：`:%s/foo/bar/g`
-		-	默认情况下只替换首个模式：`foo,foobar`被替换为`bar,foobar`
+		-	默认情况下只替换首个模式：`foo,foobar`被替换为
+			`bar,foobar`
 		-	全局替换模式下：`foo,foobar`被替换为`bar,barbar`
 -	交互（确认）替换：`:%s/foo/bar/c`，每次替换前会询问
 
 ####	文本移动
 
--	`:[range]>`/`:[range]<`：范围内文本块右、左移动1个`shiftwidth`
-	-	移动num个`shiftwidth`添加num个`>/<`
+#####	`>`/`<`
+
+```md
+:[range]>
+:[range]<
+```
+
+-	范围内文本块右、左移动1个`shiftwidth`
+-	移动num个`shiftwidth`添加num个`>/<`
 
 ###	文件相关
 
