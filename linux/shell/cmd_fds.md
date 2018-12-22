@@ -64,6 +64,31 @@ $ ls [params] expr
 
 显示目录、文件磁盘占用量（文件系统数据库情况）
 
+####	参数
+
+-	`-a`/`--all`：显示**所有后代**各文件、文件夹大小
+	-	否则默认为显示**所有后代**文件夹大小
+-	`-c`/`--total`：额外显示总和
+-	`-s`/`--summarize`：仅显示总和
+-	`--max-depth=[num]`：显示文件夹的深度
+-	`-S`/`--separate-dirs`：文件夹大小不包括子文件夹大小
+
+-	`-b`/`--bytes`：以byte为单位
+-	`-k`/`--kilobytes`：以KB为单位
+-	`-m`/`--megabytes`：以MB为单位
+-	`-h`：human-readable，提升可读性
+-	`-H`/`--si`：同`-h`，但是单位换算以1000为进制
+
+-	`-x`/`--one-file-system`：以最初处理的文件系统为准，忽略
+	其他遇到的文件系统
+-	`-L=`/`--dereference=`：显示选项中指定的符号链接的源文件
+	大小
+-	`-D`/`--dereference-args`：显示指定符号链接的源文件大小
+-	`-X=`/`--exclude-from=[file]`：从文件中读取指定的目录、
+	文件
+-	`--exclude=[dir/file]`：掠过指定目录、文件
+-	`-l`/`--count-links`：重复计算hard-link
+
 ###	`wc`
 
 统计文件行数、单词数、字节数、字符数

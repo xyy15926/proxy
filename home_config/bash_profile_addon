@@ -33,4 +33,10 @@ alias rm="rm -i"
 alias ping="ping -c 3"
 alias ll="ls -l"
 alias l="ls -la"
+alias du="du -h -d 1"
+
+export JAVA_HOME=/opt/jdk
+export JRE_HOME=$JAVA_HOME/jre
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=$CLASSPATH:$JRE_HOME/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 

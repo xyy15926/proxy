@@ -426,7 +426,7 @@ $ cat output/*
 	-	否则分配一个单位，即最小值container
 
 -	`mapreduce.reduce.memeory.mb`：reduce task的内存分配
-	-	设置一般位map task的两倍
+	-	设置一般为map task的两倍
 
 -	`*.java.opts`：JVM进程参数设置
 	-	每个container（其中执行task）中都会运行JVM进程
@@ -441,6 +441,9 @@ $ cat output/*
 
 -	`yarn.nodemanager.resource.memory-mb`：节点内存设置
 	-	整个节点被设置的最大内存，剩余内存共操作系统使用
+
+-	`yarn.app.mapreduce.am.resource.mb`：每个Application
+	Manager分配的内存大小
 
 ####	主从文件
 
@@ -587,6 +590,12 @@ $ sbin/stop-yarn.sh
 		-	`${hadoop.tmp.dir}`
 		-	`${dfs.namenode.name.dir}`
 		-	`${dfs.datanode.data.dir}`
+
+#####	Unhealthy Node
+
+>	1/1 local-dirs are bad: /opt/hadoop/tmp/nm-local-dir; 1/1 log-dirs are bad: /opt/hadoop/logs/userlogs
+
+-	原因：磁盘占用超过90%
 
 ####	常用命令
 
@@ -922,7 +931,7 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_HOME/*:$TEZ_HOME/lib/*
 
 ####	HDFS
 
--	上传`tez.tar.gz`至HDFS中
+-	上传`$TEZ_HOME/share/tez.tar.gz`至HDFS中
 
 	```md
 	$ hdfs dfs -mkdir /apps
@@ -946,6 +955,7 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_HOME/*:$TEZ_HOME/lib/*
 #####	`tez-site.xml`
 
 -	模板：`conf/tez-default-tmplate.xml`
+-	好像还是需要复制到hadoop的配置文件夹中
 
 ```shell
 <property>
@@ -1011,6 +1021,13 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_HOME/*:$TEZ_HOME/lib/*
 
 ###	其他
 
+####	可能错误
+
+>	SLF4J: Class path contains multiple SLF4J bindings.
+
+-	原因：包冲突的
+-	解决方案：根据提示冲突包删除即可
+
 ##	Spark
 
 ###	依赖
@@ -1031,8 +1048,11 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_HOME/*:$TEZ_HOME/lib/*
 ```shell
 export SPARK_HOME=/opt/spark
 export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-export PYTHON_PATH=$PYTHON_PATH:$SPARK_HOME/python:$SPARK_HOME/python/lib
-	# `pyshark`、`py4j`模块
+export PYTHON_PATH=$PYTHON_PATH:$SPARK_HOME/python:$SPARK_HOME/python/lib/*
+	# 把`pyshark`、`py4j`模块对应的zip文件添加进路径
+	# 这里用的是`*`通配符应该也可以，手动添加所有zip肯定可以
+	# 否则无法在一般的python中对spark进行操作
+	# 似乎只要master节点有设置`/lib/*`添加`pyspark`、`py4j`就行
 ```
 
 ###	Standalone

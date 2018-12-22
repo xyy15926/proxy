@@ -51,6 +51,21 @@ MapReduce执行引擎运行在HDFS上
 	-	在节点上执行数据处理map、reduce tasks
 	-	可能需要从其他DataNode中获取需要数据
 
+##	MapRedudce2.0
+
+###	Shuffle
+
+Shuffle：系统执行排序的过程
+
+-	为了确保MapReduce的输入是按键排序的
+
+####	Map端
+
+每个Map Task都有一个内存缓冲区用于存储map输出结果，缓冲区
+快满时需要将缓冲区数据以临时文件方式存放到磁盘中，整个Task
+结束后再对此Map Task产生所有临时作合并，生成最终正式输出文件
+，等待Reduce Task拉数据
+
 ##	YARN
 
 Yet Another Resource Negotiator，通用任务、集群资源分配框架

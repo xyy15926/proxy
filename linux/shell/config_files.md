@@ -352,6 +352,36 @@ xxx.xxx.xxx.xxx name
 xxx.xxx.xxx.xxx domain.name
 ```
 
+###	DNS Resolver
+
+####	`/etc/resolv.conf`
+
+域名解析器（resolver）（DNS客户机）配置文件
+
+-	设置DNS服务器IP地址、DNS域名
+-	包含主机域名搜索顺序
+
+```cnf
+nameserver		114.114.114.114		# DNS服务器IP地址
+domain			localhost			# 本地域名
+search			search_list			# 域名搜索列表
+sortlist							# 允许将得到域名结果进行排序
+```
+
+说明
+
+-	`nameserver`：可以有多**行**，每行一个ip地址，查询时按照
+	顺序依次查找
+-	`domain`：声明主机域名
+	-	查询无域名主机时需要使用
+	-	邮件系统需要使用
+	-	未配置则使用主机名
+-	`search`：其参数指明域名查询顺序
+	-	查询无域名主机时，将在其参数声明域中分别查找
+	-	`domain`、`search`不共存，同时存在时，后者覆盖前者
+-	`sortlist`：对得到的域名结果进行特定排序
+	-	参数未网络/掩码对时，允许任意排列顺序
+
 ##	系统日志
 
 ###	`/var/log`

@@ -31,7 +31,7 @@ c.NotebookAppp.keyfile = u"/path/to/ssl_keyfile"
 ####	生成密文
 
 ```python
-frrom notebook.auth import passwd
+from notebook.auth import passwd
 passwd()
 	# 输入密码两次，然后就会返回对应密文，写入配置文件
 ```

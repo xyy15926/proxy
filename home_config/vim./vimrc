@@ -21,11 +21,23 @@ set number
 	"it will be usefule when counting lines
 syntax on
 	"#todo
+
+" solarized setting
+syntax enable
+let g:solarized_termcolors=256
+let g:solarized_termtrans=0
+let g:solarized_degrade=0
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_italic=1
+let g:solarized_contrast="high"
+let g:solarized_visibility="normal"
 set background=dark
 	"backgroud color
 colorscheme gruvbox
 	"so amazing a colorscheme
-hi normal ctermbg=none
+
+"hi normal ctermbg=none
 	"make terminal vim transperant
 	"ctermbg may be the termianl background, set it none will
 	"cover any setting about background, so this has to be
@@ -110,6 +122,8 @@ set termencoding=utf-8
 	"terminal encoding
 set encoding=utf-8
 	"vim encofing, including buffer, menu
+set textwidth=60
+	"break line after 60 chars
 
 filetype plugin indent on
 	"switch filetype detection, plugin, indent on

@@ -1,4 +1,4 @@
-#	Data Science
+#	Data Science总述
 
 ##	范畴
 
@@ -59,7 +59,7 @@
 
 ##	模型评估
 
-###	方向
+###	评估方向
 
 ####	模型误差
 
@@ -96,8 +96,10 @@
 
 #####	解决方法
 
--	减少特征数量-模型选择：最优子集回归
+-	减少特征数量（模型选择）：最优子集回归
 -	正则化：岭回归、LASSO、Elastic Net
+-	Dropout：每次训练部分神经元
+-	提前终止模型训练
 
 ###	分类预测模型
 
@@ -207,12 +209,12 @@ $$
 -	支持向量机通过非线性变量$\phi(x)$，将输入空间映射到高维
 	特征空间，特征空间维数可能非常高。
 -	如果支持向量机之后求解只需要用到内积运算，而在低维空间
-	存在某个函数$K(X, X^')$（核函数），恰好等于高维空间内积
+	存在某个函数$K(X, X^{'})$（核函数），恰好等于高维空间内积
 	$$
-	K(X, X^')=<\phi(X), \phi(X^')>
+	K(X, X^{'})=<\phi(X), \phi(X^{'})>
 	$$
 -	那么支持向量机就不用计算复杂的非线性变换，可以直接由
-	$K(X, X^')$得到内积，简化计算
+	$K(X, X^{'})$得到内积，简化计算
 
 ###	Uniform Kernel
 
@@ -277,7 +279,7 @@ $$
 
 $$
 G(t) = 1 - \sum_{j=1}^k p^2(j|t) \\
-\delta G(t) = G(t) - (\frac {N_r} N G(t_r) + \frac {N_l} N G(t_l))
+\Delta G(t) = G(t) - (\frac {N_r} N G(t_r) + \frac {N_l} N G(t_l))
 $$
 
 -	异质性最小时Gini系数为0
@@ -344,11 +346,16 @@ $$
 	$$
 	H(X, Y) = H(X) + H(Y|X) \\
 	H(X, Y) = H(Y) + H(X|Y) \\
-	H(X|Y) \ltslant H(x) \\
-	H(X, Y) \ltslant H(X) + H(Y) \\
+	H(X|Y) \leqslant H(x) \\
+	H(X, Y) \leqslant H(X) + H(Y) \\
 	$$
 
 ####	误分率
+
+$$
+1 - \hat p_{m, k(m)} = \frac 1 {n_m}
+	\sum_{x_i \in R_m} I(y_i \neq k(m))
+$$
 
 ####	KLP统计量
 
@@ -412,9 +419,21 @@ $$
 4.	重复k次得到k个自举样本$S_1, S_2, ..., S_k$，以及K个预测
 	模型$T_1, T_2, ..., T_k$
 
+#####	缺点
+
+-	对离群点、奇异点敏感
+
+#####	优点
+
+-	对过拟合不敏感
+
 ##	参数估计
 
 ###	全局估计
+
+$$
+\Theta = \Theta - \alpha \Delta_\Theta J(\Theta)
+$$
 
 同时考虑所有**待估参数**、**样本**
 
@@ -438,7 +457,7 @@ $$
 
 -	特性：某些算法
 	-	良好的并行特性：能够同时更新多个参数
-		-	Alternative Direction Linearization Method
+		-	Alternating Direction Method of Multipliers
 	-	采用贪心策略的算法：可能无法得到最优解
 		-	前向回归
 		-	深度学习：网络层次太深，有些算法采用*固化*部分
@@ -446,20 +465,113 @@ $$
 	-	能够平衡全局、局部：得到较好的解
 		-	LARS
 
-###	Mini Batch
+###	Mini-Batch
 
-每次使用部分样本更新参数
+$$
+\Theta = \Theta - \alpha \Delta_\Theta J(\Theta; x[i:i+n], y[i:i+n])
+$$
 
--	一般在机器学习算法用使用较多
-	-	适合样本量较大时使用，无法使用样本整体进行估计
-	-	开始阶段收敛速度快，之后受限于每次只使用一个batch
-		的样本更新参数
-		-	往往很难得到最优解
-		-	而且结果可能不稳定
+每次使用部分样本更新参数（极小化优化函数）
+
+####	特点
+
+-	适合样本量较大时使用，无法使用样本整体进行估计
+
+-	开始阶段收敛速度快，之后受限于每次只使用一个batch的样本
+	更新参数
+	-	结果可能不稳定，往往很难得到最优解
 	-	因此往往需要对样本更新多次epoch
 
--	应用
-	-	深度学习：往往样本量大，无法直接估计
+-	一定程度上能避免局部最优（随机batch能够越过）
+
+-	batch-size为1时就是Stochastic Gradient Descent，但是SGD
+	速度太慢，一般不采用
+
+####	应用
+
+-	深度学习：往往样本量大，无法直接估计
+
+####	缺陷
+
+-	选择适当学习率$\alpha$困难，太小学习率收敛速率缓慢，学习
+	率过大则会造成较大波动
+
+	-	可以采用模拟退火算法，在训练过程中调整学习率大小，即
+		达到一定迭代次数、损失函数小于阈值时，减小学习速率
+
+-	依然容易陷入局部极小值
+
+###	Momemntum
+
+$$
+v_t = \gamma v_{t-1} + \alpha \Delta_\Theta J(\Theta) \\
+\Theta = \Theta - v_t
+$$
+
+借用物理中动量概念，模拟物体运动时惯性，即在使用batch计算的
+梯度更新时，一定程度上保持之前更新的方向
+
+-	可以在一定程度上保持稳定性，学习速度更快
+-	能够越过部分局部最优解
+
+####	Nesterov Momentum
+
+$$
+v_t = \gamma v_{t-1} +
+	\alpha \Delta_\Theta J(\Theta - \gamma v_{t-1}) \\
+\Theta = \Theta - v_t
+$$
+
+在动量基础上，不仅考虑使用动量修正最终方向，还考虑**再次**
+对当前位置使用动量进行修正
+
+![momentum](imgs/momentum.png)
+
+###	Adagrad
+
+$$
+j^{(t)}_i = \Delta_\Theta^{(t)} J(\Theta)[i] \\
+\Theta^{(t+1)}_i = \Theta^{t+1}_i - \frac \alpha
+	{\sqrt {G^{(t)}_{ii} + \epsilon}} j^{(t)}_i
+$$
+
+-	$j^{(t)}_i$：对t轮梯度第i个分量
+-	$G$：对角阵，对角线元素$G_{ii}$为对应参数累计平方和
+-	$\epsilon$：fuss factor，避免分母为0
+
+在训练中自动对不同参数学习率**分别**进行调整
+
+-	对于出现频率较低的参数使用较大$\alpha$进行更新，出现频率
+	较高采用较小$\alpha$更新
+
+-	缺点是在训练后期，分母中梯度平方累加很大，梯度接近0，
+	训练提前结束（收敛速度慢，触发阈值）
+
+####	RMSprop
+
+```md
+E[j^2]^{(t+1)} = \alphaE[j^2] + (1-\alpha)[{j^2}^{(t)}]
+```
+
+使用$E$替换Adagrad中的$G$，避免学习速率下降太快
+
+####	Adam
+
+$$
+m^{(t)} = \beta_1 m^{t-1} + (1-\beta_1)j^{(t)} \\
+v^{(t)} = \beta_2 v^{t-1} + (1-\beta_2)j^{(t)} \\
+\hat_{m^{(t)}} = \frac {m^{(t)}} {1-\beta^{(t)}_1} \\
+\hat_{v^{(t)}} = \frac {v^{(t)}} {1-\beta^{(t)}_2} \\
+\Theta^{(t+1)} = \Theta^{(t)} - \frac \alpha
+	{\sqrt{\hat_{v^{(t)}} + \epsilong}} \hat_{m^{(t)}
+$$
+
+利用梯度的一阶矩$m^{(t)}$、二阶矩$v^{(t)}$动态调整每个参数
+学习率
+
+-	经过偏执矫正后，每次迭代学习率都有确定范围，参数比较平稳
+
+####	Adadelta
 
 ##	距离
 
@@ -479,7 +591,9 @@ $dist(x,y)$：不一定是空间距离，应该认为是两个对象x、y之间�
 
 ####	曼哈顿距离
 
-####	Consine Similarity余弦相似度
+####	Consine Similarity
+
+余弦相似度
 
 ###	组间距离
 
@@ -489,5 +603,162 @@ $dist(x,y)$：不一定是空间距离，应该认为是两个对象x、y之间�
 
 ####	Complete Linkage
 
+##	激活函数
+
+###	指数类
+
+####	Sigmoid
+
+将实数映射到(0, 1)区间
+
+-	用途
+	-	隐层神经元输出
+	-	二分类输出
+
+-	缺点
+	-	激活函数计算量大，BP算法求误差梯度时，求导涉及除法
+	-	误差反向传播时容易出现梯度消失
+	-	函数收敛缓慢
+
+$$
+sigmoid(x) = \frac 1 {1+e{-x}}
+$$
+
+####	Hard_Sigmoid
+
+计算速度比sigmoid激活函数快
+
+$$
+hard_signmoid(x) =
+\left \{ \begin {array} {c}
+	0 & x < -2.5 \\
+	1 & x > 2.5 \\
+	0.2*x + 0.5 -2.5 <= x <= 2.5 \\
+\end {array} \right.
+$$
+
+####	Softmax
+
+主要用于多分类神经网络输出
+
+-	使用指数
+	-	拉开数值之间差距，大者更大，小者更小
+	-	保证激活函数可导
+
+-	Softmax回归参数冗余
+
+$$
+softmax(x_i) = \frac {e_{x_i}} {\sum_{k=1}^K e^{x_k}}
+$$
+
+####	Softplus
+
+$$
+softplus(x) = log(exp(x)+1)
+$$
+
+####	Tanh
+
+双曲正切函数
+
+$$
+\begin{align}
+tanh(x) & = \frac {sinhx} {coshx} \\
+	= \frac {e^x - e^{-x}} {e^x + e^{-x}} \\
+\end{align}
+$$
+
+
+###	线性指数类
+
+####	Elu
+
+线性指数
+
+$$
+elu(x, \alpha) =
+\left \{ \beign {array} {c}
+	x & x > 0 \\
+	\alpha (e^x - 1) \\
+\end {array} \right.
+$$
+
+####	Selu
+
+可伸缩指数线性激活：可以两个连续层之间保留输入均值、方差
+
+-	正确初始化权重：`lecun_normal`初始化
+-	输入数量足够大：`AlphaDropout`
+-	选择合适的$\alpha, scale$值
+
+$$
+selu(x) = scale * elu(x, \alpha)
+$$
+
+###	线性类
+
+####	Softsign
+
+$$
+softsign(x) = \frac x {abs(x) + 1)}
+$$
+
+####	ReLU
+
+修正线性单元：Rectfied Linear Units
+
+$$
+relu(x, max_value) =
+\left \begin \{ {array} {c}
+0 & x=<0 \\
+x & 0 < x < max_value \\
+max_value x> >= max_value \\
+\end {array} \right.
+
+####	LeakyReLU
+
+带泄露的修正线性：Leaky ReLU
+
+$$
+relu(x, /alpha, max_value) =
+\left \{ \begin {array} {c}
+\alpha x & x=<0 \\
+x & 0 < x < max_value \\
+max_value x> >= max_value \\
+\end {array} \right.
+
+####	PReLU
+
+参数化的修正线性：Parametric ReLU
+
+-	参数$\alpha$是自学习参数（数组）
+	-	需要给出权重初始化方法（正则化方法、约束）
+
+$$
+prelu(x) =
+\left \{ \begin {array} {c}
+\alpha x & x < 0 \\
+x & x> 0
+\end {array} \right.
+
+####	ThreshholdReLU
+
+带阈值的修正线性
+
+$$
+threshhold_relu(x, theta)=
+\left \{ \begin{array} {c}
+x & x > theta \\
+0 & otherwise
+\begin{array} {c} \right.
+$$
+
+####	linear
+
+线性激活函数：不做任何改变
+
+###	梯度消失
+
+激活函数导数太小（$<1），压缩**误差**变化
 
 

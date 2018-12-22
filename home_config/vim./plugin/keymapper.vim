@@ -9,9 +9,10 @@
 
 "set JK to normal
 "
-inoremap KK <esc>
-vnoremap KK <esc>
-nnoremap KK <NUL>
+inoremap JK <esc>
+vnoremap JK <esc>
+"nnoremap JK <NUL>
+nnoremap K <nop>
 "inoremap <esc> <nop>
 	"<nop>: no operation, disable <esc> to normal mode
 

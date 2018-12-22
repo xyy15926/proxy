@@ -160,7 +160,7 @@ Bagging：Bootstrap Aggregating，核心为Bootstrap（重抽样自举）
 		为$(1 - \frac 1 n)^n \approx \frac 1 e = 0.367$，
 	-	与10折交叉验证相比，每个模型训练样本小于10时的90%，
 		单个模型为若模型，组合模型为强模型
-	-	Baggin中的变量性度量：输入变量在k棵树的中异质性下降
+	-	Bagging中的变量性度量：输入变量在k棵树的中异质性下降
 		总和
 
 ###	Boosting技术
@@ -201,6 +201,9 @@ Bagging：Bootstrap Aggregating，核心为Bootstrap（重抽样自举）
 变量的子集能够一定程度上避免贪心算法带来的局部最优局限
 
 #todo
+
+-	启发式操作
+-	优化操作
 
 ###	GBDT
 
@@ -309,7 +312,22 @@ $$
 
 ####	损失函数确定
 
+### XGBoost
 
+一般模型构建准则通常由两部分构成
+
+$$
+Obj(\Theta) = L(\Theat) + \Omega(\Theta)
+$$
+
+-	其中：$L(\Theta)$表示模型拟合能力
+-	$\Omega(\Theta)$描述模型复杂度
+
+在XGBoost中
+
+$$
+Obj(\Theta)
+$$
 
 ##	树算法
 

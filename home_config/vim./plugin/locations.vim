@@ -28,9 +28,9 @@ noremap # :set hls<cr>#
 set cursorcolumn
 set cursorline
 "set cursorcolumn* with highlight-group grey
-highlight cursorcolumn cterm=none ctermbg=22
+highlight cursorcolumn cterm=none ctermbg=58
 	"the number show the color
-highlight cursorline cterm=none ctermbg=22
+highlight cursorline cterm=none ctermbg=58
 "
 "}}}
 
