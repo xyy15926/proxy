@@ -116,12 +116,14 @@ set nobackup
 set directory=~/.vim/tmp
 	"#todo
 set fileencodings=utf-8,ucs-bom,gbk10820,gbk,gb2312
-	"file encodings, vim will try after this sequence when
-	"open a new file
+	"vim file-reading encodings, vim will try after this
+	"sequence when open a new file
 set termencoding=utf-8
 	"terminal encoding
 set encoding=utf-8
-	"vim encofing, including buffer, menu
+	"vim file-processing encoding, including buffer, menu
+set fileencoding=utf-8
+	"vim file-saving encoding
 set textwidth=60
 	"break line after 60 chars
 

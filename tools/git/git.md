@@ -30,3 +30,25 @@
 -	修改`.git/info/exclude`文件，添加忽略规则
 	-	对单一项目有效
 	-	非所有人共用忽略规则
+
+##	`config`
+
+###	User
+
+```c
+$ git config user.name
+$ git config user.email
+	# 查看用户名、邮箱
+$ git config --global user.name "username"
+$ git config --global user.email "email"
+	# 设置全局用户名、邮箱
+$ git config --local user.name "username"
+$ git config --local user.email "email"
+	# 设置当前git repo用户名、邮箱
+```
+
+
+
+
+
+
