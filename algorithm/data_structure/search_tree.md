@@ -124,11 +124,11 @@
 	$$\begin{align}
 	C(i, j) & = \min_{i \leqslant k \leqslant j} \{p_k + 
 			\sum_{s=i}^{k-1} p_s * (a_s在T_i^{k-1}中层数 + 1) +
-			\sum_{s=k+1}^j p_s * (a_s在T_{k+1}^j中层数 + 1) \\
+			\sum_{s=k+1}^j p_s * (a_s在T_{k+1}^j中层数 + 1) \}\\
 		& = \min_{i \leqslant k \leqslant j} \{
 			\sum_{s=i}^{k-1} p_s * a_s在T_i^{k-1}中层数 +
 			\sum_{s=k+1}^j p_s * a_s在T_{k+1}^j中层数 +
-			\sum_{s=i}^j p_s \}
+			\sum_{s=i}^j p_s \} \\
 		& = \min_{i \leqslant k \leqslant j}
 			\{C(i, k-1) + C(k+1, j)\} + \sum_{s=i}^j p_s
 	\end{align}$$
@@ -137,7 +137,7 @@
 
 -	$1 \leqslant i \leqslant n, C(i, i)=p_i$：单节点
 
-```md
+```c
 OptimalBST(P[1..n])
 	// 动态规划法构建最优二叉查找树
 	// 输入：P[1..n]n个键查找概率

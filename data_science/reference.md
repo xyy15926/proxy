@@ -427,6 +427,10 @@ $$
 
 -	对过拟合不敏感
 
+####	Grediant Boost
+
+
+
 ##	参数估计
 
 ###	全局估计
@@ -664,7 +668,7 @@ $$
 $$
 \begin{align}
 tanh(x) & = \frac {sinhx} {coshx} \\
-	= \frac {e^x - e^{-x}} {e^x + e^{-x}} \\
+	& = \frac {e^x - e^{-x}} {e^x + e^{-x}} \\
 \end{align}
 $$
 
@@ -677,10 +681,10 @@ $$
 
 $$
 elu(x, \alpha) =
-\left \{ \beign {array} {c}
+\left \{ \begin{array} {c}
 	x & x > 0 \\
-	\alpha (e^x - 1) \\
-\end {array} \right.
+	\alpha (e^x - 1) & x \leqslant 0 \\
+\end{array} \right.
 $$
 
 ####	Selu
@@ -709,7 +713,7 @@ $$
 
 $$
 relu(x, max_value) =
-\left \begin \{ {array} {c}
+\left \{ \begin{array} {c}
 0 & x=<0 \\
 x & 0 < x < max_value \\
 max_value x> >= max_value \\

@@ -1,4 +1,4 @@
-# 激活函数
+#	激活函数
 
 -	通过设置单独的激活层实现
 	```python
@@ -23,7 +23,7 @@
 	model.add(Dense(64, activation=K.tanh))
 	model.add(Activation(K.tanh))
 	```
-## softmax
+##	softmax
 
 
 ```python
@@ -46,7 +46,7 @@ Softmax激活函数
 
 	-	`ValueError`： In case `dim(x) == 1`
 
-### elu
+###	elu
 
 ```python
 elu(
@@ -67,7 +67,7 @@ elu(
 -	参考文献
 	-	[Fast and Accurate Deep Network Learning by Exponential Linear Units (ELUs)](https://arxiv.org/abs/1511.07289)
 
-## selu
+##	selu
 
 ```python
 selu(x)
@@ -75,85 +75,67 @@ selu(x)
 
 可伸缩的指数线性单元（SELU）。
 
-SELU 等同于：`scale * elu(x, alpha)`，其中 alpha 和 scale 是预定义的常量。只要正确初始化权重（参见 `lecun_normal` 初始化方法）并且输入的数量「足够大」（参见参考文献获得更多信息），选择合适的 alpha 和 scale 的值，就可以在两个连续层之间保留输入的均值和方差。
 
-参数
+-	参数
+	-	`x`: 一个用来用于计算激活函数的张量或变量。
 
-- x: 一个用来用于计算激活函数的张量或变量。
+-	返回值：可伸缩线性指数激活
+	-	可伸缩的指数线性激活：`scale * elu(x, alpha)`
+		（`scale, alpha`应该是预定义常数？）
 
-返回
+-	注意
+	-	与「lecun_normal」初始化方法一起使用。
+	-	与 dropout 的变种「AlphaDropout」一起使用。
+	-	只要正确初始化权重（参见 `lecun_normal` 初始化方法）
+		并且输入的数量「足够大」（参见参考文献获得更多信息）
+		，选择合适的`alpha`和`scale`的值，就可以在两个连续层
+		之间保留输入的均值和方差
 
-可伸缩的指数线性激活：`scale * elu(x, alpha)`。
+-	参考文献
+	-	[Self-Normalizing Neural Networks](https://arxiv.org/abs/1706.02515)
 
-注意
-
-- 与「lecun_normal」初始化方法一起使用。
-- 与 dropout 的变种「AlphaDropout」一起使用。
-
-参考文献
-
-- [Self-Normalizing Neural Networks](https://arxiv.org/abs/1706.02515)
-
-----
-
-### softplus
-
+##	softplus
 
 ```python
 softplus(x)
 ```
 
-Softplus 激活函数。
+Softplus 激活函数
 
-参数
+-	返回值：$log(exp(x) + 1)$
 
-- x: 张量。
-
-返回
-
-Softplus 激活：`log(exp(x) + 1)`。
-
-----
-
-### softsign
+##	softsign
 
 
 ```python
 softsign(x)
 ```
 
-Softsign 激活函数。
+Softsign 激活函数
 
-参数
-
-- x: 张量。
-
-返回
-
-Softsign 激活：`x / (abs(x) + 1)`。
-
-----
+-	返回值：$x / (abs(x) + 1)$
 
 ### relu
 
 
 ```python
-relu(x, alpha=0.0, max_value=None)
+relu(
+	x,
+	alpha=0.0,
+	max_value=None
+)
 ```
 
 线性修正单元。
 
-参数
+-	参数
+	-	`alpha`：负数部分的斜率。默认为 0。
+	-	 `max_value`：输出的最大值
 
-- x: 张量。
-- alpha：负数部分的斜率。默认为 0。
-- max_value：输出的最大值
-
-返回
-
-线性修正单元激活：如果 `x > 0`，返回值为 `x`；如果 `x < 0`，返回值为 `alpha * x`。如果定义了 max_value，则结果将截断为此值。
-
-----
+-	返回值：线性修正单元激活
+	-	`x > 0`：返回值为 `x`
+	-	`x < 0`：返回值为 `alpha * x`
+	-	如果定义了`max_value`，则结果将截断为此值
 
 ### tanh
 
@@ -161,9 +143,7 @@ relu(x, alpha=0.0, max_value=None)
 tanh(x)
 ```
 
-双曲正切激活函数。
-
-----
+双曲正切激活函数
 
 ### sigmoid
 
@@ -172,12 +152,9 @@ tanh(x)
 sigmoid(x)
 ```
 
-Sigmoid 激活函数。
-
-----
+Sigmoid 激活函数
 
 ### hard_sigmoid
-
 
 ```python
 hard_sigmoid(x)
@@ -185,17 +162,13 @@ hard_sigmoid(x)
 
 Hard sigmoid 激活函数。
 
-计算速度比 sigmoid 激活函数更快。
+-	说明
+	-	计算速度比 sigmoid 激活函数更快。
 
--	返回
-
-Hard sigmoid 激活：
-
-- 如果 `x < -2.5`，返回 0。
-- 如果 `x > 2.5`，返回 1。
-- 如果 `-2.5 <= x <= 2.5`，返回 `0.2 * x + 0.5`。
-
-----
+-	返回值：Hard sigmoid 激活：
+	-	`x < -2.5`：返回 0
+	-	`x > 2.5`：返回 1
+	-	`-2.5 <= x <= 2.5`：返回 `0.2 * x + 0.5`
 
 ### linear
 
@@ -207,6 +180,3 @@ linear(x)
 线性激活函数（即不做任何改变）
 
 
-## 高级激活函数
-
-对于Theano/TensorFlow/CNTK不能表达的复杂激活函数，如含有可学习参数的激活函数，可通过[高级激活函数](layers/advanced-activations.md)实现，可以在 `keras.layers.advanced_activations` 模块中找到。 这些高级激活函数包括 `PReLU` 和 `LeakyReLU`

@@ -237,6 +237,11 @@ NETMASK=255.255.255.0		# 子网掩码
 BROADCAST=	
 
 HWADDR=xxxxxxxxxx			# 接口MAC地址
+							# 配置文件都会被执行，`HWADDR`
+							# 能匹配上硬件，配置才会生效，
+							# 否则硬件使用默认配置
+							# 若多个配置文件配置相同`HWADDR`
+							# 则操作network服务时报错
 UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 							# 通用唯一识别码：不能相同（注意虚拟机）
 

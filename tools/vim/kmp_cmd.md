@@ -1,4 +1,4 @@
-# Vim生存笔记
+# Vim KeyMapper CMD
 
 ##	Vim模式
 
@@ -21,7 +21,8 @@ quickfix模式主要思想时保存一个位置列表，然后提供一系列命
 
 -	quickfix中常用的命令有
 
-	-	`:copen`：打开quickfix模式窗口
+	-	`:copen`/`:cw`：打开quickfix模式窗口
+	-	`:cclose`：关闭quickfix窗口
 	-	`:cc`：显示详细错误信息
 	-	`:cp`：跳至下一个错误
 	-	`:cn`：跳至上一个错误
@@ -195,7 +196,9 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 	-	`j`：查找完毕后，进更新quickfix列表，光标不跳转
 
 -	`files`
-	-	`%`：所有缓冲区文件
+	-	`%`：当前文件
+	-	`*`：当前目录
+	-	`**/*`：仅子目录
 	-	`**/xxxx`：当前目录及子目录所有满足`xxxx`模式文件
 	-	`pattern`：满足`pattern`的文件
 
@@ -243,10 +246,12 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 -	`:e!`：放弃本次修改（和:q!不同在于不会退出vim）
 -	`:bufdo e!`：放弃vim所有已打开文件修改
 -	`:e`：重新加载文件
+-	`:e#`：当前窗口加上个buffer（反复切换）
 -	`:bufdo e`：重新加载vim所有已打开文件
 -	`:saveas new_file_name`：另存为，不删除原文件
 -	`:sb[n]`：split窗口加载第n个buffer
 -	`:b[n]`：当前窗口加载第n个buffer
+-	`:n[n]`：当前窗口加载下/第n个buffer
 
 ####	Window
 
