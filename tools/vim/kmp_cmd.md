@@ -154,7 +154,15 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 
 -	`K`：对当前单词调用`keywordprg`设置的外部程序，默认“man”
 
-###	界面
+###	Diff
+
+-	`]c`/`[c`：比较窗口中移至下个不同的为止
+-	`do`/`dp`：将当前比较窗口中不同区域，同步**为/至**另一个
+	窗口该位置
+
+##	界面变动
+
+###	窗口
 
 ####	Window
 
@@ -163,10 +171,20 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 -	`<c-w-+/->`：竖直方向扩展/收缩当前窗口
 -	`<c-w->/<>`：水平方向扩展/收缩当前窗口
 -	`<c-w-=>`：恢复当前窗口高度
+-	`ZZ`：保存退出
+-	`ZQ`：放弃保存退出
 
 ####	Tab
 
 -	`[n]gt`/`gT`：下/上一个tab；第n个tab
+
+###	内容
+
+####	折叠
+
+-	`za`：折叠toggle
+-	`zo`：折叠打开
+-	`zc`：折叠关闭
 
 ##	Vim Cmd常用命令
 
@@ -261,11 +279,14 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 -	`:[n]winc +/-`：竖直方向扩展/收缩
 -	`:res+/-[n]`：竖直方向扩展/收缩
 -	`:vertical res+/-[n]`：水平方向扩展/收缩
--	`:res[n]`：高度设置为n单位
+-	`:ressize[n]`：高度设置为n单位
 -	`:vertical res[n]`：宽度设置为n单位
--	`:q`：退出当前窗口
+-	`:quit[!]`：退出当前窗口
+	-	`!`：强制退出，修改不保存
+-	`:close`：关闭当前窗口
 -	`:qa`：退出所有窗口
 -	`:wq`：保存、退出当前窗口
+-	`:x`：类似于`wq`，但是未修改则**不写入**
 
 注：
 
@@ -282,34 +303,101 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 -	`:tabfirst`/`:tablast`：第一个/最后一个tab
 -	`:tabn [num]`：查看下一个/第num个tab
 
+####	Diff
+
+-	`:diffsplit [filename]`：上下分割窗口和当前窗口比较
+
+	-	默认同当前文件进行diff
+
+-	`:difft`：将当前窗口变为比较窗口
+
+	-	若没有其他比较窗口，则没有明显变化
+	-	若存在其他比较窗口，则加入比较
+
+-	`:diffu[pdate][!]`：更新当前比较窗口
+
+	-	比较状态下修改当前文件后，重新生成比较信息
+	-	`!`：重新载入文件后更新（外部修改文件）
+
+-	`:diffo[!]`：关闭当前窗口比较状态
+
+	-	`!`：关闭所有窗口比较状态
+
 ###	其他
 
 ####	多行语句
 
 "|"管道符可以用于隔开多个命令`:echom "bar" | echom "foo"`
 
-##	Vim不常用命令
+####	`:vertical`
 
--	`vim -r [file_name]`：常看交换文件（特定文件对应交换文件）
--	`vim -S session-file`：打开session的方式启动vim 
-	-	需要配合vim命令行:mksession[!] session-file先创建
-		session文件（记录vim当前的状态，包括buff区已加载文件）
-	-	也可以直接进入vim，`:source session-file`载入session
+`:vertical`基本可以用所和窗口有关命令之前，表示左右（分割）
 
-##	其他
+-	`:vert split`/`:vs`：左右分割窗口
+-	`:vert sb[n]`：左右分割窗口载入`buff[n]`
+-	`:vert diffs file_name`：左右分割窗口`diffs`
+-	`:vert res +/-[n]`：调整窗口大小
+
+##	其他CMD命令
 
 ###	编辑过程中使用shell
 
 -	`:!{shell command}`即可直接执行shell命令并暂时跳出vim
 	-	`:r !{shell command}`可以将输出结果读取到当前编辑
 	-	`:w !{sheel command}`可以将输出结果输出到vim命令行
+
 -	`:shell`即可暂时进入到shell环境中，`$exit`即可回到vim中
-	#todo
--	`<c-z>`暂时后台挂起vim回到shell环境中，`$fg`即可
-	回到之前挂起的进程（此时为vim，详见fg命令）
 
-###	#todo
+-	`<c-z>`暂时后台挂起vim回到shell环境中，`$fg`即可回到之前
+	挂起的进程（此时为vim，详见fg命令）
 
-###	#todo2
+###	读取结果
+
+-	`:read cmd`：读取`cmd`结果至光标下一行
+	-	`:read !date`：读取系统`date`命令结果
+
+###	交换文件处理
+
+-	确认需要恢复：直接恢复`R`
+
+-	确认丢弃：直接删除`D`
+
+-	没有明确目标：只读打开`O`
+
+-	比较交换文件、现在文件差别
+
+	-	恢复打开`R`
+	-	另存为其他文件`:saveas filname.bak`
+	-	与当前文件对比`:diffsplit filename`
+
+-	一般不会直接`E`（*edit anyway*）
+
+##	Vim命令行参数
+
+###	`vim`
+
+`$ vim [filname]`：打开一般窗口
+
+-	`-r [filename]`：常看交换文件（特定文件对应交换文件）
+
+-	`-R [filename]`：只读方式打开文件
+
+-	`-S session-file`：打开session的方式启动vim 
+
+	-	需要配合vim命令行:mksession[!] session-file先创建
+		session文件（记录vim当前的状态，包括buff区已加载文件）
+	-	也可以直接进入vim，`:source session-file`载入session
+
+###	`vimdiff`
+
+`$ vimdiff [file1] [file2]`：打开**比较窗口**
+
+-	`-u`：合并模式比较
+-	`-c`：上下文模式比较
+
+> - 后面两个模型可常用于输出重定向至新文件
+
+
+
 
 

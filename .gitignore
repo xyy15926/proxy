@@ -22,5 +22,5 @@ __pycache__/
 .project
 
 # rep diy
-/home_config/local./share/
-/home_config/vim./bundles/*
+/home_config/local/share/
+/home_config/vim/bundles/*

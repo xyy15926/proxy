@@ -31,9 +31,13 @@ export PYTHONPATH="$PAHT:$HOME/Code/pyutils"
 
 alias rm="rm -i"
 alias ping="ping -c 3"
+alias ls="ls --color --group-directories-first"
+# alias ll='ls -l --color $*| sort -s -k 1,1'
+	# `sort` implementation for `--group-directories-first`
 alias ll="ls -l"
-alias l="ls -la"
+alias la="ls -la"
 alias du="du -h -d 1"
+alias vims="vim -S"
 
 export JAVA_HOME=/opt/jdk
 export JRE_HOME=$JAVA_HOME/jre

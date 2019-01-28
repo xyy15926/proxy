@@ -52,40 +52,33 @@ var = K.zeros(shape=(3, 4, 5))
 var = K.ones(shape=(3, 4, 5))
 ```
 
-##	Keras配置
+##	配置相关函数
 
-###	`$HOME/.keras/keras.json`
-
-```json
-{
-	"image_data_format": "channel_last",
-		# 指定Keras将要使用数据维度顺序
-	"epsilon": 1e-07,
-		# 防止除0错误数字
-	"flaotx": "float32",
-		# 浮点数精度
-	"backend": "tensorflow"
-		# 指定Keras所使用后端
-}
-```
-
-## Kera后端函数
-
-###	配置相关
-
-#### `backend`
+### `backend`
 
 返回当前后端
 
-####	`epsilon`
+###	`epsilon`
 
-数值表达式中使用fuzz factor，用于防止除0错误
+```python
+K.epsilon()
+```
 
-####	`set_epsilon`
+返回数字表达式使用*fuzz factor*
 
-设置*fuzz factor*
+###	`set_epsilon`
 
-####	`floatx`
+```python
+K.set_epsilon(e(float))
+```
+
+设置模糊因子的值
+
+###	`floatx`
+
+```python
+K.floatx()
+```
 
 返回默认的浮点数数据类型
 
@@ -93,41 +86,66 @@ var = K.ones(shape=(3, 4, 5))
 -	`float32`
 -	`float64`
 
-####	`set_floatx`
+###	`set_floatx`
+
+```python
+K.set_floatx(
+	floatx="float16"/"float32"/"float64"
+)
+```
 
 设置默认的浮点数数据类型（字符串表示）
 
--	'float16'
--	'float32'
--	'float64'
+###	`cast_to_floatx`
 
-####	`cast_to_floatx`
+```python
+K.cast_to_floatx(x)
+```
 
 将NDA转换为默认的Keras floatx类型（的NDA）
 
-####	`image_data_format`
+-	例子
+
+	```python
+	K.floatx()
+		# "float32"
+	arr = np.array([1.0, 2.0], dtype="flaot64")
+	arr.dtype
+		# "float64"
+	new_arr = K.cast_to_float(arr)
+	new_arr.dtype
+		# "float32"
+	```
+
+###	`image_data_format`
+
+```python
+K.image_data_format()
+```
 
 返回图像的默认维度顺序
 
 -	`channels_last`
 -	`channels_first`
 
-####	`set_image_data_format`
+###	`set_image_data_format`
+
+```python
+K.set_image_data_format(
+	data_format="channel_first"/"channel_last"
+)
+```
 
 设置图像的默认维度顺序
 
--	`tf`
--	`th`
+##	辅助函数
 
-###	运算相关
-
-####	`is_keras_tensor`
+###	`is_keras_tensor`
 
 判断是否是Keras Tensor对象
 
 ```python
-from keras import backend as K
-np_var = numpy.array([1, 2])
+np_var = np.array([1, 2])
 K.is_keras_tensor(np_var)
 	# False
 keras_var = K.variable(np_var)
@@ -140,39 +158,86 @@ K.is_keras_tensor(keras_placeholder)
 	# True
 ```
 
-####	`get_uid`
+###	`get_uid`
 
-获得默认计算图的uid，依据给定的前缀提供一个唯一的UID
+```python
+K.get_uid(prefix=''/str)
+```
 
--	参数：为表示前缀的字符串
--	返回值：整数
+获得默认计算图的uid
 
-####	`reset_uids`
+-	说明
+
+	-	依据给定的前缀提供一个唯一的UID
+
+-	参数
+
+	-	`prefix`：图的可选前缀
+
+-	返回值：图的唯一标识符
+
+###	`reset_uids`
+
+```python
+K.reset_uids()
+```
 
 重置图的标识符
 
-####	`clear_session`
+###	`clear_session`
 
-结束当前的TF计算图，并新建一个
+```python
+K.clear_session()
+```
 
--	有效的避免模型/层的混乱
+结束当前的TF计算图，并创建新图
 
-####	`manual_variable_initialization`
+-	说明
+	-	有效的避免模型/网络层的混乱
 
-设置变量应该以其默认值被初始化还是由用户手动初始化
+###	`manual_variable_initialization`
 
--	参数：布尔值，默认False代表变量由其默认值初始化
+```python
+K.manual_variable_initialization(
+	value=False/True
+)
+```
+
+设置变量手动初始化标志
+
+-	参数
+
+	-	`value`
+
+		-	`False`：默认，变量在实例时出事的（由其默认值
+			初始化）
+
+		-	`True`：用户自行初始化，如
+			`tf.initialize_all_variables()`
 
 ####	`learning_phase`
 
-返回训练模式/测试模式的flag
+返回学习阶段标致
 
--	训练模式：`0`
--	测试模式：`1`
+-	返回值：布尔张量
+
+	-	`0`：测试模式
+	-	`1`：训练模式
 
 ####	`set_learning_phase`
 
-设置训练模式/测试模式
+```python
+K.set_learning_phase(
+	value=0/1
+)
+```
+
+设置学习阶段为固定值
+
+-	参数
+	-	`value`：学习阶段值
+		-	`0`：测试模式
+		-	`1`：训练模式
 
 ###	OPs、Tensors
 
@@ -1311,6 +1376,31 @@ def softsign(x)
 
 返回张量的softsign值
 
+####	`sigmoid`
+
+```python
+def sigmoid(x)
+```
+
+逐元素计算sigmoid值
+
+####	`hard_sigmoid`
+
+```python
+def hard_sigmoid(x)
+```
+
+分段线性近似的sigmoid，计算速度更快
+
+####	`tanh`
+
+```python
+def tanh(x)
+```
+
+逐元素计算tanh值 
+
+
 ##	预定义目标函数
 
 ####	`categorical_crossentropy`
@@ -1356,31 +1446,6 @@ def binary_crossentropy(
 ```
 
 计算输出张量和目标张量的交叉熵
-
-####	`sigmoid`
-
-```python
-def sigmoid(x)
-```
-
-逐元素计算sigmoid值
-
-####	`hard_sigmoid`
-
-```python
-def hard_sigmoid(x)
-```
-
-分段线性近似的sigmoid，计算速度更快
-
-####	`tanh`
-
-```python
-def tanh(x)
-```
-
-逐元素计算tanh值 
-
 ####	`dropout`
 
 ```python

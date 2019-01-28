@@ -46,7 +46,7 @@ Softmax激活函数
 
 	-	`ValueError`： In case `dim(x) == 1`
 
-###	elu
+##	elu
 
 ```python
 elu(
@@ -115,7 +115,7 @@ Softsign 激活函数
 
 -	返回值：$x / (abs(x) + 1)$
 
-### relu
+##	relu
 
 
 ```python
@@ -137,7 +137,7 @@ relu(
 	-	`x < 0`：返回值为 `alpha * x`
 	-	如果定义了`max_value`，则结果将截断为此值
 
-### tanh
+##	tanh
 
 ```python
 tanh(x)
@@ -145,7 +145,7 @@ tanh(x)
 
 双曲正切激活函数
 
-### sigmoid
+##	sigmoid
 
 
 ```python
@@ -154,7 +154,7 @@ sigmoid(x)
 
 Sigmoid 激活函数
 
-### hard_sigmoid
+##	hard_sigmoid
 
 ```python
 hard_sigmoid(x)
@@ -170,7 +170,7 @@ Hard sigmoid 激活函数。
 	-	`x > 2.5`：返回 1
 	-	`-2.5 <= x <= 2.5`：返回 `0.2 * x + 0.5`
 
-### linear
+##	linear
 
 
 ```python

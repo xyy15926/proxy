@@ -356,4 +356,8 @@ $ /etc/init.d/sshd restart
 
 卸载指定设备
 
+###	`free`
+
+查看系统内存、虚拟内存占用
+
 

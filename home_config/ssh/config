@@ -1,0 +1,28 @@
+Host rucstat
+	HostName 47.93.40.105
+	User student
+
+Host infocluster
+	HostName 183.174.229.251
+	User xfy2018103617
+
+Host centos1
+	HostName 192.168.31.129
+	User root
+
+Host centos2
+	HostName 192.168.31.130
+	User root
+
+Host centos3
+	HostName 192.168.31.131
+	User root
+
+Host ggg
+	HostName 211.71.20.199
+	User gaogege
+
+Host dsjban
+	HostName 47.93.40.105
+	User student
+

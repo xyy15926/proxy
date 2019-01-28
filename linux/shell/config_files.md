@@ -254,11 +254,17 @@ SLAVE=						# 从社会名称？
 NETWORK=					# 网络地址
 ```
 
-###	`/etc/sysconfig/grub`
+##	系统引导
+
+###	Grub
+
+####	`/etc/sysconfig/grub`
 
 GRUB配置文件，实际上是`/etc/default/grub`的软连接
 
-###	服务
+##	服务
+
+###	系统服务
 
 ####	`/usr/lib/systemd`
 
@@ -282,7 +288,7 @@ GRUB配置文件，实际上是`/etc/default/grub`的软连接
 	（或其子文件夹）创建服务的symlink
 -	`systemctl disable`就是移除symlink
 
-##	网络连通
+##	网络
 
 ###	SSH
 
@@ -386,6 +392,14 @@ sortlist							# 允许将得到域名结果进行排序
 	-	`domain`、`search`不共存，同时存在时，后者覆盖前者
 -	`sortlist`：对得到的域名结果进行特定排序
 	-	参数未网络/掩码对时，允许任意排列顺序
+
+##	硬件
+
+###	磁盘挂载
+
+####	`/etc/fstab`
+
+#todo
 
 ##	系统日志
 
