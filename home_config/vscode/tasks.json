@@ -1,0 +1,66 @@
+{
+    // tasks.json
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "command": "g++",
+            "args": [
+                "-g",
+                "-Wall",
+                "-std=c++14",
+                "/mnt/c/Users/xyy15926/Code/cppc/${fileBasename}",
+                "-o",
+                "/mnt/c/Users/xyy15926/Code/cppc/a.out",
+                "-D",
+                "LOCAL"
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warining|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            },
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Run",
+            "command": "/mnt/c/Users/xyy15926/Code/cppc/a.out",
+            "type": "shell",
+            "dependsOn": "Build",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation":{
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true
+            }
+        }
+    ]
+}

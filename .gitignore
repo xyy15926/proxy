@@ -20,6 +20,8 @@ __pycache__/
 # setting files
 .classpath
 .project
+.vscode
+.idle
 
 # rep diy
 /home_config/local/share/

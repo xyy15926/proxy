@@ -166,6 +166,21 @@ $ ls [params] expr
 
 更改文件、目录属性
 
+###	`umask`
+
+查看/设置权限掩码，默认`0000`
+
+```shell
+$ umask
+	# 数字形式返回当前权限掩码
+$ umask -S
+	# 符号形式返回当前权限掩码
+$ umask 0003
+	# 设置权限掩码为`0003`
+```
+
+> - 权限掩码参见*linux/kernel/permissions*
+
 ###	`chmod`
 
 关于文件、目录权限参见`config_files###文件描述`

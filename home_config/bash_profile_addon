@@ -21,14 +21,31 @@
 # pyenv setting
 # attention:i know little about shell, but no space should
 # before or after '=' 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 # this was commented for pipenv was used instead
 
-# set python package-searching path
-export PYTHONPATH="$PAHT:$HOME/Code/pyutils"
+# added by Miniconda3 4.5.12 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$(CONDA_REPORT_ERRORS=false '/opt/miniconda3/bin/conda' shell.bash hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    \eval "$__conda_setup"
+else
+    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/miniconda3/etc/profile.d/conda.sh"
+        CONDA_CHANGEPS1=false conda activate pysci
+    else
+        \export PATH="/opt/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
 
+# set python package-searching path
+export PYTHONPATH="$PATH:$HOME/Code/pyutils"
+# alias settings
 alias rm="rm -i"
 alias ping="ping -c 3"
 alias ls="ls --color --group-directories-first"
@@ -39,8 +56,15 @@ alias la="ls -la"
 alias du="du -h -d 1"
 alias vims="vim -S"
 
-export JAVA_HOME=/opt/jdk
-export JRE_HOME=$JAVA_HOME/jre
-export PATH=$PATH:$JAVA_HOME/bin
-export CLASSPATH=$CLASSPATH:$JRE_HOME/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+# vimruntime setting
+export VIMRUNTIME="$HOME/.vim/runtime"
+
+# java settings
+export JAVA_HOME="/opt/jdk"
+export JRE_HOME="$JAVA_HOME/jre"
+export PATH="$PATH:$JAVA_HOME/bin"
+export CLASSPATH="$CLASSPATH:$JRE_HOME/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
+
+# rust settings
+export PATH="$PATH:$HOME/.cargo/bin"
 

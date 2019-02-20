@@ -1,0 +1,39 @@
+{
+    // launch.json
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Bash on Windows Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/mnt/c/Users/xyy15926/Code/cppc/a.out",
+            "args": ["-f", "Threading"],
+            "stopAtEntry": false,
+            "cwd": "/mnt/c/Users/xyy15926/Code/cppc/",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "pipeTransport": {
+                "debuggerPath": "/usr/bin/gdb",
+                "pipeProgram": "C:\\windows\\system32\\bash.exe",
+                "pipeArgs": ["-c"],
+                "pipeCwd": ""
+            },
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                }
+            ],
+            "sourceFileMap": {
+                "/mnt/c": "c:\\",
+                "/mnt/d": "d:\\"
+            },
+            "preLaunchTask": "Build"
+        }
+    ]
+}

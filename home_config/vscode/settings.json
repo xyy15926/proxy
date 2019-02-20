@@ -1,0 +1,30 @@
+{
+    "editor.fontSize": 16,
+    "workbench.colorTheme": "Material Theme High Contrast",
+    "workbench.sideBar.location": "left",
+    "workbench.activityBar.visible": true,
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "terminal.integrated.fontSize": 14,
+    "python.condaPath": "C:\\Users\\xyy15926\\SelfApps\\Miniconda3\\Scripts",
+    "python.venvPath": "C:\\Users\\xyy15926\\SelfApps\\Miniconda3\\envs",
+    "python.pythonPath": "C:\\Users\\xyy15926\\SelfApps\\Miniconda3\\envs\\pysci\\Scripts\\ipython.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "git.ignoreMissingGitWarning": true,
+    "git.path": "C:\\Users\\xyy15926\\SelfApps\\wslgit.exe",
+    "vim.leader": ";",
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["K", "K"],
+            "after": ["<ESC>"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": ["K", "K"],
+            "after": ["<ESC"]
+        }
+    ]
+

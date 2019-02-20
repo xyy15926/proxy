@@ -9,6 +9,9 @@
 "	just renamed ~/.vimrc
 "----------------------------------------------------------
 
+"set runtimepath=/home/xyy15926/.vim/runtime
+	" runtimepath will be generated automatically when
+	" starting vim
 "DISPLAY CONFIG{{{
 "
 set nocompatible
@@ -19,11 +22,17 @@ set number
 	"show line numbers
 "set relativenumber
 	"it will be usefule when counting lines
+syntax enable
 syntax on
-	"#todo
+	"=`syntax on`
+	"turn on/off syntax highlighting
+	"`on/enable` - `:source $VIMRUNTIME/syntax/syntax.vim`
+	"`off` - `:source $VIMRUNTIME/syntax/nosyntax.vim`
+	"`manual` - `:source $VIMRUNTIME/syntax/manual.vim`
+"highlight Normal guibg=Black guifg=White
+	"highlight `Normal` section
 
 " solarized setting
-syntax enable
 let g:solarized_termcolors=256
 let g:solarized_termtrans=0
 let g:solarized_degrade=0
@@ -38,7 +47,7 @@ colorscheme gruvbox
 	"so amazing a colorscheme
 
 "hi normal ctermbg=none
-	"make terminal vim transperant
+	"make terminal vim transparent
 	"ctermbg may be the termianl background, set it none will
 	"cover any setting about background, so this has to be
 	"put after`colorscheme, which may set it too
@@ -46,9 +55,12 @@ colorscheme gruvbox
 set foldenable
 	"#todo
 set foldmethod=indent
-	"`marker`: indent lines
+	"`indent`: indent lines
 	"`marker`: lines between `{{{}}}`
-	"press `za` in normal mode to toggle folding
+	"`manual`: fold manually
+	"`expr`: expression
+	"`syntax`：syntax
+	"`diff`：unmodified
 set foldlevel=99
 set tabstop=4
 	"how much space a tab display, default 8
@@ -185,6 +197,8 @@ Plug 'vim-airline/vim-airline'
 "Plug 'ivanov/vim-ipython'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
+Plug 'othree/html5.vim'
+Plug 'othree/xml.vim'
 call plug#end()
 
 "nerdtree settings

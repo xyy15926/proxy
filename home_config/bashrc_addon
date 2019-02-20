@@ -16,6 +16,9 @@
 #	. ~/Code/proxy/home_config/bashrc_addon
 #fi
 
+# set bash mode
+set -o vi
+
 user_name="\[\033[0;36m\]\u"
 time_24="\[\033[1;31m\]\t"
 pc_name="\[\033[1;34m\]\h"
