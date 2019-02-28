@@ -298,6 +298,9 @@ $ conda remove [-n env] packages
 
 > - 使用conda而不是pip安装包更合适，方便管理
 
+-	创建新环境时，默认不安装任何包，包括`pip`，此时切换到
+	虚拟环境后，`pip`等命令都是默认环境的命令
+
 ##	Pipenv
 
 pip、virtualenv、Pipfile（版本控制）功能的综合，事实上就

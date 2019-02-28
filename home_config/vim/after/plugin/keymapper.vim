@@ -12,7 +12,7 @@
 inoremap KK <esc>
 vnoremap KK <esc>
 "nnoremap JK <NUL>
-nnoremap K <nop>
+nnoremap K ;
 "inoremap <esc> <nop>
 	"<nop>: no operation, disable <esc> to normal mode
 
@@ -20,8 +20,8 @@ nnoremap K <nop>
 "
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <leader>em :vsplit ~/.vim/plugin/keymapper.vim<cr>
-nnoremap <leader>sm :source ~/.vim/plugin/keymapper.vim<cr>
+nnoremap <leader>em :vsplit ~/.vim/after/plugin/keymapper.vim<cr>
+nnoremap <leader>sm :source ~/.vim/after/plugin/keymapper.vim<cr>
 	"keyboards shortcuts for editing vim config
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 	"wrap current word with ""
@@ -32,7 +32,8 @@ inoremap <c-u> <esc>viwUea
 inoremap <s-cr> <esc>o
 	"shift-enter to start a new line
 	"though this can work only in Gvim
-inoremap <leader>a <esc>A
+inoremap ;/ <esc>A
+inoremap ；/ <esc>A
 	" just for convinience
 " inoremap <leader>; <esc>mqA;<esc>`qa
 	"<leader>; to add a `;` at the end of a line

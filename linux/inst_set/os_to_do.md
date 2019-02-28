@@ -51,7 +51,7 @@ deb-src https://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contri
 
 ####	OpenSuSe
 
-使用MirrorBrain技术的，[中央服务器](http:/download.opensuse.org)
+使用MirrorBrain技术，[中央服务器](http:/download.opensuse.org)
 会按照IP中转下载请求到附近的镜像，所以更改软件源通常只会加快
 刷新软件元的速度，对下载速度影响不大
 
@@ -62,14 +62,17 @@ deb-src https://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contri
 ```shell
 $ sudo zypper mr -da
 	# 禁用原有软件源
-$ sudo zypper ar -fc hhtps://mirrors.ustc.edu.cn/opensuse/distribution/leap/42.1/repo/oss alias_1
-$ sudo zypper ar -fc https://mirrors.ustc.edu.cn/opensuse/distribution/leap/42.1/repo/non-oss alias_2
-$ sudo zypper ar -fc https://mirrors.ustc.edu.cn/opensuse/update/leap/42.1/oss alias_3
-$ sudo zypper ar -fc https://mirrors.ustc.edu.cn/opensuse/update/leap/42.1/non-oss alias_4
+$ sudo zypper ar -fc -n oss-dist https://mirrors.ustc.edu.cn/opensuse/distribution/leap/XXXX/repo/oss oss-dist
+$ sudo zypper ar -fc -n non-oss-dist https://mirrors.ustc.edu.cn/opensuse/distribution/leap/XXXX/repo/non-oss non-oss-dist
+$ sudo zypper ar -fc -n oss-update https://mirrors.ustc.edu.cn/opensuse/update/leap/XXXX/oss oss-update
+$ sudo zypper ar -fc -n non-oss-update https://mirrors.ustc.edu.cn/opensuse/update/leap/XXXX/non-oss non-update-oss
+$ sudo zypper ar -fc -n debug-dist https://download.opensuse.org/debug/distribution/leap/XXXX/repo/oss/ debug-dist
+$ sudo zypper ar -fc -n debug-update http://download.opensuse.org/debug/update/leap/XXXX/oss/ debug-update
 ```
 
-其中`/leap/42.1`表示opensuse-leap 42.1版本，需要根据具体版本
-更改
+> - `/leap/XXXX`：leap XXXX版本，需要根据具体版本更改
+
+-	`debug-dist`/`debug-update`：调试相关包，包括`glibc-debuginfo`
 
 #####	手动配置
 

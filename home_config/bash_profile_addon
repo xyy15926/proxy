@@ -18,6 +18,21 @@
 #	. ~/Code/proxy/home_config/bash_profile_addon
 #fi
 
+# alias settings
+alias rm="rm -i"
+alias ping="ping -c 3"
+alias ls="ls --color --group-directories-first"
+# alias ll='ls -l --color $*| sort -s -k 1,1'
+	# `sort` implementation for `--group-directories-first`
+alias ll="ls -l"
+alias la="ls -la"
+alias du="du -h -d 1"
+alias vims="vim -S"
+alias ssstart="$HOME/.conda/envs/ssr/bin/sslocal -c files/ssr/client.json -d start --pid-file=$HOME/files/ssr/ssr.pid --log-file=$HOME/files/ssr/ss.log"
+alias ssstop="$HOME/.conda/envs/ssr/bin/sslocal -d stop --pid-file=$HOME/files/ssr/ssr.pid"
+
+umask 023
+
 # pyenv setting
 # attention:i know little about shell, but no space should
 # before or after '=' 
@@ -35,26 +50,17 @@ if [ $? -eq 0 ]; then
 else
     if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
         . "/opt/miniconda3/etc/profile.d/conda.sh"
-        CONDA_CHANGEPS1=false conda activate pysci
+        CONDA_CHANGEPS1=false conda activate base
     else
         \export PATH="/opt/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda init <<<
+CONDA_CHANGEPS1=false conda activate pysci
 
 # set python package-searching path
 export PYTHONPATH="$PATH:$HOME/Code/pyutils"
-# alias settings
-alias rm="rm -i"
-alias ping="ping -c 3"
-alias ls="ls --color --group-directories-first"
-# alias ll='ls -l --color $*| sort -s -k 1,1'
-	# `sort` implementation for `--group-directories-first`
-alias ll="ls -l"
-alias la="ls -la"
-alias du="du -h -d 1"
-alias vims="vim -S"
 
 # vimruntime setting
 export VIMRUNTIME="$HOME/.vim/runtime"

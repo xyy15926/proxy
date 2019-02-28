@@ -53,6 +53,7 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 ####	行内
 
 -	`w`：下个单词开头
+-	`aw`：整个单词
 -	`b`/`e`：当前单词首/尾
 -	`W`/`B`：下/上个非空格开头
 -	`E`: 下个非空格结尾
@@ -71,6 +72,8 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 -	`'<`：之前visual模式选取起始行（一直保存直至下次选取）
 -	`'>`：之前visual模式选取结束行
 -	`{`/`}`：下/上一个空行
+-	`.`：当前行
+-	`%`：全文**选取**???
 
 ###	组合
 
@@ -79,7 +82,7 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 ####	行内
 
 -	`f`/`F`：向前/后移动到某字符（`;`、`,`同向、反向重复）
--	`t`/`T`：向前/后移动到某字符前
+-	`t`/`T`：till，向前/后移动到某字符前
 -	`i`：在某个区域（`(), [], {}, w`等）内（显然不能单独用
 	于normal）
 
@@ -108,7 +111,7 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 
 -	`d`：删除选取**区域**
 -	`c`：删除（修改）选中**区域**，进入insert模式
--	`x`：删除字符
+-	`x`/`X`：删除当前/前一个字符
 -	`s`：删除字符，进入insert模式
 -	`dd`：删除当前行
 -	`D`：normal模式删除当前位置至行尾
@@ -230,7 +233,7 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 
 文件间搜索
 
-```md
+```vimscripts
 :vim[grep] /pattern/[g][j] files
 ```
 
@@ -244,6 +247,36 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 	-	`**/*`：仅子目录
 	-	`**/xxxx`：当前目录及子目录所有满足`xxxx`模式文件
 	-	`pattern`：满足`pattern`的文件
+
+#####	`global`
+
+-	在`[range]`范围（默认整个文件）中查找`{pattern}`，标记
+	匹配行
+-	对匹配行执行命令`{command}`（默认`print`命令）
+	-	若标记行在被操作之前已经被删除、移动、合并等而消失，
+		则不对器执行操作
+
+```vimscripts
+:[range]g[lobal][!]/{pattern}/{command}
+```
+
+-	选项
+	-	`[!]`：对不匹配者执行草在
+
+```c
+:g/^/m 0
+	# 将文件反序
+:g/^/+1 d
+:%normal jdd
+	# 删除偶数行
+:g/^/d|m.
+:%normal jkdd
+	# 删除奇数行
+:g!/aaa/d
+	# 删除不包含`aaa`行
+:g/aaa/"ay
+	# 复制包含`aaa`行至寄存器`"`
+```
 
 ####	替换
 
@@ -274,13 +307,39 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 
 #####	`>`/`<`
 
-```md
+```vimscripts
 :[range]>
 :[range]<
 ```
 
 -	范围内文本块右、左移动1个`shiftwidth`
 -	移动num个`shiftwidth`添加num个`>/<`
+
+#####	`move`
+
+```vimscripts
+:[range]m[ove] [n]
+```
+
+-	移动范围内行至第`[n]`行**后**
+
+```vimscripts
+:m0
+	# 移动当前行至首行
+```
+
+#####	`t`
+
+```c
+:[range]t [n]
+```
+
+-	复制范围内至第`[n]`行**后**
+
+```c
+:t.
+	# 复制当前行至下行
+```
 
 ###	文件相关
 
