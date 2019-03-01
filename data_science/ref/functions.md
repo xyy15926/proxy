@@ -1,5 +1,10 @@
 #	常用函数
 
+##	通用
+
+-	`I`/`Sign`：示性/指示函数
+	-	满足条件时取1，否则取0
+
 ##	Kernel Function
 
 核函数：输入空间为欧式空间或离散集合、特征空间为希尔伯特空间
@@ -64,7 +69,7 @@ $$
 ##	距离函数
 
 $dist(x,y)$：不一定是空间距离，应该认为是两个对象x、y之间的
-相似程度
+**相似程度**
 
 -	距离和相似度是互补的
 -	可以根据处理问题的情况，自定义距离
@@ -81,9 +86,10 @@ $$
 
 -	表示一组距离族
 
-	-	$p=1$：曼哈顿距离
+	-	$p=1$：*Manhattan Distance*，曼哈顿距离
 	-	$p=2$：*Euclidean Distance*，欧式距离
-	-	$p \rightarrow \infty$：切比雪夫距离
+	-	$p \rightarrow \infty$：*Chebychev Distance*，
+		切比雪夫距离
 
 -	闵氏距离缺陷
 
@@ -95,7 +101,7 @@ $$
 马氏距离：表示数据的协方差距离
 
 $$
-d_{12} = \sqrt {x_1-\mu)^T \Sigma^{-1} (x_2-\mu)
+d_{12} = \sqrt {({x_1-\mu}^T) \Sigma^{-1} (x_2-\mu)}
 $$
 
 > - $\Sigma$：总体协方差矩阵
@@ -127,8 +133,19 @@ $$
 余弦相似度
 
 $$
-simimarity = cos(\theta) = \frac {x_1, x_2} {\|x_1\|\|x_2\|}$
+simimarity = cos(\theta) = \frac {x_1 x_2} {\|x_1\|\|x_2\|}
 $$
+
+###	定性变量距离
+
+####	差异程度
+
+$$
+diff = \frac 1 p \sum_{i=1}^p  (v^{(1)}_i - v^{(2)}_i)^k 
+$$
+
+> - $v_i$：虚拟变量
+> - $p$：虚拟变量数量
 
 ###	组间距离
 
@@ -168,8 +185,8 @@ $$
 几何间隔
 
 $$\begin{align*}
-\gamm_i & = \frac {y_i} {\|w\|} (wx_i + b) \\
-	& = \frac {\hat_{\gamma_i}} {\|w\|}
+\gamma_i & = \frac {y_i} {\|w\|} (wx_i + b) \\
+	& = \frac {\hat \gamma_i} {\|w\|}
 \end{align*}$$
 
 -	几何间隔一般是样本点到超平面的*signed distance*
@@ -211,8 +228,7 @@ $$
 计算速度比sigmoid激活函数快
 
 $$
-hard_signmoid(x) =
-\left \{ \begin {array} {c}
+hard_signmoid(x) = \left \{ \begin {array} {l}
 	0 & x < -2.5 \\
 	1 & x > 2.5 \\
 	0.2*x + 0.5 -2.5 <= x <= 2.5 \\
@@ -244,10 +260,10 @@ $$
 双曲正切函数
 
 $$
-\begin{align}
+\begin{align*}
 tanh(x) & = \frac {sinhx} {coshx} \\
 	& = \frac {e^x - e^{-x}} {e^x + e^{-x}} \\
-\end{align}
+\end{align*}
 $$
 
 > - $\frac{\partial tanh(x)}{\partial x} = (1 - tanh(x))^2$
@@ -261,7 +277,7 @@ $$
 
 $$
 elu(x, \alpha) =
-\left \{ \begin{array} {c}
+\left \{ \begin{array} {l}
 	x & x > 0 \\
 	\alpha (e^x - 1) & x \leqslant 0 \\
 \end{array} \right.
@@ -292,11 +308,10 @@ $$
 修正线性单元：Rectfied Linear Units
 
 $$
-relu(x, max_value) =
-\left \{ \begin{array} {c}
-0 & x=<0 \\
-x & 0 < x < max_value \\
-max_value x> >= max_value \\
+relu(x, max) = \left \{ \begin{array} {l}
+	0 & x \leq 0 \\
+	x & 0 < x < max \\
+	max & x \geq max \\
 \end {array} \right.
 $$
 
@@ -305,11 +320,10 @@ $$
 带泄露的修正线性：Leaky ReLU
 
 $$
-relu(x, /alpha, max_value) =
-\left \{ \begin {array} {c}
-\alpha x & x=<0 \\
-x & 0 < x < max_value \\
-max_value x> >= max_value \\
+relu(x, \alpha, max) = \left \{ \begin {array} {l}
+	\alpha x & x \leq 0 \\
+	x & 0 < x < max \\
+	max & x \geq max \\
 \end {array} \right.
 $$
 
@@ -321,10 +335,9 @@ $$
 	-	需要给出权重初始化方法（正则化方法、约束）
 
 $$
-prelu(x) =
-\left \{ \begin{array} {c}
-\alpha x & x < 0 \\
-x & x> 0
+prelu(x) = \left \{ \begin{array} {l}
+	\alpha x & x < 0 \\
+	x & x> 0 \\
 \end{array} \right.
 $$
 
@@ -333,11 +346,10 @@ $$
 带阈值的修正线性
 
 $$
-threshhold_relu(x, theta)=
-\left \{ \begin{array} {c}
-x & x > theta \\
-0 & otherwise
-\end{array}{c} \right.
+threshhold_relu(x, theta)= \left \{ \begin{array} {l}
+	x & x > theta \\
+	0 & otherwise \\
+\end{array} \right.
 $$
 
 ####	linear
@@ -347,7 +359,5 @@ $$
 ###	梯度消失
 
 激活函数导数太小（$<1），压缩**误差**变化
-
-
 
 

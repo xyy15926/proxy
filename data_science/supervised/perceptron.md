@@ -14,6 +14,8 @@ $$
 > - $x \in \chi \subseteq R^n$：输入空间
 > - $y \in \gamma \subseteq R^n$：输出空间
 > - $w \in R^n, b \in R$：*weight vector*、*bias*
+> - 也常有$\hat w = (w^T, b^T)^T, \hat x = (x^T + 1)^T$，
+	则有$\hat w \hat x = wx + b$
 
 -	感知机模型的假设空间是定义在特征空间的所有
 	*linear classification model/linear classifier*，即函数
@@ -31,7 +33,7 @@ $$
 
 > - *linearly separable data set*：存在超平面$S: wx + b=0$
 	能够将正、负实例点，完全正确划分到超平面两侧的数据集，
-	即$\all y_i=+1, wx_i + b > 0$
+	即$\forall y_i=+1, wx_i + b > 0$
 
 ###	感知机学习策略
 
@@ -62,22 +64,23 @@ $$
 	> - $M$：误分类点集合
 	> - 损失函数是$w, b$的连续可导函数：使用$y_i$替代绝对值
 
-###	学习算法
-
-####	*Stochastic Gredient Descent*
-
-随机梯度下降法：不同初值、随机取点顺序可能得到不同的解
-
--	损失函数梯度
+-	损失函数$L(w,b)$梯度有
 
 	$$\begin{align*}
 	\bigtriangledown_wL(w, b) & = -\sum_{x_i \in M} y_ix_i \\
 	\bigtriangledown_bL(w, b) & = -\sum_{x_i \in M} y_i
 	\end{align*}$$
 
+###	学习算法
+
+####	*Stochastic Gredient Descent*
+
+随机梯度下降法
+
 -	任意选择$w_0, b_0$，确定超平面
 
--	随机选取一个误分类点$(x_i, y_i)$，对$w, b$进行更新
+-	随机选取一个误分类点$(x_i, y_i)$，即$y_i(wx_i+b) \leq 0$
+	，对$w, b$进行更新
 
 	$$\begin{align*}
 	w^{(n+1)} & \leftarrow w^{(n)} + \eta y_ix_i \\
@@ -86,8 +89,71 @@ $$
 
 	> - $0 < \eta \leq 1$：*learning rate*，学习率，步长
 
--	不断迭代，使得损失函数不断减小，直至为0
+-	不断迭代，损失函数不断减小，直至训练集中无误分类点
 
+> - 不同初值、随机取点顺序可能得到不同的解
+> - 直观解释：当实例点被误分类，应该调整$w, b$值，使得分离
+	超平面向**误分类点方向**移动，减少误分类点与超平面距离，
+	直至被正确分类
+> - 训练数据线性可分时，算法迭代是收敛的，训练数据不线性可分
+	时，学习算法不收敛，迭代结果发生震荡
+
+####	学习算法对偶形式
+
+#todo
+
+####	算法收敛性证明
+
+（Novikoff）数据集$T={(x_1, y_1), (x_2, y_2),...}$线性可分，
+其中：$x_i \in \mathcal{X = R^n}$，
+$y_i \in \mathcal{Y = \{-1, +1\}}$，则
+
+> - 存在满足条件$\|\hat w_{opt}\|=1$超平面
+	$\hat w_{opt} \hat x = 0$将训练数据集完全正确分开，且
+	$\exists \gamma > 0, y_i(\hat w_{opt} x_i) \geq \gamma$
+
+> - 令$R = \arg\max_{1\leq i \leq N} \|\hat x_i\|$，则随机
+	梯度感知机误分类次数$k \leq (\frac R \gamma)^2$
+
+-	命题1
+
+	-	训练集线性可分，存在超平面将训练数据集完全正确分开，
+		可以取$\hat w_{opt} \hat x = 0$
+		
+	-	令$\|hat w_{opt} = 1\|$，有
+		$\forall i, y_i(\hat w_{opt} \hat x_i) > 0$，所以
+		存在满足条件的$\gamma$
+
+-	命题2
+
+	-	给定学习率$\eta$，随机梯度下降法第k步更新为
+		$\hat w_k = \hat w_{k-1} + \eta y_i \hat x_i$
+
+	-	可以证明
+	
+		-	$\hat w \hat w_{opt} \geq k\eta\gamma$
+
+			$$\begin{align*}
+			\hat w_k \hat w_{opt} & =
+				\hat w_{k-1} \hat w_{opt} +
+					\eta y_i \hat w_{opt} \hat x_i \\ 
+				& \geq \hat w_{k-1} \hat w_{opt} +
+					\eta\gamma \\
+				& \geq k\eta\gamma
+			\end{align*}$$
+
+		-	$\|\hat w_k\|^2 \leq k \eta^2 R^2$
+
+			$$\begin{align*}
+			\|\hat w^2\|^2 & = \|\hat w_{k-1}\|^2 +
+					2\eta y_i \hat w_{k-1} \hat x_i +
+					\eta^2 \|\hat x_i\|^2 \\
+				& \leq \|w_{k-1}\|^2 + \eta^2 \|\hat x_i\|^2 \\
+				& \leq \|w_{k-1}\|^2 + \eta^2 R^2 \\
+				& \leq k\eta^2 R^2
+			\end{align*}$$
+
+	-	则可以证明命题2
 
 
 

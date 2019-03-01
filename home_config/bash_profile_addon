@@ -28,8 +28,9 @@ alias ll="ls -l"
 alias la="ls -la"
 alias du="du -h -d 1"
 alias vims="vim -S"
-alias ssstart="$HOME/.conda/envs/ssr/bin/sslocal -c files/ssr/client.json -d start --pid-file=$HOME/files/ssr/ssr.pid --log-file=$HOME/files/ssr/ss.log"
+alias ssstart="$HOME/.conda/envs/ssr/bin/sslocal -c $HOME/files/ssr/client.json -d start --pid-file=$HOME/files/ssr/ssr.pid --log-file=$HOME/files/ssr/ss.log"
 alias ssstop="$HOME/.conda/envs/ssr/bin/sslocal -d stop --pid-file=$HOME/files/ssr/ssr.pid"
+alias ssrestart="ssstop && ssstart"
 
 umask 023
 
