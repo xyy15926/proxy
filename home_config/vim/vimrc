@@ -272,8 +272,8 @@ let g:tagbar_width=30
 	"locate `ctags`
 let g:tagbar_autofocus=1
 	"move cursor to tagbar window automatically when open
-let g:tagbar_autoclose=0
-	"disable close tagbar automatically after selecting an
+let g:tagbar_autoclose=1
+	"whether tagbar automatically after selecting an
 	"item
 let g:tagbar_autoshowtag=1
 	"open the fold to show tags automatically

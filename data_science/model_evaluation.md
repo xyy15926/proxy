@@ -258,65 +258,56 @@ $$
 -	$P = \frac {TP} {TP+FP}$：查准率、精确率
 -	$R = \frac {TP} {TP+FN}$：查全率、召回率、覆盖率
 
-###	GINI系数
+###	Gini指数
 
-$$
-G(t) = 1 - \sum_{j=1}^k p^2(j|t) \\
-\Delta G(t) = G(t) - (\frac {N_r} N G(t_r) + \frac {N_l} N G(t_l))
-$$
+概率分布p的基尼指数
+
+$$\begin{align*}
+Gini(p) & = \sum_{k=1}^K p_k(1-p_k)
+	& = 1 - \sum_{k=1}^K p_k^2
+\end{align*}$$
 
 -	异质性最小时Gini系数为0
 -	异质性最大时Gini系数为$1 - \frac 1 k$
 
-###	信息熵
+####	条件Gini指数
 
--	熵：则是在概率分布上对随机变量X的不确定性/混乱程度的度量
--	信息熵：信息消除不确定性的度量
+条件Gini指数
+
+$$
+Gini(Y|X) = \sum_{k=1}^K P(X=x_k)Gini(Y|X=x_k)
+$$
+
+###	*Entropy*
+
+熵：则是在概率分布上对随机变量X的不确定性/混乱程度的度量
+
+> - 信息熵：信息消除不确定性的度量
 
 $$
 \begin{align*}
-Ent(U) & = \sum_i P(u_i) log_2 \frac 1 {P(u_i)} \\
-	& = - \sum_i P(u_i) log_2 P(u_i) \\
+H(X) & = \sum_i^N P(x_i) log \frac 1 {P(x_i)} \\
+	& = - \sum_i^N p_i log p_i \\
 \end{align*}
 $$
 
-其中
 
--	$u_i$为随机变量各个取值，$P(u_i)$对应概率
-	-	若有事件i发生概率$p_i=0$，此时约定$p_ilog(p_i)$为0
+> - $u_i$：随机变量各个取值
+> - $p_i$：随机变量各取值对应概率
+> - 事件i发生概率$p_i=0$：约定$p_i log(p_i)$为0
+> - 其中$log$以2为底，单位为*bit*，以e为底，单位为*nat*
 
--	信息熵为0，$\exists j, P(u_j)=1$，无不确定性，随机变量
-	只能取一个值
+-	熵只依赖随机变量$X$的分布，与其取值无关，所以也可以将其
+	熵记为$H(p)$
 
--	若$\forall j, P(u_j)=1/k$，信息熵最大为$log_2 k$，随机
-	变量在任意取值概率相等，不确定性最大
+-	由定义$0 \leq H(p) \leq log_2 k$
+	-	$H(p) = 0$：$\exists j, p_j=1$，随机变量只能取
+		一个值，无不确定性
+	-	$H(p) = log k$：$\forall j, p_j=1/k$，随机变量
+		在任意取值概率相等，不确定性最大
 
-####	后验熵
-
--	后验熵为
-
-	$$
-	\begin{align*}
-	Ent(U|v_j) & = \sum_i(P(u_i|v_j) log_2 \frac 1 {P(u_i|v_j)} \\
-		& = - \sum_i P(u_i|v_j) log_2 P(u_i|v_j) \\
-	\end{align*}
-	$$
-
--	后验熵期望为
-
-	$$
-	\begin{align*}
-	Ent(U|V) & = \sum_j P(v_j) sum_i P(u_i|v_j)
-		log_2 \frac 1 {P(u_i|v_j)} \\
-		& = \sum_j P(v_j)(-\sum_i P(u_i|v_j) log_2 P(u_i|v_j))
-	\end{align*}
-	$$
-
--	信息增益
-
-	$$
-	Gains(U|V) = Ent(U) - Ent(U|V)
-	$$
+> - *empirical entropy*：经验熵，熵中的概率由数据估计时
+	（尤极大似然估计）
 
 ####	熵的性质
 
@@ -332,6 +323,41 @@ $$
 	H(X|Y) \leqslant H(x) \\
 	H(X, Y) \leqslant H(X) + H(Y) \\
 	$$
+####	*Conditinal Entrophy*
+
+条件熵：随机变量X给定条件下，随机变量Y的**条件概率分布的熵**
+对X的数学期望
+
+$$\begin{align*}
+H(Y|X) & = \sum_{i=1}^N p_i H(Y|X=x_i) \\
+H(Y|x=x_i) & = - \sum_j P(y_j|x_i) log P(y_j|x_i)
+\end{align*}$$
+
+> - $P(X=x_i, Y=y_j)=p_{i,j}$：随机变量$(X,Y)$联合概率分布
+> - $p_i=P(X=x_i)$
+> - $H(Y|X=x_i)$：后验熵
+
+> - *postorior entropy*：后验熵，随机变量X给定条件下，随机
+	变量Y的**条件概率分布的熵**
+> - *empirical conditional entropy*：经验条件熵，概率由数据
+	估计
+
+####	*Mutual Infomation*/*Infomation Gain*
+
+互信息/信息增益：（经验）熵与（经验）条件熵之差
+
+$$
+g(Y|X) = H(Y) - H(Y|X)
+$$
+
+-	和具体分布、数据集有关
+-	（经验）熵较大时，互信息也相对较大
+
+> - *infomation gain ratio*：信息增益比
+
+	$$\begin{align*}
+	g_R(Y|X) & = \frac {g(Y|X)} {H(X)}
+	\end{align*}$$
 
 ###	误分率
 

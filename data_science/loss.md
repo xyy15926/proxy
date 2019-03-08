@@ -42,6 +42,17 @@ $$
 L(Y, P(Y|X)) = -logP(Y|X)
 $$
 
+###	Exponential Loss
+
+指数函数函数
+
+$$
+L(Y, f(x)) = exp{-yf(x)}
+$$
+
+-	适用场景：二分类模型
+	-	前向分步算法
+
 ##	Total Loss
 
 模型（目标函数）在样本整体的损失：度量模型整体预测效果
@@ -60,7 +71,7 @@ $$
 （随机变量）期望
 
 $$
-R_exp(f) = E_p[L(Y, f(X))] = \int_{x*y} L(y,f(x))P(x,y) dxdy
+R_{exp}(f) = E_p[L(Y, f(X))] = \int_{x*y} L(y,f(x))P(x,y) dxdy
 $$
 
 > - $P(X, Y)$：随机变量$(X, Y)$遵循的联合分布，未知
@@ -78,11 +89,13 @@ $$
 
 经验风险：*empirical loss*，模型关于给定训练数据集的平均损失
 
-####	判别方法
+$$
+R_{emp}(f) = \frac 1 N \sum_{i=1}^N L(y_i, f(x_i;\theta))
+$$
 
-$$
-R_{emp}(f) = \frac 1 N \sum_{i=1}^N L(y_i, f(x_i))
-$$
+> - $\theta$：模型参数
+> - 经验风险损失一般是$f(x)$模型的函数，建立**损失函数和
+	模型参数之间的函数关系**
 
 -	根据大数定律，样本量容量N趋于无穷时，$R_{emp}(f)$趋于
 	$R_{exp}(f)$
@@ -90,18 +103,15 @@ $$
 -	但是现实中训练样本数目有限、很小，利用经验风险估计期望
 	常常并不理想，需要对经验风险进行矫正
 
-####	生成方法
-
-对*maximum probability estimation*
-
--	损失函数：对数损失函数
+-	例子
+	-	*maximum probability estimation*：极大似然估计
+		-	模型：条件概率分布
+		-	损失函数：对数损失函数
 
 ###	*Structual Risk*
 
 *结构风险*：在经验风险上加上表示**模型复杂度**的
 *regularizer*（*penalty term*）
-
-####	判别方法
 
 $$
 R_{srm} = \frac 1 N \sum_{i=1}^N L(y_i, f(x_i)) +
@@ -116,13 +126,12 @@ $$
 -	模型复杂度$J(f)$表示对复杂模型的惩罚：模型$f$越复杂，
 	复杂项$J(f)$越大
 
-####	生成方法
-
-对贝叶斯估计*maximum posterior probability estimation*
-
--	损失函数：对数损失函数
--	模型复杂度：模型先验概率对数后取负
--	先验概率对应模型复杂度，先验概率越小，复杂度越大
+-	例子
+	-	*maximum posterior probability estimation*：最大后验
+		概率估计
+		-	损失函数：对数损失函数
+		-	模型复杂度：模型先验概率对数后取负
+		-	先验概率对应模型复杂度，先验概率越小，复杂度越大
 
 ##	Batch Loss
 

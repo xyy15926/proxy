@@ -8,14 +8,20 @@
 	操作中达到平衡
 -	数组、散列法、平衡查找树都可以实现字典
 
-##	Hashing散列
+##	*Hashing*
 
-散列法：通过对每个键计算hash function值，得到位于0~m-1之间的
-整数的hash address，把键分布在一维数组H[0..m-1] hash table中
+散列/哈希法
 
-###	Hash Function
+-	对每个键使用*hash function*进行计算
+-	得到位于$0, \cdots, m-1$之间的*hash address/code*整数
+-	把键分布在一维数组$H[0, \cdots, m-1]$ *hash table*中
+-	在哈希表中查找匹配键时，以键哈希码作为**起点**查询
 
-选择合适散列表长度、散列函数尽可能减少collision
+> - **键值可以确定、接近其位置**的策略
+
+###	*Hash Function*
+
+选择合适散列表长度、散列函数尽可能减少*collision*
 
 -	散列表长度相对键个数不应该过大避免空间浪费，也不应该过小
 	影响算法时间效率
@@ -27,7 +33,7 @@
 
 -	散列函数必须容易计算
 
-###	*load faotor*
+###	*load factor*
 
 负载因子：$\alpha = \frac n m$不应该和1相差太大
 
@@ -96,7 +102,7 @@
 简化版本近似结论（散列规模越大，近似结论越正确）
 
 -	成功查找访问次数：$S \approx \frac 1 2 (1+\frac 1 {(1-\alpha)})$
--	失败查找访问次数：$U \apporx \frac 1 2 [1+\frac 1 {(1-\alpha)^2}]$
+-	失败查找访问次数：$U \approx \frac 1 2 [1+\frac 1 {(1-\alpha)^2}]$
 
 #####	Cluster
 
