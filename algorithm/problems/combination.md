@@ -64,8 +64,8 @@
 
 $$
 F(i, j) =
-\left \{ \begin{array}{c}
-	max\{F(i-1, j), v_i + F(i-1, j-w_i)} & j-w_i \geqslant 0 \\
+\left \{ \begin{array}{l}
+	max\{F(i-1, j), v_i + F(i-1, j-w_i)\} & j-w_i \geqslant 0 \\
 	F(i-1, j) & j-w_i \leqslant 0 \\
 	0 & i=0 or j=0 (i, j \geqslant 0)
 \end{array} \right.
@@ -166,6 +166,7 @@ MFKnapsack(i, j)
 -	原始的贪婪算法解的精确率没有上界
 
 	-	考虑：承重量为$W$背包，如下物品
+
 		|物品|重量|价值|价值/重量|
 		|-----|-----|-----|-----|
 		|1|1|2|2|
@@ -312,10 +313,10 @@ CoinRow(C[1..n])
 
 $$
 F(n) =
-\left \{ \begjn{array}{c}
-	\mjn_{j: n \geqslant d_j} \{F(n - d_j)\} + 1 & n > 0\\
+\left \{ \begin{array}{l}
+	min \{ j: n \geqslant d_j \} \{ F(n - d_j) \} + 1 & n > 0 \\
 	0 & n = 0
-\end{array} \rjght.
+\end{array} \right.
 $$
 
 ```c
@@ -355,9 +356,9 @@ ChangeMaking(D[1..m], n)
 
 $$
 F(i, j) =
-\left \{ \begin{array}{c}
+\left \{ \begin{array}{l}
 	max \{F(i-1 ,j), F(i, j-1)\} + c_{ij} & 1 <= i <= n, i <= j <= m \\
-	0 & i = 0 \or j = 0
+	0 & i = 0 or j = 0
 \end{array} \right.
 $$
 

@@ -683,7 +683,7 @@ MaximumBipartiteMatching(G)
 		$\in O(|V|/2 + 1)$
 	-	若每个顶点的信息（自由、匹配、对偶）能在常数时间内
 		得到（如存储在数组中）
-	-	则算法时间效率$\i O(|V|(|V| + |E|))$
+	-	则算法时间效率$\in O(|V|(|V| + |E|))$
 
 -	算法正确性参见图*graph_undirected*关于增益路径-最大匹配
 
@@ -696,7 +696,7 @@ MaximumBipartiteMatching(G)
 -	对匈牙利算法的改进，把多次迭代在一个阶段完成，然后用一次
 	查找把最大数量边添加到匹配中
 
--	算法时间效率：$\in O(\sqrt_{|V|}(|V| + |E|)$
+-	算法时间效率：$\in O(\sqrt {|V|}(|V| + |E|))$
 
 ##	稳定婚姻问题
 
@@ -841,7 +841,7 @@ Traveling Salesman Problem：对相互之间距离已知为正整数的n座
 -	第i层下界可取$lb = \sum_{k=i+1}^n d_{k1}$
 
 -	更紧密、也不复杂的下界
-	$lb = \lceil \frac {\sum_{k=i+1}_n (d_{k1} + d_{k2})} 2 \rceil$
+	$lb = \lceil \frac {\sum_{k=i+1}^n (d_{k1} + d_{k2})} 2 \rceil$
 
 	-	$d_{k1}, d_{k2}$：城市$i+1$到最近的两个城市距离
 
@@ -891,7 +891,7 @@ Traveling Salesman Problem：对相互之间距离已知为正整数的n座
 对属于**欧几里得类型**的旅商问题实例（大部分）
 
 -	此时虽然两个算法的精确性能比无法界定，但是满足
-	$\frac {f(s_a)} {f(s^{*})} \leqslant \frac 1 2(\lceil log_2 n \rceil + 1)
+	$\frac {f(s_a)} {f(s^{*})} \leqslant \frac 1 2 (\lceil log_2 n \rceil + 1)$
 
 ###	Minimum-Spaning-Tree-Based Algorithm
 

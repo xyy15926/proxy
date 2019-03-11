@@ -113,6 +113,170 @@ C++是面向对象和过程的范式的集合
 
 遮蔽：程序代码内层块中变量**隐藏外层块中同名变量**的行为
 
+###	强制类型转换
+
+####	`c	onst_cast`
+
+`const_cast`：去掉原有类型的`const`、`volatile`属性，将常量
+指针、引用转换为非常量
+
+-	常量指针转化为非常量指针，仍来指向原来对象
+-	常量引用转换为非常量引用，仍然指向原来对象
+
+```cpp
+int ary[4] = {1, 2, 3, 4};
+const int * c_ptr = ary;
+	// 常量化数组指针
+	// 不能直接数组中值
+int * ptr = const_cast<int*>(c_ptr);
+	// 去`const`，强制转换为非常量化指针
+	// 可以修过数组中值
+for(int i = 0; i < 4; i++){
+	ptr[i] += 1;
+}
+```
+
+> - 一般用于修改指针，如`const char *p`
+> - 要求原参数非常量，否则有**未定义行为**
+
+####	`static_cast`
+
+`static_cast`：静态类型转换，无条件转换
+
+-	类层次中基类、派生类之间指针、引用转换
+	-	上行转换：派生类指针、引用转换为基类表示，安全
+	-	下行转换：基类指针、引用转化为派生类表示，没有动态
+		类型检查，不安全（访问派生类独有成员）
+	> - 基类、派生类之间转换建议使用`dynamic_cast`
+-	常规类型转换安全性需要开发者维护
+-	空指针转换为目标类型空指针
+-	任何类型表达式转换为`void`类型
+
+> - 不能转换掉原有类型的`const`、`volatile`、`__unaligned`
+	属性
+> - 不能进行**无关类型指针**（无继承关系、float与int等）之间
+	转换，而C风格强转可以
+
+```cpp
+float f_pi = 3.141592f
+int i_pi = static_cast<int>(f_pi)
+
+Sub sub;
+	// 衍生类
+Base * base_ptr = static_cast<Base*>(&sub);
+	// 上行转换，安全
+
+Base base;
+	// 基类
+sub * sub_ptr = static_cast<Sub*>(&base);
+	// 下行转换，不安全
+```
+
+> - 和C风格强转效果基本一致（使用范围较小），同样没有运行时
+	类型检查保证转换安全性，有安全隐患
+> - C++中任何隐式转换都是使用`static_cast`实现
+
+####	`dynamic_cast`
+
+`dynamic_cast`：动态类型转换，有条件转换
+
+-	安全的基类、派生类之间转换（必须有虚函数，保持多态特性）
+	-	上行转换：成功转换，虚函数表指向基类虚函数，没有运行
+		异常
+	-	下行转换：不报错，但是返回空指针
+-	相同基类的派生类（兄弟类）间交叉转换，不报错，返回空指针
+
+```cpp
+class Base{
+public:
+	void print(){
+		cout << "i' base" << endl;
+	}
+
+	virtual void virtual_foo() {};
+}
+
+class Sub: public Base{
+public:
+	void print(){
+		cout << "i'm sub" << endl;
+	}
+	virtual void virtual_foo();
+}
+
+int main(){
+	cout << "Sub -> Base" << endl;
+	Sub * sub = new Sub();
+	sub -> print();
+		// 打印：`i'm sub`
+	Base * sub2base = dynamic_cast<Base*>(sub);
+	if (sub2base != NULL)l{
+		sub2base->print();
+		// 打印：`i'm base`
+	}
+	cout << "sub2base val: " << sub2base << endl;
+
+	cout << "Base -> Sub" << endl;
+	Base * base = new Base();
+	base->print();
+		// 打印：`i'm base`
+	Sub * base2sub = dynamic<Sub*>(base);
+	if (base2sub != NULL){
+		base2sub -> print();
+		// 未打印
+	}
+	count << "base2sub val: " << base2sub << endl;
+
+	delete sub;
+	delete base;
+	return 0;
+}
+```
+
+> - 涉及面向对象的多态性、程序运行时的状态，主要是用于虚类
+	类型上行转换
+> - 在程序运行时对类型转换，进行了*runtime type information*
+	检查
+> - 同编译器的属性设置有关，所以不能完全使用C语言的强制转换
+	替代，常用、不可缺少
+
+####	`reinterpret_cast`
+
+`reinterpret_cast`：仅仅是**重新解释**给出对象的**比特模型**
+，没有**对值**进行二进制转换
+
+-	用于任意指针、引用之间的转换
+-	指针、足够大的整数（无符号）之间的转换
+
+```cpp
+int * ptr = new int(233);
+uint32_t ptr_addr = reinterpret_cast<uint32_t>(ptr);
+count << "ptr addr: " << hex << ptr << endl
+	<< "ptr_add val: " << hex << ptr_addr << endl;
+	// 二者输出值相同
+delete ptr;
+```
+
+> - 处理无关类型转换，通常为位运算提供较低层次重新解释
+> - 难以保证移植性
+
+####	C风格
+
+```cpp
+Typename b = (Typename) a;
+
+float b = 1.0f;
+int c_i = (int)b;
+int & c_j = (int&)b;
+	// C风格
+
+int cpp_i = static_cast<int>(b);
+int & j = reinterpret_cast<int&>(b);
+	// 等价C++风格
+```
+
+> - 没有运行时类型检查保证转换安全性，可能有安全隐患
+
 ##	*Data Type*
 
 数据类型：从形式上看，数据类型有两个属性定义
@@ -508,25 +672,45 @@ while(true){
 
 以特定的循环次数重复执行某个操作
 
-```cpp
-// 一般模式
-for (init; test; step){
-	statements
-}
-init;
-while(test){
-	statements
-	step;
-}
-	// 二者等价
+-	基于条件的循环
 
-// 常用模式
-for(int var=start; var <= finish; var++){
-	// `var`：*index variable*
-	statement
-}
-	// 循环`finish - start`次
-```
+	```cpp
+	// 一般模式
+	for (init; test; step){
+		statements
+	}
+	init;
+	while(test){
+		statements
+		step;
+	}
+		// 二者等价
+
+	// 常用模式
+	for(int var=start; var <= finish; var++){
+		// `var`：*index variable*
+		statement
+	}
+		// 循环`finish - start`次
+	```
+
+-	*range-based for loop*：基于范围的循环，C++11开始支持
+
+	```cpp
+	for(type var: collection){
+		statements
+	}
+
+	// `foreach.h`接口中的定义宏，提供类似功能
+	foreach(type var in collection){
+	}
+
+	// C++编译器通过迭代器，将基于范围的循环转换为传统循环
+	for(ctype::iterator it = collection.begin();
+		it != collection.end(); it++){
+		// `ctype`：集合类型
+	}
+	```
 
 ##	编译、汇编
 
