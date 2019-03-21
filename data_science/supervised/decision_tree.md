@@ -62,8 +62,8 @@
 ###	特点
 
 -	优势
-	-	能够实现非线性分割
 	-	能有效处理分类型输入变量
+	-	能够实现非线性分割
 	-	模型具有可读性，分类速度块
 
 -	问题
@@ -207,15 +207,39 @@ C4.5算法类似于ID3算法，使用信息增益比代替信息增益用于选�
 
 -	修正ID3倾向于使用取值较多的特征值分裂结点的问题
 
+###	CHAID
+
+*Chi-squared Automatic Interaction Detector*：卡方自动交叉
+检验法
+
+-	通过卡方检验统计量p值选择合适特征变量
+	-	p值越小，说明使用该特征变量分类效果越好
+
+-	在构建决策树有一定优势，是从统计显著性角度确定特征变量、
+	分割数值，对决策树分支优化明显
+
+> - 应该是检测和均匀分布的差距，原假设为均匀分步
+
+####	步骤
+
+-	将各个水平将观测事先分组，形成一些小块的子集
+-	通过统计检验：卡方检验、F检验确定分割变量、合并子集，
+	得到新的子节点
+-	重复前两步直到无法继续分割
+
 ###	CART算法
 
 *classification and regression tree*：分类与回归树（二叉树）
 
--	可以用于分类、回归
 -	CART树是二叉树，左侧分支取“是”，右侧取“否”，等价于递归
 	的二分每个特征，将输入空间（特征空间）划分为有限个单元
--	在单元上确定预测的概率分布，即给定输入、输出下的条件概率
-	分布
+
+-	在每个单元上确定预测的概率分布，即给定输入、输出下的条件		概率分布
+
+-	特点
+	-	可以用于分类、回归
+	-	对自变量、因变量不做任何形式的分布假定
+	-	能较好的处理缺失值（协决策树，属性/变量组合除外）
 
 ####	回归树
 
@@ -275,7 +299,7 @@ $$
 -	在特征A是否取值a条件下，集合D的**条件基尼指数**
 
 	$$
-	Gini(D,A) = \frac {|D_i|} {|D|} Gini(D_1) +
+	Gini(D,A) = \frac {|D_1|} {|D|} Gini(D_1) +
 		\frac {|D_2|} {|D|} Gini(D_2)
 	$$
 
@@ -307,6 +331,16 @@ $$
 	-	没有更多特征
 
 -	生成CART决策树
+
+###	QUEST
+
+*Quick Unbiased Efficient Statical Tree*：二分类决策树算法
+
+-	以不同策略处理特征变量、切分点（类似CHAID，选择p值最小、
+	且显著者）
+	-	定性特征：卡方检验
+	-	数量特征：F检验
+-	运行速度快于CART树
 
 ##	*Pruning*
 
@@ -441,188 +475,190 @@ H_t(T) & = -\sum_k (\frac {N_{t,k}} {N_t}
 
 ##	组合预测模型
 
+-	Bagging：参见*data_science/ensemble/bagging*
+-	AdaBoost：参见*data_science/ensemble/boosting*
 
--	Bagging：参见*data_science/algorithm/emsemble/bagging*
--	AdaBoost：参见*data_science/algorithm/emsemble/boosting*
+###	*Random Forest*
 
-###	Random Forest
+随机森林：随机建立多个有较高预测精度、弱相关（甚至不相关）
+的决策树（基础学习器），多棵决策树共同对新观测做预测
 
-随机建立多个有较高预测精度、弱相关（甚至不相关）的决策树
-（基础学习器），多棵决策树共同对新观测做预测
+-	RF是Bagging的扩展变体，在以决策树为基学习器构建Bagging
+	集成模型的基础上，在训练过程中引入了**随机特征选择**
+
+####	步骤
 
 -	样本随机：Bootstrap自举样本
 
--	输入变量随机：对第i课决策树通过随机方式选取K个输入
-	变量构成候选变量子集$\Theta_I$，只有这些变量才有可能
-	能参与分组，称为最佳分组变量
-	-	Forest-RI（random input）：随机选择
-		$K=log_2P+1, k=\sqrt P$个变量
-	-	Forest-RC（random combination）
+-	输入属性随机：对第i棵决策树通过随机方式选取K个输入变量
+	构成候选变量子集$\Theta_I$
+
+	-	Forest-Random Input：随机选择$k=log_2P+1或k=\sqrt P$
+		个变量
+
+	-	Forest-Random Combination
 		-	随机选择L个输入变量x
 		-	生成L个服从均匀分布的随机数$\alpha$
 		-	做线性组合
 			$v_j = \sum_{i=1}^L \alpha_i x_i, \alpha_i \in [-1, 1]$
 		-	得到k个由新变量v组成的输入变量子集$\Theta_i$
 
-因为选择最优分组变量、最优合并点都是贪心策略，所以使用所有
-变量的子集能够一定程度上避免贪心算法带来的局部最优局限
+-	在候选变量子集中选择最优变量构建决策树
+	-	生成决策树时不需要剪枝
 
-#todo
-
--	启发式操作
--	优化操作
-
-###	GBDT
-
-Gradient Boosted Decision Tree：采用加法模型，即基函数的
-线性组合，不断减小训练过程产生的残差达到数据分类、回归算法
-
--	多轮迭代，每轮产生一个弱分类器，每个分类器在上一轮分类器
-	的**残差**基础上进行训练
-	-	弱分类器要求足够简单，低方差、高偏差，因而每个树不会
-		很深
-	-	因为训练过程就是通过不断降低偏差不断提高最终分类器
-		精度
-	-	弱分类器一般会选择为Cart Tree（分类回归树）
-
--	GBDT通过**经验风险最小化**（即添加惩罚项）确定下一个
-	弱分类器参数，即损失函数l选择
-
--	为了让损失函数不断、尽可能快的减小，选择让损失函数沿着
-	负梯度方差下降
-
-
--	总分类器将每轮训练的弱分类器加权求和得到（加法模型）
-	（完成后共K棵树）
-	$$
-	\hat y_K(x) = F_K(x) = \sum_{i=1}^K f_i(x; l_i) \\
-	$$
-
--	模型损失函数（预测误差）
-
-	$$\begin{align*}
-	L = L^t & = \sum_i^n l(y_i, \hat y_i^t) \\
-		& = \sum_i^K l(y_i, \hat y_i^{t-1} + f_t(x_i)) \\
-	& 在t时刻，正在生成第t棵树 \\
-	& n为样本量 \\
-	& Square Loss：l(y_i,\hat y_i) = (y_i - \hat y_i)^2即残差 \\
-	& Logistic Loss：l(y_i, \hat y_i) =
-		y_i ln(1+e^{-\hat y_i}) + (1-y_i)ln(1+e^{\hat y_i}) \\
-	& 0-1 Loss \\
-	\end{align*}
-	$$
-
-####	极小化目标函数
-
-同时考虑模型复杂度（惩罚项）
-
-$$
-\begin{align*}
-obj^t & = L^t + \sum_{i=1}^t \Omega(f_k)						\\
-	& = \sum_i^K l(y_i, \hat y_i^{t-1} + f_t(x_i)) +
-		\Omega(f_t) + constant									\\
-	& = \sum_{i=1}^n [l(y_i, \hat y^{t-1}) + g_i f_t(x_i) +
-		\frac 1 2 h_i f_t^2(x_i)] +
-		\Omega(f_t) + constant									\\
-	& = \sum_{i=1}^n [l(y_i, \hat y^{t-1}) + g_i w_t(x_i) +
-		\frac 1 2 h_i w_t^2(x_i)] +
-		\gamma T + \frac 1 2 \lambda \sum_{j=1}^T w_j^2			\\
-	& = \sum_{j=1}^T [(\sum_{i \in I_j} g_i) w_j +
-		\frac 1 2 (\sum_{i \in I_j} h_i + \lambda) w_j^2] +
-		\lambda T												\\
-	& = \sum_{j=1}^T[G_iw_j + \frac 1 2 (H_j + \lambda)w_j^2] +
-		\lambda T												\\
-\end{align*}
-$$
-
-说明：
-
--	对第t步，之前生成树已经确定，不影响目标函数取极值，可以
-	认为是常数
-
--	对损失函数在$\hat y_i^{t-1}$泰勒展开
-	-	$g_i = \partial_{\hat y^{t-1}} l(y_i, \hat y^{t-1})$
-	-	$h_i = \partial^2_{\hat y^{t-1}} l(y_i, \hat y^{t-1})$
-
--	$w$是预测得分
-	-	$w_t(x_i)$是t时刻树对样本$x_i$的预测得分
-	-	$w_j$则是**当前t时刻树**第j叶子节点预测得分，对归于
-		同一个叶子节点所有样本点，其预测得分相同，即此叶子
-		节点的预测得分
-
--	惩罚项$\Omega(f_t)$被定义为如此
-	-	T是**当前t时刻树**叶子节点数
-	-	$\gamma, \lambda$权重参数
-	-	这个惩罚项定义的非常巧妙，添加了$w_j^2$作为惩罚，
-		要求树能解释的残差越大越好，同时能够和前面泰勒展开
-		的二次项合并，需要注意的是，惩罚项是针对树的，即定义
-		在的是叶子节点，而误差是定义在样本上，所以合并时是
-		将样本误差改写成针对叶子节点
-
--	合并部分
-	-	$I_j$为叶结点集合
-	-	$G_j = \sum_{i \in I_j} g_i, H_j=\sum_{i \in I_j} h_i$
-
-####	最优预测得分
-
-极小化目标函数对$w_i$求导，令其为0即可得最优得分$w_j^*$，
-对应的目标函数值称为树的结构分数
-
-$$
-$w_j^* = -\frac {G_j} {H_j + \lambda} \\
-$obj =  -\frac 1 2 \sum_{j=1}^T \frac {G_j^2} {H_j + \lambda}
-	+ \lambda T$
-$$
-
--	结构分数最小时的树为所求的树
--	结构分数可以用于评价树结构的合理性，越小越好
-
-####	损失函数确定
-
-### XGBoost
-
-一般模型构建准则通常由两部分构成
-
-$$
-Obj(\Theta) = L(\Theat) + \Omega(\Theta)
-$$
-
--	其中：$L(\Theta)$表示模型拟合能力
--	$\Omega(\Theta)$描述模型复杂度
-
-在XGBoost中
-
-$$
-Obj(\Theta)
-$$
-
-##	树算法
-
-###	ID3
-
-###	C4.5
-
-###	CART
-
-classification adn regression tree
-
--	包括分类树、回归树
--	是AID、CHAID算法的发展提高
--	克服了经典统计
+-	重复以上步骤构建k棵决策树，用一定集成策略组合多个决策树
+	-	简单平均/随机森林投票
 
 ####	优点
 
--	对自变量、因变量不做任何形式的分布假定
--	自变量可以是分类变量、连续变量的分布假定
--	具有对付一个观测中具有缺失值的功能，但用变量的线性组合
-	分割节点时除外（斜/协决策树，变量组合）
+-	样本抽样、属性抽样引入随机性
+	-	基学习器估计误差较大，但是组合模型偏差被修正
+	-	不容易发生过拟合、对随机波动稳健性较好
+	-	一定程度上避免贪心算法带来的局部最优局限
 
-	# todo
+-	数据兼容性
+	-	能够方便处理高维数据，“不用做特征选择”
+	-	能处理分类型、连续型数据
 
-###	CHAID
+-	训练速度块、容易实现并行
 
--	对于定性变量，各个水平将观测事先分组，形成一些小块的子集
--	通过统计检验：卡方检验、F检验确定分割变量、合并子集，
-	得到新的子节点
--	重复前两步直到每组只有一个类别
+-	其他
+	-	可以得到变量重要性排序
+	-	启发式操作
+	-	优化操作
+
+####	缺点
+
+-	决策树数量过多时，训练需要资源多
+-	模型解释能力差，有点黑盒模型
+
+###	*Gradient Boosted Desicion Tree*
+
+*GBDT*：梯度提升树，以回归树为基学习器的梯度提升方法
+
+-	GBDT会累加所有树的结果，本质上是回归模型（毕竟梯度）
+	-	所以一般使用CART回归树做基学习器
+	-	当然可以实现分类效果
+
+-	损失函数为平方损失（毕竟回归），则相应伪损失/残差
+
+	$$
+	r_{t,i} = y_i - f_{t-1}(x_i), i=1,2,\cdots,N
+	$$
+
+> - 具体步骤参考*data_science/ensemble/boosting*
+
+####	优势
+
+-	准确率、效率相较于RF有一定提升
+-	能够灵活的处理共类型数据
+
+####	劣势
+
+-	Boosting算法，基学习器之间存在依赖，难以并行训练数据
+	-	比较可行的并行方案是在每轮选取最优特征切分时，并行
+		处理特征
+
+###	*XGBoost Tree*
+
+XGBoost Tree：以回归树为基学习器的XGBoost模型
+
+-	正则化项一般定义为
+
+	$$
+	\Omega(f) = \gamma T + \frac 1 2 \lambda
+		\sum_{j=1}^T w_j^2
+	$$
+
+	> - $f$：**CART回归树**模型
+	> - $\gamma$：模型复杂度惩罚系数
+	> - $T$：树复杂度，这里使用叶子结点数量
+	> - $\lambda$：**模型贡献惩罚系数**
+	> - $w_j$：第j个叶子结点取值，预测得分
+	
+	-	此正则化项与$w_j^2$正相关，即不希望单个基学习器贡献
+		过大，给之后树留下学习空间
+
+-	则XGBoost最终损失（结构风险）定义如下
+
+	$$\begin{align*}
+	R_{srm} & = \sum_{i=1}^N l(y_i, \hat y_i) +
+		\sum_{t=1}^M \Omega(f_t)
+	\end{align*}$$
+
+	> - $N, M$：样本量、建树数量
+
+####	损失函数优化
+
+考虑Boosting模型可加性，则第t棵树损失函数为
+
+$$\begin{align*}
+obj^{(t)} & = \sum_{i=1}^N l(y_i, \hat y_i^{(t)}) +
+	\Omega(f_t) \\
+
+& = \sum_i^N l(y_i, \hat y_i^{(t-1)} + f_t(x_i)) +
+	\Omega(f_t) \\
+
+& \approx \sum_{i=1}^N [l(y_i, \hat y^{(t-1)}) + g_i f_t(x_i)
+	+ \frac 1 2 h_i f_t^2(x_i)] + \Omega(f_t) \\
+
+& = \sum_{i=1}^N [l(y_i, \hat y^{(t-1)}) + g_i f_t(x_i) +
+	\frac 1 2 h_i f_t^2(x_i)] + \gamma T_t +
+	\frac 1 2 \lambda \sum_{j=1}^M w_j^2 \\
+
+& = \sum_{j=1}^M [(\sum_{i \in I_j} g_i) w_j +
+	\frac 1 2 (\sum_{i \in I_j} h_i + \lambda) w_j^2]
+	+ \lambda T_t + \sum_{i=1}^N l(y_i, \hat y^{(t)}) \\
+
+& = \sum_{j=1}^M[G_i w_j + \frac 1 2
+	(H_j + \lambda)w_j^2] + \lambda T_t +
+	\sum_{i=1}^N l(y_i, \hat y^{(t)}) \\
+
+\end{align*}$$
+
+
+> - $f_t$：第t棵回归树
+> - $f_t(x_i)$：第t棵回归树对样本$x_i$的预测得分
+> - $w_j$：第t棵树中第j叶子节点预测得分
+> - $g_i = \partial_{\hat y} l(y_i, \hat y^{t-1})$
+> - $h_i = \partial^2_{\hat y} l(y_i, \hat y^{t-1})$
+> - $I_j$：第j个叶结点集合
+> - $G_j = \sum_{i \in I_j} g_i$
+> - $H_j = \sum_{i \in I_j} h_i$
+
+> - 正则项中含有$(w_j^{(t)})^2$作为惩罚，能够和XGBoost的二阶
+	导合并，不影响计算
+
+> - 模型复杂度惩罚项惩罚项是针对树的，定义在叶子节点上，而
+	平方损失是定义在样本上，合并时将其改写
+
+-	第t棵树的整体损失等于其中各叶子结点损失加和，各叶子结点
+	取值之间独立，则第t棵树各叶子结点最优取值（损失最小）
+
+	$$
+	w_j^{(*)} = -\frac {\sum_{i \in I_j} g_i}
+		{\sum_{i \in I_j} h_i + \lambda}
+	$$
+
+-	整棵树结构分数（最小损失）带入即可得
+
+	$$
+	obj^{(t)} = -\frac 1 2 \sum_{j=i}^M \frac {G_j^2}
+		{H_j + \lambda} + \lambda T
+	$$
+
+-	则在结点分裂为新节点时，树损失变化量为
+
+	$$
+	l_{split} = \frac 1 2 \left [
+	\frac {(\sum_{i \in I_L} g_i)^2} {\sum_{i \in I_L h_i} +
+		\lambda} +
+	\frac {(\sum_{i \in I_R} g_i)^2} {\sum_{i \in I_R h_i} +
+		\lambda} -
+	\frac {(\sum_{i \in I} g_i)^2} {\sum_{i \in I h_i} +
+		\lambda}
+	\right ] - \gamma
+	$$
+
+	> - $I_L, I_R$：结点分裂出的左、右结点
 

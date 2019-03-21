@@ -61,9 +61,14 @@ $$
 
 ###	模型复杂度
 
+> - *approximation error*：近似误差，模型偏差，代表模型对
+	训练集的拟合程度
+> - *estimation error*：估计误差，模型方差，代表模型对训练集
+	波动的稳健性
+
 -	模型复杂度越高
 
-	-	低偏差（训练误差）：对训练集的拟合充分
+	-	低偏差：对训练集的拟合充分
 
 	-	高方差：模型紧跟特定数据点，受其影响较大，预测结果
 		不稳定
@@ -84,7 +89,7 @@ $$
 > - 简单模型：低方差高偏差
 > - 复杂模型：低偏差高方差
 
-> - 模型复杂度衡量参*loss*
+> - 模型复杂度衡量参*data_science/loss*
 
 ####	*Over-Fitting*
 
@@ -286,8 +291,9 @@ $$
 
 $$
 \begin{align*}
-H(X) & = \sum_i^N P(x_i) log \frac 1 {P(x_i)} \\
-	& = - \sum_i^N p_i log p_i \\
+H(X) & = -E_P log P(x) \\
+& = \sum_i^N P(x_i) log \frac 1 {P(x_i)} \\
+& = - \sum_i^N p_i log p_i \\
 \end{align*}
 $$
 

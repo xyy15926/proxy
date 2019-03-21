@@ -43,7 +43,7 @@ let g:solarized_contrast="high"
 let g:solarized_visibility="normal"
 set background=dark
 	"backgroud color
-colorscheme gruvbox
+colorscheme lucius
 	"so amazing a colorscheme
 
 "hi normal ctermbg=none
@@ -213,6 +213,8 @@ call plug#end()
 
 "nerdtree settings
 nnoremap <leader>nt :NERDTreeToggle<cr>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "
 "}}}
 

@@ -51,6 +51,13 @@ None = list1.remove(
 -	dict中的键值对是**无序的**，想要得到有序的值列表，不能
 	直接`.values()`，必须提供额外的排序（键list之类）
 
+```python
+d = {key: val}
+d = dict([(key, val)])
+d = dict(key=val)
+d = dict.fromkeys(key_list, default_val)
+```
+
 ####	相关函数
 
 ```python

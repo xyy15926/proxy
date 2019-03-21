@@ -32,7 +32,7 @@
 
 ###	语言类型
 
-[lanuage_types](imgs/languages_types.png)
+![language_types](imgs/language_types.png)
 
 > - *strongly typed*：强类型，偏向于不能容忍**隐式类型转换**
 > - *weakly typed*：弱类型，偏向于容忍**隐式类型转换**
@@ -59,6 +59,9 @@
 
 -	函数重载：函数可以接受多种不同类型参数，根据参数类型有
 	不同的行为
+
+> - *ad hoc*：for this, 表示专为某特定问题、任务设计的解决
+	方案，不考虑泛用、适配其他问题
 
 ###	*Parametric Polymorphism*
 

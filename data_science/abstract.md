@@ -153,9 +153,7 @@
 -	特点
 
 	-	直接学习条件概率、决策函数
-	
 	-	直面预测，学习准确率更高
-
 	-	可以对数据进行各种程度抽象、定义特征、使用特征，简化
 		学习问题
 
@@ -183,6 +181,8 @@
 	-	贝叶斯网络
 	-	神经网络
 	-	winnow
+
+-	不存在分类能力弱于随机预测的分类器（结论取反）
 
 ####	*Tagging*
 
@@ -218,11 +218,54 @@
 
 -	预测过程：根据学习到函数模型确定相应输出
 
-
-
 ##	*Unsupervised Learning*
 
-非监督学习
+无监督学习：没有给定实现标记过的训练示例，自动对输入的数据
+进行分类
+
+-	主要目标：预训练一般模型（称识别、编码）网络，供其他任务
+	使用
+
+-	目前为止，监督模型总是比无监督的预训练模型表现得好，主要
+	原因是监督模型对数据的**特性编码**更好
+
+###	问题分类
+
+####	*Clustering*
+
+聚类
+
+-	*Hierarchy Clustering*
+-	*K-means*
+-	*Mixture Models*
+-	*DBSCAN*
+-	*OPTICS Algorithm*
+
+####	*Anomaly Detection*
+
+异常检测
+
+-	*Local Outlier Factor*
+
+####	*Neural Networks*
+
+神经网络
+
+-	*Auto-encoders*
+-	*Deep Belief Nets*
+-	*Hebbian Learning*
+-	*Generative Adversarial Networks*
+-	*Self-organizing Map*
+
+####	隐变量学习
+
+-	*Expectation-maximization Algorithm*
+-	*Methods of Moments*
+-	*bind signal separation techniques*
+	-	*Principal Component analysis*
+	-	*Independent Component analysis*
+	-	*Non-negative matrix factorization*
+	-	*Singular Value Decomposition*
 
 ##	*Semi-Supervised Learning*
 
@@ -234,13 +277,18 @@
 
 ##	学习要素
 
-###	*Model*/*Hypothesis*/*Opimizee*/*Learner*
+###	*Model*/*Hypothesis*/*Opimizee*/*Learner*/*Learning Algorithm*
 
-模型/假说/优化对象/学习器：模型就是要学习的条件概率分布
-$P(Y|X)$、决策函数$Y=f(X)$
+模型/假说/优化对象/学习器/学习算法：模型就是要学习的条件概率
+分布$P(Y|X)$、决策函数$Y=f(X)$
 
 -	概率模型：用条件概率分布$P(Y|X)$表示的模型
 -	非概率模型：用决策函数$Y=f(x)$表示的模型
+
+> - *learner*：某类模型的总称
+> - *hypothesis*：训练好的模型实例，有时也被强调作为学习器
+	应用在某个样本集（如训练集）上得到的结果
+> - *learning algorithm*：模型、策略、算法三者的模型总体
 
 ####	*Hypothesis Space*
 
