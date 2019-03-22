@@ -75,11 +75,11 @@
 
 约束最优化问题
 
-$$\begin{align*}
+$$\begin{array}{l}
 \min_{x \in R^n} & f(x) \\
 s.t. & c_i(x) \leq 0, i = 1,2,\cdots,k
 & h_j(x) = 0, j = 1,2,\cdots,l
-\end{align*}
+\end{array}
 $$
 
 ###	*Generalized Lagrange Function*
@@ -116,7 +116,7 @@ $$
 	$$\theta_P(x) = \left \{ \begin{array}{l}
 	f(x), & x 满足原始问题约束条件 \\
 	+\infty, & 其他
-	$$
+	\end{array} \right.$$
 
 -	则极小化问题，称为广义拉格朗日函数的极小极大问题
 
