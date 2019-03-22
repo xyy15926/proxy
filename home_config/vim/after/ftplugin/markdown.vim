@@ -37,7 +37,8 @@ inoremap <buffer> <localleader>cb ```<esc>"=b:lang<c-m>po```<esc>O
 	"ask user what language is this md-file about, so to
 	"input code block easier
 inoremap <buffer> <localleader>xm $$\mathcal{<c-m>}$$<esc>O
-inoremap <buffer> <localleader>xa \begin{align*}<c-m>\end{align*}<esc>O
+inoremap <buffer> <localleader>xal \begin{align*}<c-m>\end{align*}<esc>O
+inoremap <buffer> <localleader>xar \begin{array}{l}<c-m>\end{array}<esc>O
 inoremap <buffer> <localleader>xi $\mathcal{}$<esc>hi
 	"to input latex easier
 

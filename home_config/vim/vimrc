@@ -43,7 +43,7 @@ let g:solarized_contrast="high"
 let g:solarized_visibility="normal"
 set background=dark
 	"backgroud color
-colorscheme lucius
+colorscheme gruvbox
 	"so amazing a colorscheme
 
 "hi normal ctermbg=none
