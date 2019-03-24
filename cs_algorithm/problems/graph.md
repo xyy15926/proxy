@@ -214,7 +214,7 @@ Tarjan算法：基于图深度优先搜索的算法
 
 	-	`DFN`：深度优先搜索中搜索到次序
 	-	`Low`：通过回边能访问到的前驱被搜索到的次序
-	-	`Flag`：结点是否仍在DFS栈中
+	> - 还可以维护一个`Flag`，判断结点是否仍在DFS栈中
 
 -	对图进行深度优先搜索
 
@@ -245,15 +245,25 @@ Tarjan算法：基于图深度优先搜索的算法
 
 -	每个强连通分量为深度优先搜索树中一个子树
 
+$$
+Low[v] = \min\{DFN[v], Low[w], DFN[k]\}
+$$
+
+> - $w, (w, v) \in E$：顶点v的直接前驱
+> - $k, (v, k) \in E$：顶点v的祖先（即栈中结点）
+
 ####	算法
 
 ```c
 S = initStack()
 DFN[MAX_VERTAX], Low[MAX_VERTEX]
 index = 0
+QList = InitList(Queue())
 
 tarjan(u, E):
+	// 比较DFS搜索次序、回边到达次序判断强连通分量
 	// 输入：结点u，边集合E
+	// 输出：强连通分量队列列表
 	DFN[u] = Low[u] = ++ index
 	S.push(u)
 	for each (u, v) in E:
@@ -267,9 +277,10 @@ tarjan(u, E):
 			// Low[u] = min(Low[u], Low[v])
 				// 应该也行
 	if(DFN[u] == Low[u]):
+		Q = QList.next()
 		repeat
-			v = S.pop
-			print v
+			v = S.pop()
+			Q.push(v)
 		until (u == v)
 ```
 
@@ -277,6 +288,60 @@ tarjan(u, E):
 
 -	算法效率
 	-	时间效率$\in O(|V|+|E|)$
+
+##	关节点
+
+###	类Tarjan算法
+
+-	类似Tarjan算法为每个节点维护`DFN`、`Low`两个次序
+	-	对非根结点v，存在其直接后继w有`Low[w] >= DFN[v]`，
+		则v为关节点
+	-	对根节点，有两棵以上子树则为关节点
+
+####	算法
+
+此算法具体实现和Tarjan算法细节有差异
+
+-	此算法中不需要使用栈保存访问过顶点中是前驱者
+	-	连通无向图DFS只会有回边，已访问点必然是前驱结点
+-	需要对根结点额外判断是否为关节点
+
+```c
+DFN[MAX_VERTAX], Low[MAX_VERTEX]
+index = 0
+Q = InitQueue()
+
+FindArticul(G):
+	// 输入：无向连通图G
+	// 输出：关节点队列
+	vroot = G.V.pop()
+	TarjanArticul(vroot, G)
+	for(v in G.V if v not visited)
+		// 根节点有两棵及以上子树
+		TarjanAricul(vroot, G)
+		Q.push(vroot)
+		// 根节点也是关节点
+	return Q
+
+TarjanArticul(u, G):
+	// 比较DFS搜索次序、回边到达次序判断关节点
+	// 输入：结点u，无向连通图G
+	// 输出：关节点队列
+	DFN[u] = Low[u] = ++ index
+	for each (u, v) in G.E:
+		if (v is not visited):
+			tarjan(v)
+			Low[u] = min(Low[u], Low[v])
+			// 使用v找到的前驱更新u能找到前驱，递归更新
+		else:
+			Low[u] = min(Low[u], DFN[v])
+			// Low[u] = min(Low[u], Low[v])
+				// 应该也行
+	for(v connected by u)
+		if(Low[v] <= DFN[u])
+			Q.push(u)
+	return Q
+```
 
 ##	无权路径
 
@@ -401,7 +466,7 @@ Prim(G)
 		// 初始化节点和树最近节点列表、节点与树距离列表
 
 	for i = 1 to |V|-1 do
-		// 重复n-1次，知道树包含所有顶点
+		// 重复n-1次，直到树包含所有顶点
 		edge = min(D_D)
 			// 寻找距离树最近的点
 		v = vertex(edge)
@@ -416,25 +481,6 @@ Prim(G)
 	return E_T
 ```
 
-####	正确性证明
-
-用归纳法证明，Prim算法生成每棵子树$T_i$，都是某些最小生成树
-一部分，则序列最后$T_{n-1}$就是最小生成树
-
--	$T_0$是单独顶点，显示是任意最小生成树一部分
-
--	若$T_{i-1}$是某最小生成树T一部分，设$e_i=(v, u)$为Prim
-	算法将要添加的最小生成树边
-
--	若$T_i$不是任何最小生成树的一部分，则$e_i$不属于任何最小
-	生成树
-
--	则将$e_i$添加至T中将构成回路，回路中包含边
-	$(m, n), m \in T_{i-1},n \in T - T_{i-1}$
-
--	删除回边$(m, n)$，则得到另一棵生成树，且权重小于等于T，
-	即最小生成树，与假设矛盾
-
 ####	算法特点
 
 -	算法时间效率依赖实现优先队列、存储图数据结构
@@ -447,7 +493,6 @@ Prim(G)
 
 -	穷举查找构造生成树，生成树数量呈指数增长，且构造生成树
 	不容易
-
 
 ###	Kruskal算法
 
@@ -917,18 +962,136 @@ $C_{ijd}$，求最小成本分配方案
 	环，无解
 -	则删除节点顺序即为拓扑排序可行解
 
+```c
+TopologicalSort(G):
+	// 从有向图中不断删除入度为0的点、入栈，判断有向图G是否
+		// 为DAG，并给出拓扑排序栈
+	// 输入：有向图G
+	// 输出：拓扑排序栈T
+	InitStack(S)
+	indgree = [v.indegree for v in G]
+	for v in G:
+		if v.indgree == 0
+			S.push(v)
+		// 存储0入度结点栈
+	count = 0
+		// 删除结点计数
+	while(!S.empty())
+		v = S.pop()
+		T.push(v)
+		count++
+		for(u connected to v)
+			if --indgree.u == 0
+				S.push(u)
+	if count < |G.V|
+		// 结点未删除完毕，但无0入度结点
+		// G中有回路，报错
+		return ERROR
+	return T
+```
+
 ####	特点
 
+-	算法效率
+	-	时间效率$\in O(|V|+|E|)$
 -	减常数法
 
 ###	DFS逆后序遍历
 
-#todo
+图中**无环**时，由某点出发进行DFS
+
+-	最先退出DFS的为出度为0的点，即拓扑有序序列中最后顶点
+
+-	按照DFS退出先后次序得到序列即为逆向拓扑有序序列
+
+	-	使用逆后序方式存储DFS访问顶点，判断是否有环、出栈
+		次序即为正向拓扑有序序列
 
 ###	应用
 
 -	判断庞大项目中相互关联任务不矛盾，然后才能合理安排，使得
 	项目整体完成时间最短（需要CPM、PERT算法支持）
+
+##	*Cirtical Path*问题
+
+找出使用AOE网表示的工程的中关键路径
+
+-	关键路径由关键活动构成
+-	即耗费时间变动对工程整体完成时间有影响的活动
+
+###	拓扑排序求解
+
+-	最早、最晚开始时间检查是否为关键活动
+-	建立活动（边）、事件（顶点）发生事时间关系
+-	拓扑排序求解事件发生最早、最晚时间
+
+> - 具体参见*algorithm/data_structure/graphdi_specials*
+
+####	算法
+
+```c
+TopologicalOrder(G):
+	// 从有向图中不断删除入度为0的点、入栈，判断有向图G是否
+		// 为DAG，并给出拓扑排序栈
+	// 输入：有向图G
+	// 输出：拓扑排序栈T、顶点事件最早发生事件ve
+	InitStack(S)
+	indgree = [v.indegree for v in G]
+	ve[0..|G.V|] = 0
+	for v in G:
+		if v.indgree == 0
+			S.push(v)
+		// 存储0入度结点栈
+	count = 0
+		// 删除结点计数
+	while(!S.empty())
+		v = S.pop()
+		T.push(v)
+		count++
+		for(u connected by v)
+			ve[u] = max{ve[u], ve[v] + len(v, u)}
+				// 若有更长路径，更新
+			if --indgree[u] == 0
+				S.push(u)
+	if count < |G.V|
+		// 结点未删除完毕，但无0入度结点
+		// G中有回路，报错
+		return ERROR
+	return T, ve
+
+CriticalPath(G, T, ve):
+	// 逆序求顶点事件最晚发生时间，求出关键活动
+	// 输入：有向无环图G，G拓扑排序
+	// 输出：关键活动队列Q
+	vl[0..|G.V|] = ve
+	Q = InitQueue()
+	while(!T.empty())
+		v = T.pop()
+		for (u connect to v)
+			vl[u] = min{vl[u], vl[v] - len(u, v)}
+	for(v in G.V)
+		for (u connected by v)
+			ee = ve[v]
+			el = vl[u] - len(v)
+			if(el == ee)
+				Q.push(G.edge(v, u))
+	return Q
+```
+
+-	以上算法中在生成拓扑排序栈时同时得到各顶点事件最早发生
+	时间
+
+-	可以只获取拓扑排序栈，然后处理其获得顶点事件最早发生时间
+	，将两个功能分离，只是处理一遍顶点而已
+
+-	也可以使用其他算法获得拓扑排序栈
+	-	DFS遍历甚至可以遍历顶点一遍，同时获得顶点事件最早、
+		最晚发生时间
+
+####	特点
+
+-	算法效率
+	-	时间效率$\in O(|V|+|E|)$
 
 ##	哈密顿回路问题
 
