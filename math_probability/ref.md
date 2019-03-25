@@ -47,6 +47,34 @@ $$
 
 > - $N_i$：第i类实际个数
 
+###	条件概率分布似然函数
+
+-	离散随机变量$(X,Y)$的条件概率分布似然函数
+
+	$$\begin{align*}
+	O_{\tilde P}(P_w) & = \prod_{i=1}^N P(y_i|x_i) \\
+	& = \prod_{x,y} P(y|x)^{N * \tilde P(x,y)}
+	\end{align*}$$
+
+	> - $N$：样本数量
+	> - $\tilde P(x,y)$：经验分布
+
+-	对数似然函数为
+
+	$$\begin{align*}
+	L_{\tilde P}(P_w) & = log \prod_{x,y}
+		P(y|x)^{N * \tilde P(x,y)} \\
+	& = \sum_{x,y} N * \tilde P(x,y) log P(y|x) \\
+	\end{align*}$$
+
+	系数$N$可以省略，则有
+
+	$$\begin{align*}
+	L_{\tilde P}(P_w) & = log \prod_{x,y}
+		P(y|x)^{\tilde P(x,y)} \\
+	& = \sum_{x,y} \tilde P(x,y) log P(y|x)
+	\end{align*}$$
+
 
 
 

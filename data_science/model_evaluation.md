@@ -304,9 +304,9 @@ $$
 > - 其中$log$以2为底，单位为*bit*，以e为底，单位为*nat*
 
 -	熵只依赖随机变量$X$的分布，与其取值无关，所以也可以将其
-	熵记为$H(p)$
+	熵记为$H(P)$
 
--	由定义$0 \leq H(p) \leq log_2 k$
+-	由定义$0 \leq H(P) \leq log_2 k$
 	-	$H(p) = 0$：$\exists j, p_j=1$，随机变量只能取
 		一个值，无不确定性
 	-	$H(p) = log k$：$\forall j, p_j=1/k$，随机变量
@@ -317,18 +317,19 @@ $$
 
 ####	熵的性质
 
--	若X、Y相互独立
+-	一般的
+	$$\begin{align*}
+	H(X, Y) & = H(X) + H(Y|X) \\
+	H(X, Y) & = H(Y) + H(X|Y) \\
+	H(X|Y) & \leqslant H(x) \\
+	H(X, Y) & \leqslant H(X) + H(Y) \\
+	\end{align*}$$
+
+-	特别的，若X、Y相互独立
 	$$
 	H(X, Y) = H(X) + H(Y)
 	$$
 
--	一般的
-	$$
-	H(X, Y) = H(X) + H(Y|X) \\
-	H(X, Y) = H(Y) + H(X|Y) \\
-	H(X|Y) \leqslant H(x) \\
-	H(X, Y) \leqslant H(X) + H(Y) \\
-	$$
 ####	*Conditinal Entrophy*
 
 条件熵：随机变量X给定条件下，随机变量Y的**条件概率分布的熵**
