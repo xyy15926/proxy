@@ -4,19 +4,19 @@
 
 ###	`type`
 
-就是元类，python中所有类都是type创建
+`type`：元类，python中所有类都由`type`创建
 
 ```python
 class = type(
 	name=cls_name,
-	bases=(par_name,..),
+	bases=(pls_name,..),
 	dict={attr1: val1,...}
 )
 ```
 
 -	参数
 	-	`cls_name`：类名称
-	-	`bases`：父类为元素的元组
+	-	`bases`：父类元组
 	-	`dict`：类方法、属性
 
 -	返回值：类的别名
@@ -24,13 +24,13 @@ class = type(
 ###	元类作用
 	
 -	拦截类创建->修改类->返回修改后的类（创建**类对象**）
-	（如果不确定是否需要用元类，就不应该使用）
 
--	元类的作用和函数相似，且事实上，python并不关心**类对象**
-	是否是由真正的**元类**创建，可以指定元类为一个函数，而
-	不一定是继承自type的元类
+-	元类的作用和函数相似
 
--	但是仍然应该尽量将元类指定为继承自type的对象
+	-	python并不关心**类对象**是否是由真正的元类创建
+	-	可以指定元类为一个函数，而非继承自`type`的元类
+
+-	但仍应尽量将元类指定为继承自`type`的对象
 
 	-	元类应用场景一般比较复杂，使用类可以更好的管理代码
 	-	默认元类是`type`类，类继承保持一致性意图比较明显，且
@@ -38,10 +38,11 @@ class = type(
 	-	元类可以使用一些类中特有的方法：`__new__`，`__init__`
 		等
 
+> - 如果不确定是否需要用元类，就不应该使用
+
 ###	自定义元类
 
 ```python
-
 class UpperAttrMeta(type):
 	def __new__(cls, cls_name, bases, attrs):
 		upper_attrs=dict((name.upper(), val)

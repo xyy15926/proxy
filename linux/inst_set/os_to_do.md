@@ -10,6 +10,8 @@ linux安装之初，在设置root密码之前无法使用`$ su`切换到root
 $ sudo passwd root
 ```
 
+##	应用设置
+
 ###	配置源
 
 这个根据系统不同需要不同的操作，但是一般是修改
@@ -209,6 +211,8 @@ RPM安装包
 
 参见[脚本文件](../../home_config/setting.sh)
 
+##	本地化
+
 ###	字体
 
 linux系统本身不带有中文字体，用于terminal的字需要是monospace
@@ -223,4 +227,12 @@ $ fc-cache
 $ fc-list :lang=zh
 	#输出已安装中文字体
 ```
+
+###	`Locale`
+
+`Locale`：特定于某个国家、地区的编码设定
+
+-	代码页
+-	数字、货币、时间与日期格式
+
 

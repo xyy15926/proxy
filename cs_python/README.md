@@ -51,23 +51,3 @@ return = func(essential(type), optional=defaults/type,
 
 -		`obj(type)`：`type`表示**包含**元素类型
 
-####	其他
-
--	DF对象和Series对象都具有的函数属性列出DF对象
-
-##	常用参数说明
-
-以下常用参数如不特殊注明，按照此解释
-
-###	Threading
-
--	`block/blocking = True/False`
-
-	-	含义：是否阻塞
-	-	默认：大部分为`True`（阻塞）
-
--	`timeout = None/num`
-
-	-	含义：延迟时间，单位一般是秒
-	-	默认：None，无限时间
-

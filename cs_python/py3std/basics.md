@@ -127,9 +127,15 @@ python2中`str`类型实际上应该看作是**字节串**
 
 python3中`str`类型的逻辑变成真正的**字符串**
 
+-	python3中`str`类型在内存中应该是`utf-16-le`编码
+
+	-	权衡了内存需求、处理方便
+	-	这个和python默认文件、输入、输出编码是两个概念
+
 -	`encode`方法，将字符串编码为其他编码方案的字节流
 	（包括自身的*utf-8*）
--	虽然每个字符内存大小可能不同
+
+-	这里的字符串中每个字符内存大小可能不同
 
 ###	Bytes
 
@@ -405,21 +411,135 @@ zip(*zip_obj)
 	# 返回得到zip_obj的iterable参数组成的zip对象（但为tuple）
 ```
 
+###	输入输出
+
+> - 内建`print`、`input`函数实际上只是调用`sys.stdin`、
+	`sys.stdout`引用文件流对象的`readline`、`write`方法
+
+####	`print`
+
+```python
+def print(value,...,
+	sep=' '/str,
+	end='\n'/str,
+	file=sys.stdout/file,
+	flush=False/True
+)
+def input(prompt=None,/)
+```
+
+-	参数
+	-	`sep`：插入值之间标记字符串
+	-	`end`：添加在最后的标记
+	-	`file`：文件类型对象
+	-	`flush`：是否强制刷新流
+
+####	`input`
+
+```python
+def input(prompt)
+```
+
+-	`input`方法会自动剔除行结尾的`\n`，遇到*EOF*会抛出异常
+	-	标准输入重定向为文件时
+	-	键盘输入`<c-d>`/`<c-z-cr>`
+
+###	文件处理
+
+```python
+file = open("data.txt", "w")
+	// 打开文件，创建流
+file.write("hello world\n")
+	// 逐字符写入字符串
+	// 需要手动添加`\n`
+file.read([N])
+	// 缺省读取全部
+file.readline()
+	// 读取一行
+file.readlines()
+	// 读取全部，返回行字符串列表
+file.seek(0)
+file.flush()
+	// 强制缓冲区数据写入磁盘
+file.close()
+	// 确定文件内容、释放系统资源
+```
+
+####	`open`
+
+```python
+def open(file,
+	mode="r"/"w"/"a"/"+"/"t"/"b",
+	buffering=-1,
+	encoding=None,
+	errors=None,
+	newline=None,
+	closefd=True,
+	opener=None
+)
+```
+
+####	`.close`
+
+`.close`调用经常是可选的
+
+-	垃圾回收、进程终止时会关闭文件
+
+-	但某些情况下需要显式关闭
+
+	-	Jython实现依赖于Java的垃圾回收，无法像在标准python
+		中那样确定文件回收时间
+	-	短时间内新建许多文件
+	-	IDE对文件持有时间过长，甚至可能导致缓冲区数据未存盘
+	-	在同一进程中再次打开文件
+
+-	自动关闭文件特性是实现特性，不是语言特性，将来可能会
+	改变
+
+> - 关闭文件没有坏处，还能形成好习惯
+
+#####	关闭文件处理方式
+
+```python
+f = open("filename")
+try:
+	...
+finally:
+	f.close()
+	# 异常处理器
+
+with open("filename") as f：
+	...
+	# 上下文管理器
+```
+
+-	文件对象的自动关闭、收集性通常能满足要求，没有必要把所有
+	python文件处理代码封装在`with`中
+
+####	`seek`
+
+```python
+file.seek(offset, start)
+	// start: 0: 文件开始，1：当前位置，2：文件结尾
+```
+
+-	可以在非更新模型（不带上`+`）下使用，但是在更新模式下
+	最为灵活
+
+-	除非是纯ASCII文件，否则由于编码问题、换行符问题的存在，
+	其在文本应用中效果不好，所以经常在二进制文件+二进制模式
+	使用
+
+###	解释器
+
+```python
+id(obj)
+	# 返回`object identifier
+locals()
+	# 返回当前环境所有定义值字典
+```
+
 ##	环境系统
-
-###	`os`
-
--	`chdir`：改变当前目录
-
-####	`environ`
-
-存储python运行时环境变量字典
-
--	默认继承系统所有环境变量
--	可以通过修改、增加、删除项目在python中动态设置运行时环境
-	变量
--	即除`export`环境变量、临时环境变量，python还有第三种
-	在运行时动态修改环境变量
 
 ###	编码
 
@@ -440,5 +560,12 @@ zip(*zip_obj)
 -	默认编码方案为*utf-8*
 -	默认将输入字节流视为*utf-8*编码
 
+###	*CWD*
+
+*CWD*：当前工作目录，可以使用`os.getcwd()`获得
+
+-	默认是启动python进程的目录，除非使用`os.chdir()`修改
+-	没有提供完整路径的文件名将被映射到*CWD*
+-	与模块导入路径无关
 
 

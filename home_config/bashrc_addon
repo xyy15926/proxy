@@ -24,7 +24,8 @@ dir_base="\[\033[0;33m\]\W"
 dir_name="\[\033[0;32m\]\w"
 director_char="\[\033[1;32m\]\$"
 input_content="\[\033[0;37m\]"
-PS1=[$user_name-$time_24@\ $dir_base$input_content]$director_char$input_content\ 
+title="\[\e]0;openSUSE Leap 15.0 \u@\h: \w\a\]"
+PS1=$title$input_content[$user_name@\ $dir_base$input_content]$director_char$input_content\ 
 
 # set bash mode
 set -o vi

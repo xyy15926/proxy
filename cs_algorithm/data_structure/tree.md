@@ -419,10 +419,10 @@ Postorder(T):
 二叉树可以看作是根节点、i个结点的左子树、n-i-1个结点的右子树
 组成，所有有如下递推
 
-$$\left \{ \beign{array}{r}
+$$\left \{ \begin{array}{l}
 b_0 & = 1 \\
-b_n & = \sum_{i=0}^{n-1} b_i b_{n-i-1}, n \geq 1
-\end{array}{r} \right.$$
+b_n & = \sum_{i=0}^{n-1} b_i b_{n-i-1}, & n \geq 1
+\end{array} \right.$$
 
 求解得
 

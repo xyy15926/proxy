@@ -134,7 +134,7 @@ class SizedString(String, MaxSized):
 
 ####	使用
 
-```
+```python
 class Stock:
 	name = SizedString("name", size=8)
 	shares = UnsignedInteger("shares")
