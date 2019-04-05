@@ -371,7 +371,7 @@ KMPShift(P[0..m-1])
 	j = 0
 	next[0] = -1
 		// 即如果模式首字符都不匹配，比较文本下个字符
-	while i < m
+	while j < m
 		if i == -1 or P[j] == P[i]
 			i += 1
 			j += 1
@@ -394,7 +394,7 @@ KMPShiftVal(P[0..m-1])
 		// 表示开始比较文本中下个字符
 	j = 0
 	next_val[0] = -1
-	while i < m do
+	while j < m do
 		if i == -1 or P[j] == P[i]
 			i += 1
 			j += 1
