@@ -197,6 +197,10 @@ $$\begin{align*}
 
 将实数映射到(0, 1)区间
 
+$$
+sigmoid(x) = \frac 1 {1+e^{-x}}
+$$
+
 -	用途
 	-	隐层神经元输出
 	-	二分类输出
@@ -206,10 +210,6 @@ $$\begin{align*}
 	-	误差反向传播时容易出现梯度消失
 	-	函数收敛缓慢
 
-$$
-sigmoid(x) = \frac 1 {1+e{-x}}
-$$
-
 ####	Hard_Sigmoid
 
 计算速度比sigmoid激活函数快
@@ -218,7 +218,7 @@ $$
 hard_signmoid(x) = \left \{ \begin {array} {l}
 	0 & x < -2.5 \\
 	1 & x > 2.5 \\
-	0.2*x + 0.5 -2.5 <= x <= 2.5 \\
+	0.2*x + 0.5 & -2.5 \leq x \leq 2.5 \\
 \end {array} \right.
 $$
 
@@ -226,15 +226,15 @@ $$
 
 主要用于多分类神经网络输出
 
+$$
+softmax(x_i) = \frac {e^{x_i}} {\sum_{k=1}^K e^{x_k}}
+$$
+
 -	使用指数
 	-	拉开数值之间差距，大者更大，小者更小
 	-	保证激活函数可导
 
 -	Softmax回归参数冗余
-
-$$
-softmax(x_i) = \frac {e_{x_i}} {\sum_{k=1}^K e^{x_k}}
-$$
 
 ####	Softplus
 
@@ -292,7 +292,7 @@ $$
 
 ####	ReLU
 
-修正线性单元：Rectfied Linear Units
+*Rectfied Linear Units*：修正线性单元
 
 $$
 relu(x, max) = \left \{ \begin{array} {l}
@@ -304,7 +304,7 @@ $$
 
 ####	LeakyReLU
 
-带泄露的修正线性：Leaky ReLU
+*Leaky ReLU*：带泄露的修正线性
 
 $$
 relu(x, \alpha, max) = \left \{ \begin {array} {l}
@@ -316,10 +316,7 @@ $$
 
 ####	PReLU
 
-参数化的修正线性：Parametric ReLU
-
--	参数$\alpha$是自学习参数（数组）
-	-	需要给出权重初始化方法（正则化方法、约束）
+*Parametric ReLU*：参数化的修正线性
 
 $$
 prelu(x) = \left \{ \begin{array} {l}
@@ -327,6 +324,9 @@ prelu(x) = \left \{ \begin{array} {l}
 	x & x> 0 \\
 \end{array} \right.
 $$
+
+> - *$\alpha$*：自学习参数（向量），需要给出权重初始化方法
+	（正则化方法、约束）
 
 ####	ThreshholdReLU
 
@@ -339,7 +339,7 @@ threshhold_relu(x, theta)= \left \{ \begin{array} {l}
 \end{array} \right.
 $$
 
-####	linear
+####	Linear
 
 线性激活函数：不做任何改变
 

@@ -95,49 +95,56 @@ PreorderSearch(A[0..n-1])
 
 -	这种**预排序**思想可以用于**众数**、**检验惟一性**等，
 	此时算法执行时间都取决于排序算法
-	（优于蛮力法$\in Theta(n^2)$
-
-	```c
-	PresortElementUniqueness(A[0..n-1])
-		// 先对数组排序，求解元素唯一性问题
-		// 输入：n个可排序元素构成数[0..n-1]
-		// 输出：A中有相等元素，返回true，否则false
-		对数组排序
-		for i=0 to n-2 do
-			if A[i] = A[i+1]
-				return false
-		return true
-	```
-
-	```c
-	PresortMode(A[0..n-1])
-		// 对数组预排序来计算其模式（众数）
-		// 输入：可排序数组A[0..n-1]
-		// 输出：数组模式
-		对数组A排序
-		i = 0
-		modefrequency = 0
-		while i <= n-1 do
-			runlength = 1
-			runvalue = A[i]
-			while i + runlength <= n-1 and A[i+runlength] == runvalue
-				// 相等数值邻接，只需要求出邻接次数最大即可
-				runlength = runlength+1
-			if runlength > modefrequency
-				modefrequency = runlength
-				modevalue = runvalue
-			i = i+runlength
-
-		return modevalue
-	```
+	（优于蛮力法$\in Theta(n^2)$）
 
 -	变治法（输入增强）
 
-##	有序线性表查找
+#####	预排序检验唯一性
+
+```c
+PresortElementUniqueness(A[0..n-1])
+	// 先对数组排序，求解元素唯一性问题
+	// 输入：n个可排序元素构成数[0..n-1]
+	// 输出：A中有相等元素，返回true，否则false
+	对数组排序
+	for i=0 to n-2 do
+		if A[i] = A[i+1]
+			return false
+	return true
+```
+
+#####	预排序求众数
+
+```c
+PresortMode(A[0..n-1])
+	// 对数组预排序来计算其模式（众数）
+	// 输入：可排序数组A[0..n-1]
+	// 输出：数组模式
+	对数组A排序
+	i = 0
+	modefrequency = 0
+	while i <= n-1 do
+		runlength = 1
+		runvalue = A[i]
+		while i + runlength <= n-1 and A[i+runlength] == runvalue
+			// 相等数值邻接，只需要求出邻接次数最大即可
+			runlength = runlength+1
+		if runlength > modefrequency
+			modefrequency = runlength
+			modevalue = runvalue
+		i = i+runlength
+
+	return modevalue
+```
+
+##	有序顺序表查找
+
+-	有序顺序表的查找关键是利用有序减规模
+
+-	但关键不是有序，而是**减规模**，即使顺序表不是完全有序，
+	信息足够减规模即可
 
 ###	折半查找/二分查找
-
-####	算法
 
 对**有序数组**，比较查找K和数组中间元素A[m]完成查找工作
 
@@ -148,24 +155,250 @@ PreorderSearch(A[0..n-1])
 > - 折半查找依赖数据结构能够快速找到中间元素，如数组、二叉
 	搜索树
 
+####	基本版
+
 ```c
-BinarySearch(A[0..n-1], K)
-	// **非递归**折半查找
-	// 输入：升序数组A[0..n-1]、查找键K
-	// 输出：数组元素下标K，若存在；否则返回-1
-	l = 0
-	r = n - 1
-	while l <= r do
-		m = ceiling((l + r) / 2)
-		if K = A[m]
-			return m
-		elif K < A[m]
-			r = m - 1
-		else l = m + 1
+BinarySearchBase(nums[0..n-1], target)
+	// 非递归折半查找基本版
+	// 输入：升序数组nums[0..n-1]、查找键target
+	// 输出：存在返回数组元素下标m，否则返回-1
+	if n == 0:
+		return -1
+
+	left, right = 0, n-1
+
+	while left <= right:
+		mid = floor((left + right) / 2)
+
+		if target = nums[mid]:
+			return mid
+		elif target < nums[mid]:
+			right = mid - 1
+		else:
+			left  = mid + 1
+
 	return -1
 ```
 
+> - 初始条件：`left = 0, right = n-1`
+> - **终止情况**：`left = right + 1`
+> - 指针移动：`left = mid+1, right= mid-1`
+> - 中点选择：`floor((l+r) / 2)`
+> > -	这个主要是考虑到整数除法的特性，以下均取`floor`
+> > -	对基本版本而言，`ceiling`、`floor`效果一样，对以下
+		版本的终止条件而言有区别
+
+-	**关键特点**
+	-	在循环内`left`、`right`可能重合
+	-	需要和**左右邻居**、`left`、`right`比较情况下，容易
+		考虑失误
+	-	不适合扩展使用
+
+-	终止情况：`left = right + 1`
+
+	-	若存在`target`，则就位于`mid`，即**只需要检查mid**
+		即可判断是否找值
+
+-	`target`位置
+
+	-	若不存在`target`，则`target`位于`(right, left)`之间
+	-	循环终止后，`left=n`、`right=-1`有可能越界
+
+-	不需要后续处理
+
+	-	**端点符合一般情况**
+	-	每步移动指针都检查是否找到元素
+	-	到达终止条件时，**所有可能点都被检查**
+
+####	高级版1
+
+```c
+BinarySearchKeep1(nums[0..n-1], target):
+	// 折半查找，保持左右指针顺序、不重合
+	// 输入：升序数组nums、查找键target
+	// 输出：存在返回数组元素下标m，否则返回-1
+	if n == 0:
+		return -1
+
+	left, right = 0, n-1
+
+	while left < right - 1:
+		mid = floor((left + right) / 2)
+		if nums[mid] == target:
+			return mid
+
+		elif nums[mid] < target:
+			right = mid
+		else:
+			left = mid
+
+	// post-procesing
+	if nums[left] == target:
+		return left
+	if nums[right] == target:
+		return right
+
+	return -1
+```
+
+> - 初始条件：`left = 0, right = n-1`
+> - **终止情况**：`left = right - 1`
+> - 指针移动：`left = mid, right= mid`
+
+-	**关键特点**
+
+	-	`n>1`时`left`、`mid`、`right`循环内不会重合
+	-	`mid`可以`left`、`right`任意比较，无需顾忌重合
+	-	需要和**左右邻居**、`left`、`right`比较时适合使用
+	-	扩展使用需要进行真后处理，对`left`、`right`进行判断
+
+-	终止情况：`left = right - 1`
+
+	-	循环过程中会保证**查找空间至少有3个元素**，剩下两个
+		元素时，循环终止
+	-	循环终止后，`left`、`right`不会越界，可以直接检查
+
+-	`target`位置
+
+	-	若存在`target`，可能位于`mid`、`left`、`right`
+
+		-	`mid`：因为找到`nums[mid]==target`跳出
+		-	`left`：`left=0`，循环中未检查
+		-	`right`：`right=n-1`，循环中未检查
+
+	-	不存在`target`，则`target`位于`(left, right)`之间
+
+	-	适合**访问目标在数组中索引、极其左右邻居**
+
+-	**仅仅二分查找的话**，后处理其实不能算是真正的后处理
+
+	-	`nums[mid]`都会被检查，普通`left`、`right`肯定不会
+		是`target`所在的位置
+
+	-	真正处理的情况：`target`在端点
+
+		-	`left=0, right=1`终止循环，`left=0`未检查
+		-	`left=n-2, right=n-1`终止循环，`right=n-1`未检查
+
+	-	即这个处理是可以放在循环之前进行处理
+
+####	高级版2
+
+```c
+BinarySearchKeep0(nums[0..n-1], target):
+	// 折半查找，保证左右指针不交错
+	// 输入：升序数组nums、查找键target
+	// 输出：存在返回数组元素下标m，否则返回-1
+	if n == 0:
+		return -1
+
+	left, right = 0, n
+	while left < right:
+		mid = floor((left + right) / 2)
+		if nums[mid] == target:
+			return mid
+
+		elif nums[mid] < target:
+			left = mid + 1
+		else:
+			right = mid
+
+	// post-processing
+	if left != len(nums) and nums[left] == target:
+		return left
+
+	return -1
+```
+
+> - 初始条件：`left = 0, right = n`，保证`n-1`可以被正确处理
+> - **终止情况**：`left = right`
+> - 指针移动：`left = mid + 1, right = mid`
+> - 中点选择对此有影响，指针移动行为非对称，取`ceiling`则
+	终止情况还有`left = right + 1`
+
+-	**关键特点**
+
+	-	`left`、`right`循环内不会重合
+	-	由于`floor`的特性，`mid`可以`right`任意比较，无需
+		顾忌和`right`重合
+	-	需要和**右邻居**、`right`比较时适合使用
+
+-	终止情况：`left = right`
+
+	-	循环过程中会保证**查找空间至少有2个元素**，否则循环
+		终止
+	-	循环终止条件导致退出循环时，可能`left=right=n`越界
+
+-	`target`位置
+
+	-	若存在`target`，可能位于`mid`、`left=right`
+	-	若不存在`target`，则`target`位于`(left-1, left)`
+	-	适合**访问目标在数组中索引、及其直接右邻居**
+
+-	**仅二分查找**，甚至无需后处理
+
+-	判断`nums`长度在某些语言中也可以省略
+
+####	高级版本3
+
+```c
+BinarySearchNoKeep(nums[0..n-1], target):
+	// 折半查找，保证左右指针不交错
+	// 输入：升序数组nums、查找键target
+	// 输出：存在返回数组元素下标m，否则返回-1
+	if n == 0:
+		return -1
+
+	left, right = -1, n-1
+	while left < right - 1:
+		mid = floor((left + right) / 2)
+		if nums[mid] == target:
+			return mid
+
+		elif nums[mid] < target:
+			left = mid
+		else:
+			right = mid - 1
+
+	// post-processing
+	if nums[right] == target:
+		return right
+
+	return -1
+```
+
+> - 初始条件：`left = -1, right = n-1`
+> - **终止情况**：`left = right`、`left = right + 1`
+> - 指针移动：`left = mid, right = mid - 1`
+> - 中点选择对此有影响，指针移动行为非对称，取`ceiling`则
+	同高级版本2
+
+-	终止条件：`left = right`、`left = right - 1`
+
+	-	循环过程中保证**查找空间至少有3个元素**，否则循环
+		终止
+
+	-	由于`floor`特性，必须在`left < right - 1`时即终止
+		循环，否则可能死循环
+
+	-	循环终止后，`left=right=-1`可能越界
+
+-	`target`位置
+
+	-	若存在`target`，可能位于`mid`、`left=right`
+	-	若不存在`target`，则`target`位于`(left, left+1)`
+	-	适合**访问目标在数组中索引、及其直接左邻居**
+
+-	此版本仅想实现二分查找**必须后处理**
+
+	-	终止条件的原因，最后一次`right=left + 1`时未被检查
+		即退出循环
+
+	-	可能在任何位置发生，不是端点问题
+
 ####	特点
+
+-	前两个版本比较常用，最后两个版本逻辑类似
 
 -	折半查找时间效率
 	-	最坏情况下：$\in \Theta(log n)$

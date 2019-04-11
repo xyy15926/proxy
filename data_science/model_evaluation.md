@@ -361,7 +361,6 @@ $$
 -	（经验）熵较大时，互信息也相对较大
 
 > - *infomation gain ratio*：信息增益比
-
 	$$\begin{align*}
 	g_R(Y|X) & = \frac {g(Y|X)} {H(X)}
 	\end{align*}$$
@@ -409,29 +408,50 @@ E(Y - \hat{Y}) &= E[f(x) + \epsilon - \hat{f}(X)]^{2} \\
 \end{align*}
 $$
 
-###	$R^2k$
+###	$R^2$
 
-$$
-R^2 \\
-Adjusted R^2 = 1 - \frac {RSS/(n-d-1)} {TSS/(n-1)}
-$$
+$$\begin{align*}
+R^2 & = \frac {SSR} {SST}\\
+R^2_{adj} & = 1 - \frac {1 - R^2} {n - p - 1}
+\end{align*}$$
 
-###	AIC
+> - $n, p$：样本量、特征数量
+> - $SSR$：回归平方和、组内平方和
+> - $SST$：离差平方和
+> - $R^2_{adj}$：调整的$R^2$
 
-$$
-AIC = -2log(L(\theta, x)) + 2d \\
-	= \frac {1} {n\hat{\sigma}^2}(RSS + 2d\hat{\sigma}^2)
-$$
+###	*Akaike Information Criterion*
 
-###	BIC
+AIC：赤池信息准则
 
-$$
-BIC = \frac {1} {n} (RSS + log(n)d\hat{\sigma}^2)
-$$
+$$\begin{align*}
+AIC & = -2log(L(\hat \theta, x)) + 2p \\
+& = nln(SSE/n) + 2p
+\end{align*}$$
+
+> - $n, p$：样本量、特征数量
+> - $\theta$：带估参数
+> - $L(\theta, x)$：似然函数
+> - $SSE$：残差平方和
+
+###	*Bayesian Information Criterion*
+
+BIC：贝叶斯信息准则
+
+$$\begin{align*}
+BIC & = -2log(L(\hat \theta, x)) + ln(n)p \\
+& = nln(SSE/n) + ln(n)p
+\end{align*}$$
 
 ###	$C_p$
 
-$$
-CP = \frac {1} {n} (RSS + 2d\hat{\sigma}^2)
-$$
+$$\begin{align*}
+C_p & = \frac {SSE} {\hat {\sigma^2}} - n + 2p
+& = (n - m - 1) \frac {SSE_p} {SSE_m} - n + 2p
+\end{align*}$$
+
+> - $p$：选模型特征子集中特征数量
+> - $m$：所有特征数量
+> - $SSE_p$：选模型中残差平方和
+> - $SSE_m$：全模型中残差平方和
 

@@ -74,9 +74,9 @@ DAG：有向无环图
 
 -	对$ve_i, vl_i$，存在如下递推关系
 
-	$$\left { \begin{array}{l}
-	ve_i = max\{ve_m + a_{mi} \}, & \forall a_{mi} \in E \\
-	vl_i = max\{vl_n - a_{in} \}, & \forall a_{in} \in E
+	$$\left \{ \begin{array}{l}
+	ve_i = \max\{ve_m + a_{mi} \}, & \forall a_{mi} \in E \\
+	vl_i = \max\{vl_n - a_{in} \}, & \forall a_{in} \in E
 	\end{array} \right. $$
 
 	则依拓扑排序可计算得$ve_i$，逆拓扑排序可计算得$vl_i$
