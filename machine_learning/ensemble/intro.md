@@ -51,4 +51,33 @@
 	-	*weighted majority voting*
 	-	*confidence-based weighting*
 
+###	学习器组合方式
+
+> - 很多模型无法直接组合，只能组合预测结果
+
+-	*simple majority voting*/*simple average*：简单平均
+	$$
+	h = \frac 1 K \sum_{k=1}_K h_k
+	$$
+
+	> - $h_k$：第k个预测
+
+-	*weighted majority voting*/*weighted average*：加权平均
+	$$
+	h = \frac {\sum_{k=1}^K w_k h_k} {\sum_{k=1}^K w_k}
+	$$
+
+	> - $w_k$：第k个预测权重，对分类器可以是准确率
+
+-	*competing voting*/*largest*：使用效果最优者
+
+-	*confidence based weighted*：基于置信度加权
+	$$\begin{align*}
+	h = \arg\max_{y \in Y} \sum_{k=1}^K ln(\frac {1 - e_k}
+		{e_k}) h_k
+	\end{align*}
+	$$
+
+	> - $e_k$：第k个模型损失
+
 

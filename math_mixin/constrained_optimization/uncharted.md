@@ -9,8 +9,8 @@ w_T = \frac \gamma n \sum_{i=0}^{T-1} (I - \frac \gamma n
 	{\hat X}^T \hat X)^i {\hat X}^T \hat Y
 $$
 
--	$\gamma$：被引入保证
-	$\|I - \frac \gamma n {\hat X}^T \hat X\|$小于1
+> - $\gamma$：被引入保证
+	$\|I - \frac \gamma n {\hat X}^T \hat X\| < 1$
 
 ###	策略
 
@@ -27,7 +27,3 @@ w_{t+1} = (I - \frac \gamma n {\hat X}^T \hat X)w_t +
 $$
 
 > - 将$w_{t+1}$带入$I_s(w)$即可证明每次迭代$I_s(w)$减小
-
-
-
-

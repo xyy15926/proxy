@@ -50,7 +50,7 @@
 -	分k个组
 	$$
 	C_1, C_2, \dots, C_k \\
-	C_1 \union C_2 \union \dots \union C_k = \Omega \\
+	C_1 \cup C_2 \cup \dots \cup C_k = \Omega \\
 	$$
 -	目标：极小化每个样本点到聚类中心距离之和
 	$$
@@ -75,9 +75,9 @@
 	（最终聚类中不一定是样本点）
 	Update Step
 
-####	算法复杂度
+####	算法特点
 
-$O(kn^{pi})
+-	算法时间效率：$\in O(kn^{pi})$
 
 ###	应用
 
@@ -91,9 +91,9 @@ $O(kn^{pi})
 
 ##	Fuzzy C-means(FCM)
 
-对K-means的推广
+*FCM*：对K-means的推广
 
-soft-cluster, 点可以属于多个类
+-	*soft cluster*：点可以属于多个类
 
 ###	FCM Algorithm
 
@@ -108,8 +108,6 @@ soft-cluster, 点可以属于多个类
 ##	Hierachical Cluster
 
 层次聚类
-
--	group data objects into
 
 ###	距离
 
@@ -151,7 +149,7 @@ Divisive Analysis：想法简单，具体实操有难度
 -	初始：所有数据归为一组$C_1=(p_1, p_2, dots, p_n)$
 -	2：计算所有点之间的距离矩阵，选择到其他点平均距离最大的
 	点，记为$q$，取该点作为新组起始点
--	3：$\all p, p \notin C_1$，计算$d_arg(p, C_1) - d_arg(p, C_2)$，
+-	3：$\forall p, p \notin C_1$，计算$d_arg(p, C_1) - d_arg(p, C_2)$，
 	若小于零则属于$C_1$，否则属于$C_2$
 
 
@@ -163,8 +161,3 @@ falls into the general method
 ##	DBSCAN
 
 Density-based Scan
-
-
-
-
-
