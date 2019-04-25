@@ -17,7 +17,7 @@ $$
 	-	所以无法使用传统的光滑优化手段，如：最速下降、共轭
 		梯度
 
-	-	光滑凸函数极小化衡量标准$\bigtriangledown(F+R)(x)=)$
+	-	光滑凸函数极小化衡量标准$\bigtriangledown(F+R)(x)=0$
 		变为
 
 		$$0 \in \partial (F+R)(x)$$
@@ -35,12 +35,16 @@ $$
 	-	*alternating-directions method of multipliers*
 	-	*alternating split Bregman*
 
-###	*Projection Operator*
+###	*Porjection Operator*
 
-投影算子：线性变换$P$满足从向量空间到其自身$P^2=P$
+投影算子
 
--	即当线性变换$P$对任何值应用两次，将得出一样结果，就像
-	只应用一次，保持像不变
+$$\begin{align*}
+proj_C(x) & = \arg\min_{y \in C} \|y - x\|^2 \\
+& = \arg\min_{y \in R^N} l_C(x) + \frac 1 2 \|y-x\|^2
+\end{align*}$$
+
+-	点$x$在凸集$C$上的投影：$X$上距离$x$的欧式距离最近的点
 
 ###	*Proximal Operator*
 
@@ -55,12 +59,12 @@ $$
 考虑非空凸集$C \subseteq R^N$，示性函数的近端算子为
 
 $$\begin{align*}
-prox_{l_C}(x) & = \mathop \arg\min_y \left \{ \begin{array}{c}
+prox_{l_C}(x) & = \mathop \arg\min_y \left \{ \begin{array}{l}
 	\frac 1 2 \|x-y\|^2, & y \in C \\
 	+ \infty, & y \notin C \\
 \end{array} \right. \\
 & = \arg\min_{y \in C} \frac 1 2 \|x-y\|^2 \\
-& = P_Cx
+& = P_C(x)
 \end{align*}$$
 
 > - C示性函数、投影、距离定义参见*convex*

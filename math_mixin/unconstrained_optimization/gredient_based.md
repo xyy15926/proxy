@@ -195,7 +195,7 @@ $$
 
 	$$d^{(k)} = \left \{ \begin{array}{l}
 	d_N^{(k)}, & cos\theta_k \geq \eta \\
-	-\triangledown f(x^{(k)}), 其他
+	-\triangledown f(x^{(k)}), & 其他
 	\end{array} \right.$$
 
 ###	*Negative Curvature*
