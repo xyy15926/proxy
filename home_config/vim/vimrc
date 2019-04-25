@@ -161,7 +161,12 @@ set encoding=utf-8
 	"vim file-processing encoding, including buffer, menu
 set fileencoding=utf-8
 	"vim file-saving encoding
-set textwidth=60
+set fileformat=unix
+	"vim fileformat
+	"unix: <NL> for a newline
+	"dos: <CR><NL> for a newline
+	"mac: <CR> for a newline
+"set textwidth=60
 	"break line after 60 chars
 
 filetype plugin indent on
