@@ -39,10 +39,12 @@
 
 ###	选择排序
 
-####	算法
+-	每轮**选择出**剩余元素中最小值，放在对于位置上
+
+####	顺序表算法
 
 ```c
-SelectionSort(A[0..n-1])
+SelectionSort(A[0..n-1]):
 	// 选择排序排序数组
 	// 输入：可排序数组A[0..n-1]
 	// 输出：升序排序数组A[0..n-1]
@@ -60,6 +62,55 @@ SelectionSort(A[0..n-1])
 	放在最终位置上
 -	重复n-1次，列表有序
 
+####	链表算法
+
+```c
+SelectionSort(linked):
+	// 选择排序排序链表
+	// 输入：可排序链表linked头
+	// 输出：排序后链表头
+	if linked == NULL:
+		return NULL
+	linked_head = ListNode()
+		// 为方便附设头结点
+	linked_head.next = linked
+	unsorted_head = linked_head
+		// 未排序头结点
+		// 后续过程中是链表中元素
+
+	while unsorted_head.next != NULL:
+		cur_node = unsorted_head
+		min_node = unsorted_head
+			// 全是链表中元素
+		while cur_node.next != NULL:
+			if cur_node.next.val < min_node.next.val:
+				min_node = cur_node
+			cur_node = cur_node.next
+
+		// 若`min_node.next`就是`unsorted_start.next`，以下
+			// 代码中的断开、重组链表操作会出现环
+		// 完全切开再重组链表，则需要判断`unsorted_start`
+			// 是否为空
+		if unsorted_start.next != min_node.next:
+			_tmp_node = unsorted_head.next
+				// 记录原`unsorted_head.next`
+
+			unsorted_head.next = min_node.next
+				// `unsorted_head.next`断开、连接`min_node`
+
+			min_node.next = min_node.next.next
+				// `min_node.next`断开、跳过`min_node`重连
+				// 若`min_node.next`是`unsorted_start.next`
+					// 会断开`unsorted_start`和`min_node`
+
+			unsorted_head.next.next = _tmp_node
+				// 原`min_node`重连原`unsorted_head.next`
+
+		unsorted_start = unsorted_start.next
+
+	return linked_head.next
+```
+
 ####	特点
 
 -	对任何输入，选择排序键值比较都是$\Theta(n^2)$
@@ -68,7 +119,12 @@ SelectionSort(A[0..n-1])
 
 ###	冒泡排序
 
-####	算法
+-	比较表中相邻元素，如果逆序就交换位置
+-	重复多次则最大元素被“沉到”列表最后位置
+-	第2轮比较将第2大元素“沉到”其最终位置
+-	重复比较n-1轮，列表有序
+
+####	顺序表算法
 
 ```c
 BubbleSort(A[0..n-1]):
@@ -81,10 +137,14 @@ BubbleSort(A[0..n-1]):
 				swap A[j] and A[j+1]
 ```
 
--	比较表中相邻元素，如果逆序就交换位置
--	重复多次则最大元素被“沉到”列表最后位置
--	第2轮比较将第2大元素“沉到”其最终位置
--	重复比较n-1轮，列表有序
+####	链表算法
+
+```c
+BublleSort(head):
+	// 冒泡排序排序链表
+	// 输入：可排序链表首个元素
+	// 输出：排序后列表首个元素
+```
 
 ####	特点
 

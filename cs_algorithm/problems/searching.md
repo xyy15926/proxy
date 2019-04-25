@@ -95,7 +95,7 @@ PreorderSearch(A[0..n-1])
 
 -	这种**预排序**思想可以用于**众数**、**检验惟一性**等，
 	此时算法执行时间都取决于排序算法
-	（优于蛮力法$\in Theta(n^2)$）
+	（优于蛮力法$\in \Theta(n^2)$）
 
 -	变治法（输入增强）
 
@@ -717,7 +717,7 @@ KMPMatching(P[0..m-1], T[0..n-1])
 
 -	根据动态规划表找出最长公共子序列
 
-	![longest_common_subseq_dynamic_table](longest_common_subseq_dynamic_table.png)
+	![longest_common_subseq_dynamic_table](imgs/longest_common_subseq_dynamic_table.png)
 
 	-	从动态规划表中首个格子开始，沿着某条**格子路径**达到
 		表中最后一个元素
@@ -753,8 +753,8 @@ KMPMatching(P[0..m-1], T[0..n-1])
 	得到动态规划表
 
 	$$C[i] = \left \{ \begin{array}{l}
-		max\{C[j]\} + 1, j=1,\cdots,i-1, L[j] < L[i] & i \geq 2 \\
-		1 & i=1
+	max\{C[j]\} + 1, j=1,\cdots,i-1, L[j]<L[i] & i \geq 2 \\
+	1 & i=1
 	\end{array} \right.$$
 
 	> - $C[i]$：以$L[i]$结尾的最长升序子序列长度
@@ -764,6 +764,44 @@ KMPMatching(P[0..m-1], T[0..n-1])
 ####	算法特点
 
 -	时间效率$\in O(|L|^2)$
+
+###	动态规划2
+
+使用线性表记录当前能够找到的“最长上升子序列”
+
+-	若当前元素大于列表最后（大）元素：显然push进线性表
+	-	则当前线性表长度就是**当前子串**中最长上升子序列
+
+-	若当前元素不大于列表中最后元素
+	-	考虑其后还有元素，可能存在包含其的更长上升序列
+	-	使用其替换线性表中**首个大于**其的元素
+		-	隐式得到以当前元素为结尾的最长上升子序列：其及
+			其之前元素
+		-	更新包含其的上升子序列的要求：之后元素大于其
+	-	不影响已有最长上升子序列长度，且若之后出现更长上升
+		子序列，则线性表被逐渐替换
+
+####	算法
+
+```c
+lengthOfLIS(nums[0..n-1]):
+	// 动态规划求解最上升子序列
+	// 输入：序列nums
+	// 输出：最长上升子序列长度
+	if n == 0:
+		return 0
+	LIS = InitVector()
+	for num in nums:
+		if num > LIS.last()
+			LIS.push(num)
+		else:
+			for idx=0 to LIS.len():
+				if num <= LIS[idx]:
+					break
+			LIS[idx] = num
+				// 更新上升子序列中首个大于当前元素的元素
+	return LIS.len()
+```
 
 ###	动态规划+二分
 
