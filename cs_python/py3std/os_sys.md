@@ -68,6 +68,13 @@ sys.setcheckinterval(N)
 	-	较小值表示切换频率较高，切换线程开销增加，对事件应答
 		能力提升
 
+####	`sys.hash_info`
+
+```python
+sys.hash_info.width
+	# `hash()`函数截取hash值长度
+```
+
 ###	模块搜索路径
 
 ```python
@@ -124,7 +131,7 @@ sys.getrefcount()
 ###	异常
 
 ```python
-sys.exec_info()
+sys.exc_info()
 ```
 
 -	返回值：`(type, value, trackback)`

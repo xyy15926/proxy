@@ -104,26 +104,6 @@
 		-	主进程（线程）不等待守护进程、线程退出后再退出
 		-	注意：主进程退出之前，守护进程、线程会自动终止
 
-##	Python解释器版本
-
-python只是一种语言，其具体解释器实现有很多种
-
--	CPython：C语言实现，最原始版本
-	-	通常就被称为Python，其他实现区分时才强调为CPython
-
--	Jython：Java实现
-	-	将Python代码编译为Java字节码
-	-	在JVM上运行
-
--	IronPython：C#实现
-	-	在MS CLR上运行
-
--	PyPy：RPython（Python语言子集）实现
-	-	自带JIT，执行效率高于CPython
-
-> - CPython是解释器实现版本，`cython`是将Python代码翻译为
-	C插件的项目/包
-
 ##	Python命令行参数
 
 -	`-c`：解释执行语句

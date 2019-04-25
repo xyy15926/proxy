@@ -78,8 +78,7 @@ type name(parameters){
 
 	```cpp
 	int strlen(const char * cptr);
-		// `const`后是类型名，表明`cptr`是指向`const char`
-		// 指针
+		// `const`后是类型名，表明`cptr`是指向`const char`指针
 		// 不能改变`cptr`指向的支付串内容
 	int strlen(char * const cptr);
 		// `const`后是形参名，表明`cptr`常量，其值不能改变
