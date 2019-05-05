@@ -35,7 +35,7 @@
 
 ###	User
 
-```c
+```shell
 $ git config user.name
 $ git config user.email
 	# 查看用户名、邮箱
@@ -45,6 +45,20 @@ $ git config --global user.email "email"
 $ git config --local user.name "username"
 $ git config --local user.email "email"
 	# 设置当前git repo用户名、邮箱
+```
+
+##	`log`
+
+```shell
+$ git log [<file_name>]
+	# 查看文件提交历史
+```
+
+##	`show`
+
+```c
+$ git show <tag_no>
+	# 查看改动内容
 ```
 
 
