@@ -562,7 +562,7 @@ def glob.glob(pathname,*,recursive=False)
 
 ###	`struct`模块
 
-`struct`模块用于打包、解压二进制数据的调用
+`struct`模块：用于打包、解压二进制数据的调用
 
 -	类似于C语言中`struct`声明，需要指定二进制中数据类型
 -	可以使用任何一种字节序（大、小端）进行组合、分解
@@ -585,6 +585,12 @@ bytes = file.read()
 values = struct.unpack(">i4shf", data)
 	# 需要给出字节串存储格式
 ```
+
+###	`shutil`模块
+
+`shutil`模块：包含文件操作相关
+
+#todo
 
 ##	系统、信息
 

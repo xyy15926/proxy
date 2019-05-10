@@ -730,6 +730,11 @@ do
 done
 ```
 
+-	`/path/to/file_regex`注意
+	-	路径不存在：`$var`为该字符串
+	-	不能用`""`括起，否则：`$var`只取路径下所有匹配合并
+		，空格分隔
+
 #####	ParamsIterator
 
 ```shell
