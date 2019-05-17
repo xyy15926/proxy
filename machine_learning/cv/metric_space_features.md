@@ -214,7 +214,7 @@
 
 -	欧式距离越小、相似度越高，小于指定阈值时既可认为匹配成功
 
-#	*Speeded Up Robust Feature*
+##	*Speeded Up Robust Feature*
 
 SURF特征：对SIFT算法的改进，降低了时间复杂度，提高了稳健性
 
