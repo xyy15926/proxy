@@ -560,32 +560,6 @@ def glob.glob(pathname,*,recursive=False)
 
 > - `glob.glob`是利用`glob.fnmatch`模块匹配名称模式
 
-###	`struct`模块
-
-`struct`模块：用于打包、解压二进制数据的调用
-
--	类似于C语言中`struct`声明，需要指定二进制中数据类型
--	可以使用任何一种字节序（大、小端）进行组合、分解
-
-```python
-import struct
-data = struct.pack(">i4shf", 2, "spam", 3, 1.234)
-	# `>`：高位字节优先，大端
-	# `i`：整形数据
-	# `4s`：4字符字符串
-	# `h`：半整数
-	# `f`：浮点数
-file = open("data.bin", "wb")
-file.write(data)
-	# 二进制写入字节串
-file.close()
-
-file = open("data.bin", "rb")
-bytes = file.read()
-values = struct.unpack(">i4shf", data)
-	# 需要给出字节串存储格式
-```
-
 ###	`shutil`模块
 
 `shutil`模块：包含文件操作相关
