@@ -144,14 +144,14 @@ for each chunk c1 of t1
 	-	冗余表：静态表存储统计结果
 
 -	类似任何hash算法，内存小、数据偏斜严重时，散列冲突会比较
-	严重
+	严重，此时应该考虑使用NIJ
 
 -	适合场景
 	-	两表数据量相差非常大
 	-	对CPU消耗明显，需要CPU资源充足
 	-	只适合（不）等值查询
 
-####	*Hash Match*
+####	*In-Memory Hash Join*
 
 ![db_hash_join](imgs/db_hash_join.png)
 
@@ -169,7 +169,7 @@ for each chunk c1 of t1
 > - build表构建的hash表需要频繁访问，最好能全部加载在内存中
 	，因此尽量选择小表，避免使用GHJ
 
-######	*probe*阶段
+#####	*probe*阶段
 
 -	从探测输入中取记录，使用同样hash函数生成hash值
 
@@ -208,21 +208,55 @@ for each chunk c1 of t1
 
 ####	*Grace Hash Join*
 
--	若build输入非常大，构建的hash表在内存中无法容纳时，build
-	输入表、probe输入表会被切成多个分区临时存储在磁盘中
+*grace hash join*：磁盘分块HJ
 
-	-	在磁盘上为每个分区建立相应文件、在内存中保留首个分区
-	-	build输入时，将具有相应hash值的记录写入build相应文件
-		，或保留在内存中
-	-	probe输入时，将具有相应hash值的记录写入probe相应文件
-		，或直接和内存中保留分区匹配
-	-	probe处理完毕之后，载入下个分区build输入、probe输入
-		文件，独立匹配
+-	将两表按照相同hash函数分配至不同分片中
+	-	在磁盘上为各分片、表建立相应文件
+	-	对表输入计算哈希值，根据哈希值写入分片、表对应文件
 
--	每个分区包含独立、相匹配build输入块、probe输入块，之后
-	join只需要在每个分区中独立进行
+-	再对不同分片进行普通*in-memory hash join*
+	-	若分片依然不能全部加载至内存，可以继续使用
+		*grace hash join*
 
--	有磁盘I/O代价，会降低效率
+```cpp
+grace_hash_join(t1, t2):
+	// Grace Hash Join实现
+	// 输入：待join表t1、t2
+	for row in t1:
+		hash_val = hash_func(row)
+		N = hash_val % PART_COUNT
+		write row to file t1_N
+
+	for row in t2:
+		hash_val = hash_func(row)
+		N = hash_val % PART_COUNT
+		write row to file t2_N
+
+	for i in range(0, PART_COUNT):
+		join(t1_i, t2_i)
+```
+
+-	分片数量`PART_COUNT`决定磁盘IO效率
+	-	分片数量过小：无法起到分治效果，分片仍然需要进行
+		*grace hash join*，降低效率
+	-	分片数量过大：磁盘是块设备，每次刷盘刷一定数量块才
+		高效，频繁刷盘不经济
+	-	即分片数量在保证刷盘经济的情况下，越大越好，这需要
+		优化器根据表统计信息确定
+
+-	特点
+	-	有磁盘I/O代价，会降低效率
+	-	适合参与join表非常大，无法同时载入内存中
+
+####	*Hybrid Hash Join*
+
+*hybrid hash join*：GHJ基础上结合IMHJ的改进
+
+-	对build表分片过程中，尽量多把完整分片保留在内存中
+-	对probe表分片时，对应分片可以直接进行probe操作
+
+> - *hybrid hash join*有时也被直接视为*grace hash join*，
+	不做区分
 
 ###	比较
 
