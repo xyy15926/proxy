@@ -740,8 +740,8 @@ KMPMatching(P[0..m-1], T[0..n-1])
 
 ###	最长公共子序列法
 
--	将原序列升序排序后得到$L^{*}$
--	原问题转换为求$L, L^{*}$最长公共子序列
+-	将原序列升序排序后得到$L^{ * }$
+-	原问题转换为求$L, L^{ * }$最长公共子序列
 
 ####	算法特点
 
@@ -804,6 +804,116 @@ lengthOfLIS(nums[0..n-1]):
 ```
 
 ###	动态规划+二分
+
+##	最长回文子串
+
+###	中心扩展法
+
+-	遍历串，以当前元素为中心向两边扩展寻找以回文串
+
+-	为能找到偶数长度回文串，可以在串各元素间填充空位
+
+	![longest_subparlidrome_padding](imgs/longest_subparlidrome_padding.png)
+
+	-	填充后元素位置$i = 2 * i + 1$、填充符位置$2 * i$
+	-	两端也要填充：否则可能出现`#`为中心回文和端点回文
+		等长，但返回`#`中心回文
+	-	填充后得到最长回文串肯定是原最长回文串扩展
+		-	非`#`中心：原串不存在偶数长度回文串更长，则显然
+		-	`#`中心：显然
+
+####	算法
+
+```c
+LongestSubParlidrome(nums[0..n-1]):
+	// 中心扩展法求解最长回文子串
+	// 输入：串nums[0..n-1]
+	// 输出：最长回文串
+	nnums = padding(nums)
+	nn = len(nnums)
+	max_shift, center = 0, -1
+	for i=0 to nn:
+		shift = 1
+		while i >= shift and i + shift < nn:
+			if nnums[i-shift] != nnums[i+shift]:
+				break
+			shift += 1
+
+		// 越界、不匹配，均为-1得到正确、有效`shift`
+		shift -= 1
+
+		if shift > max_shift:
+			max_shift, center = shift, i
+
+	left = (center - max_shift + 1) // 2
+	right = (center + max_shift) // 2
+	return nums[left : right]
+```
+
+####	特点
+
+-	算法效率
+	-	时间复杂度$\in O(n^2)$
+	-	空间复杂度$\in O(1)$
+
+###	动态规划
+
+###	Manacher算法
+
+-	考虑已经得到的以$i$为中心、半径为$d$回文子串对称性
+	-	则$[i-d, i+d+1)$**范围内**中回文对称
+	-	即若$i-j, j<d$为半径为$dd$的回文串中心，则$2i - j$
+		同样为半径为$dd$的回文串中心
+		（$[i-d, i+d-1)$范围内）
+
+-	所以可以利用之前回文串信息减少之后回文串检测
+
+> - Manacher算法同样有中心扩展算法问题，要填充检测偶数长串
+
+####	算法
+
+```c
+LongestSubParlidrome(nums[0..n-1]):
+	// Manacher算法利用之前回文串信息求解最长回文子串
+	// 输入：串nums[0..n-1]
+	// 输出：最长回文串
+	nnums = padding(nums)
+	nn = len(nnums)
+	shift_d = [0] * nn
+	max_shift, center = 0, 0
+	for i=0 to nn:
+
+		// 利用之前信息初始化
+		shift = shift_d[i]
+
+		while shift <= i and shift < nn - i:
+			if nnums[i+shift] != nnums[i - shift]:
+				break
+			shift += 1
+		shift -= 1
+
+		// 更新可利用信息
+		for j=1 to shift:
+			shift_d[i+j] = max(
+				shift_d[i+j],
+				min(shift_d[i-j], i+j-shift))
+
+		if shift > max_shift:
+			max_shift, center = shift, i
+
+	left = (center - max_shift + 1) // 2
+	right = (center + max_shift) // 2
+	return nums[left: right]
+```
+
+####	特点
+
+-	算法效率
+	-	时间复杂度$\in \Theta(n)$
+	-	空间复杂度$\in \Theta(n)$
+
+
+
 
 
 

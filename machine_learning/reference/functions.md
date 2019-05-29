@@ -156,7 +156,7 @@ $$
 	-	其中前$x_i$个值为1，之后为0
 -	将$d$个长度为$C$的序列连接，形成长度为$d * C$的序列
 
-> - 以上明距离空间嵌入对曼哈顿距离是保距的
+> - 汉明距离空间嵌入对曼哈顿距离是保距的
 
 ####	*Jaccard*系数
 
@@ -180,6 +180,23 @@ $$
 
 （字符串）编辑距离：两个字符串转换需要进行插入、删除、替换
 操作的次数
+
+$$
+lev_{A,B}(i, j) = \left \{ \begin{array}{l}
+	i, & j = 0 \\
+	j, & i = 0 \\
+	min \left \{ \begin{array}{l}
+		lev_{A,B}(i,j-1) + 1 \\
+		lev_{A,B}(i-1,j) + 1 \\
+		lev_{A,B}(i-1, j-1) + 1
+	\end{array} \right. & A[i] != B[j] \\
+	min \left \{ \begin{array}{l}
+		lev_{A,B}(i,j-1) + 1 \\
+		lev_{A,B}(i-1,j) + 1 \\
+		lev_{A,B}(i-1, j-1)
+	\end{array} \right. & A[i] = B[j] \\
+\end{array} \right.
+$$
 
 ###	组间距离
 
