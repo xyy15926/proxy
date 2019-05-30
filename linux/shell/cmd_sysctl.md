@@ -326,30 +326,166 @@ I/O监控
 
 查看目标文件的动态符号引用表
 
-##	服务、环境
+##	Systemd（服务）
+
+-	Systemd作为新系统管理器，替代service更加强大
+	-	支持服务并行启动，提高效率
+	-	具有日志管理、快照备份和恢复、挂载点管理
+	-	包括一组命令
+
+-	Systemd可以管理所有系统资源，不同资源统称为*Unit*
+	-	*service unit*：系统服务
+	-	*target unit*：多个unit构成的组
+	-	*devie unit*：硬件设备
+	-	*mount unit*：文件系统挂载点
+	-	*automount unit*：自动挂载点
+	-	*path unit*：文件、路径
+	-	*scope unit*：不是由Systemd启动外部进程
+	-	*slice unit*：进程组
+	-	*snapshot unit*：Systemd快照，可以切换某个快照
+	-	*socket unit*：进程间通信socket
+	-	*swap unit*：swap文件
+	-	*timer unit*：定时器
+
+-	unit**配置文件状态**（无法反映unit是否运行）
+	-	`enabled`：已建立启动链接
+	-	`diabled`：未建立启动链接
+	-	`static`：配置文件没有`[Install]`部分，只能作为
+		其他unit配置文件依赖，不能独立注册
+	-	`masked`：被禁止建立启动链接
+
+> - `systemd`进程ID为1，掌管所有进程
+> - *unit*配置文件参见*linux/shell/config_files*
 
 ###	`systemctl`
 
--	替代service更加强大
-
--	`systemctl`通过`d-bus`和systemd交流，在docker和wsl中可能
+> - `systemctl`通过`d-bus`和systemd交流，在docker和wsl中可能
 	没有systemd-daemon，此命令可能不能使用，使用`service`
 	代替
 
-####	动作
+####	查看服务、系统状态
 
--	`start`：启动服务
+-	`status <unit>`：查看系统、unit（服务）状态
+	-	`-H <host>`：查看远程主机unit状态
+-	`show <unit>`：查看unit底层参数
+	-	`-p <attr>`：查看某个具体属性参数
+-	三个查询状态的简单方法，方便脚本使用
+	-	`is-active <serivce>`
+	-	`is-failed <serivce>`
+	-	`is-enabled <serivce>`
+-	`reset-failed <unit>`：清除错误状态
 
--	`stop`：关闭服务
+-	`list-units`：列出所有已加载unit
+-	`list-unit-files`：列出所有系统中unit配置文件、状态
+	-	`--type=`：指定特定类型文件
+	-	`--status=`：指定特定状态文件
+-	`list-dependencies <unit>`：查看依赖关系
+	-	`-all`：展开target类型
 
--	`enable`：开机自启动服务
+####	状态点/启动级别
 
--	`disable`：关闭开机自启动服务
+-	`get-default`：查看默认target
+-	`set-default <target>`：设置默认target
+-	`isolate <target>`：切换target，其他target的unit将
+	被停止
+
+####	设置服务、系统
+
+-	`start <service>`：启动服务
+-	`stop <service>`：关闭服务
+-	`enable <service>`：开机自启动服务
+
+	> - 行为参见*linux/shell/config_files*
+
+-	`disable <service>`：关闭开机自启动服务
 	-	`enable`启动后的服务仅仅`disable`不会立刻停止服务
+-	`kill <service>`：杀死服务的所有子进程
+-	`mask <service>`：禁用服务
+	-	无法通过`start`、`restart`启动服务
+	-	可以防止服务被其他服务间接启动
+-	`umask <service>`：启用已禁用服务
+-	`daemon-reload`：重新读取所有服务项
+	-	修改、删除、添加服务项后执行该命令
+-	`poweroff`：关机
+-	`reboot`：重启
+-	`rescue`：进入rescue模式
+
+####	配置文件
+
+-	`cat <service_name>.service`：查看Unit定义文件
+-	`edit <service_name>.service`：编辑Unit定义文件
+-	`reload <service_name>.service`：重新加载Unit定义文件
+
+###	`journalctl`
+
+`journalctl`：统一管理所有日志：内核日志、应用日志
+
+-	`-k`：仅内核日志
+-	`--since`：指定日志时间
+-	`-n`：指定查看日志行数
+-	`-f`：最新日志
+-	`_PID=`：进程日志
+-	`_UID=`：用户日志
+-	`-u`：unit日志
+-	`-p`：日志有限集
+	-	`emerg`：0
+	-	`alert`：1
+	-	`crit`：2
+	-	`err`：3
+	-	`warning`：4
+	-	`notice`：5
+	-	`info`：6
+	-	`debug`：7
+-	`--nopager`：非分页输出
+-	`-o`：日志输出格式
+	-	`json`
+	-	`json-pretty`
+-	`--disk-usage`：日志占用空间
+-	`--vacuum-size=`：指定日志占用最大空间
+-	`--vacuum-time=`：指定日志保持时间
+
+###	`systemd-analyze`
+
+`systemd-analyze`：查看系统启动耗时
+
+-	`blame`：查看各项服务启动耗时
+-	`critical-chain`：瀑布状启动过程流
+
+###	`hostnamectl`
+
+`hostnamectl`：查看主机当前信息
+
+-	`set-hostname <hostname>`：设置主机名称
+
+###	`localectl`
+
+`localctl`：查看本地化设置
+
+-	`set-locale LANG=en_GB.utf8`
+-	`set-keymap en_GB`
+
+###	`timedatectl`
+
+`timedatectl`：查看当前时区设置
+
+-	`list-timezones`：显示所有可用时区
+-	`set-timezone America/New_York`
+-	`set-time YYYY-MM-DD`
+-	`set-time HH:MM:SS`
+
+###	`loginctl`
+
+`loginctl`：查看当前登陆用户
+
+-	`list-sessions`：列出当前session
+-	`list-users`：列出当前登陆用户
+-	`show-user <user>`：显示用户信息
 
 ###	`service`
 
 控制系统服务
+
+##	环境
 
 ###	`export`
 
