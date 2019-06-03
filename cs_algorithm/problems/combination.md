@@ -427,7 +427,7 @@ CoinCollection(C[1..n, 1..m])
 ###	最小变化
 
 -	在元素上使用小箭头标记其方向：
-	$\overleftarrow_1\overleftarrow_2\overleftarrow_3$
+	$\overleftarrow 1 \overleftarrow 2 \overleftarrow 3$
 -	如果元素k的箭头指向相邻的较小元素，称在此排列中是移动的
 
 ####	减常量法
@@ -535,6 +535,7 @@ n个球放入m个桶中情况数量
 ###	球同、桶不同、无空桶
 
 -	插板法
+
 	$$\left \{ \begin{array}{l}
 	C_{n-1}^{m-1}, & n \geq m \\
 	0, & n < m
@@ -543,17 +544,42 @@ n个球放入m个桶中情况数量
 ###	球同、桶不同、可空桶
 
 -	插板法：可以假设m个桶中已经放好球，即m+n个相同球放入m个
-	不同桶、不允许空箱
+	不同桶、不允许空桶
+
 	$$
-	C(n+m-1, m-1)
+	C_{n+m-1}^{m-1}
 	$$
+
+###	球同、桶同、可空桶
+
+-	动态规划
+
+	$$dp_4[i][j] = \left \{ \begin{array}{l}
+	dp_4[i][j-1] + dp_4[i-j][j], & i \geq j \\
+	dp_4[i][j-1], & i < j \\
+	1, & i=1,0 or j=1
+	\end{array} \right.$$
+
+-	球数$i \geq j$桶数时递推式
+	-	若有桶均包含球：剩余球可能性$dp[i-j][j]$
+	-	若存在桶不包含球：剔除一个桶不影响总数
+	-	没有其余情况
+
+###	球同、桶同、无空桶
+
+-	动态规划：由$dp_4$得到
+
+	$$dp_5[i][j] = \left \{ \begin{array}{l}
+	dp_4[i-j][j], & i \geq j \\
+	0, & i < j
+	\end{array} \right.$$
 
 ###	球不同、桶同、无空桶
 
 -	第二类斯特林数
 
 	$$dp[i][j] = \left \{ \begin{array}{l}
-	j*dp[i-1][j] + dp[i-1][j-1], & 1 \leq i < j \\
+	j*dp[i-1][j] + dp[i-1][j-1], & 1 \leq j < i \\
 	1, & i = j \\
 	0, & i < j
 	\end{array} \right.$$
@@ -584,26 +610,5 @@ n个球放入m个桶中情况数量
 
 -	每个球都有m中选择：$m^n$
 
-###	球同、桶同、可空桶
-
--	动态规划
-	$$dp[i][j] = \left \{ \begin{array}{l}
-	dp[i][j-1] + dp[i-j][j], & i \geq j \\
-	dp[i][j-1], & i < j \\
-	1, & i=1,0 or j=1
-	\end{array} \right.$$
-
--	球数$i \geq j$桶数时递推式
-	-	若有桶均包含球：剩余球可能性$dp[i-j][j]$
-	-	若存在桶不包含球：剔除一个桶不影响总数
-	-	没有其余情况
-
-###	球同、桶同、无空桶
-
--	动态规划
-	$$dp[i][j] = \left \{ \begin{array}{l}
-	dp[i-j][j], & i \geq j \\
-	0, & i < j
-	\end{array} \right.$$
 
 
