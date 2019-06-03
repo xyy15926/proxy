@@ -103,6 +103,9 @@
 
 以superuser用户执行命令
 
+-	Archlinux中需要自行安装
+-	配置文件为`/etc/sudoers`
+
 ###	`useradd/adduser`
 
 创建用户账户（`adduser`：`useradd`命令的符号链接）
