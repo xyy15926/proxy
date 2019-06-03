@@ -278,7 +278,7 @@ $$
 概率分布p的基尼指数
 
 $$\begin{align*}
-Gini(p) & = \sum_{k=1}^K p_k(1-p_k)
+Gini(p) & = \sum_{k=1}^K p_k(1-p_k) \\
 	& = 1 - \sum_{k=1}^K p_k^2
 \end{align*}$$
 
@@ -364,7 +364,7 @@ H(Y|x=x_i) & = - \sum_j P(y_j|x_i) log P(y_j|x_i)
 互信息/信息增益：（经验）熵与（经验）条件熵之差
 
 $$\begin{align*}
-g(Y|X) & = H(Y) - H(Y|X)
+g(Y|X) & = H(Y) - H(Y|X) \\
 & = \sum_{x \in X} \sum_{y \in Y} p(x,y) log
 	\frac {p(x,y)} {p(x)p(y)}
 \end{align*}$$
@@ -376,6 +376,45 @@ g(Y|X) & = H(Y) - H(Y|X)
 	$$\begin{align*}
 	g_R(Y|X) & = \frac {g(Y|X)} {H(X)}
 	\end{align*}$$
+
+####	*Cross Entropy*
+
+> - 信息论：基于相同事件测度的两个概率分布$p, q$，基于非自然
+	（相较于真实分布$p$）概率分布$q$进行编码，在事件集合中
+	唯一标识事件所需bit
+> - 概率论：概率分布$p, q$之间差异
+
+$$\begin{align*}
+H(p, q) & = E_p[-log q] = \left \{ \begin{array}{l}
+	= -\sum_{x} p(x) logq(x), & 离散分布 \\
+	= -\int_X P(x) log(Q(x)) d(r(x)), & 连续分布
+\end{array} \right. \\
+& = H(p) + D_{KL}(p||q)
+\end{align*}$$
+
+> - $q(x)$：离散非自然概率分布
+> - $Q(x)$：连续非自然概率分布密度函数
+> - $r(x)$：测度，通常是$Borel \sigma$代数上的勒贝格测度
+> - $D_{KL}(p||q)$：$p$到$q$的KL散度（$p$相对于$q$的相对熵）
+
+-	交叉熵是常用的损失函数：效果等价于KL散度，但计算方便
+
+> - sigmoid激活函数时：相较于二次损失，收敛速度更快
+
+####	*Kullback-Leibler Divergence*
+
+KL散度/相对熵：概率分布$p, q$之间差异量化指标
+
+$$\begin{align*}
+D_{KL}(p||q) & = E_p[log p(x) - log q(x)] \\
+& = \sum_{i=1}^N p(x_i) (log p(x_i) - log q(x_i)) \\
+& = \sum_{i=1} p(x_i) log \frac {p(x_i)} {q(x_i)}
+\end{align*}$$
+
+-	KL散度表示：原始分布$p$、近似分布$q$之间对数差值期望
+-	KL散度不对称，分布$p$度量$q$、$q$度量$p$损失信息不同
+	-	从计算公式也可以看出
+	-	KL散度不能作为不同分布之间距离的度量
 
 ###	误分率
 

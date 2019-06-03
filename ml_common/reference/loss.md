@@ -68,14 +68,14 @@ $$
 
 ###	Logarithmic Loss
 
-对数损失函数（对数似然损失函数）
+对数损失函数（负对数极大似然损失函数）
 
 $$
 L(y, P(y|x)) = -logP(y|x)
 $$
 
 -	适用场合
-	-	多分类：贝叶斯生成模型
+	-	多分类：贝叶斯生成模型、逻辑回归
 
 ###	Exponential Loss
 
@@ -119,11 +119,95 @@ $$
 -	适用场景
 	-	多分类：Adaboost.M2
 
-##	Total Loss
+###	Cross Entropy
+
+交叉熵损失
+
+$$\begin{align*}
+L(y, f(x)) & = -ylog(f(x)) \\
+& = - \sum_{k=1}^K y_k log f(x)_k
+\end{align*}$$
+
+> - $y$：one-hot编码实际值
+> - $f(x)$：各类别预测概率
+> - $K$：分类数目
+
+-	指数激活函数时：相较于二次损失，收敛速度更快
+
+-	$y$为one-hot编码时，交叉熵损失可以视为对数损失
+	（负对数极大似然函数）
+
+	$$\begin{align*}
+	L(y, f(x)) & = \sum_{x \in X} log \prod_{k=1}^K
+		f(x)_k^{y_k} \\
+	& = \sum_{x \in X} \sum_{k=1}^K f(x)_k^{y_k}
+	\end{align*}$$
+
+-	适合场合
+	-	分类
+
+> - 熵详细参见*machine_learning/reference/model_evaluation*
+
+####	收敛速度对比
+
+-	二次损失对$w$偏导
+
+	$$
+	\frac {\partial L} {\partial w} = (\sigma(z) - y)
+		\sigma^{'}(z) x
+	$$
+
+	> - $\sigma$：sigmoid、softmax激活函数
+	> - $z = wx + b$
+
+	-	考虑到sigmoid函数输入值绝对值较大时，其导数较小
+	-	激活函数输入$z=wx+b$较大时，$\sigma^{'}(z)$较小，
+		更新速率较慢
+
+-	Softmax激活函数时，交叉熵对$w$偏导
+
+	$$\begin{align*}
+	\frac {\partial L} {\partial w} & = -y\frac 1 {\sigma(z)}
+		\sigma^{'}(z) x \\
+	& = y(\sigma(z) - 1)x
+	\end{align*}$$
+
+-	特别的，对sigmoid二分类
+
+	$$\begin{align*}
+	\frac {\partial L} {\partial w_j} & = -(\frac y {\sigma(z)}
+		- \frac {(1-y)} {1-\sigma(z)}) \sigma^{'}(z) x \\
+	& = -\frac {\sigma^{'}(z) x} {\sigma(z)(1-\sigma(z))}
+		(\sigma(z) - y) \\
+	& = x(\sigma(z) - y)
+	\end{align*}$$
+
+	-	考虑$y \in \{(0,1), (1,0)\}$、$w$有两组
+	-	带入一般形式多分类也可以得到二分类结果
+
+##	Batch Loss
+
+*batch loss*：模型（目标函数）在某个batch上的损失
+
+-	是模型在batch上的特征，对整体的代表性取决于batch大小
+
+	-	batch越大对整体代表性越好，越稳定
+	-	batch大小为1时，就是某个样本点个体损失
+	-	batch大小为整个训练集时，就是经验（结构）风险
+
+-	这个loss是学习算法中最常用的loss
+
+	-	虽然策略往往是风险最小化，但在实际操作中往往是使用
+		batch loss替代风险（参见*algorithms*）
+	-	所以和风险一样可能会带有正则化项
+
+	-	损失极值：SVM（几何间隔最小）
+
+##	Loss Models
 
 模型（目标函数）在样本整体的损失：度量模型整体预测效果
 
--	代表模型在整体上的性质
+-	代表模型在整体上的性质，有不同的设计形式
 
 -	可以用于**设计学习策略、评价模型**
 	-	风险函数
@@ -200,24 +284,6 @@ $$
 		-	损失函数：对数损失函数
 		-	模型复杂度：模型先验概率对数后取负
 		-	先验概率对应模型复杂度，先验概率越小，复杂度越大
-
-##	Batch Loss
-
-模型（目标函数）在某个batch上的损失
-
--	是模型在batch上的特征，对整体的代表性取决于batch大小
-
-	-	batch越大对整体代表性越好
-	-	batch大小为1时，就是某个样本点个体损失
-	-	batch大小为整个训练集时，就是经验（结构）风险
-
--	这个loss是学习算法中最常用的loss
-
-	-	虽然策略往往是风险最小化，但在实际操作中往往是使用
-		batch loss替代风险（参见*algorithms*）
-	-	所以和风险一样可能会带有正则化项
-
-	-	损失极值：SVM（几何间隔最小）
 
 ##	*regularization*
 

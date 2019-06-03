@@ -52,7 +52,7 @@
 
 $$
 P(Y=c_k|X=x) = \frac {P(Y=c_k, X=x)} {\sum_{i=1}^K
-	P(Y=c_k, X=x)}
+	P(Y=c_i, X=x)}
 $$
 
 > - $K$：输出类别数量
@@ -61,9 +61,9 @@ $$
 
 	$$\begin{align*}
 	P(Y=c_k|X=x) & = \frac {P(X=x|Y=c_k)P(Y=c_k)}
-		{\sum_{i=1}^K P(X=x|Y=c_k) P(Y=c_k)} \\
+		{\sum_{i=1}^K P(X=x|Y=c_i) P(Y=c_i)} \\
 	& = \frac {P(Y=c_k) \prod_{j=1}^D P(X^{(j)}|Y=c_k)}
-		{\sum_{i=1}^K P\prod_{j=1}^D P(X^{(j)}|Y=c_k)}
+		{\sum_{i=1}^K P(Y=c_i) \prod_{j=1}^D P(X^{(j)}|Y=c_i)}
 	\end{align*}$$
 
 -	考虑上式中分母对所有$c_k$取值均相等，则最终分类器为

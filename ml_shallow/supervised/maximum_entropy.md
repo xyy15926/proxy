@@ -59,12 +59,12 @@ P(Y=0|\hat x) & = \frac 1 {1+exp(\hat w \hat x)}
 
 ####	策略
 
-极大似然：极小对数损失
+极大似然：极小对数损失（交叉熵损失）
 
 $$\begin{align*}
 L(w) & = log \prod_{i=1}^N [\pi(x_i)]^{y_i}
 	[1-\pi(x_i)]^{1-y_i} \\
-& = \sum_{i=1}^N [y_i log \pi(x_i) + (1-y_i)log(1-\pi)] \\
+& = \sum_{i=1}^N [y_i log \pi(x_i) + (1-y_i)log(1-\pi(x_i))] \\
 & = \sum_{i=1}^N [y_i log \frac {\pi(x_i)}
 	{1-\pi(x_i)} log(1-\pi(x_i))] \\
 & = \sum_{i=1}^N [y_i(\hat w \hat x_i) -
@@ -132,7 +132,7 @@ P(Y=K|x) & = \frac 1 {1+\sum_{k=1}^{K-1}
 	0, & 否则
 	\end{array} \right.$$
 
-	-	特征函数关于经验分布$P(X, Y)$的期望
+	-	特征函数关于经验分布$\tilde P(X, Y)$的期望
 		$$
 		E_{\tilde P} = \sum_{x,y} \tilde P(x,y)f(x,y)
 		$$
@@ -153,12 +153,15 @@ P(Y=K|x) & = \frac 1 {1+\sum_{k=1}^{K-1}
 
 	此即作为模型学习的约束条件
 
-	-	这个约束只是纯粹的关于$P(Y|X)$的约束
-	-	如果有其他表述的关于$P(Y|X)$的约束，直接使用就行
+	-	此约束是纯粹的关于$P(Y|X)$的约束，只是约束形式特殊，
+		需要通过期望关联熵
+
+	-	若有其他表述形式、可以直接带入的、关于$P(Y|X)$约束，
+		可以直接使用
 
 > - 满足所有约束条件的模型集合为
 	$$
-	\mathcal{C} = \{P | E_P(f_i) = E_{\tilde P (f_i)},
+	\mathcal{C} = \{P | E_{P(f_i)} = E_{\tilde P (f_i)},
 		i=1,2,\cdots,n \}
 	$$
 	定义在条件概率分布$P(Y|X)$上的条件熵为
@@ -412,14 +415,14 @@ s.t. & E_P(f_i) - E_{\tilde P}(f_i) = 0, i=1,2,\cdots,M \\
 
 2.	对每个$i \in \{1,2,\cdots,M\}$，求解以上方程得$\sigma_i$
 
-	-	若$f^#(x,y)=C$为常数，则$\sigma_i$有解析解
+	-	若$f^{\#}(x,y)=C$为常数，则$\sigma_i$有解析解
 
 		$$
 		\sigma_i = \frac 1 C log \frac {E_{\tilde P}(f_i)}
 			{E_P(f_i)}
 		$$
 
-	-	若$f^#(x,y)$不是常数，则可以通过牛顿法迭代求解
+	-	若$f^{\#}(x,y)$不是常数，则可以通过牛顿法迭代求解
 
 		$$
 		\sigma_i^{(k+1)} = \sigma_i^{(k)} - \frac
@@ -443,7 +446,7 @@ s.t. & E_P(f_i) - E_{\tilde P}(f_i) = 0, i=1,2,\cdots,M \\
 	\min_{w \in R^M} f(w) = \sum_x \tilde P(x) log \sum_{y}
 		exp(\sum_{i=1}^M w_i f_i(x,y)) - \sum_{x,y}
 		\tilde P(x,y) \sum_{i=1}^M w_i f_i(x,y)
-	\end{array}
+	\end{array}$$
 
 -	梯度为
 
@@ -462,7 +465,7 @@ s.t. & E_P(f_i) - E_{\tilde P}(f_i) = 0, i=1,2,\cdots,M \\
 	$\tilde P(x)$、最大熵模型$P_w(x)$
 > - 输出：最优参数值$w_i^{*}$、最优模型$P_{w^{*}}$
 
-1.	取初值$w^{(0)}、正定对称矩阵$B^{(0)}$，置k=0
+1.	取初值$w^{(0)}$、正定对称矩阵$B^{(0)}$，置k=0
 
 2.	计算$g^{(k)} = g(w^{(k)})$，若$\|g^{(k)}\| < \epsilon$，
 	停止计算，得到解$w^{*} = w^{(k)}$

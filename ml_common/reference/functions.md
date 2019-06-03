@@ -156,7 +156,7 @@ $$
 	-	其中前$x_i$个值为1，之后为0
 -	将$d$个长度为$C$的序列连接，形成长度为$d * C$的序列
 
-> - 汉明距离空间嵌入对曼哈顿距离是保距的
+> - 以上明距离空间嵌入对曼哈顿距离是保距的
 
 ####	*Jaccard*系数
 
@@ -167,6 +167,13 @@ sim = \frac {\|S_1 \hat S_2\|} {\|S_1 \cup S_2\|}
 $$
 
 > - $S_1, S_2$：待度量相似度的两个集合
+
+####	*Adamic-Aria*
+
+$$
+AA = \sum_{i \in \Dao(x) \cap \Dao (y)} log \frac 1 Degress(i)
+$$
+#todo
 
 ####	*Consine Similarity*
 
@@ -262,8 +269,10 @@ $$\begin{align*}
 将实数映射到(0, 1)区间
 
 $$
-sigmoid(x) = \frac 1 {1+e^{-x}}
+sigmoid(z) = \frac 1 {1+e^{-z}}
 $$
+
+> - $z= wx+b$
 
 -	用途
 	-	隐层神经元输出
@@ -279,32 +288,41 @@ $$
 计算速度比sigmoid激活函数快
 
 $$
-hard_signmoid(x) = \left \{ \begin {array} {l}
-	0 & x < -2.5 \\
-	1 & x > 2.5 \\
-	0.2*x + 0.5 & -2.5 \leq x \leq 2.5 \\
+hard_signmoid(z) = \left \{ \begin {array} {l}
+	0 & z < -2.5 \\
+	1 & z > 2.5 \\
+	0.2*z + 0.5 & -2.5 \leq z \leq 2.5 \\
 \end {array} \right.
 $$
+
+> - $z= wx+b$
 
 ####	Softmax
 
 主要用于多分类神经网络输出
 
 $$
-softmax(x_i) = \frac {e^{x_i}} {\sum_{k=1}^K e^{x_k}}
+softmax(z_i) = \frac {e^{z_i}} {\sum_{k=1}^K e^{z_k}}
 $$
+
+> - $z_i = w_i x + b_i$：$(w_i, b_i)$组数同分类数量，和输入
+	$x$维度无关
+
+> - $K$：分类数目
 
 -	使用指数
 	-	拉开数值之间差距，大者更大，小者更小
 	-	保证激活函数可导
 
--	Softmax回归参数冗余
+-	Softmax回归参数$(w_i, b_i$$冗余，可以消去一组
 
 ####	Softplus
 
 $$
-softplus(x) = log(exp(x)+1)
+softplus(z) = log(exp(z)+1)
 $$
+
+> - $z = wx + b$
 
 ####	Tanh
 
@@ -312,12 +330,13 @@ $$
 
 $$
 \begin{align*}
-tanh(x) & = \frac {sinhx} {coshx} \\
-	& = \frac {e^x - e^{-x}} {e^x + e^{-x}} \\
+tanh(z) & = \frac {sinhz} {coshz} \\
+	& = \frac {e^z - e^{-z}} {e^z + e^{-z}} \\
 \end{align*}
 $$
 
-> - $\frac{\partial tanh(x)}{\partial x} = (1 - tanh(x))^2$
+> - $z = wx + b$
+> - $\frac{\partial tanh(z)}{\partial z} = (1 - tanh(z))^2$
 	：非常类似普通正切函数，可以简化梯度计算
 
 ###	线性指数类
@@ -327,10 +346,10 @@ $$
 线性指数
 
 $$
-elu(x, \alpha) =
+elu(z, \alpha) =
 \left \{ \begin{array} {l}
-	x & x > 0 \\
-	\alpha (e^x - 1) & x \leqslant 0 \\
+	z & z > 0 \\
+	\alpha (e^z - 1) & x \leqslant 0 \\
 \end{array} \right.
 $$
 
@@ -343,7 +362,7 @@ $$
 -	选择合适的$\alpha, scale$值
 
 $$
-selu(x) = scale * elu(x, \alpha)
+selu(z) = scale * elu(z, \alpha)
 $$
 
 ###	线性类
@@ -351,7 +370,7 @@ $$
 ####	Softsign
 
 $$
-softsign(x) = \frac x {abs(x) + 1)}
+softsign(z) = \frac z {abs(z) + 1)}
 $$
 
 ####	ReLU
@@ -359,10 +378,10 @@ $$
 *Rectfied Linear Units*：修正线性单元
 
 $$
-relu(x, max) = \left \{ \begin{array} {l}
-	0 & x \leq 0 \\
-	x & 0 < x < max \\
-	max & x \geq max \\
+relu(z, max) = \left \{ \begin{array} {l}
+	0 & z \leq 0 \\
+	z & 0 < x < max \\
+	max & z \geq max \\
 \end {array} \right.
 $$
 
@@ -371,10 +390,10 @@ $$
 *Leaky ReLU*：带泄露的修正线性
 
 $$
-relu(x, \alpha, max) = \left \{ \begin {array} {l}
-	\alpha x & x \leq 0 \\
-	x & 0 < x < max \\
-	max & x \geq max \\
+relu(z, \alpha, max) = \left \{ \begin {array} {l}
+	\alpha z & z \leq 0 \\
+	z & 0 < z < max \\
+	max & z \geq max \\
 \end {array} \right.
 $$
 
@@ -383,9 +402,9 @@ $$
 *Parametric ReLU*：参数化的修正线性
 
 $$
-prelu(x) = \left \{ \begin{array} {l}
-	\alpha x & x < 0 \\
-	x & x> 0 \\
+prelu(z) = \left \{ \begin{array} {l}
+	\alpha z & z < 0 \\
+	z & z> 0 \\
 \end{array} \right.
 $$
 
@@ -397,8 +416,8 @@ $$
 带阈值的修正线性
 
 $$
-threshhold_relu(x, theta)= \left \{ \begin{array} {l}
-	x & x > theta \\
+threshhold_relu(z, theta)= \left \{ \begin{array} {l}
+	z & z > theta \\
 	0 & otherwise \\
 \end{array} \right.
 $$
