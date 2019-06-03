@@ -268,27 +268,156 @@ GRUB配置文件，实际上是`/etc/default/grub`的软连接
 
 ###	系统服务
 
-####	`/usr/lib/systemd`
+-	服务`systemctl`脚本目录优先级从低到高
 
-此文件夹包含一系列服务
+	-	`[/usr]/lib/systemd/system`：系统、应用默认存放位置
+		，随系统、应用更新会改变
 
--	服务文件就是文本文件，包含服务需要执行的程序、描述等
+	-	`/etc/systemd/system`：**推荐在此自定义配置**，避免
+		被更新覆盖
 
-#####	`.service`
+		```cnf
+		.include /lib/systemd/system/<service_name>.service
+		# customized changes
+		```
 
-#####	`.target`
+	-	`/run/systemd/system`：进程运行时创动态创建服务文件
+		目录，仅修改程序运行时参数才会修改
 
-#####	`.socket`
+-	自定义系统服务方法
+
+	-	创建`<service_name>.service`文件，其中写入配置
+	-	创建`<service_name>.service.d`目录，其中新建`.conf`
+		文件写入配置
+
+> - 系统服务控制命令`systemctl`参见*linux/shell/cmd_sysctl*
+
+####	`.service`
+
+`<some_name>.service`：服务配置unit文件
+
+```cnf
+[Unit]					# 包含对服务的说明
+Description=			# 服务简单描述
+Documentation=			# 服务文档
+Requires=				# 依赖unit，未启动则当前unit启动失败
+Wants=					# 配合unit，不影响当前unit启动
+BindsTo=				# 类似`Requires`，若其退出则当前unit
+							# 退出
+Before=					# 若该字段指定unit要启动，则必须在
+							# 当前unit之后启动
+After=					# 若该字段指定unit要启动，则必须在
+							# 当前unit之前启动
+Conflicts=				# 冲突unit
+Condition=				# 条件，否则无法启动
+Assert=					# 必须条件，否则启动失败
 
 
-####	`/etc/systemd/system/`
+[Service]				# 服务具体运行参数设置，仅
+							# *service unit*有该字段
+Type=					# 服务启动类型
+PIDFile=				# 存放PID文件路径
+RemainAfterExit=		# 进程退出后是否认为服务仍处于激活
 
-此文件夹中均为`systemctl enable`的服务symlink
+ExecStartPre=			# 服务启动前执行的命令
+ExecStartPost=			# 服务启动后执行的命令
+ExecStart=				# 服务具体执行、重启、停止命令
+ExecReload=
+ExecStop=
 
--	其中包含的服务symlink会在机器启动时启动
--	`systemctl enable`就是在`/etc/systemd/system`
-	（或其子文件夹）创建服务的symlink
--	`systemctl disable`就是移除symlink
+Restart=				# 重启当前服务的情况
+RestartSec=				# 自动重启当前服务间隔秒数
+TimeoutSec=				# 停止当前服务之前等待秒数
+
+PrivateTmp=				# 是否给服务分配临时空间
+KillSignal=SIGTERM
+KillMode=mixed
+
+Environmen=				# 指定环境变量
+
+[Install]
+WantedBy=				# unit所属的target，`enable`至相应
+							# target
+RequiredBy=				# unit被需求的target
+Alias=					# unit启动别名
+Also=					# `enable`当前unit时，同时被`enable`
+							# 的unit
+```
+
+-	`Type`：服务启动类型
+
+	-	`simple`：默认，执行`ExecStart`启动主进程
+		-	Systemd认为服务立即启动
+		-	适合服务在前台持续运行
+		-	服务进程不会fork
+		-	若服务要启动其他服务，不应应该使用此类型启动，
+
+	-	`forking`：以fork方式从父进程创建子进程，然后父进程
+		立刻退出
+		-	父进程退出后Systemd才认为服务启动成功
+		-	适合常规守护进程（服务在后台运行）
+		-	启动同时需要指定`PIDFile=`，以便systemd能跟踪
+			服务主进程
+
+	-	`oneshot`：一次性进程
+		-	Systemd等待当前服务退出才继续执行
+		-	适合只执行一项任务、随后立即退出的服务
+		-	可能需要同时设置`RemainAfterExit=yes`，使得
+			systemd在服务进程推出后仍然认为服务处于激活状态
+
+	-	`notify`：同`simple`
+		-	但服务就绪后向Systemd发送信号
+
+	-	`idle`：其他任务执行完毕才会开始服务
+
+	-	`dbus`：通过D-Bus启动服务
+		-	指定的`BusName`出现在DBus系统总线上时，Systemd
+			即认为服务就绪
+
+-	`WantedBy`：服务安装的用户模式，即希望使用服务的用户
+	-	`multi-user.target`：允许多用户使用服务
+
+####	`.target`
+
+`<some_name>.target`：可以理解为系统的“状态点”
+
+-	target通常包含多个unit
+	-	即包含需要启动的服务的组
+	-	方便启动一组unit
+
+-	启动target即意味将系统置于某个状态点
+
+-	target可以和传统init启动模式中RunLevel相对应
+	-	但RunLevel互斥，不能同时启动
+	
+	|RunLevel|Target|
+	|-----|-----|
+	|0|`runlevel0.target`或`poweroff.target`|
+	|1|`runlevel1.target`或`rescue.target`|
+	|2|`runlevel2.target`或`multi-user.target`|
+	|3|`runlevel3.target`或`multi-user.target`|
+	|4|`runlevel4.target`或`multi-user.target`|
+	|5|`runlevel5.target`或`graphical.target`|
+	|6|`runlevel6.target`或`reboot.target`|
+
+-	`enable`设置某个服务自启动，就是在服务配置`.service`中
+	`WantedBy`、`RequiredBy`指明的target注册
+
+	-	`WantedBy`向target对应目录中
+		`/etc/systemd/system/<target_name>.target.wants`
+		添加符号链接
+	-	`RequiredBy`向target对应目录中
+		`/etc/systemd/system/<target_name>.target.required`
+		添加符号链接
+	-	`systemctl disable <unit>`就是移除对应symlink
+
+####	`.socket`
+
+###	日志
+
+####	`/etc/systemd/journal.conf`
+
+Systemd日志配置文件
 
 ##	网络
 
