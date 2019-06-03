@@ -31,6 +31,7 @@ alias vims="vim -S"
 alias ssstart="$HOME/.conda/envs/ssr/bin/sslocal -c $HOME/files/ssr/client.json -d start --pid-file=$HOME/files/ssr/ssr.pid --log-file=$HOME/files/ssr/ss.log"
 alias ssstop="$HOME/.conda/envs/ssr/bin/sslocal -d stop --pid-file=$HOME/files/ssr/ssr.pid"
 alias ssrestart="ssstop && ssstart"
+alias g++="g++ -std=c++11"
 
 umask 023
 

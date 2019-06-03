@@ -6,6 +6,26 @@ Host infocluster
 	HostName 183.174.229.251
 	User xfy2018103617
 
+Host statdb
+	HostName 183.174.228.121
+	User root
+	Port 5102
+
+Host statgpu1
+	HostName 183.174.228.122
+	User root
+	Port 5102
+
+Host statgpu2
+	HostName 183.174.228.123
+	User root
+	Port 5102
+
+Host statgpu3
+	HostName 183.174.228.124
+	User root
+	Port 5102
+
 Host centos1
 	HostName 192.168.31.129
 	User root
