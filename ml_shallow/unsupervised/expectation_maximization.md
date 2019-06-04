@@ -400,13 +400,13 @@ $$\begin{align*}
 
 	$$
 	L(\tilde P, \lambda, \mu) = F(\tilde P, \theta) +
-		\lambda(1 - \tilde P(Z)) - \mu \tilde P(Z)
+		\lambda(1 - \sum_Z \tilde P(Z)) - \mu \tilde P(Z)
 	$$
 
-	因为$\tilde P(Z)$是概率分布，自然包含两个约束
+	因为$\tilde P(Z)$是概率密度，自然包含两个约束
 
 	$$\left \{ \begin{array}{l}
-	\tilde P(Z) \leq 1 \\
+	\sum_Z \tilde P(Z) = 1 \\
 	\tilde P(Z) \geq 0
 	\end{array} \right.$$
 
@@ -433,33 +433,14 @@ $$\begin{align*}
 
 	而由假设条件，$P(Y,Z|\theta)$是$\theta$的连续函数
 
-> - 这里概率分布函数$\tilde P(Z)$是作为自变量出现
+> - 这里概率密度函数$\tilde P(Z)$是作为自变量出现
 
 > - 理论上对$\tilde P(Z)$和一般的**复合函数求导**没有区别，
-	但$E_{\tilde P}, \sum_Z$、使得整体看起来非常不和谐
+	但$E_{\tilde P}, \sum_Z$使得整体看起来非常不和谐
 	$$\begin{align*}
-	E_{\tilde P} f(Z) & = \sum_Z f(Z) \tilde p(Z) \\
+	E_{\tilde P} f(Z) & = \sum_Z f(Z) \tilde P(Z) \\
 	& = \int f(Z) d(\tilde P(Z))
 	\end{align*}$$
-
-#####	勘误
-
--	李航原版约束只有$\lambda$项，有个网页加上了$\mu$项
-
-	$$\left \{ \begin{array}{l}
-	\sum_Z \tilde P(Z) = 1 \\
-	\tilde P(Z) \geq 0
-	\end{array} \right.$$
-
--	根据以上构造Lagrange方程如下
-
-	$$
-	L(\tilde P, \lambda, \mu) = F(\tilde P, \theta) +
-		\lambda(1 - \sum_Z \tilde P(Z)) - \mu \tilde P(Z)
-	$$
-
--	但是上面两个约束应该都是错的，$\tilde P(Z)$应该是分布
-	函数，不是密度函数（不敢确定）
 
 ####	定理2
 
