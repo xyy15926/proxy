@@ -327,7 +327,7 @@ typedef struct BiThrNode{
 
 ###	二叉树高度
 
-将空树高度定义为-1
+> - 将空树高度定义为-1
 
 ####	算法
 
@@ -360,41 +360,6 @@ Height(T):
 
 ###	二叉树遍历
 
-####	*Preorder Traversal*
-
-```c
-Preorder(T):
-	visit(T)
-	if T_left not null:
-		visit(T_left)
-	if T_right not null:
-		visit(T_right)
-```
-
-####	*Inorder Traversal*
-
-```c
-Inorder(T):
-	if T_left not null:
-		visit(T_left)
-	visit(T)
-	if T_right not null:
-		visit(T_right)
-```
-
-####	*Postorder Tranversal*
-
-```c
-Postorder(T):
-	if T_left not null:
-		visit(T_left)
-	visit(T)
-	if T_right not null:
-		visit(T_right)
-```
-
-####	特点 
-
 -	不是所有关于二叉树的算法都需要遍历两棵子树，如：查找、
 	插入、删除只需要遍历两颗子树中的一棵，所以这些操作属于
 	减可变规模（减治法）
@@ -402,6 +367,165 @@ Postorder(T):
 -	先序、中序、后序遍历都需要用到栈
 
 -	中序遍历得到的序列称为中序置换/中序序列，先序、后序类似
+
+####	递归版本
+
+-	*Preorder Traversal*：先序
+
+	```c
+	PreOrder(T):
+		visit(T)
+		if T_left not null:
+			PreOrder(T_left)
+		if T_right not null:
+			PreOrder(T_right)
+	```
+
+-	*Inorder Traversal*：中序
+
+	```c
+	InOrder(T):
+		if T_left not null:
+			InOrder(T_left)
+		visit(T)
+		if T_right not null:
+			InOrder(T_right)
+	```
+
+-	*Postorder Traversal*：后序
+
+	```c
+	PostOrder(T):
+		if T_left not null:
+			PostOrder(T_left)
+		visit(T)
+		if T_right not null:
+			PostOrder(T_right)
+	```
+
+####	栈非递归
+
+-	先序遍历
+
+	-	深度优先入栈：左子树优先入栈
+
+		```c
+		PreOrder(T):
+			s = InitStack()
+			cur = T
+			while s.not_empty() or cur:
+				while cur:
+					visit(cur)
+					s.push_back(cur)
+					cur = cur.left
+				cur = s.pop()
+				cur = cur.right
+
+		// 等价写法，仅使用`if`利用外层循环
+		PreOrder(T):
+			s = InitStack()
+			cur = T
+			while s.not_empty() or cur:
+				if cur:
+					visit(cur)
+					s.push_back(cur)
+					cur = cur.left
+				else:
+					cur = s.pop()
+					cur = cur.right
+		```
+
+		-	基于对遍历性质的考虑
+		-	扩展性较好，可以扩展到中序、后序遍历
+
+	-	广度优先入栈：同层右、左节点先后入栈
+
+		```c
+		PreOrder(T):
+			s = InitStack()
+			s.push_back(T)
+			while s.not_empty():
+				cur = s.pop()
+				if cur.right:
+					s.push_back(cur.right)
+				if cur.left:
+					s.push_back(cur.left)
+				visit(cur)
+		```
+
+-	中序遍历
+
+	-	深度优先入栈
+
+		```c
+		InOrder(T):
+			s = InitStack()
+			cur = T
+			while s.not_empty() or cur:
+				while cur:
+					s.push_back(cur)
+					cur = cur.left
+				cur = s.pop()
+				visit(cur)
+				cur = cur.right
+
+		// 等价写法，仅使用`if`利用外层循环
+		InOrder(T):
+			s = InitStack()
+			cur = T
+			while s.not_empty() or cur:
+				if cur:
+					s.push_back(cur)
+					cur = cur.left
+				else:
+					cur = s.pop()
+					visit(cur)
+					cur = cur.right
+		```
+
+-	后序：需要标记当前节点左、右子树是否被访问
+
+	-	记录最后一次访问节点
+
+		```c
+		PostOrder(T):
+			s = InitStack()
+			cur = T
+			last = NULL
+			while s.not_empty() or cur:
+				while cur:
+					s.push_back(cur)
+					cur = cur.left
+				cur = s.top()
+				// 检查右子树是否被访问过
+				if cur.right == NULL or cur.right == last:
+					visit(cur)
+					last = s.pop()	// 此时再弹出`cur`
+					cur = NULL		// 置`cur`为`NULL`，否则
+									// 再次访问左子树，死循环
+				else:
+					cur = cur.right
+		```
+
+	-	或者为每个节点附设标志位
+
+####	层次遍历
+
+-	队列实现
+
+	```c
+	LevelTraversal(T):
+		q = InitQueue()
+		cur = T
+		while q.not_empty() or cur:
+			if cur.left:
+				q.push_back(cur.left)
+			if cur.right:d
+				q.push_back(cur.right)
+			visit(cur)
+			cur = q.pop_first()
+	```
+
 
 ###	树的计数
 
