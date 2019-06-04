@@ -13,16 +13,19 @@
 
 哈夫曼算法：构建最小加权路径二叉树
 
-> - 对给定的n个权值$\{w_1, w_2, \cdots, w_n\}$
+> - 输入：给定的n个权值$\{w_1, w_2, \cdots, w_n\}$
 
 -	初始化n个单节点二叉树集合$F=\{T_1, T_2, \cdots, T_n\}$
 -	合并权重最小的两棵树，将其权重之和作为新树权重记录于新树
 	根节点中
 -	重复，直至生成单独一棵树
 
-> - 贪婪算法
-> - Huffman算法构建的最优二叉树是只有叶子节点有权值，若所有
-	节点都有权值的**最优二叉查找树**，需要使用动态规划算
+####	特点
+
+-	贪婪算法
+-	Huffman算法构建的最优二叉树是只有叶子节点有权值，若所有
+	节点都有权值的**最优二叉查找树**，需要使用动态规划算法，
+	参见*cs_algorithm/data_structure/tree_search*
 
 ###	哈夫曼编码
 
@@ -40,9 +43,9 @@
 ####	哈夫曼树
 
 ```c
-typedef struct{
+typedef struct HTNode{
 	unsigned int weight;
-	unsigned int parent, lchild, rchild;
+	struct HTNode *parent, *lchild, *rchild;
 }HTNode, *HuffmanTree;
 ```
 
@@ -50,13 +53,15 @@ typedef struct{
 
 ###	优胜树
 
-优胜树：每个结点取值是两个孩子中较小者的完全二叉树
+优胜树：非叶结点取值是两个孩子中较小者的完全二叉树
+
+![tree_winner_structure](imgs/tree_winner_structure.png)
 
 -	根据定义，根节点的取值是整个树的最小值
 -	**从叶节点**构建/重构优胜树的过程中
 	-	每对兄弟结点捉对比赛，胜利者晋升为父亲结点
 	-	胜者逐级向上直到根节点为止
-	-	构建优胜树的时间效率$\in Theta(logk)$
+	-	调整优胜树的时间效率$\in \Theta(logk)$
 
 ####	顺序存储结构
 
@@ -64,15 +69,15 @@ typedef struct{
 typedef SqBiTree SqVictTree;
 ```
 
-> - 数组实现的二叉树可以通过完全二叉树性质迅速算法父节点、
-	孩子结尾位置
+> - 数组实现的二叉树可以通过完全二叉树性质迅速计算父节点、
+	孩子节点位置
 
 ###	淘汰树
 
-淘汰树：每个非叶结点值是两个孩子结点中较小者，即指向失败者
-的选拔树
+淘汰树：非叶结点值是两个孩子结点中较大者，即指向失败者的
+选拔树
 
-![tree_loser_construct](imgs/tree_loser_construct.png)
+![tree_loser_structure](imgs/tree_loser_structure.png)
 
 -	可以简化选拔树重构过程
 -	需要额外结点记录/指向胜者
@@ -88,10 +93,12 @@ typedef SqBiTree SqVictTree;
 -	以k路序列首k个元素建立k个叶节点的选拔树
 
 -	构建选拔树，输出最小元素值
-	![tree_winner_construct](imgs/tree_winner_construct.png)
+
+	![tree_winner_structure](imgs/tree_winner_structure.png)
 
 -	用其所属序列下个元素替换其所在叶节点值，重构选拔
+
 	![tree_winner_reconstruct](imgs/tree_winner_reconstruct.png)
 
--	重复n轮：所有k轮归并总时间为$\in Theta(nlogk)$
+-	重复n轮：所有k轮归并总时间为$\in \Theta(nlogk)$
 
