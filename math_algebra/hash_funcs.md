@@ -206,12 +206,67 @@
 
 > - 除法也类似乘法具有不相关性，但太慢
 
+###	定长序列
+
+-	两步随机数
+
+	```python
+	main_rand_seq = randint(k)
+	TwoHashing(input[0,...,k]):
+		hash = 0
+		from i=0 to k:
+			hash += input[i] * main_rand_seq[i]
+		hash = hash mod prime
+	```
+
 ##	*Universal Hashing*
 
-全域哈希：
-#todo
+> - 全域哈希：键集合$U$包含n个键、哈希函数集合$H$包含K哈希
+	函数$h_i: U \rightarrow 0..m$，若$H$满足以下则为全域哈希
+	$$
+	\forall x, y \in U,
+	|\{h|h \in H, h(x) = h(y) \}| = \frac K m
+	$$
 
-###	*Perfect Hashing*
+-	独立与键值随机从中选择hash函数，避免发生最差情况
+-	利用全域哈希构建完美哈希，参见
+	*cs_algorithm/data_structure/hash_table*
+
+###	性质
+
+> - 全域哈希$H$中任选哈希函数，对任意键$x, y \in U$冲突概率
+	小于$\frac 1 m$
+
+-	全域哈希$H$中任选哈希函数$h_i$，对任意键$x \in U$，与其
+	冲突键数目期望为$\frac n m$，即
+	$E_{[collision_x]}=\frac n m$
+
+-	$m = n^2$时，冲突期望小于0.5
+
+	-	$n$个键两两组合数目为$C_n^2$
+	-	则$E_{total} < C_n^2 \frac 1 n < 0.5$
+
+###	构造方法
+
+以下构造$[0,p-1] \rightarrow [0,m-1]$全域哈希
+
+-	$p$为足够大素数使得所有键值$\in [0,p-1]$
+	-	记$Z_p = \{ 0,1,\cdots,p-1 \}$
+	-	记$Z_p^{*}=\{ 1,2,\cdots,p-1 \}$
+	-	且哈希函数映射上限（hash表长度）$m < max(U) < p$
+
+-	记哈希函数
+
+	$$
+	\forall a \in Z_p^{*}, b \in Z_p,
+	h_{a, b}(k) = ((a k + b) mod p) mod m
+	$$
+
+-	则以下哈希函数族即为全域哈希
+
+	$$
+	H_{p,m} = {h_{a,b}|a \in Z_p^{*}, b \in Z_p}
+	$$
 
 ##	*Locality Sensitive Hashing*
 
@@ -253,6 +308,9 @@
 		$Pr[g_i(v) = g_i(q)] \geq P_1^k$
 	-	虽然增加哈希键位长会减小目标和近邻碰撞的概率，但同时
 		也更大成都上减少了和非近邻碰撞的概率、减少搜索空间
+
+	> - 级联哈希函数返回向量，需要对其再做哈希映射为标量，
+		方便查找
 
 -	增加级联哈希函数数量（哈希表数量）$L$
 	-	$L$个哈希表中候选项包含真实近邻概率**至少**为
@@ -346,7 +404,7 @@ Pr(h_{\pi}(C_1)  = h_{\pi}(C_2)) & = \frac a {a + b} \\
 	> - $M$：集合数量，原始特征矩阵列数
 	> - $k$：模拟的随机重排次数，minHash签名矩阵行数
 	> - $h_i,i=1,...,k$：K个模拟随机重排的hash函数，如
-		$h(x) = 2x + 7 mod N$
+		$h(x) = (2x + 7) mod N$
 
 	-	初始化minHash签名矩阵所有值为$\infty$
 	-	遍历$N$个特征、$M$个集合
