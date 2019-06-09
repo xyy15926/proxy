@@ -191,7 +191,43 @@ class Stock3(metaclass=checkdmeta):
 -	类装饰器不依赖其他任何新技术
 -	类装饰器可以容易的添加、删除
 -	类装饰器能做为mixin的替代技术实现同样的效果，而且速度
-	更快，设置一个简单的类型属性值，装饰器要块100%
+	更快，设置一个简单的类型属性值，装饰器要快一倍
+
+####	示例1
+
+```python
+def LoggedMapping(cls):
+	cls_getitem = cls.__getitem__
+	cls_setitem = cls.__setitem__
+	cls_delitem = cls.__setitem__
+		# 获取原`cls`的方法，避免死循环调用
+
+	def __getitem__(self, key):
+		print("getting", str(key))
+		return cls_getitem(self, key)
+			# 这里使用之前获取的方法指针调用，而不直接使用
+				# `cls.__getitem__`避免死循环
+
+	def __setitem__(self, key, value):
+		pritn("setting {} = {!r}", str(key))
+		return cls_set(self, key, value)
+
+	def __delitem__(self, key):
+		print("deleting", str(key))
+		return cls_delitem(self, key)
+
+	cls.__getitem__ = __getitem__
+	cls.__setitem__ = __setitem__
+	cls.__delitem__ = __delitem__
+
+	return cls
+
+@LoggedMapping
+class LoggedDict(dict):
+	pass
+```
+
+####	示例2
 
 ```python
 def Type(expected_type, cls=None):
