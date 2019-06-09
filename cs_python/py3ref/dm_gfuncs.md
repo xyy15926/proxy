@@ -126,7 +126,10 @@
 
 ###	说明
 
-#todo
+-	函数是描述器，函数类`function`实现有`__get__`方法
+-	`function.__get__`即将函数首个参数进行绑定，返回绑定方法
+
+> - 参见*cs_python/py3ref/cls_special_methods*
 
 ##	*Generator Functions*
 

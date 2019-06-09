@@ -15,6 +15,10 @@ sys.maxsize
 	# 一般就是字长
 sys.version
 	# python解释器版本号
+sys.byteorder
+	# 平台字节序
+sys.hash_info
+	# 数值类型hash信息
 ```
 
 ####	`sys.xxxcheckinterval`
@@ -103,6 +107,8 @@ sys.exc_info()
 
 -	返回值：`(type, value, trackback)`
 	-	最近异常的类型、值、追踪对象元组
+	-	处理该异常的`except`执行之后，`sys.exc_info`被恢复
+		为原始值
 
 > - 追踪对象可以使用`traceback`模块处理
 
@@ -203,6 +209,7 @@ sys.getfilesystemencoding()
 ```
 
 > - win10中二者都是`utf-8`，win7中文件名编码是`mbcs`
+
 ##	`sysconfig`
 
 ##	`builtins`
