@@ -546,7 +546,8 @@ global_stmt ::= "global" identifier ("," identifier)*
 
 -	`global`语句是作用于整个当前代码块的声明
 
--	给全局变量赋值必须用到`global`关键字
+-	局部作用域中给全局变量**赋值**必须用到`global`关键字
+	-	仅仅是获取值无需`global`语句声明
 	-	但自由变量也可以指向全局变量而不必声明为全局变量
 
 -	global语句中列出的名称
