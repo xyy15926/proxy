@@ -470,13 +470,19 @@ ssh访问远程主机配置
 	连接
 
 ```conf
-Host link_name
-	HostName host
-	User user_name
-	Port 22
-	IdentityFile private_key
-		# 默认私钥文件应该是`~/.ssh`下的文件
+Host <link_name>
+	HostName <host>
+	User <user_name>
+	Port <port>
+	IdentityFile <private_key>
+	IdentitiesOnly yes
+	PreferredAuthentications publickey
 ```
+
+-	默认私钥文件为：`~/.ssh/id_rsa`，可以指定特定私钥
+
+> - 此文件中配置是ssh协议参数封装，适合任何可以使用ssh协议
+	场合：`ssh`、`git`、`scp`
 
 ###	HOST
 
