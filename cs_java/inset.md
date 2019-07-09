@@ -1,6 +1,6 @@
 #	Java安装设置
 
-##	Java名词
+##	Java概念
 
 ###	Java
 
@@ -35,12 +35,12 @@ JVM有很多版本：
 -	JDK = java开发工具 + JRE
 -	包括：complier、debugger，用于开发java应用
 
-###	OpenJDK
+####	OpenJDK
 
 -	**JDK**的一个“发行版”，Java SE 7 JSR的一个开源实现
 -	现在同Oracle JDK区别很小
 
-##	Java JDK版本
+####	Java JDK版本
 
 Java常见的发行版本两个：OpenJDK和JDK
 
@@ -49,7 +49,7 @@ Java常见的发行版本两个：OpenJDK和JDK
 -	OpenJDK：JDK的开源版本，其实也是Sun公司发布的Java版本，
 	Sun被Oracle收购之后也称为Oracle OpenJDK
 
-###	授权协议不同
+#####	授权协议不同
 
 -	JDK有两个协议发布
 
@@ -61,7 +61,7 @@ Java常见的发行版本两个：OpenJDK和JDK
 -	OpenJDK：GPL V2协议发布，开放源码，允许商业使用
 
 
-###	源代码完整性
+#####	源代码完整性
 
 OpenJDK：采用GPL协议发布发布，JDK的部分源代码因产权问题无法
 开放OpenJDK使用（最重要部分为JMX中的可选元件SNMP部分源码）
@@ -81,7 +81,7 @@ OpenJDK：采用GPL协议发布发布，JDK的部分源代码因产权问题无�
 -	SCSL代码比JRL多一些`closed`目录中的代码
 -	JRL比OpenJDK多一些受lisense影响而无法以GPLv2开放的
 
-###	功能
+#####	功能
 
 OpenJDK相较于JDK有些功能缺失
 
@@ -94,13 +94,14 @@ OpenJDK相较于JDK有些功能缺失
 但是从JDK7/OpenJDK7开始，两者实质差异非常小，相较于“OpenJDK
 是不完整JDK”，更像是JDK7在OpenJDK7上带有一些value-add
 
-###	商标
+#####	商标
 
 OpenJDK不能使用Java商标，安装OpenJDK的机器上的，输入
 `$ java --version`，输出`OpenJDK`
 
+##	配置
 
-###	配置
+###	JAVA
 
 ```shell
 export JAVA_HOME=/opt/jdk
@@ -114,14 +115,14 @@ export CLASSPATH=$CLASSPATH:$JRE_HOME/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOM
 	# java的`CLASSPATH`所以需要添加的是jar包
 ```
 
-##	Scala
-
-###	配置
+###	Scala
 
 ```shell
 export SCALA_HOME=/opt/scala
 export PATH=$PATH:$SCALA_HOME/bin:$SCALA_HOME/sbin
 ```
+
+#	MAVEN
 
 
 

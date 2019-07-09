@@ -206,7 +206,3 @@ Table、Partition都是目录级别的数据拆分，指定Bucket的表格，
 -	用户执行Sample查询时，Hive可以使用分桶信息，有效的Prune
 	Data，如：对每个目录下单个桶文件进行查询
 
-
-
-
-

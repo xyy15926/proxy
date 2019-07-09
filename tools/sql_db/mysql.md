@@ -150,6 +150,7 @@ database=（可选）
 
 ####	Priviledges
 
+|名称|权限|
 |-----|-----|
 |alter|alter table|
 |alter routine|alter or drop routines|
@@ -238,8 +239,8 @@ database=（可选）
 	show variables like "character%";
 	```
 
-	|-----|-----|
 	|variable_name|value|
+	|-----|-----|
 	|character_set_client|latin1|
 	|character_set_connection|latin1|
 	|character_set_database|latin1|
@@ -254,8 +255,8 @@ database=（可选）
 	show variables like "collation%";
 	```
 
-	|-----|-----|
 	|Variable_name|Value|
+	|-----|-----|
 	|collation_connection|utf8mb4_general_ci|
 	|collation_database|utf8mb4_general_ci|
 	|collation_server|utf8mb4_general_ci|
