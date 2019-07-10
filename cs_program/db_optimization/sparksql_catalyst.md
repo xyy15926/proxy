@@ -7,6 +7,8 @@ Catalyst优化器：利用Scala模式匹配和quasiquotes机制构建的
 
 ![sparksql_optimization](imgs/sparksql_optimization.png)
 
+![sparksql_procedure](imgs/sparksql_procedure.png)
+
 -	SparkSQL Pipeline的中间核心部分
 
 ###	*Parser*模块
@@ -29,9 +31,14 @@ Parser模块：将SQL语句切分为token，根据一定语义规则解析为AST
 	-	随后ParsePlan过程，使用`AstBuilder.scala`将ParseTree
 		转换为catalyst表达式逻辑计划*Unresovled Logical Plan*
 
+		-	Unsolved Relation
+		-	Unsolved Function
+		-	Unsolved Attribute
+
 ###	*Analyzer*模块
 
-*Analyzer*模块：借助数据元数据catalog将*ULP*解析为
+*Analyzer*模块：使用*Analysis Rules*，借助数据元数据
+（*session catalog*、*hive metastore*）将*ULP*解析为
 *Logical Plan*
 
 ![sparksql_catalyst_analyzer](imgs/sparksql_catalyst_analyzer.png)
@@ -52,14 +59,14 @@ Parser模块：将SQL语句切分为token，根据一定语义规则解析为AST
 
 ###	*Optimizer*模块
 
-*Optimizer*模块：catalyst的核心，
+*Optimizer*模块：使用Optimization Rules对*LP*进行合并、列
+裁剪、过滤器下推等优化工作，生成等价*Optimized Logical Plan*
 
--	分为RBO、CBO两种优化策略
--	对LP进行等价转换得到*Optimized Logical Plan*
+-	分为RBO、CBO两种优化策略，是catalyst核心
 
 ###	*Spark Planner*
 
-*Spark Planner*模块：将OLP转换为spark能够理解的
+*Spark Planner*模块：将*OLP*转换为spark能够理解的
 *Physical Plan*
 
 ![sql_optimization_physical_plan](imgs/sql_optimization_physical_plan.png)
@@ -238,5 +245,4 @@ CBO依赖统计细节信息优化查询计划
 	$$
 	num(A FOJ B) = num(A ROJ B) + num(A ROJ B) - num(A IJ B)
 	$$
-
 

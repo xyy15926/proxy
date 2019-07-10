@@ -63,26 +63,6 @@
 
 前4者为BDAS所包含的组件
 
-####	Sparking Streaming
-
-对实时数据流进行高吞吐、高容错的流式处理系统
-
--	可以对多种数据源（Kafka、Flume、Twitter、ZeroMQ），进行
-	包括map、reduce、join等复杂操作
-
--	采用Micro Batch数据处理方式
-
-	-	接收到的数据流，离散化为小的RDDs交由Spark引擎处理，
-		数据存储在内存中能实现交互式查询，实现数据流处理、
-		批处理、交互式工作一体化
-
-	-	Micro Batch能够实现对资源更细粒度的分配，实现动态
-		负载均衡
-
-	-	故障节点任务将均匀分散至集群中，实现更快的故障恢复
-
--	结果也是以批量的方式生成的batch
-
 ####	Spark SQL
 
 前身Shark即为Hive on Spark，后出于维护、优化、性能考虑放弃
@@ -179,30 +159,46 @@ Spark可以独立部署Standalone Mode、部署在YARN或Mesos等资源
 
 ###	Resilient Distributed Dataset
 
-RDD：容错的、immutable分布式数据集，分配在集群中的多个节点
-中以支持并行处理，是Spark软件系统的核心概念
+RDD：容错的、immutable、分布式、确定可重复计算的数据集
+
+-	RDD可分配在集群中的多个节点中以支持并行处理
+	-	隶属于同一RDD数据，被划分为不同的Partition，以此为
+		单位分布到集群环境中各个节点上
 
 -	RDD是无结构的数据表，和DataFrame不同
-
-###	RDD特性
-
--	RDD可以看作是数据库中的一张表
-
 	-	可以存放任何数据类型
-	-	Spark将隶属于同一RDD数据，划分为不同的Partition
-	-	RDD的Partition分布到集群环境中各个节点上，有利于对
-		数据进行并行处理
+
+-	RDD immutable
+	-	对RDD进行转换，不会修改原RDD，只是返回新RDD
+	-	这也是基于Lineage容错机制的要求
+
+> - 是Spark软件系统的核心概念
+
+###	RDD容错机制
 
 -	RDD采用基于Lineage的容错机制
 
-	-	记住每个RDD从其他RDD转换而来的路径
+	-	每个RDD记住确定性操作的lineage，即从其他RDD转换而来
+		的路径
+	-	若所有RDD的转换操作是确定的，则最终转换数据一致，
+		无论机器发生的错误
 	-	当某个RDD损坏时，Spark可以从上游RDD重新计算、创建
 		其数据
 
--	RDD是immutable
+-	容错语义
 
-	-	对RDD进行转换，不会修改原RDD，只是返回新RDD
-	-	这也是基于Lineage容错机制的要求
+	-	输入源文件：Spark运行在HDFS、S3等容错文件系统上，从
+		任何容错数据而来的RDD都是容错的
+	-	receiver：可靠接收者告知可靠数据源，保证所有数据总是
+		会被恰好处理一次
+	-	输出：输出操作可能会使得数据被重复写出，但文件会被
+		之后写入覆盖
+
+-	故障类型
+
+	-	worker节点故障：节点中内存数据丢失，其上接收者缓冲
+		数据丢失
+	-	driver节点故障：spark context丢失，所有执行算子丢失
 
 ###	RDD操作
 
@@ -210,11 +206,15 @@ RDD支持两种操作
 
 ####	Transformation
 
-转换，返回一个新RDD，原RDD保持不变，
+转换：从已有数据集创建新数据集
 
--	转换操作是Lazy，只有当某个**动作**被Driver Program（客户
-	操作）调用DAG的动作操作时，动作操作的一系列proceeding
-	转换操作才会被启动
+-	返回一个新RDD，原RDD保持不变
+
+-	转换操作Lazy
+	-	仅记录转换操作作用的基础数据集
+	-	仅当某个**动作**被Driver Program（客户操作）调用DAG
+		的动作操作时，动作操作的一系列proceeding转换操作才会
+		被启动
 
 -	典型操作包括
 	-	`map`
@@ -228,7 +228,12 @@ RDD支持两种操作
 
 ####	Action
 
-动作，施加于一个RDD，通过对RDD数据集的计算返回新的结果
+动作：在数据集上进行计算后返回值到驱动程序
+
+-	施加于一个RDD，通过对RDD数据集的计算返回新的结果
+	-	默认RDD会在每次执行动作时重新计算，但可以使用
+		`cache`、`persist`持久化RDD至内存、硬盘中，加速下次
+		查询速度
 
 -	典型操作
 	-	`reduce`
@@ -640,4 +645,89 @@ GraphX是Spark图形并行计算组件
 -	GraphX包括了正在不断增加的一系列图算法、构建方法，用于
 	简化图形分析任务
 
+##	Spark Streaming
 
+*Spark Streaming*：提供对实时数据流高吞吐、高容错、可扩展的
+流式处理系统
+
+-	可以对多种数据源（Kafka、Flume、Twitter、ZeroMQ），进行
+	包括map、reduce、join等复杂操作
+
+-	采用Micro Batch数据处理方式
+
+	-	接收到的数据流，离散化为小的RDDs得到DStream交由Spark
+		引擎处理
+
+	-	数据存储在内存中能实现交互式查询，实现数据流处理、
+		批处理、交互式工作一体化
+
+	-	Micro Batch能够实现对资源更细粒度的分配，实现动态
+		负载均衡
+
+	-	故障节点任务将均匀分散至集群中，实现更快的故障恢复
+
+###	*Discreted Stream*
+
+DStream：代表持续性的数据流，是Spark Streaming的基础抽象
+
+-	可从外部输入源、已有DStream转换得到
+	-	可在流应用中并行创建多个输入DStream接收多个数据流
+
+-	（大部分）输入流DStream和一个*Receiver*对象相关联
+
+	-	`Recevier`对象作为长期任务运行，会占用独立计算核，
+		若分配核数量不够，系统将只能接收数据而不能处理
+	-	*reliable receiver*：可靠的receiver正确应答可靠源，
+		数据收到、且被正确复制至Spark
+	-	*unreliable receiver*：不可靠recevier不支持应答
+
+-	在内部实现
+	-	DStream由时间上连续的RDD表示，每个RDD包含特定时间
+		间隔内的数据流
+	-	对DStream中各种操作也是**映射到内部RDD上分别进行**
+		-	转换操作仍然得到DStream
+		-	最终结果也是以批量方式生成的batch
+
+###	*basic sources*
+
+基本源：在`StreamingContext`中直接可用
+
+-	文件系统：`StreamingContext`将监控目标目录，处理目录下
+	任何文件（不包括嵌套目录）
+
+	-	文件须具有相同数据格式
+	-	文件需要直接位于目标目录下
+	-	已处理文件追加数据不被处理
+
+	> - 文件流无需运行`receiver`
+
+-	套接字连接
+-	Akka中Actor
+-	RDD队列数据流
+
+###	*advanced sources*
+
+高级源：需要额外的依赖
+
+-	Kafuka
+
+	```scala
+	val kafakStreams = (1 to numStreams).map(_ => kafkaUtils.createStream())
+	val unifiedStream = streamingContext.union(kafkaStreams)
+	```
+
+-	Flume
+-	Kinesis
+-	Twitter
+
+###	性能调优
+
+-	减少批数据处理时间
+	-	创建多个*receiver*接收输入流，提高数据接受并行水平
+	-	提高数据处理并行水平
+	-	减少输入数据序列化、RDD数据序列化成本
+	-	减少任务启动开支
+
+-	设置正确的批容量，保证系统能正常、稳定处理数据
+
+-	内存调优，调整内存使用、应用的垃圾回收行为
