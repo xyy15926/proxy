@@ -85,7 +85,7 @@ def ssc.queueStream(queueOfRDDs: Seq[RDD])
 // 文件流获取数据
 def ssc.fileStream[keyClass, valueClass, inputFormatClass]
 	(dataDirectory: String): DStream
-def ssc.testFileStream(dataDirectory)
+def ssc.textFileStream(dataDirectory)
 ```
 
 文件系统：`StreamingContext`将监控目标目录，处理目录下任何

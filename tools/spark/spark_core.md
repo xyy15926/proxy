@@ -144,18 +144,107 @@
 		-	YARN
 	-	CM对Spark是agnostic
 
-##	Share Variable
+##	Spark Context
+
+###	`spark.SparkContext`
+
+```c
+class SparkConf{
+	// 设置Spark应用名
+	def setAppName(appName: String)
+
+	// 设置集群地址：yarn master节点地址、"local[4]"本地standalone
+	def setMaster(master: String)
+}
+class SparkContext(?conf: SparkConf){
+	// 将driver中节点分块
+	def parallelize(?val: ?AnyRef, ?numPartition: Int)
+}
+```
+
+> - `SparkContext`是Spark应用执行环境封装，任何应用都需要、
+	也只能拥有一个活动实例，有些shell可能默认已经实例化
+
+```c
+import org.apache.spark.{SparkConf, SparkContext}
+
+val conf = new SparkConf().setAppName("app name")
+	.setMaster("local[4]")
+val sc = new SparkContext(conf)
+```
+
+###	*Share Variable*
 
 共享变量：可以是一个值、也可以是一个数据集，Spark提供了两种
 共享变量
 
--	*Broadcast Variable*：广播变量缓存在各个节点上，而不随着
-	计算任务调度的发送变量拷贝，可以避免大量的数据移动
+####	*Broadcast Variable*
 
--	*Accumulator*：收集变量
-	-	用于实现计数器、计算总和
-	-	集群上各个任务可以向变量执行增加操作，但是不能读取值
-		，只有Driver Program（客户程序）可以读取
-	-	累加符合结合律，所以集群对收集变量的累加没有顺序要求
+广播变量：缓存在各个节点上，而不随着计算任务调度的发送变量
+拷贝，可以避免大量的数据移动
 
+```c
+val broadcastVal = sc.breadcast(Array(1,2,3))
+println(broadcastVal.value)
+```
+
+####	*Accumulator*
+
+收集变量/累加器：用于实现计数器、计算总和
+
+-	集群上各个任务可以向变量执行增加操作，但是不能读取值，
+	只有Driver Program（客户程序）可以读取
+
+-	累加符合结合律，所以集群对收集变量的累加没有顺序要求，
+	能够高效应用于并行环境
+
+-	Spark原生支持数值类型累加器，可以自定义类型累加器
+
+```c
+// 创建数值类型累加器
+val accum = sc.accumulator(0, "accumulator")
+sc.parallelize(Array(1,2,3,4)).foreach(x => accum += x)
+println(accum.value)
+
+// 自定义向量累加器工具
+object VectorAccumulatorParam extends AccumulatorParam[Vector]{
+	def zero(initialValue: Vector): Vector = {
+		Vector.zeros(initialValue.size)
+	}
+	def addInPlace(v1: Vector, v2: Vector){
+		v1 += v2
+	}
+}
+// 创建向量累加器
+val vecAccum = sc.accumulator(new Vector(1,2,3))(VectorAccumulator)
+```
+
+###	数据源
+
+```c
+// 按行读取文本文件
+def sc.textFile(?fileName: String, ?slices: Int): RDD[String]
+// 读取包含多个小文件的目录
+def sc.wholeTextFile(?directoryName: String): Map[String, RDD[String]]
+// #todo
+def sc.SequenceFiles(fileName: String)
+def sc.hadoopRDD()
+```
+
+> - `slices`：切片数目，缺省为每个文件块创建切片，不能设置
+	小于文件块数目的切片值
+
+-	Spark基于文件的方法，原生支持
+
+	-	文件目录
+	-	压缩文件：`gz`
+	-	简单通配符
+
+		|通配符|含义|
+		|-----|-----|
+		|`[]`：范围|
+		|`[^]`|范围补集|
+		|`?`|单个字符|
+		|`*`|0、多个字符|
+		|`{}`|**整体或选择**|
 
