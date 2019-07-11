@@ -333,14 +333,14 @@ $$
 很高的数据
 
 $$
-k(x, y) = \frac 1 {1 + \frac {\|x - y\|^2 \sigma}}
+k(x, y) = \frac 1 {1 + \frac {\|x - y\|^2} {\sigma}}
 $$
 
 ####	*Chi-Square Kernel*
 
 卡方核：源自卡方分布
 
-$$\begin{aling*}
+$$\begin{align*}
 k(x, y) & = 1 - \sum_{i=1}^d \frac {(x_i - y_i)^2}
 	{\frac 1 2 (x_i + y_i)} \\
 & \frac {x^t y} {\|x + y\|}
@@ -366,9 +366,9 @@ $$
 
 贝叶斯核：取决于建模的问题
 
-$$\begina{aling*}
+$$\begin{align*}
 k(x, y) & = \prod_{i=1}^d k_i (x_i, y_i) \\
-k_i(a, b) & = \sum_{c \in {0, 1}} P(Y=c | X_i = a)
+k_i(a, b) & = \sum_{c \in \{0, 1\}} P(Y=c | X_i = a)
 	P(Y=c | x_k = b)
 \end{align*}$$
 

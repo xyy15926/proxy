@@ -1,6 +1,6 @@
-#	学习算法
+#	参数估计方法
 
-##	估计策略分类
+##	参数估计思路
 
 对任意估计都可以找到合适损失函数（目标函数），使得其为损失
 最小化的实例
@@ -10,7 +10,8 @@
 
 ###	矩估计
 
--	需要建立参数和总体矩的关系
+-	需要**建立参数和总体矩的关系**：除非参数本身即为样本矩，
+	否则基本无应用价值
 -	应用场合
 	-	均值：二次损失
 		$\mathop{\arg\min}_{\mu} \sum_{i=1}^N (x_i - \mu)^2$
@@ -18,14 +19,14 @@
 
 ###	极大似然估计
 
--	需要知道概率分布
+-	需要知道总体**概率分布形式**
 -	应用场合
 	-	估计回归参数：对数损失
 		$\mathop{\arg\min}_{\beta} \sum_{i=1}^N lnP(y_i|x_i, \beta)$
 
 ###	最小二乘估计
 
--	需要模型模型满足一定条件估计性质才比较好
+-	需要模型**满足一定条件**估计性质才比较好
 -	应用场合
 	-	估计回归参数：平方损失
 		$\mathop{\arg\min}_{\beta} \sum_{i=1}^N (y_i - f(x_i, \beta))^2$
@@ -41,11 +42,11 @@
 
 ###	随机模拟
 
--	需要设计随机模拟实验估计参数
+-	需要**设计随机模拟实验**估计参数
 -	应用场合
 	-	蒙特卡洛类似算法：随机化损失
 
-##	估计方法分类
+###	迭代求解
 
 -	损失函数定义不同
 
@@ -68,9 +69,9 @@
 	-	叠加惯性
 	-	动态学习率
 
-###	样本量
+##	样本量
 
-####	*全局估计*
+###	*全局估计*
 
 $$
 \theta^{(t)} = \theta^{(t-1)} - \eta \bigtriangledown_\theta
@@ -95,7 +96,7 @@ $$
 	-	样本量较大场合
 	-	并行计算
 
-####	*Mini-Batch*
+###	*Mini-Batch*
 
 $$
 \theta^{(t)} = \theta^{(t-1)} - \eta \bigtriangledown_\theta
@@ -146,9 +147,9 @@ $$
 > - batch-size为1时就是*Stochastic Gradient Descent*，但是
 	SGD速度太慢、结果不稳定，一般不采用
 
-###	异步更新参数
+##	异步更新参数
 
-####	Changing Direction
+###	Changing Direction
 
 每次更新**一个或几个**待估参数 
 
@@ -173,13 +174,13 @@ $$
 		速度慢，往往需要多次迭代更新参数
 	-	一般用在机器学习算法中比较多
 
-###	叠加惯性
+##	叠加惯性
 
 模拟物体运动时惯性：指数平滑更新步
 
 ![momentum](imgs/momentum.png)
 
-####	*Momemntum*
+###	*Momemntum*
 
 冲量方法：在**原始更新步**上叠加上次更新步，类似指数平滑
 
@@ -196,7 +197,7 @@ $$
 -	可以在一定程度上保持稳定性，学习速度更快
 -	能够越过部分局部最优解
 
-####	*Nesterov Momentum*
+###	*Nesterov Momentum*
 
 *NGA*：在使用冲量修正最终方向基础上，使用冲量对当前
 **参数位置**进行修正，即使用“未来”位置计算梯度
@@ -211,14 +212,14 @@ v^{(t)} = \gamma v^{(t-1)} + \eta \bigtriangledown_\theta
 \theta^{(t)} = \theta^{(t-1)} - v^{(t)}
 $$
 
-###	动态学习率
+##	动态学习率
 
 -	数据比较稀疏时，adaptive方法效果较好
 
 ![param_estimation_comparion_1](imgs/param_estimation_comparion_1.png)
 ![param_estimation_comparion_2](imgs/param_estimation_comparion_2.png)
 
-####	*Vanilla Gradient Descent*
+###	*Vanilla Gradient Descent*
 
 每次迭代减小学习率$\eta$
 
@@ -231,7 +232,7 @@ $$
 
 -	学习率逐渐减小，避免学习后期参数在最优解附近反复震荡
 
-####	*Adagrad*
+###	*Adagrad*
 
 *adaptive gradient*：训练中**不同参数**学习率随着迭代次数、
 梯度动态变化，使得参数收敛更加平稳
@@ -259,7 +260,7 @@ $$
 	-	在训练后期，分母中梯度平方累加很大，学习步长趋于0，
 		收敛速度慢（可能触发阈值，提前结束训练）
 
-####	*RMSprop*
+###	*RMSprop*
 
 *root mean square prop*：指数平滑更新学习率分母
 
@@ -275,7 +276,7 @@ $$
 -	赋予当前梯度更大权重，减小学习率分母，避免学习速率下降
 	太快
 
-####	*Adam*
+###	*Adam*
 
 *adptive moment estimation*：指数平滑更新步、学习率分母
 
@@ -306,7 +307,7 @@ $$
 
 -	经过偏执矫正后，每次迭代学习率都有确定范围，参数比较平稳
 
-####	*Adadelta*
+###	*Adadelta*
 
 指数平滑更新学习率（分子）、学习率分母
 

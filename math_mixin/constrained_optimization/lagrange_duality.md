@@ -23,16 +23,19 @@
 	\end{array} \right.
 	$$
 
-	-	方程组无解时，$v$是优化问题的一个下界
+	-	**方程组无解**：$v$是优化问题的一个下界
 
-	-	若方程组有解，则可以推出
+	-	**方程组有解**：则可以推出
 
 		$$
-		\forall \lambda \geq 0,
+		\forall \lambda \geq 0, \exists x, 
 		f(x) + \sum_{i=1}^m \lambda_ig_i(x) < v
 		$$
 
-	-	根据逆否命题，方程组无解的**充分条件**是
+		> - 显然，取$g_1 + g_2 = 0, g_1(x) > 0$是反例，不能
+			推出原方程有解
+
+	-	由以上方程组有解逆否命题：方程组无解**充分条件**如下
 
 		$$
 		\exists \lambda \geq 0,
@@ -57,8 +60,12 @@
 	-	半正定规划
 	-	凸优化
 
-	-	应该是中间充分条件那步所以，强对偶定理不一定成立
-	-	#todo
+	> - 即需要给约束条件加以限制，使得
+		$$
+		\forall \lambda \geq 0, \exists x, 
+		f(x) + \sum_{i=1}^m \lambda_ig_i(x) < v
+		$$
+		是上述方程组有解的冲要条件
 
 -	弱对偶定理：$v^{*} \leq z^{*}$，永远成立（以上即可证）
 
@@ -77,7 +84,7 @@
 
 $$\begin{array}{l}
 \min_{x \in R^n} & f(x) \\
-s.t. & c_i(x) \leq 0, i = 1,2,\cdots,k
+s.t. & c_i(x) \leq 0, i = 1,2,\cdots,k \\
 & h_j(x) = 0, j = 1,2,\cdots,l
 \end{array}
 $$
