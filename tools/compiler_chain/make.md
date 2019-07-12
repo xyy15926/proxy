@@ -829,7 +829,22 @@ make会努力**自动推导**生成目标的一切方法，无论**中间目标*
 Makefile中定义的变量类似C++/C中的宏
 
 -	代表一个字符串，在makefile中执行的时候展开在所在位置
+
+	-	`""`会被作为字符串一部分
+	-	默认空格、逗号分隔列表
+
+		```makefile
+		empty:=
+		space:=$(empty) # 后面有空格，就得到了空格
+		comma:=,
+		foo:=a,b,c
+		bar:=$(substr $(comma), $(space), $(foo)) # 得到字符串`a b c`
+		```
+
 -	变量可以改变值
+
+> - 在shell中需要`$`处应使用两个`$$`，一个`$`被escape，则
+	shell解释时仍然保留一个`$`，如：变量、函数等都需要
 
 ###	赋值
 
@@ -841,7 +856,7 @@ txt = Hello World
 test:
 	@echo $(txt)
 	echo ${txt}
-	# 调用变量
+	# 调用变量，`()`、`{}`含义相同
 	# 若变量名为单个字符，可以省略括号，但不建议省略
 ```
 
@@ -922,7 +937,7 @@ make运行时系统环境变量、命令行环境变量可以被载入makefile
 ```makefile
 test:
 	@echo $$HOME
-	# 需要对`$`转义
+	# 传递给shell的变量，需要`$$` escape
 ```
 
 ###	*Target-Specific Variable*
@@ -1095,7 +1110,7 @@ LIST = one two three
 all:
 	for i in $(LIST); do \
 		echo $$i;
-		// 这里是shell中的变量，需要转义
+		// 这里传递给shell的变量，需要`$$` escape
 	done
 all:
 	for i in one two three; do
