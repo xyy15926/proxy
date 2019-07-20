@@ -1,4 +1,4 @@
-#	Uncharted
+#	Uncharted Problems
 
 ##	Unregularized Least Squares Learning Problem
 
@@ -27,13 +27,4 @@ w_{t+1} = (I - \frac \gamma n {\hat X}^T \hat X)w_t +
 $$
 
 > - 将$w_{t+1}$带入$I_s(w)$即可证明每次迭代$I_s(w)$减小
-
-##	投影算法
-
-###	*Projection Operator*
-
-投影算子：线性变换$P$满足从向量空间到其自身$P^2=P$
-
--	即当线性变换$P$对任何值应用两次，将得出一样结果，就像
-	只应用一次，保持像不变
 
