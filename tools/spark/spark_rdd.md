@@ -157,6 +157,8 @@ def updateStateByKey[S: ClassTag](
 
 > - 以上操作默认会持久化RDD至内存，无需手动调用`persist`等方法
 
+![spark_streaming_dstream_window_based_operation](imgs/spark_streaming_dstream_window_based_transformation.png)
+
 ###	Output
 
 |Output Operation|RDD|DStream|

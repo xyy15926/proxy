@@ -19,7 +19,7 @@
 
 ```scala
 import org.apache.spark.streaming.StreamingContext
-class StreamingContext(?conf: SparkConf, ?slice: Int){
+class StreamingContext(?conf: SparkConf, ?slices: Int){
 
 	// 开始接受、处理流式数据
 	def start()
@@ -43,6 +43,8 @@ val ssc = new StreamingContext(conf, Seconds(1))
 
 *DStream*：代表持续性的数据流，是Spark Streaming的基础抽象
 
+![spark_streaming_dstream_transformation](imgs/spark_streaming_dstream_transformation.png)
+
 -	可从外部输入源、已有DStream转换得到
 	-	可在流应用中并行创建多个输入DStream接收多个数据流
 
@@ -50,8 +52,11 @@ val ssc = new StreamingContext(conf, Seconds(1))
 	-	DStream由时间上连续的RDD表示，每个RDD包含特定时间
 		间隔内的数据流
 	-	对DStream中各种操作也是**映射到内部RDD上分别进行**
+		（部分如`transform`等则以RDD为基本单元）
 		-	转换操作仍然得到DStream
 		-	最终结果也是以批量方式生成的batch
+
+	> - 对DStream操作参见*tools/spark/spark_rdd*
 
 -	（大部分）输入流DStream和一个*Receiver*对象相关联
 	-	`Recevier`对象作为长期任务运行，会占用独立计算核，
