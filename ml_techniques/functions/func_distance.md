@@ -185,3 +185,56 @@ $$\begin{align*}
 -	点集与超平面的几何间隔取点间隔最小值
 	$\hat{T} = \min_{i=1,2,\cdots,n} \hat{\gamma_i}$
 
+##	*Bregman Divergence*
+
+布雷格曼散度：
+
+$$
+D(x, y) = \Phi(x) - \Phi(y) - <\nabla \Phi(y), (x - y)>
+$$
+
+> - $Phi(x)$：凸函数
+> - $<>$：点积，对欧式空间即为內积
+
+-	直观上：$x$处函数、函数过$y$点切线（线性近似）之差
+	-	可以视为是损失、失真函数：$x$由$y$失真、近似、添加
+		噪声得到
+
+###	特点
+
+-	非对称：$D(x, y) = D(y, x)$
+
+-	不满足三角不等式：$D(x, z) \leq D(x, y) + D(y, z)$
+
+-	对凸集作Bregman Projection唯一
+	-	即寻找凸集中与给定点Bregman散度最小点
+	-	一般的投影指欧式距离最小
+
+###	穷尽距离
+
+> - 布雷格曼散度穷尽所有关于“正常距离”的定义
+
+-	“正常距离”：对满足任意概率分布的点，点平均值点（期望点）
+	应该是空间中距离所有点平均距离最小的点
+
+-	给定$R^n * R^n \rightarrow R$上的距离定义$D(x,y)$，若其
+	满足以上正常距离特性，则其一定是布雷格曼散度
+
+|Domain|$\Phi(x)$|$D_{\Phi}(x,y)$|Divergence|
+|-----|-----|-----|-----|
+|$R$|$x^2$|$(x-y)^2$|Squared Loss|
+|$R_{+}$|$xlogx$|$xlog(\frac x y) - (x-y)$||
+|$[0,1]$|$xlogx + (1-x)log(1-x)$|$xlog(\frac x y) + (1-x)log(\frac {1-x} {1-y})$|Logistic Loss|
+|$R_{++}$|$-logx$|$\frac x y - log(\frac x y) - 1$|Itakura-Saito Distance|
+|$R$|$e^x$|$e^x - e^y - (x-y)e^y$||
+|$R^d$|$\|x\|$|$\|x-y\|$|Squared Euclidean Distance|
+|$R^d$|$x^TAx$|$(x-y)^T A (x-y)$|Mahalanobis Distance|
+|d-Simplex|$\sum_{j=1}^d x_j log_2 x_j$|$\sum_{j=1}^d x_j log_2 log(\frac {x_j} {y_j})$|KL-divergence|
+|$R_{+}^d$|$\sum_{j=1}^d x_j log x_j$|$\sum_{j=1}^d x_j log(\frac {x_j} {y_j}) - \sum_{j=1}^d (x_j - y_j)$|Genelized I-divergence|
+
+> - 布雷格曼散度对一般概率分布均成立，而其本身限定由凸函数
+	生成
+> > -	和Jensen不等式有关？凸函数隐含部分对期望的度量
+> - <http://www.jmlr.org/papers/volume6/banerjee05b/banerjee05b.pdf>
+
+

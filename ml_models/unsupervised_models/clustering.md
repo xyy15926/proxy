@@ -152,12 +152,16 @@ Divisive Analysis：想法简单，具体实操有难度
 -	3：$\forall p, p \notin C_1$，计算$d_arg(p, C_1) - d_arg(p, C_2)$，
 	若小于零则属于$C_1$，否则属于$C_2$
 
+##	*Density-based Scan*
 
-##	EM Cluster
+*DBSCAN*：
 
-Expectaton Maximizaton：A parameter estimation method: it
-falls into the general method
+##	*Balanced Itertive Reducing and Clustering Using Hierarchies*
 
-##	DBSCAN
+*BIRCH*：利用层次方法的平衡迭代规约和聚类，利用层次方法聚类
+、规约数据
 
-Density-based Scan
+-	特点
+	-	利用CF树结构快速聚类
+	-	只需要单遍扫描数据
+
