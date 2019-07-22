@@ -127,12 +127,12 @@
 
 -	一般使用stacking模型堆叠集成
 
+> - 参见*ml_models/model_enhancement/ensemble_stacking*
+
 ####	基学习器
 
--	GBDT
+-	GBDT：各树、各叶子节点对应一维特征
 	-	适合低维稠密通用特征，对输入特征分布没有要求
-	-	根据熵增益自动进行特征转换、组合、选择、离散化，得到
-		**高维组合特征**
 
 -	DNN
 	-	适合普通稠密特征、embedding特征
