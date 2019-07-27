@@ -15,7 +15,7 @@
 
 -	乘正交矩阵：等价于旋转
 
-	![orthogonal_matrix_geo](img/orthogonal_matrix_geo.png)
+	![orthogonal_matrix_geo](imgs/orthogonal_matrix_geo.png)
 
 ###	Diagonal Matrix
 
@@ -38,11 +38,11 @@
 
 -	乘上三角阵：等价于进行右上切变（水平斜拉）
 
-	![upper_triangular_matrix_geo](img/upper_triangular_matrix_geo.png)
+	![upper_triangular_matrix_geo](imgs/upper_triangular_matrix_geo.png)
 
 -	乘下三角阵：等价于进行左下切变（竖直斜拉）
 
-	![lower_triangular_matrix_geo](img/lower_triangular_matrix_geo.png)
+	![lower_triangular_matrix_geo](imgs/lower_triangular_matrix_geo.png)
 
 ###	Transposation Matrix
 
