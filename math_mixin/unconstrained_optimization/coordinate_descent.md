@@ -74,7 +74,7 @@
 	\frac {\partial RSS} {\partial x} & = (Ax - y)^T A \\
 	(\frac {\partial RSS} {\partial x})_i & = (Ax - y)^T A_{:i} \\
 	& = (Ax_{i0} - y)^T A_{:i} + x_i A_{:i}^T A_{:i} \\
-	& = z_i + \ruo_i x_i
+	& = z_i + \rho_i x_i
 	\end{align*}$$
 
 	> - $(\frac {\partial RSS} {\partial x})_i$：RSS对$x$
@@ -82,12 +82,12 @@
 	> - $A_{:i}$：$A$第$i$列
 	> - $x_{i0}$：$x$第$i$分量置零
 	> - $z_i = (Ax_{i0} - y)^T A_{:i}$
-	> - $\ruo_i = A_{:i}^T A_{:i}$
+	> - $\rho_i = A_{:i}^T A_{:i}$
 
 -	则$x_i$整体次梯度为
 
 	$$
-	\frac {\partial L} {\partial x_i} = z_i + \ruo_i x_i +
+	\frac {\partial L} {\partial x_i} = z_i + \rho_i x_i +
 		\left \{ \begin{array}{l}
 			-\lambda, & x_i < 0 \\
 			[-\lambda, \lambda], & x_i = 0 \\
@@ -99,9 +99,10 @@
 
 	$$
 	x_i = \left \{ \begin{array}{l}
-		\frac {-z_i + \lambda} {\ruo_i}, & z_i > \lambda \\
+		\frac {-z_i + \lambda} {\rho_i}, & z_i > \lambda \\
 		0 , & -lambda < z_i < \lambda \\
-		\frac {-z_i - \lambda} {\ruo_i}, & z_i < -\lambda
+		\frac {-z_i - \lambda} {\rho_i}, & z_i < -\lambda
+	\end{array} \right.
 	$$
 
 	> - 此算子也称*soft threshholding*

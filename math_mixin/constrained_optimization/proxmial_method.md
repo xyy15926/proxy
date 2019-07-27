@@ -3,7 +3,7 @@
 ##	*Proximal Operator*
 
 $$
-prox_{\gamma, f}(x) = \arg\min_u (f(u) + \frac 1 2 \|u - x\|^2)
+prox_{f}(x) = \arg\min_u (f(u) + \frac 1 2 \|u - x\|^2)
 $$
 
 > - $f(x)$：凸函数
@@ -54,7 +54,7 @@ M_{\gamma, f}(x) & = prox_{\gamma, f}(x) \\
 
 $$\begin{align*}
 f(x_1, \cdots, x_m) & = \sum_{i=1}^m f_i(x_i) \\
-prox_f(x_1, \cdots, x_m) & = [prox_{f_1}(x_1), \cdots, prox_{fm}(x_m)
+prox_f(x_1, \cdots, x_m) & = [prox_{f_1}(x_1), \cdots, prox_{fm}(x_m)]
 \end{align*}$$
 
 -	取$f(x) = \|x\|_1$，即可得即软阈值算子
