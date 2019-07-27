@@ -55,7 +55,7 @@ $$\begin{align*}
 & = \frac 1 2 (x^T V^T V x - x^T diag(V^T V) x) \\
 & = \frac 1 2 (\|Vx\|_2^2 - x^T diag(V^T V) x) \\
 & = \frac 1 2 \sum_{f=1}^k ((\sum_{i=1}^m v_{i,f} x_i)^ 2
-	- \sum_{i=1}^n v_{i,f}^2 x_i^2) \\
+	- \sum_{i=1}^m v_{i,f}^2 x_i^2) \\
 \end{align*}$$
 
 > - $V = (v_1, v_2, \cdots, v_m)$
