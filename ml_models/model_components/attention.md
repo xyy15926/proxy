@@ -29,8 +29,8 @@ $$
 $$\begin{align*}
 c_t & = \phi(\alpha_t, V) \\
 
-\alpha_{t} & = softmax(e_t)
-& = \{ \frac {exp(e_{t,i})} {\sum_{k=1}^K exp(e_{t,k})} \} \\
+\alpha_{t} & = softmax(e_t) \\
+& = \{ \frac {exp(e_{t,j})} {\sum_{k=1}^K exp(e_{t,k})} \} \\
 
 e_t & = f_{Att}(K, Q)
 \end{align*}$$
@@ -61,12 +61,13 @@ e_t & = f_{Att}(K, Q)
 -	单隐层前馈网络（MLP）
 
 	$$\begin{align*}
-	e_{t,j} = tanh(W_a [h_{t-1}; g_j]), & concat
-	\end{align}$$
+	e_{t,j} = v_a^T f_{act}(W_a [h_{t-1}; g_j]), & concat
+	\end{align*}$$
 
-	> - $h_{t-1}$：decoder结构隐状态
-	> - $g_j$：encoder结构隐状态
-	> - $W_a$：待训练矩阵
+	> - $h_{t-1}$：输出结构隐状态
+	> - $g_j$：输入结构隐状态
+	> - $W_a, v_a$：待训练参数
+	> - $f_{act}$：激活函数$tanh$、$ReLU$等
 
 ###	Multiplicative/Dot-product Attention
 
@@ -130,7 +131,7 @@ c_t & = V s
 
 	\frac {\partial L_s} {\partial W} & = \sum_s [
 		\frac {\partial p(s)} {\partial W} + \frac 1 {p(y|s)}
-		\frac {\partial p(y|s)} {\partial W}]
+		\frac {\partial p(y|s)} {\partial W}] \\
 	& = \sum_s p(s) [\frac {\partial log p(y|s)} {\partial W} +
 		log p(y|s) \frac {\partial log p(s|a)} {\partial W}]
 	\end{align*}$$

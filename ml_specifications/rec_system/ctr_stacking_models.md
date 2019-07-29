@@ -211,13 +211,77 @@ f_{Att}(f_{PI}(\varepsilon)) = \sum_{(i,j) \in R_X}
 
 *DIN*：融合Attention机制作用于DNN
 
+###	模型结构
+
 ![din_stucture](imgs/din_structure.png)
+
+####	*activation unit*
+
+激活单元
+
+$$\begin{align*}
+v_U(A) & = f_{au}(v_A, e_1, e_2, \cdots, e_H) \\
+& = \sum_{j=1}^H a(e_j, v_A) e_j \\
+& = \sum_{j=1}^H w_j e_j
+\end{align*}$$
+
+> - 相较于上个结构仅多了直接拼接的用户、上下文特征
+	![din_stucture_comparision](imgs/din_structure_comparision.png)
+
+###	模型训练
+
+####	Mini-batch Aware Regularization
+
+> - 以Batch内参数平均近似$L_2$约束
+
+$$\begin{align*}
+L_2(W) & = \sum_{i=1}^M \sum_{j=1}^B \sum_{(x,y) \in B_j}
+	\frac {I(x_i \neq 0)} {n_i} \|W_i\|_2^2 \\
+& \approx \sum_{i=1}^M \sum_{j=1}^B \frac {\alpha_{j,i}} {n_i}
+	\|W_i\|_2^2
+\end{align*}$$
+
+> - $W \in R^{K * M}, W_i$：embedding字典、第$i$embedding
+	向量
+> - $K, M$：embedding向量维数、特征数量
+> - $B, B_j$：batch数量、第$j$个batch
+
+-	则参数迭代
+
+	$$
+	W_i \leftarrow w_j - \eta[\frac 1 {|B_j|} \sum_{(x,y) \in B_j}
+		\frac {\partial L(p(x), y)} {\partial W_j} + \lambda
+		\frac {\alpha_{j,i}} {n_i} W_i]
+	$$
+
+####	Data Adaptive Activation Function
+
+$$\begin{align*}
+f(x) & = \left \{ \begin{array}{l}
+		x, & x > 0 \\
+		\alpha x, & x \leq 0
+	\end{array} \right. \\
+& = p(x) * x + (1 - p(x)) * x \\
+p(x) & = I(x > 0)
+\end{align*}$$
+
+PReLU在0点处硬修正，考虑使用其他对输入自适应的函数替代，以
+适应不同层的不同输入分布
+
+$$
+p(x)  \frac 1 {1 + exp(-\frac {x - E[x]} {\sqrt{Var[x] + \epsilon}})}
+$$
 
 ##	Deep Interest Evolution Network
 
 *DIEN*：引入序列模型AUGRU模拟行为进化过程
 
+###	模型结构
+
 ![dien_structure](imgs/dien_structure.png)
+
+-	*Interest Extractor Layer*：使用GRU单元建模历史行为依赖
+	关系
 
 
 
