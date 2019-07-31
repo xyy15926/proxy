@@ -422,7 +422,7 @@ $\mathcal{L_1}$范数在参数满足**一定条件**情况下，能对
 			\frac {2\gamma\lambda|x| - x^2 - {\lambda}^2 }
 				{2(\gamma - 1)} &
 				if \gamma< |x| <\gamma\lambda \\
-			\frac {{\lambda}^2(\gamma+1)} 2 &
+			\frac { {\lambda}^2(\gamma+1)} 2 &
 				if |x| \geq \gamma\lambda
 		\end{array} \right.
 		$$

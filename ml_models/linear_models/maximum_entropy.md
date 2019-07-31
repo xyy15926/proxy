@@ -347,25 +347,25 @@ s.t. & E_P(f_i) - E_{\tilde P}(f_i) = 0, i=1,2,\cdots,M \\
 
 -	记
 
-	$$f^{\#} (x,y) = \sum_i f_i(x,y)$$
+	$$f^{**} (x,y) = \sum_i f_i(x,y)$$
 
-	考虑到$f_i(x,y)$为二值函数，则$f^{\#}(x,y)$表示所有特征
+	考虑到$f_i(x,y)$为二值函数，则$f^{**}(x,y)$表示所有特征
 	在$(x,y)$出现的次数，且有
 
 	$$
 	A(\sigma|w) = \sum_{x,y} \tilde P(x,y) \sum_{i=1}^M
 		\sigma_i f_i(x,y) + 1 - \sum_x \tilde P(x)
-		\sum_y P_w(y|x) exp(f^{\#}(x,y) \sum_{i=1}^M
-		\frac {\sigma_i f_i(x,y)} {f^{\#}(x,y)})
+		\sum_y P_w(y|x) exp(f^{**}(x,y) \sum_{i=1}^M
+		\frac {\sigma_i f_i(x,y)} {f^{**}(x,y)})
 	$$
 
--	考虑到$\sum_{i=1}^M \frac {f_i(x,y)} {f^{\#}(x,y)} = 1$，
+-	考虑到$\sum_{i=1}^M \frac {f_i(x,y)} {f^{**}(x,y)} = 1$，
 	由指数函数凸性、Jensen不等式有
 
 	$$
-	exp(\sum_{i=1}^M \frac {f_i(x,y)} {f^{\#}(x,y)} \sigma_i
-		f^{\#}(x,y)) \leq \sum_{i=1}^M \frac {f_i(x,y)}
-		{f^{\#}(x,y)} exp(\sigma_i f^{\#}(x,y))
+	exp(\sum_{i=1}^M \frac {f_i(x,y)} {f^{**}(x,y)} \sigma_i
+		f^{**}(x,y)) \leq \sum_{i=1}^M \frac {f_i(x,y)}
+		{f^{**}(x,y)} exp(\sigma_i f^{**}(x,y))
 	$$
 
 	则
@@ -373,8 +373,8 @@ s.t. & E_P(f_i) - E_{\tilde P}(f_i) = 0, i=1,2,\cdots,M \\
 	$$
 	A(\sigma|w) \geq \sum_{x,y} \tilde P(x,y) \sum_{i=1}^M
 		\sigma_i f_i(x,y) + 1 - \sum_x \tilde P(x) \sum_y
-		P_w(y|x) \sum_{i=1}^M \frac {f_i(x,y)} {f^{\#}(x,y)}
-		exp(\sigma_i f^{\#}(x,y))
+		P_w(y|x) \sum_{i=1}^M \frac {f_i(x,y)} {f^{**}(x,y)}
+		exp(\sigma_i f^{**}(x,y))
 	$$
 
 -	记上述不等式右端为$B(\sigma|w)$，则有
@@ -391,14 +391,14 @@ s.t. & E_P(f_i) - E_{\tilde P}(f_i) = 0, i=1,2,\cdots,M \\
 	\frac {\partial B(\sigma|w)} {\partial \sigma_i} =
 		\sum_{x,y} \tilde P(x,y) f_i(x,y) -
 		\sum_x \tilde P(x) \sum_y P_w(y|x) f_i(x,y)
-		exp(\sigma_i f^{\#}(x,y))
+		exp(\sigma_i f^{**}(x,y))
 	$$
 
 	置偏导为0，可得
 
 	$$
 	\sum_x \tilde P(x) \sum_y P_w(y|x) f_i(x,y) exp(\sigma_i
-		f^{\#}(x,y)) = \sum_{x,y} \tilde P(x,y) f_i(x,y) =
+		f^{**}(x,y)) = \sum_{x,y} \tilde P(x,y) f_i(x,y) =
 		E_{\tilde P}(f_i)
 	$$
 
@@ -415,14 +415,14 @@ s.t. & E_P(f_i) - E_{\tilde P}(f_i) = 0, i=1,2,\cdots,M \\
 
 2.	对每个$i \in \{1,2,\cdots,M\}$，求解以上方程得$\sigma_i$
 
-	-	若$f^{\#}(x,y)=C$为常数，则$\sigma_i$有解析解
+	-	若$f^{**}(x,y)=C$为常数，则$\sigma_i$有解析解
 
 		$$
 		\sigma_i = \frac 1 C log \frac {E_{\tilde P}(f_i)}
 			{E_P(f_i)}
 		$$
 
-	-	若$f^{\#}(x,y)$不是常数，则可以通过牛顿法迭代求解
+	-	若$f^{**}(x,y)$不是常数，则可以通过牛顿法迭代求解
 
 		$$
 		\sigma_i^{(k+1)} = \sigma_i^{(k)} - \frac
