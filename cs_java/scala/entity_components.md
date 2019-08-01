@@ -124,9 +124,14 @@ var x = true
 	-	需要从函数中返回多个值
 
 ```scala
-val t1 = ("hello", 1, 3.14)
-val (str, i, d) = t1
-println(t1._1)
+val t3 = ("hello", 1, 3.14)
+val (str, i, d) = t3
+// 必须括号包裹，否则三个变量被赋同值
+println(t3._1)
+
+val t2 = (1, 3)
+val t22 = 1 -> 3
+// `->`同样可以用于创建元组
 ```
 
 > - 基于内容的比较衍生出模式匹配提取
@@ -470,17 +475,33 @@ val sum = (x: Int, y: Int) => x + y
 
 ###	偏函数
 
+偏函数：只处理参数定义域中子集，子集之外参数抛出异常
+
 ```scala
 // scala中定义
-trait Partial[-A, +B] extends (A => B)
+trait PartialFunction[-A, +B] extends (A => B){
+	// 判断元素在偏函数处理范围内
+	def isDefinedAt(?ele: A)
+	// 组合多个偏函数
+	def orElse(?pf: PartialFunction[A, B])
+	// 方法的连续调用
+	def addThen(?pf: PartialFunction[A, B])
+	// 匹配则调用、否则调用回调函数
+	def applyOrElse(?ele: A, ?callback: Function1[B, Any])
+}
+```
+
+-	偏函数实现了`Function1`特质
+-	用途
+	-	适合作为`map`函数参数，利用模式匹配简化代码
+
+```scala
 val receive: PartialFunction[Any, Unit] = {
 	case x: Int => println("Int type")
 	case x: String => println("String type")
 	case _ => println("other type")
 }
 ```
-
-> - 偏函数：只处理参数定义域中子集，子集之外参数抛出异常
 
 ##	*Methods*
 

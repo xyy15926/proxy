@@ -55,6 +55,21 @@ object Predef extends LowPriorityImplicits{
 
 ###	`List`
 
+##	`collection`
+
+###	`mutable`
+
+####	`Map`
+
+```scala
+val a=Map((3,4), 5->6)
+// 两种创建`Map`、二元组形式等价
+a.map{case (a, b) => println(a, b)}
+// `{case...}`为偏函数（或`Function1`）
+```
+
+###	`immutable`
+
 ##	`reflect`
 
 ###	`runtime`
