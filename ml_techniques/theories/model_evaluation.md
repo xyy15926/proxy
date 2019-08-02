@@ -223,7 +223,8 @@ $$
 
 ###	*F-Measure*
 
-F-测度：准率率和召回率综合值
+F-测度：准率率和召回率综合值，越大越好
+
 
 $$
 F-measure = \frac {(\beta^2 + 1) * P * R} {\beta^2 * P + R}
@@ -231,8 +232,6 @@ $$
 
 > - $P = \frac {TP} {TP+FP}$：查准率、精确率
 > - $R = \frac {TP} {TP+FN}$：查全率、召回率、覆盖率
-
--	越大越好
 
 ####	F1值
 
@@ -245,13 +244,9 @@ $$
 	= \frac {2 * TP} {样例总数 + TP - TN}
 $$
 
-###	ROC曲线
+###	Recevier Operating Characteristic Curve
 
-*Recevier Operating Characteristic Curve*
-
-1.	将预测概率降序排序
-2.	取分位点上概率值（即依次取不同的阈值）作为判断1/0的阈值
-3.	计算*FPR*、*TPR*，绘制ROC曲线，计算ROC曲线下的面积AUC
+ROC曲线：不同**正样本概率**划分阈值下TPR、FPR绘制的折线/曲线
 
 $$
 TPR = \frac {TP} {TP+FN} \\
@@ -269,11 +264,52 @@ $$
 	-	而FPR接近0时，TPR越大越好
 	-	所以模型ROC曲线下方面积越大，模型判断正确效果越好
 
--	AUC值：ROC曲线下方面积，越大越好
+-	理解
+	-	将正负样本的正样本概率值分别绘制在`x=1`、`x=-1`两条
+		直线上
+	-	阈值即为`y=threshold`直线
+	-	TPR、FPR则为`x=1`、`x=-1`两条直线在阈值直线上方点
+		数量，与各直线上所有点数量比值
+
+###	*Area Under Curve*
+
+AUC值：ROC曲线下方面积，越大越好
+
+-	AUC值实际上为：随机抽取一对正、负样本，模型对其中正样本
+	的正样本预测概率值、大于负样本的正样本预测概率值的概率
+
 	-	*=1*：完美预测，存在一个阈值可以让模型TPR为1，FPR为0
 	-	*0.5~1*：优于随机预测，至少存在某个阈值，模型TPR>FPR
 	-	*=0.5*：同随机预测，无价值
 	-	*0~0.5*：差于随机预测，但是可以反向取预测值
+
+-	计算AUC方法
+	-	绘制ROC曲线，计算曲线下面积
+
+	-	正负样本分别配对，计算正样本预测概率大于负样本比例
+
+		$$\begin{align*}
+		auc & = \frac {\sum I(P_P > P_N)} {M * N} \\
+		I(P_P, P_N) = \left \{ begin{array}{l}
+			1, & P_P > P_N, \\
+			0.5, & P_P = P_N, \\
+			0, & P_P < P_N
+		\end{array} \right.
+		\end{align*}$$
+
+		> - $M, N$：正、负样本数量
+
+	-	Wilcoxon-Mann-Witney检验（即分别配对简化）
+
+		$$
+		auc = \frac {\sum_{i \in Pos} rank(i) - 
+			\frac {M * (M+1)} 2} {M * N}
+		$$
+
+		> - $Pos$：正样本集合
+		> - $rank(i)$：样本$i$的按正样本概率排序的秩
+			（对正样本概率值相同样本，应将秩加和求平均保证
+			其秩相等）
 
 ###	*Accuracy*
 
