@@ -1,4 +1,18 @@
-#	高维检索树
+---
+title: 高维检索树
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-06-04 23:11:44
+updated: 2019-06-04 23:11:44
+toc: true
+mathjax: true
+comments: true
+description: 高维检索树
+---
 
 ##	*K-dimentional Tree*
 
@@ -241,5 +255,6 @@ AdjustTree(T, L):
 ##	*SR-Tree*
 
 ##	*Metric-tree*
+
 
 

@@ -1,4 +1,18 @@
-#	*Auto-Encoders*
+---
+title: Auto-Encoders
+tags:
+  - 模型
+  - 无监督模型
+categories:
+  - 模型
+  - 无监督模型
+date: 2019-07-13 23:26:47
+updated: 2019-07-13 12:03:12
+toc: true
+mathjax: true
+comments: true
+description: Auto-Encoders
+---
 
 自编码机/稀疏编码/堆栈自编码器
 

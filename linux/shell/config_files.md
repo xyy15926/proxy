@@ -1,4 +1,18 @@
-#	Linux特殊文件
+---
+title: Linux特殊文件
+tags:
+  - Linux
+  - Shell命令
+categories:
+  - Linux
+  - Shell命令
+date: 2019-07-31 21:10:52
+updated: 2019-06-26 01:40:44
+toc: true
+mathjax: true
+comments: true
+description: Linux特殊文件
+---
 
 ##	用户、组
 
@@ -699,4 +713,5 @@ sortlist							# 允许将得到域名结果进行排序
 -	最后修改时间
 
 -	文件名
+
 

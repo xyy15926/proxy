@@ -1,4 +1,18 @@
-#	Factorization Machines
+---
+title: Factorization Machines
+tags:
+  - 模型
+  - 线性模型
+categories:
+  - 模型
+  - 线性模型
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Factorization Machines
+---
 
 ##	因子分解机
 
@@ -124,4 +138,5 @@ $$\begin{align*}
 -	模型总体较FM复杂度大、参数数量多
 	-	无法抽取公因子化简为线性
 	-	数据量较小时可能无法有效训练隐向量
+
 

@@ -1,4 +1,18 @@
-#	Conjugate Gradient Method
+---
+title: Conjugate Gradient Method
+tags:
+  - 最优化
+  - 无约束优化
+categories:
+  - 最优化
+  - 无约束优化
+date: 2019-03-21 17:27:37
+updated: 2019-03-17 11:35:09
+toc: true
+mathjax: true
+comments: true
+description: Conjugate Gradient Method
+---
 
 ##	共轭方向
 

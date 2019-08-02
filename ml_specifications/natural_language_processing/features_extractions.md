@@ -1,4 +1,18 @@
-#	文本预处理
+---
+title: 文本预处理
+tags:
+  - 机器学习
+  - NLP
+categories:
+  - 机器学习
+  - NLP
+date: 2019-07-14 20:58:18
+updated: 2019-07-13 12:03:12
+toc: true
+mathjax: true
+comments: true
+description: 文本预处理
+---
 
 ##	综述
 

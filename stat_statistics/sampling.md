@@ -1,4 +1,16 @@
-#	数据抽样
+---
+title: 数据抽样
+tags:
+  - 统计
+categories:
+  - 统计
+date: 2019-03-21 17:27:15
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: 数据抽样
+---
 
 -	抽样作用
 	-	提高速度、效率，将精力放在建立模型、选择模型上

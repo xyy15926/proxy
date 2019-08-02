@@ -1,4 +1,18 @@
-#	shell编程技巧
+---
+title: shell编程技巧
+tags:
+  - Linux
+  - Bash编程
+categories:
+  - Linux
+  - Bash编程
+date: 2019-08-01 00:18:17
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: shell编程技巧
+---
 
 ###	检查命令是否成功
 

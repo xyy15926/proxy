@@ -1,4 +1,18 @@
-#	Python包、模块
+---
+title: Python包、模块
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-09 16:54:21
+updated: 2019-06-09 16:54:21
+toc: true
+mathjax: true
+comments: true
+description: Python包、模块
+---
 
 ##	综述
 

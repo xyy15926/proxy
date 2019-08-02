@@ -1,4 +1,16 @@
-#	数据持久化
+---
+title: 数据持久化
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-06-10 01:11:37
+updated: 2019-06-10 01:11:37
+toc: true
+mathjax: true
+comments: true
+description: 数据持久化
+---
 
 ##	DBM
 

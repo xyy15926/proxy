@@ -1,4 +1,16 @@
-#	线性最长问题
+---
+title: 线性最长问题
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-08-02 08:17:02
+updated: 2019-07-23 08:39:04
+toc: true
+mathjax: true
+comments: true
+description: 线性最长问题
+---
 
 ##	最长公共子串
 
@@ -240,6 +252,10 @@ LongestSubParlidrome(nums[0..n-1]):
 -	算法效率
 	-	时间复杂度$\in \Theta(n)$
 	-	空间复杂度$\in \Theta(n)$
+
+
+
+
 
 
 

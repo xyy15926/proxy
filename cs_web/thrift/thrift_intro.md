@@ -1,4 +1,16 @@
-#	Thrift简介
+---
+title: Thrift简介
+tags:
+  - Web
+categories:
+  - Web
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: Thrift简介
+---
 
 ##	Thrift架构
 
@@ -238,5 +250,6 @@ Thrift命名空间同C++中namespace类似
 namespace cpp com.example.project
 namespace java com.example.project
 ```
+
 
 

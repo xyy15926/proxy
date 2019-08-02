@@ -1,4 +1,18 @@
-#	Shell编程基础
+---
+title: Shell编程基础
+tags:
+  - Linux
+  - Bash编程
+categories:
+  - Linux
+  - Bash编程
+date: 2019-08-01 02:23:16
+updated: 2019-08-01 02:23:16
+toc: true
+mathjax: true
+comments: true
+description: Shell编程基础
+---
 
 ##	变量
 
@@ -304,4 +318,5 @@ $ A=(a b c def)
 -	`f1 -nt f2`：文件`f1`比`f2`新
 -	`f1 -ot f2`：文件`f1`比`f2`旧
 -	`f1 -ef f2`：文件`f1`、`f2`指向相似文件实体（相同的硬链接）
+
 

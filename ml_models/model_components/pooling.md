@@ -1,4 +1,18 @@
-#	Pooling Layers
+---
+title: Pooling Layers
+tags:
+  - 模型
+  - 模型组件
+categories:
+  - 模型
+  - 模型组件
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Pooling Layers
+---
 
 ##	池化/下采样
 

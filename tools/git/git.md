@@ -1,4 +1,18 @@
-#	Git常识
+---
+title: Git常识
+tags:
+  - 工具
+  - Git
+categories:
+  - 工具
+  - Git
+date: 2019-07-10 00:48:32
+updated: 2019-07-10 00:48:32
+toc: true
+mathjax: true
+comments: true
+description: Git常识
+---
 
 ##	.gitingore忽略文件
 

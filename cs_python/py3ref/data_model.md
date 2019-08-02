@@ -1,4 +1,18 @@
-#	Python对象、值、类型
+---
+title: Python对象、值、类型
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-09 17:02:10
+updated: 2019-06-09 17:02:10
+toc: true
+mathjax: true
+comments: true
+description: Python对象、值、类型
+---
 
 ##	对象、值、类型
 

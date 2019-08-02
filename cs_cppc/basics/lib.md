@@ -1,4 +1,16 @@
-#	库
+---
+title: 库
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-03-21 17:27:37
+updated: 2019-03-07 19:56:39
+toc: true
+mathjax: true
+comments: true
+description: 库
+---
 
 ##	C++库结构
 

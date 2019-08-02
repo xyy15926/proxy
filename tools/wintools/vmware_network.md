@@ -1,4 +1,16 @@
-#	网络设置
+---
+title: 网络设置
+tags:
+  - 工具
+categories:
+  - 工具
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 网络设置
+---
 
 ##	VMware网络模式
 
@@ -172,4 +184,6 @@ Host-only模式下下，虚拟局域网默认无法联网，需要将宿主机�
 	![host_only_network_sharing](imgs/host_only_network_sharing.png)
 
 -	然后修改虚拟网卡Gateway、DNS为VMAV1的ip地址
+
+��
 

@@ -1,4 +1,16 @@
-#	集合类
+---
+title: 集合类
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-03-21 17:27:37
+updated: 2019-03-08 21:36:46
+toc: true
+mathjax: true
+comments: true
+description: 集合类
+---
 
 ##	*Vector*
 

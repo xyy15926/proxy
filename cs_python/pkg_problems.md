@@ -1,4 +1,16 @@
-#	Python包问题
+---
+title: Python包问题
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-21 17:27:15
+updated: 2019-02-28 11:09:27
+toc: true
+mathjax: true
+comments: true
+description: Python包问题
+---
 
 ##	Shadowsocks
 

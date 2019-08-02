@@ -1,4 +1,18 @@
-#	无向图
+---
+title: 无向图
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-03-23 23:43:02
+updated: 2019-03-23 23:43:02
+toc: true
+mathjax: true
+comments: true
+description: 无向图
+---
 
 ##	点集
 

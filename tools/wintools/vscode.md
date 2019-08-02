@@ -1,4 +1,16 @@
-#	VSCode基础
+---
+title: VSCode基础
+tags:
+  - 工具
+categories:
+  - 工具
+date: 2019-03-21 17:27:37
+updated: 2019-02-20 19:36:06
+toc: true
+mathjax: true
+comments: true
+description: VSCode基础
+---
 
 ##	Settings
 

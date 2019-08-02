@@ -1,4 +1,18 @@
-#	*Perceptron*
+---
+title: Perceptron
+tags:
+  - 模型
+  - 线性模型
+categories:
+  - 模型
+  - 线性模型
+date: 2019-07-13 23:23:48
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: Perceptron
+---
 
 -	输入：实例的特征向量
 -	输出：实例类别+1、-1

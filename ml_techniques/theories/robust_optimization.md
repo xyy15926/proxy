@@ -1,4 +1,16 @@
-#	*Robust Optimization*
+---
+title: Robust Optimization
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-07-14 00:16:47
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: Robust Optimization
+---
 
 ##	背景
 

@@ -1,4 +1,18 @@
-#	Resilient Distributed Dataset
+---
+title: Resilient Distributed Dataset
+tags:
+  - 工具
+  - Spark
+categories:
+  - 工具
+  - Spark
+date: 2019-08-02 23:17:39
+updated: 2019-08-02 23:17:39
+toc: true
+mathjax: true
+comments: true
+description: Resilient Distributed Dataset
+---
 
 ##	RDD
 
@@ -334,5 +348,8 @@ Spark中DAG：可以看作由RDD、转换操作、动作操作构成，用于表
 	-	需要语义丰富、高级抽象、通用平台、特定领域API
 	-	需要对半结构化数据进行高级处理，如：filter、SQL查询
 	-	需要编译时/运行时类型安全、Catalyst优化、内存优化
+
+
+�
 
 

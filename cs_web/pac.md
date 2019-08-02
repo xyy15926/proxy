@@ -1,4 +1,16 @@
-#	PAC（Proxy Auto-Config）
+---
+title: PAC（Proxy Auto-Config）
+tags:
+  - Web
+categories:
+  - Web
+date: 2019-03-21 17:27:15
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: PAC（Proxy Auto-Config）
+---
 
 -------
 

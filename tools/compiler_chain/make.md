@@ -1,4 +1,18 @@
-#	Make
+---
+title: Make
+tags:
+  - 工具
+  - 编译工具
+categories:
+  - 工具
+  - 编译工具
+date: 2019-07-13 11:59:18
+updated: 2019-07-13 11:59:18
+toc: true
+mathjax: true
+comments: true
+description: Make
+---
 
 ##	Make基础
 

@@ -1,4 +1,16 @@
-#	FireFox常用设置
+---
+title: FireFox常用设置
+tags:
+  - Linux
+categories:
+  - Linux
+date: 2019-07-31 21:11:41
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: FireFox常用设置
+---
 
 ##	about:config
 

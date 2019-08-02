@@ -1,4 +1,16 @@
-#	Kernel Function
+---
+title: Kernel Function
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-07-13 23:45:15
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: Kernel Function
+---
 
 ##	Kernel
 

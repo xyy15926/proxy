@@ -1,4 +1,18 @@
-# Vim KeyMapper CMD
+---
+title: Vim KeyMapper CMD
+tags:
+  - 工具
+  - VIM
+categories:
+  - 工具
+  - VIM
+date: 2019-08-01 01:52:54
+updated: 2019-08-01 01:52:54
+toc: true
+mathjax: true
+comments: true
+description: Vim KeyMapper CMD
+---
 
 ##	Vim模式
 

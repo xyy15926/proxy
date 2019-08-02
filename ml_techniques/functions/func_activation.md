@@ -1,4 +1,16 @@
-#	激活函数
+---
+title: 激活函数
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: 激活函数
+---
 
 ##	指数类
 

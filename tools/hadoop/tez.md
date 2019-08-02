@@ -1,4 +1,18 @@
-#	Tez
+---
+title: Tez
+tags:
+  - 工具
+  - Hadoop
+categories:
+  - 工具
+  - Hadoop
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: Tez
+---
 
 ##	Tez简介
 

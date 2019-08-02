@@ -1,4 +1,18 @@
-#	Special Methods
+---
+title: Special Methods
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-04 00:55:56
+updated: 2019-06-04 00:55:56
+toc: true
+mathjax: true
+comments: true
+description: Special Methods
+---
 
 ##	综述
 

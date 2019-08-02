@@ -1,4 +1,16 @@
-#	并行开发
+---
+title: 并行开发
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-31 23:44:28
+updated: 2019-03-31 23:44:28
+toc: true
+mathjax: true
+comments: true
+description: 并行开发
+---
 
 ##	综述
 

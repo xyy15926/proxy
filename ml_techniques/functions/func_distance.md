@@ -1,4 +1,16 @@
-#	距离函数
+---
+title: 距离函数
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: 距离函数
+---
 
 $dist(x,y)$：不一定是空间距离，应该认为是两个对象x、y之间的
 **相似程度**

@@ -1,4 +1,18 @@
-#	系统级查看、设置
+---
+title: 系统级查看、设置
+tags:
+  - Linux
+  - Shell命令
+categories:
+  - Linux
+  - Shell命令
+date: 2019-07-31 21:10:52
+updated: 2019-06-04 01:09:52
+toc: true
+mathjax: true
+comments: true
+description: 系统级查看、设置
+---
 
 ##	进程管理
 

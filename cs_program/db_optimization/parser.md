@@ -1,4 +1,18 @@
-#	Database Parser
+---
+title: Database Parser
+tags:
+  - 程序
+  - 数据库优化
+categories:
+  - 程序
+  - 数据库优化
+date: 2019-04-09 14:46:49
+updated: 2019-04-09 14:46:49
+toc: true
+mathjax: true
+comments: true
+description: Database Parser
+---
 
 ##	*Parser*综述
 
@@ -50,4 +64,5 @@
 -	表的基本定义：表名、列名、数据类型
 -	表的数据格式：json、text、parquet、压缩格式
 -	表的物理位置
+
 

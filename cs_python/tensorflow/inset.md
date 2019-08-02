@@ -1,4 +1,18 @@
-#	TensorFlow安装配置
+---
+title: TensorFlow安装配置
+tags:
+  - Python
+  - Tensorflow
+categories:
+  - Python
+  - Tensorflow
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: TensorFlow安装配置
+---
 
 ##	安装
 

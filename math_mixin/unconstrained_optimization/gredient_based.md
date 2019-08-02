@@ -1,4 +1,18 @@
-#	基于梯度算法
+---
+title: 基于梯度算法
+tags:
+  - 最优化
+  - 无约束优化
+categories:
+  - 最优化
+  - 无约束优化
+date: 2019-06-04 01:18:34
+updated: 2019-06-04 01:18:34
+toc: true
+mathjax: true
+comments: true
+description: 基于梯度算法
+---
 
 ##	思想
 

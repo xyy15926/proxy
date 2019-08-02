@@ -1,4 +1,18 @@
-#	Spark GraphX
+---
+title: Spark GraphX
+tags:
+  - 工具
+  - Spark
+categories:
+  - 工具
+  - Spark
+date: 2019-07-11 00:51:41
+updated: 2019-07-11 00:51:41
+toc: true
+mathjax: true
+comments: true
+description: Spark GraphX
+---
 
 ##	GraphX
 

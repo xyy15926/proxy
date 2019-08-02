@@ -1,4 +1,18 @@
-#	Recurrent Neural Network
+---
+title: Recurrent Neural Network
+tags:
+  - 模型
+  - 模型组件
+categories:
+  - 模型
+  - 模型组件
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Recurrent Neural Network
+---
 
 ##	Recurrent Neural Network
 
@@ -181,4 +195,6 @@ RNN：处理前后数据有关联的序列数据
 	& = \sum_{t=1}^{\tau}diag(1-(h^{(t)})^2)
 		\delta^{(t)}(x^{(t)})^T
 	\end{align*}$$
+
+}$$
 

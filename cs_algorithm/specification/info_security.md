@@ -1,4 +1,16 @@
-#	Infomation Security
+---
+title: Infomation Security
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-05-25 19:55:48
+updated: 2019-05-25 19:55:48
+toc: true
+mathjax: true
+comments: true
+description: Infomation Security
+---
 
 ##	Hash/摘要方法
 

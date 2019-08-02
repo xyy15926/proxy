@@ -1,4 +1,18 @@
-#	对偶理论
+---
+title: 对偶理论
+tags:
+  - 最优化
+  - 约束优化
+categories:
+  - 最优化
+  - 约束优化
+date: 2019-06-27 01:01:10
+updated: 2019-06-27 01:01:10
+toc: true
+mathjax: true
+comments: true
+description: 对偶理论
+---
 
 ##	*Langrangian Duality*
 

@@ -1,4 +1,16 @@
-#	Funtioncal Programming Tools
+---
+title: Funtioncal Programming Tools
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-06-09 23:24:56
+updated: 2019-06-06 00:01:44
+toc: true
+mathjax: true
+comments: true
+description: Funtioncal Programming Tools
+---
 
 ##	`builtins`
 

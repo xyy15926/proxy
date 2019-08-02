@@ -1,4 +1,16 @@
-#	参数估计方法
+---
+title: 参数估计方法
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-07-14 19:33:23
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: 参数估计方法
+---
 
 ##	参数估计思路
 
@@ -332,6 +344,9 @@ $$
 -	在*RMSprop*基础上，使用$\sqrt {\Delta \theta}$作为学习率
 -	$\hat v$：中超参$\gamma_1$在分子、分母“抵消”，模型对
 	超参不敏感
+
+
+
 
 
 

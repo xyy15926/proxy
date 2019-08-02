@@ -1,4 +1,18 @@
-#	Hive
+---
+title: Hive
+tags:
+  - 工具
+  - Hadoop
+categories:
+  - 工具
+  - Hadoop
+date: 2019-07-10 00:48:32
+updated: 2019-07-10 00:48:32
+toc: true
+mathjax: true
+comments: true
+description: Hive
+---
 
 ##	Hive简介
 
@@ -205,4 +219,6 @@ Table、Partition都是目录级别的数据拆分，指定Bucket的表格，
 
 -	用户执行Sample查询时，Hive可以使用分桶信息，有效的Prune
 	Data，如：对每个目录下单个桶文件进行查询
+
+�
 

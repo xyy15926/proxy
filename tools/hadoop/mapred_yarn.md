@@ -1,4 +1,18 @@
-#	MapReduce YARN
+---
+title: MapReduce YARN
+tags:
+  - 工具
+  - Hadoop
+categories:
+  - 工具
+  - Hadoop
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: MapReduce YARN
+---
 
 ##	MapReduce1.0组件
 
@@ -328,5 +342,6 @@ Directed Acyclic Graph；表示数据处理流程的有向无环图
 
 	-	从MapReduce配置也可以看出，MapReduce可以选择基于
 		`yarn`或`yarn-tez`
+
 
 

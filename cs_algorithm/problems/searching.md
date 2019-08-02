@@ -1,4 +1,16 @@
-#	查找
+---
+title: 查找
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-07-23 08:39:04
+updated: 2019-07-23 08:39:04
+toc: true
+mathjax: true
+comments: true
+description: 查找
+---
 
 ##	总述
 

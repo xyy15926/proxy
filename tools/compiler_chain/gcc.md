@@ -1,4 +1,18 @@
-#	GCC
+---
+title: GCC
+tags:
+  - 工具
+  - 编译工具
+categories:
+  - 工具
+  - 编译工具
+date: 2019-05-20 22:27:04
+updated: 2019-05-20 22:27:04
+toc: true
+mathjax: true
+comments: true
+description: GCC
+---
 
 ##	G++
 

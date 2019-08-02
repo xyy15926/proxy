@@ -1,4 +1,18 @@
-#	Shell执行控制
+---
+title: Shell执行控制
+tags:
+  - Linux
+  - Bash编程
+categories:
+  - Linux
+  - Bash编程
+date: 2019-08-01 01:37:27
+updated: 2019-08-01 01:37:27
+toc: true
+mathjax: true
+comments: true
+description: Shell执行控制
+---
 
 ##	符号
 

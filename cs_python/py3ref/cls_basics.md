@@ -1,4 +1,18 @@
-#	类
+---
+title: 类
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-05-25 19:53:54
+updated: 2019-05-25 19:53:54
+toc: true
+mathjax: true
+comments: true
+description: 类
+---
 
 ##	综述
 

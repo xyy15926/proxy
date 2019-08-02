@@ -1,4 +1,16 @@
-#	C++概述
+---
+title: C++概述
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-05-20 22:27:04
+updated: 2019-05-20 22:27:04
+toc: true
+mathjax: true
+comments: true
+description: C++概述
+---
 
 C++是面向对象和过程的范式的集合
 

@@ -1,4 +1,18 @@
-#	表达式
+---
+title: 表达式
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-06 00:04:02
+updated: 2019-06-06 00:04:02
+toc: true
+mathjax: true
+comments: true
+description: 表达式
+---
 
 ##	*Atoms*
 

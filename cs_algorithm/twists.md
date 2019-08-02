@@ -1,4 +1,16 @@
-#	代码
+---
+title: 代码
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-04-05 21:50:53
+updated: 2019-04-05 21:50:53
+toc: true
+mathjax: true
+comments: true
+description: 代码
+---
 
 ##	综述
 

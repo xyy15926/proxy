@@ -1,4 +1,18 @@
-#	Proximal Gredient Method
+---
+title: Proximal Gredient Method
+tags:
+  - 最优化
+  - 约束优化
+categories:
+  - 最优化
+  - 约束优化
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Proximal Gredient Method
+---
 
 ##	*Proximal Operator*
 
@@ -295,5 +309,6 @@ prox_{\gamma, f}(x) = \arg\min_u (f(u) + \mu(u) - \mu(x) +
 $$
 
 > - 取$\mu(x) = \frac 1 2 \|x\|_2^2$时，即为普通近端算子
+
 
 

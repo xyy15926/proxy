@@ -1,4 +1,18 @@
-#	Keras按照配置
+---
+title: Keras按照配置
+tags:
+  - Python
+  - Keras
+categories:
+  - Python
+  - Keras
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: Keras按照配置
+---
 
 ##	Keras配置文件
 

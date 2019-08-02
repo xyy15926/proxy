@@ -1,4 +1,16 @@
-#	文件、目录访问
+---
+title: 文件、目录访问
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-06-09 23:58:05
+updated: 2019-06-09 23:58:05
+toc: true
+mathjax: true
+comments: true
+description: 文件、目录访问
+---
 
 ##	`pathlib`
 

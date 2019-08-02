@@ -1,4 +1,18 @@
-#	常用工具
+---
+title: 常用工具
+tags:
+  - Linux
+  - Shell命令
+categories:
+  - Linux
+  - Shell命令
+date: 2019-07-31 21:10:52
+updated: 2019-02-24 15:57:09
+toc: true
+mathjax: true
+comments: true
+description: 常用工具
+---
 
 ##	获取命令系统帮助
 

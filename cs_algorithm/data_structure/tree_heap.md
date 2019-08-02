@@ -1,4 +1,18 @@
-#	Heap
+---
+title: Heap
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-05-30 00:38:54
+updated: 2019-05-30 00:38:54
+toc: true
+mathjax: true
+comments: true
+description: Heap
+---
 
 ##	*Heap*
 

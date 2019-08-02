@@ -1,4 +1,16 @@
-#	Python标准库
+---
+title: Python标准库
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-06-05 20:46:24
+updated: 2019-06-05 20:46:24
+toc: true
+mathjax: true
+comments: true
+description: Python标准库
+---
 
 ##	综述
 

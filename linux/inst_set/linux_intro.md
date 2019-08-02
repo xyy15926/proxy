@@ -1,4 +1,16 @@
-#	Linux介绍
+---
+title: Linux介绍
+tags:
+  - Linux
+categories:
+  - Linux
+date: 2019-07-31 21:11:52
+updated: 2019-02-19 17:20:02
+toc: true
+mathjax: true
+comments: true
+description: Linux介绍
+---
 
 ##	Linux版本
 

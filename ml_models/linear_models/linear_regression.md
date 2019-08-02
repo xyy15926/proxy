@@ -1,4 +1,18 @@
-#	回归变量选择
+---
+title: 回归变量选择
+tags:
+  - 模型
+  - 线性模型
+categories:
+  - 模型
+  - 线性模型
+date: 2019-07-13 23:24:07
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: 回归变量选择
+---
 
 ##	子集回归
 

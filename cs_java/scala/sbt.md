@@ -1,4 +1,18 @@
-#	SBT
+---
+title: SBT
+tags:
+  - Java
+  - Scala
+categories:
+  - Java
+  - Scala
+date: 2019-07-10 00:48:32
+updated: 2019-07-10 00:48:32
+toc: true
+mathjax: true
+comments: true
+description: SBT
+---
 
 ##	综述
 

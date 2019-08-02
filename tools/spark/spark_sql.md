@@ -1,4 +1,18 @@
-#	Spark SQL
+---
+title: Spark SQL
+tags:
+  - 工具
+  - Spark
+categories:
+  - 工具
+  - Spark
+date: 2019-07-11 00:51:41
+updated: 2019-07-11 00:51:41
+toc: true
+mathjax: true
+comments: true
+description: Spark SQL
+---
 
 ##	Spark SQL
 
@@ -135,5 +149,6 @@ val apRDD = sc.parallelize(
 	"""{"name": "Tom", "address": { "city": "Columbus", "state": "Ohio" }}""" :: Nil)
 val anotherPeople = sqlContext.jsonRDD(apRDD)
 ```
+
 
 

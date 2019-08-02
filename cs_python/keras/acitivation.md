@@ -1,4 +1,18 @@
-#	激活函数
+---
+title: 激活函数
+tags:
+  - Python
+  - Keras
+categories:
+  - Python
+  - Keras
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 激活函数
+---
 
 -	通过设置单独的激活层实现
 	```python

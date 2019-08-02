@@ -1,4 +1,16 @@
-#	Python IO、持久化
+---
+title: Python IO、持久化
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-31 23:24:27
+updated: 2019-03-31 23:21:56
+toc: true
+mathjax: true
+comments: true
+description: Python IO、持久化
+---
 
 ##	DBM
 

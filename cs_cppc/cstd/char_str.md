@@ -1,4 +1,16 @@
-#	字符串、字符处理
+---
+title: 字符串、字符处理
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-03-21 17:27:37
+updated: 2019-03-08 21:39:54
+toc: true
+mathjax: true
+comments: true
+description: 字符串、字符处理
+---
 
 ##	`<cctype>`
 

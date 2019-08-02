@@ -1,4 +1,16 @@
-#	Python
+---
+title: Python
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-30 09:14:21
+updated: 2019-03-30 09:14:21
+toc: true
+mathjax: true
+comments: true
+description: Python
+---
 
 ##	`contextlib`
 

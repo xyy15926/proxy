@@ -1,4 +1,18 @@
-#	*Support Vector Machine*
+---
+title: Support Vector Machine
+tags:
+  - 模型
+  - 线性模型
+categories:
+  - 模型
+  - 线性模型
+date: 2019-07-13 23:23:47
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: Support Vector Machine
+---
 
 ##	总述
 

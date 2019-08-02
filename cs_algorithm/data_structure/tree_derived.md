@@ -1,4 +1,18 @@
-#	二叉树衍生
+---
+title: 二叉树衍生
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-06-04 23:11:44
+updated: 2019-06-04 23:11:44
+toc: true
+mathjax: true
+comments: true
+description: 二叉树衍生
+---
 
 ##	*Huffman Tree*
 
@@ -101,4 +115,6 @@ typedef SqBiTree SqVictTree;
 	![tree_winner_reconstruct](imgs/tree_winner_reconstruct.png)
 
 -	重复n轮：所有k轮归并总时间为$\in \Theta(nlogk)$
+
+)$
 

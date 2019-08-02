@@ -1,4 +1,18 @@
-#	SparkSQL2.4中启用CBO时JoinReorder分析
+---
+title: SparkSQL2.4中启用CBO时JoinReorder分析
+tags:
+  - 程序
+  - 数据库优化
+categories:
+  - 程序
+  - 数据库优化
+date: 2019-04-10 02:35:42
+updated: 2019-04-10 02:35:18
+toc: true
+mathjax: true
+comments: true
+description: SparkSQL2.4中启用CBO时JoinReorder分析
+---
 
 ##	背景
 
@@ -293,4 +307,14 @@ $$
 -	遗传算法
 -	退火算法
 -	贪心算法
+
+
+-	遗传算法
+-	退火算法
+-	贪心算法
+
+
+
+
+
 

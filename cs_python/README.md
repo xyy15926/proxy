@@ -1,4 +1,16 @@
-#	Python笔记约定
+---
+title: Python笔记约定
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-29 18:41:32
+updated: 2019-03-29 18:41:32
+toc: true
+mathjax: true
+comments: true
+description: Python笔记约定
+---
 
 ##	函数书写声明
 

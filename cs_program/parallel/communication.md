@@ -1,4 +1,18 @@
-#	通信、锁
+---
+title: 通信、锁
+tags:
+  - 程序
+  - 并行
+categories:
+  - 程序
+  - 并行
+date: 2019-03-31 21:39:50
+updated: 2019-03-31 17:52:02
+toc: true
+mathjax: true
+comments: true
+description: 通信、锁
+---
 
 ##	函数通信
 

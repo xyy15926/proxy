@@ -1,4 +1,18 @@
-# 卷积层
+---
+title: 卷积层
+tags:
+  - Python
+  - Keras
+categories:
+  - Python
+  - Keras
+date: 2019-02-20 23:58:15
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 卷积层
+---
 
 ## Conv1D
 
@@ -442,4 +456,20 @@ keras.layers.convolutional.ZeroPadding3D(
 
 -	说明
 	-	本层目前只能在使用Theano为后端时可用
+
+结束处填充0的数目
+
+##	ZeroPadding3D
+```python
+keras.layers.convolutional.ZeroPadding3D(
+	padding=(1, 1, 1),
+	data_format=None
+)
+```
+将数据的三个维度上填充0
+
+-	说明
+	-	本层目前只能在使用Theano为后端时可用
+
+?时可用
 

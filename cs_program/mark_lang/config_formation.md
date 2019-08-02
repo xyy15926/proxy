@@ -1,4 +1,16 @@
-#	配置文件笔记
+---
+title: 配置文件笔记
+tags:
+  - 程序
+categories:
+  - 程序
+date: 2019-07-11 00:51:41
+updated: 2019-07-11 00:51:41
+toc: true
+mathjax: true
+comments: true
+description: 配置文件笔记
+---
 
 ##	Ini
 

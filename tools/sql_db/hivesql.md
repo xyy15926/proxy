@@ -1,4 +1,18 @@
-#	HiveSQL
+---
+title: HiveSQL
+tags:
+  - 工具
+  - SQLDB
+categories:
+  - 工具
+  - SQLDB
+date: 2019-07-10 00:48:33
+updated: 2019-07-10 00:48:33
+toc: true
+mathjax: true
+comments: true
+description: HiveSQL
+---
 
 ##	命令行参数
 

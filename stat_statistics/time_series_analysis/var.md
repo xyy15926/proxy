@@ -1,4 +1,16 @@
-#	Vector Autoregressive Model
+---
+title: Vector Autoregressive Model
+tags:
+  - 统计
+categories:
+  - 统计
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: Vector Autoregressive Model
+---
 
 ##	VAR模型
 
@@ -341,6 +353,7 @@ $\hat Y_{t+s|t}$的方差贡献比例
 -	方差分析
 
 -	模型预测
+
 
 
 

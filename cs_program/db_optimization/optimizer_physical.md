@@ -1,4 +1,18 @@
-#	物理查询优化
+---
+title: 物理查询优化
+tags:
+  - 程序
+  - 数据库优化
+categories:
+  - 程序
+  - 数据库优化
+date: 2019-05-25 19:55:48
+updated: 2019-05-25 19:55:48
+toc: true
+mathjax: true
+comments: true
+description: 物理查询优化
+---
 
 ##	查询代价估算
 
@@ -408,6 +422,9 @@ grace_hash_join(t1, t2):
 	-	变异：对新个体变异
 5.	计算新个体适应值，把适应值排名插入种群，淘汰最后个体
 6.	重复3
+
+
+
 
 
 

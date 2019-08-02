@@ -1,4 +1,16 @@
-#	Loss Function
+---
+title: Loss Function
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-08-01 01:48:22
+updated: 2019-08-01 01:48:22
+toc: true
+mathjax: true
+comments: true
+description: Loss Function
+---
 
 ##	综述
 

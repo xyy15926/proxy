@@ -1,4 +1,18 @@
-#	Bagging
+---
+title: Bagging
+tags:
+  - 模型
+  - 增强模型
+categories:
+  - 模型
+  - 增强模型
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Bagging
+---
 
 ##	*Bagging*
 

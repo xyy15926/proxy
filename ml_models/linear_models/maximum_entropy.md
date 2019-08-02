@@ -1,4 +1,18 @@
-#	最大熵模型
+---
+title: 最大熵模型
+tags:
+  - 模型
+  - 线性模型
+categories:
+  - 模型
+  - 线性模型
+date: 2019-08-01 02:10:08
+updated: 2019-08-01 02:10:08
+toc: true
+mathjax: true
+comments: true
+description: 最大熵模型
+---
 
 ##	逻辑斯蒂回归
 

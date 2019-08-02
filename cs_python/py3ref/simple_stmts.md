@@ -1,4 +1,18 @@
-#	*Simple Statements*
+---
+title: Simple Statements
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-11 15:56:31
+updated: 2019-06-11 15:56:31
+toc: true
+mathjax: true
+comments: true
+description: Simple Statements
+---
 
 简单语句：由单个逻辑行构成
 

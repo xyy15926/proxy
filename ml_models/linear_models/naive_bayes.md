@@ -1,4 +1,18 @@
-#	Naive Bayes
+---
+title: Naive Bayes
+tags:
+  - 模型
+  - 线性模型
+categories:
+  - 模型
+  - 线性模型
+date: 2019-07-13 23:24:10
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: Naive Bayes
+---
 
 ##	朴素贝叶斯
 

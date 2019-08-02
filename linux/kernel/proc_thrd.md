@@ -1,4 +1,16 @@
-#	进程、线程、作业
+---
+title: 进程、线程、作业
+tags:
+  - Linux
+categories:
+  - Linux
+date: 2019-07-31 21:10:51
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 进程、线程、作业
+---
 
 ##	进程
 

@@ -1,4 +1,18 @@
-#	RNN
+---
+title: RNN
+tags:
+  - Python
+  - Keras
+categories:
+  - Python
+  - Keras
+date: 2019-02-20 23:58:15
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: RNN
+---
 
 ## RNN
 

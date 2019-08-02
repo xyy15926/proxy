@@ -1,4 +1,16 @@
-#	函数说明
+---
+title: 函数说明
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-07-13 23:44:28
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: 函数说明
+---
 
 ##	约定
 

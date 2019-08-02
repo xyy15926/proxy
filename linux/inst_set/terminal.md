@@ -1,4 +1,16 @@
-#	Terminal、CLI、Shell、TTY
+---
+title: Terminal、CLI、Shell、TTY
+tags:
+  - Linux
+categories:
+  - Linux
+date: 2019-07-31 21:11:41
+updated: 2019-02-20 01:39:24
+toc: true
+mathjax: true
+comments: true
+description: Terminal、CLI、Shell、TTY
+---
 
 ##	*Terminal*
 
@@ -118,6 +130,7 @@ Shell：提供**用户界面**的程序，接受用户输入命令和内核沟�
 -	Terminal相关
 	-	上、下翻页查看内容
 	-	终端中复制、粘贴功能
+
 
 
 

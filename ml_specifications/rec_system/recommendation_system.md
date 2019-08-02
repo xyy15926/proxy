@@ -1,4 +1,18 @@
-#	Recommendation System
+---
+title: Recommendation System
+tags:
+  - 机器学习
+  - 推荐系统
+categories:
+  - 机器学习
+  - 推荐系统
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Recommendation System
+---
 
 ##	推荐系统架构
 
@@ -109,4 +123,5 @@
 > - 还有基于图模型、神经网络等新模型
 > - 还有依赖于自然语言处理NLP，通过挖掘文本内容特征，得到
 	用户的偏好，进而做推荐，同样可以找到用户独特的小众喜好
+
 

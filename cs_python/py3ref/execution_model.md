@@ -1,4 +1,18 @@
-#	Python执行模型
+---
+title: Python执行模型
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-11 17:32:52
+updated: 2019-06-11 17:32:52
+toc: true
+mathjax: true
+comments: true
+description: Python执行模型
+---
 
 ##	综述
 

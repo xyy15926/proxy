@@ -1,4 +1,18 @@
-#	Hashing
+---
+title: Hashing
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-06-04 23:11:44
+updated: 2019-06-04 23:11:44
+toc: true
+mathjax: true
+comments: true
+description: Hashing
+---
 
 ##	*Hashing Table*
 
@@ -329,6 +343,12 @@ $$
 -	若删除元素后某个桶元素为空，`Next -= 1`
 	-	当`Next`减少到0，且最后桶也是空时，`Next = N/2 - 1`
 		，同时`level -= 1`
+
+
+
+
+
+ 1`
 
 
 

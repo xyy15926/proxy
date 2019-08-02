@@ -1,4 +1,18 @@
-#	Vimscripts基础--Setting
+---
+title: Vimscripts基础--Setting
+tags:
+  - 工具
+  - VIM
+categories:
+  - 工具
+  - VIM
+date: 2019-08-01 01:53:29
+updated: 2019-08-01 01:53:29
+toc: true
+mathjax: true
+comments: true
+description: Vimscripts基础--Setting
+---
 
 ##	打印信息
 

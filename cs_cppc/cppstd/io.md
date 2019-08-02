@@ -1,4 +1,16 @@
-#	IO
+---
+title: IO
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-05-10 01:01:26
+updated: 2019-05-10 01:01:26
+toc: true
+mathjax: true
+comments: true
+description: IO
+---
 
 -	C++中数据输入/输出操作是通过I/O流库实现
 

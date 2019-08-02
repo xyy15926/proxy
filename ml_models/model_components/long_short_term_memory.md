@@ -1,4 +1,18 @@
-#	Long Short Term Memory
+---
+title: Long Short Term Memory
+tags:
+  - 模型
+  - 模型组件
+categories:
+  - 模型
+  - 模型组件
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Long Short Term Memory
+---
 
 ##	*Long Short Term Memory*
 
@@ -135,4 +149,6 @@
 		-	学习率可以可以使用小网络结构独立校准
 	-	动量因子影响不大
 	-	高斯噪声的引入有损性能、增加训练时间
+
+�时间
 

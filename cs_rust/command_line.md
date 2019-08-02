@@ -1,4 +1,16 @@
-#	rust程序设计笔记
+---
+title: rust程序设计笔记
+tags:
+  - Rust
+categories:
+  - Rust
+date: 2019-03-21 17:27:15
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: rust程序设计笔记
+---
 
 ##	参数、环境变量
 

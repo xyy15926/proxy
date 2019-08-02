@@ -1,4 +1,18 @@
-#	Local Binary Pattern
+---
+title: Local Binary Pattern
+tags:
+  - 机器学习
+  - CV
+categories:
+  - 机器学习
+  - CV
+date: 2019-07-13 12:03:12
+updated: 2019-07-13 12:03:12
+toc: true
+mathjax: true
+comments: true
+description: Local Binary Pattern
+---
 
 ##	综述
 

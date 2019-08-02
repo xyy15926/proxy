@@ -1,4 +1,16 @@
-#	Py3std说明
+---
+title: Py3std说明
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-04-20 15:39:09
+updated: 2019-04-20 15:39:09
+toc: true
+mathjax: true
+comments: true
+description: Py3std说明
+---
 
 ##	常用参数说明
 

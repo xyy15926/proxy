@@ -1,4 +1,16 @@
-#	Linux安装后常用配置
+---
+title: Linux安装后常用配置
+tags:
+  - Linux
+categories:
+  - Linux
+date: 2019-07-31 21:10:51
+updated: 2019-03-28 12:47:40
+toc: true
+mathjax: true
+comments: true
+description: Linux安装后常用配置
+---
 
 ##	用户设置
 

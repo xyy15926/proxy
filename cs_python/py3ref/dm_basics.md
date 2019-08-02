@@ -1,4 +1,18 @@
-#	数据模型--基本数据类型
+---
+title: 数据模型--基本数据类型
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-05 11:05:43
+updated: 2019-06-05 11:05:43
+toc: true
+mathjax: true
+comments: true
+description: 数据模型--基本数据类型
+---
 
 ##	对象、值、类型
 

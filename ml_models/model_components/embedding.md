@@ -1,4 +1,18 @@
-#	Embedding
+---
+title: Embedding
+tags:
+  - 模型
+  - 模型组件
+categories:
+  - 模型
+  - 模型组件
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Embedding
+---
 
 ##	Embedding
 

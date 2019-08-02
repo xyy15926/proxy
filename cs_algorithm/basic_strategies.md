@@ -1,4 +1,16 @@
-#	算法设计策略
+---
+title: 算法设计策略
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-05-30 00:38:54
+updated: 2019-05-30 00:38:54
+toc: true
+mathjax: true
+comments: true
+description: 算法设计策略
+---
 
 ##	蛮力法
 

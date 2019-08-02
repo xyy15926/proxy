@@ -1,4 +1,18 @@
-#	Seq2Seq
+---
+title: Seq2Seq
+tags:
+  - 模型
+  - 模型组件
+categories:
+  - 模型
+  - 模型组件
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Seq2Seq
+---
 
 ##	Seq2Seq
 
@@ -76,4 +90,6 @@ e_{t,j} & = a(s_{t-1}, h_j)
 
 -	编码器：*Bi-RNN*
 -	解码器：attention机制加权的RNN
+
+
 

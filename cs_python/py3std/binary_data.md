@@ -1,4 +1,16 @@
-#	二进制数据服务
+---
+title: 二进制数据服务
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-06-10 01:10:04
+updated: 2019-06-10 01:10:04
+toc: true
+mathjax: true
+comments: true
+description: 二进制数据服务
+---
 
 ##	`struct`
 

@@ -1,4 +1,18 @@
-#	Vim内建函数、变量
+---
+title: Vim内建函数、变量
+tags:
+  - 工具
+  - VIM
+categories:
+  - 工具
+  - VIM
+date: 2019-05-11 09:55:22
+updated: 2019-05-11 09:55:22
+toc: true
+mathjax: true
+comments: true
+description: Vim内建函数、变量
+---
 
 ##	文件、路径相关函数
 

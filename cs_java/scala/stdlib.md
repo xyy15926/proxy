@@ -1,4 +1,18 @@
-#	标准库
+---
+title: 标准库
+tags:
+  - Java
+  - Scala
+categories:
+  - Java
+  - Scala
+date: 2019-08-01 20:04:09
+updated: 2019-08-01 20:04:09
+toc: true
+mathjax: true
+comments: true
+description: 标准库
+---
 
 ##	*Scala Package*
 

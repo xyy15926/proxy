@@ -1,4 +1,18 @@
-#	局部连接层LocallyConnceted
+---
+title: 局部连接层LocallyConnceted
+tags:
+  - Python
+  - Keras
+categories:
+  - Python
+  - Keras
+date: 2019-02-20 23:58:15
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 局部连接层LocallyConnceted
+---
 
 LocallyConnnected和Conv差不多，只是Conv每层共享卷积核，
 这里不同位置卷积核独立

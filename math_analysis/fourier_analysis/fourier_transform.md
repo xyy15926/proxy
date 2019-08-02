@@ -1,4 +1,18 @@
-#	Fourier Transformation
+---
+title: Fourier Transformation
+tags:
+  - 分析
+  - 傅里叶分析
+categories:
+  - 分析
+  - 傅里叶分析
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Fourier Transformation
+---
 
 ##	傅里叶变换
 

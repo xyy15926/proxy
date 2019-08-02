@@ -1,4 +1,18 @@
-#	Coordinate Descent
+---
+title: Coordinate Descent
+tags:
+  - 最优化
+  - 无约束优化
+categories:
+  - 最优化
+  - 无约束优化
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Coordinate Descent
+---
 
 ##	坐标下降
 
@@ -108,4 +122,6 @@
 	> - 此算子也称*soft threshholding*
 
 	![lasso_ridge_lse](imgs/lasso_ridge_lse.svg)
+
+
 

@@ -1,4 +1,18 @@
-#	文件、目录
+---
+title: 文件、目录
+tags:
+  - Linux
+  - Shell命令
+categories:
+  - Linux
+  - Shell命令
+date: 2019-07-31 21:10:52
+updated: 2019-07-10 00:48:32
+toc: true
+mathjax: true
+comments: true
+description: 文件、目录
+---
 
 ##	目录、文件操作
 

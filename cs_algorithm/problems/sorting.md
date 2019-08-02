@@ -1,4 +1,16 @@
-#	排序
+---
+title: 排序
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-04-18 13:32:24
+updated: 2019-04-18 13:32:24
+toc: true
+mathjax: true
+comments: true
+description: 排序
+---
 
 ##	总述
 

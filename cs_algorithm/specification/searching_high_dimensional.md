@@ -1,4 +1,16 @@
-#	高维数据检索方法
+---
+title: 高维数据检索方法
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-06-04 23:11:44
+updated: 2019-06-04 23:11:44
+toc: true
+mathjax: true
+comments: true
+description: 高维数据检索方法
+---
 
 ##	相似性检索
 

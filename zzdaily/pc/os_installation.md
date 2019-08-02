@@ -1,4 +1,16 @@
-#	系统安装常识
+---
+title: 系统安装常识
+tags:
+  - 日常
+categories:
+  - 日常
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 系统安装常识
+---
 
 ##	Win10/8系统
 

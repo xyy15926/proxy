@@ -1,4 +1,16 @@
-#	随机算法
+---
+title: 随机算法
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: 随机算法
+---
 
 ##	数值随机化算法
 

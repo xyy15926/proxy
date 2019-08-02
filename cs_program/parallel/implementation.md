@@ -1,4 +1,18 @@
-#	*Parallel*
+---
+title: Parallel
+tags:
+  - 程序
+  - 并行
+categories:
+  - 程序
+  - 并行
+date: 2019-06-03 17:02:43
+updated: 2019-06-03 17:02:43
+toc: true
+mathjax: true
+comments: true
+description: Parallel
+---
 
 ##	执行实体
 

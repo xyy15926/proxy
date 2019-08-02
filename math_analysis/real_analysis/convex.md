@@ -1,4 +1,18 @@
-#	凸分析
+---
+title: 凸分析
+tags:
+  - 分析
+  - 实分析
+categories:
+  - 分析
+  - 实分析
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: 凸分析
+---
 
 ##	Notations and Terminology
 

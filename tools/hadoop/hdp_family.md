@@ -1,4 +1,18 @@
-#	Hadoop概述
+---
+title: Hadoop概述
+tags:
+  - 工具
+  - Hadoop
+categories:
+  - 工具
+  - Hadoop
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: Hadoop概述
+---
 
 -	*Hadoop*（核心）：*HDFS*和*MapReduce/YARN*
 -	*Hadoop家族*：建立在*Hadoop*基础上的一系列开源工具

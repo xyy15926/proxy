@@ -1,4 +1,16 @@
-#	Python注意事项
+---
+title: Python注意事项
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-21 17:27:15
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: Python注意事项
+---
 
 ##	原生库
 

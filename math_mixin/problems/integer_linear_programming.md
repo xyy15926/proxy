@@ -1,4 +1,16 @@
-#	Integer Linear Programming Problem
+---
+title: Integer Linear Programming Problem
+tags:
+  - 最优化
+categories:
+  - 最优化
+date: 2019-07-23 08:39:04
+updated: 2019-07-23 08:39:04
+toc: true
+mathjax: true
+comments: true
+description: Integer Linear Programming Problem
+---
 
 ##	整形规划
 

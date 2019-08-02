@@ -1,4 +1,16 @@
-#	函数式编程
+---
+title: 函数式编程
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-04-22 00:33:40
+updated: 2019-04-22 00:33:40
+toc: true
+mathjax: true
+comments: true
+description: 函数式编程
+---
 
 ##	`functools`
 

@@ -1,4 +1,16 @@
-#	时间序列分析
+---
+title: 时间序列分析
+tags:
+  - 统计
+categories:
+  - 统计
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: 时间序列分析
+---
 
 时间序列数据：在不同时间点收集到的数据，反映某事物、现象随
 实际变化状态、程度

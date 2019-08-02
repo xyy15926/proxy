@@ -1,4 +1,18 @@
-#	频繁项集/序列
+---
+title: 频繁项集/序列
+tags:
+  - 模型
+  - 无监督模型
+categories:
+  - 模型
+  - 无监督模型
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: 频繁项集/序列
+---
 
 ##	频繁项集
 
@@ -139,3 +153,4 @@ FPTree：对Apriori算法改进，不在需要多次扫描数据
 
 > - *prefix*：前缀，正在处理的子序列
 > - *projected*：投影，各数据序列中位于前缀之后子串
+�串

@@ -1,4 +1,18 @@
-#	矩阵
+---
+title: 矩阵
+tags:
+  - 代数
+  - 线性代数
+categories:
+  - 代数
+  - 线性代数
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: 矩阵
+---
 
 ##	特殊矩阵
 
@@ -58,6 +72,10 @@
 	(A + u v^T)^{-1} = A^{-1} - \frac {A^{-1} u v^T A^{-1}}
 		{1 + v^T A^{-1} u}
 	$$
+
+
+
+
 
 
 

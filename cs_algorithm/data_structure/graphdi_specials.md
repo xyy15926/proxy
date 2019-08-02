@@ -1,4 +1,18 @@
-#	有向图衍生
+---
+title: 有向图衍生
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-04-11 09:47:57
+updated: 2019-04-11 09:47:57
+toc: true
+mathjax: true
+comments: true
+description: 有向图衍生
+---
 
 ##	*Directed Acycline Graph*
 

@@ -1,4 +1,16 @@
-#	马恩的社会主义观
+---
+title: 马恩的社会主义观
+tags:
+  - 日常
+categories:
+  - 日常
+date: 2019-03-21 17:27:15
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 马恩的社会主义观
+---
 
 -	生产资料：社会所有制、公有制
 -	经济运行方式：消灭商品货币关系，实行有组织的计划生产

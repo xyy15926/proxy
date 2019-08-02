@@ -1,4 +1,18 @@
-#	SQL语法
+---
+title: SQL语法
+tags:
+  - 工具
+  - SQLDB
+categories:
+  - 工具
+  - SQLDB
+date: 2019-07-10 00:48:33
+updated: 2019-07-10 00:48:33
+toc: true
+mathjax: true
+comments: true
+description: SQL语法
+---
 
 ##	基本操作
 

@@ -1,4 +1,18 @@
-#	Deision Tree
+---
+title: Deision Tree
+tags:
+  - 模型
+  - 非线性模型
+categories:
+  - 模型
+  - 非线性模型
+date: 2019-07-13 23:25:01
+updated: 2019-07-13 12:03:11
+toc: true
+mathjax: true
+comments: true
+description: Deision Tree
+---
 
 ##	概述
 

@@ -1,4 +1,18 @@
-#	语言设计
+---
+title: 语言设计
+tags:
+  - 程序
+  - 程序设计
+categories:
+  - 程序
+  - 程序设计
+date: 2019-07-10 00:48:32
+updated: 2019-07-10 00:48:32
+toc: true
+mathjax: true
+comments: true
+description: 语言设计
+---
 
 ##	编程范型
 
@@ -177,6 +191,7 @@
 > - 返回值取决于语言实现
 > > -	确定返回布尔值：C/C++
 > > -	返回`x`、或`y`的求值结果：python
+
 
 
 

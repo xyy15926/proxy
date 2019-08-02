@@ -1,4 +1,16 @@
-#	Java安装设置
+---
+title: Java安装设置
+tags:
+  - Java
+categories:
+  - Java
+date: 2019-07-10 00:48:32
+updated: 2019-07-10 00:48:32
+toc: true
+mathjax: true
+comments: true
+description: Java安装设置
+---
 
 ##	Java概念
 

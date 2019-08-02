@@ -1,4 +1,16 @@
-#	Python类说明
+---
+title: Python类说明
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-31 23:33:26
+updated: 2019-03-31 23:33:26
+toc: true
+mathjax: true
+comments: true
+description: Python类说明
+---
 
 ##	元类说明
 

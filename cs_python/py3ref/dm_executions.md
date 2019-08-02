@@ -1,4 +1,18 @@
-#	数据模型--执行相关
+---
+title: 数据模型--执行相关
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-05-20 22:24:33
+updated: 2019-05-20 22:24:33
+toc: true
+mathjax: true
+comments: true
+description: 数据模型--执行相关
+---
 
 -	以下类型为内部类型，由解释器内部使用、但被暴露给用户，
 	其定义可能随着未来解释器版本更新而变化

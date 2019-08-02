@@ -1,4 +1,18 @@
-#	*Quasi-Newton Method*/*Variable Metric Method*
+---
+title: Quasi-Newton Method/Variable Metric Method
+tags:
+  - 最优化
+  - 无约束优化
+categories:
+  - 最优化
+  - 无约束优化
+date: 2019-04-23 01:32:09
+updated: 2019-04-23 01:32:09
+toc: true
+mathjax: true
+comments: true
+description: Quasi-Newton Method/Variable Metric Method
+---
 
 ##	综述
 

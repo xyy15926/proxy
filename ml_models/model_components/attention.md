@@ -1,4 +1,18 @@
-#	Attention Machanism
+---
+title: Attention Machanism
+tags:
+  - 模型
+  - 模型组件
+categories:
+  - 模型
+  - 模型组件
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Attention Machanism
+---
 
 ##	Attention Machanism
 
@@ -235,4 +249,6 @@ head_i & = Attention(QW_i^Q, KW_i^K, VW_i^V)
 	一般就是原始输入序列矩阵
 
 -	可以并行训练，同时从序列中提取多组特征
+
+征
 

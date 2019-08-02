@@ -1,4 +1,18 @@
-#	*Feature Engineering*
+---
+title: Feature Engineering
+tags:
+  - 机器学习
+  - 数据处理
+categories:
+  - 机器学习
+  - 数据处理
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Feature Engineering
+---
 
 ##	综述
 
@@ -458,4 +472,5 @@ N-gram模型：将连续出现的$n, n \leq N$个词组成的词组N-gram
 
 -	实际上直接使用矩阵作为源文本特征作为输入进行训练，难以
 	得到好结果，往往需要提取、构造更高层特征
+
 

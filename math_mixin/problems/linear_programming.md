@@ -1,4 +1,16 @@
-#	Linear Programming
+---
+title: Linear Programming
+tags:
+  - 最优化
+categories:
+  - 最优化
+date: 2019-07-23 08:39:04
+updated: 2019-07-23 08:39:04
+toc: true
+mathjax: true
+comments: true
+description: Linear Programming
+---
 
 ##	数学模型
 

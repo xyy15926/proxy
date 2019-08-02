@@ -1,4 +1,18 @@
-#	Envolutionary Algorithms
+---
+title: Envolutionary Algorithms
+tags:
+  - 最优化
+  - 启发式优化
+categories:
+  - 最优化
+  - 启发式优化
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Envolutionary Algorithms
+---
 
 ##	进化算法
 

@@ -1,4 +1,18 @@
-#	Stack&Queue
+---
+title: Stack&Queue
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-03-21 17:27:37
+updated: 2019-03-13 14:56:03
+toc: true
+mathjax: true
+comments: true
+description: Stack&Queue
+---
 
 -	从数据结构来看，栈和队列也是线性表，但其基本操作是线性表
 	操作的子集

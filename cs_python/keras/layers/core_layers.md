@@ -1,4 +1,18 @@
-#	常用层
+---
+title: 常用层
+tags:
+  - Python
+  - Keras
+categories:
+  - Python
+  - Keras
+date: 2019-02-20 23:58:15
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 常用层
+---
 
 常用层对应于core模块，core内部定义了一系列常用的网络层，包括
 全连接、激活层等
@@ -345,4 +359,14 @@ keras.layers.core.Masking(mask_value=0.0)
 		model.add(Masking(mask_value=0., input_shape=(timesteps, features)))
 		model.add(LSTM(32))
 		```
+
+.`的Masking层
+		```python
+		model = Sequential()
+		model.add(Masking(mask_value=0., input_shape=(timesteps, features)))
+		model.add(LSTM(32))
+		```
+
+```
+
 

@@ -1,4 +1,18 @@
-#	图
+---
+title: 图
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-04-11 12:25:59
+updated: 2019-04-11 12:25:59
+toc: true
+mathjax: true
+comments: true
+description: 图
+---
 
 ##	分类
 
@@ -426,4 +440,6 @@ typedef struct{
 -	深度优先搜索是求有向图**强连通分量**的有效方法
 
 > - 具体算法参见*algorithm/problem/graph*
+
+
 

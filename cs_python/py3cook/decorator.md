@@ -1,4 +1,16 @@
-#	Python元编程
+---
+title: Python元编程
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-30 01:54:46
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: Python元编程
+---
 
 ##	Decorator装饰器
 

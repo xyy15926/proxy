@@ -1,4 +1,16 @@
-#	二进制文件格式
+---
+title: 二进制文件格式
+tags:
+  - 程序
+categories:
+  - 程序
+date: 2019-05-10 01:01:26
+updated: 2019-05-10 01:01:26
+toc: true
+mathjax: true
+comments: true
+description: 二进制文件格式
+---
 
 ##	*IDX*
 

@@ -1,4 +1,16 @@
-#	组合问题
+---
+title: 组合问题
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-07-23 08:39:04
+updated: 2019-07-23 08:39:04
+toc: true
+mathjax: true
+comments: true
+description: 组合问题
+---
 
 ##	总述
 

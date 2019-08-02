@@ -1,4 +1,18 @@
-#	Subgredient/Subderivative/Subdifferential
+---
+title: Subgredient/Subderivative/Subdifferential
+tags:
+  - 分析
+  - 实分析
+categories:
+  - 分析
+  - 实分析
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Subgredient/Subderivative/Subdifferential
+---
 
 ##	次梯度
 
@@ -183,6 +197,8 @@ f_{best}^{(k+1)} & = min{f_{best}^{(k)}, f(x^{(k+1)})}
 	$lim_{k \rightarrow \infty} \alpha_k = 0$
 -	间隔不可加、但递减：
 	$lim_{k \rightarrow \gamma_k} \gamma_k = 0$
+
+
 
 
 

@@ -1,4 +1,16 @@
-#	参考
+---
+title: 参考
+tags:
+  - 概率论
+categories:
+  - 概率论
+date: 2019-03-26 00:04:19
+updated: 2019-03-26 00:04:19
+toc: true
+mathjax: true
+comments: true
+description: 参考
+---
 
 ###	Azuma-Hoeffding Inequality
 

@@ -1,4 +1,16 @@
-#	Windows Linux Subsystem
+---
+title: Windows Linux Subsystem
+tags:
+  - 工具
+categories:
+  - 工具
+date: 2019-03-21 17:27:37
+updated: 2019-02-21 00:02:42
+toc: true
+mathjax: true
+comments: true
+description: Windows Linux Subsystem
+---
 
 ##	说明
 
@@ -208,6 +220,7 @@ WSL是一个兼容层，类似反过来的Wine，但更底层
 		```
 
 > - 注意：文件夹`x`权限表示是否能经过，注意`umask/dmask`设置
+
 
 
 

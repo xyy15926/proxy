@@ -1,4 +1,18 @@
-#	Shell脚本执行
+---
+title: Shell脚本执行
+tags:
+  - Linux
+  - Bash编程
+categories:
+  - Linux
+  - Bash编程
+date: 2019-07-31 23:59:23
+updated: 2019-07-31 23:59:23
+toc: true
+mathjax: true
+comments: true
+description: Shell脚本执行
+---
 
 ##	脚本执行
 

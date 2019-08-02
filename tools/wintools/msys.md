@@ -1,4 +1,16 @@
-#	MSYS配置
+---
+title: MSYS配置
+tags:
+  - 工具
+categories:
+  - 工具
+date: 2019-05-01 09:58:40
+updated: 2019-05-01 09:58:40
+toc: true
+mathjax: true
+comments: true
+description: MSYS配置
+---
 
 ##	功能
 

@@ -1,4 +1,16 @@
-#	Tmux
+---
+title: Tmux
+tags:
+  - 工具
+categories:
+  - 工具
+date: 2019-06-30 20:16:34
+updated: 2019-06-30 20:16:34
+toc: true
+mathjax: true
+comments: true
+description: Tmux
+---
 
 ##	命令行参数
 

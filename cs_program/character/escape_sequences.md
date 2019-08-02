@@ -1,4 +1,18 @@
-#	转义序列
+---
+title: 转义序列
+tags:
+  - 程序
+  - 字符
+categories:
+  - 程序
+  - 字符
+date: 2019-04-26 01:49:38
+updated: 2019-04-26 01:49:38
+toc: true
+mathjax: true
+comments: true
+description: 转义序列
+---
 
 ##	ANSI转义序列
 

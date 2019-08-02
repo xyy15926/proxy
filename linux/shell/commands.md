@@ -1,4 +1,18 @@
-#	Shell命令
+---
+title: Shell命令
+tags:
+  - Linux
+  - Shell命令
+categories:
+  - Linux
+  - Shell命令
+date: 2019-07-31 21:10:52
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: Shell命令
+---
 
 -	builtin command：shell程序的一部分，包含简练的Linux系统
 	命令

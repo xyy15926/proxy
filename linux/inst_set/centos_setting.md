@@ -1,4 +1,16 @@
-#	CentOS7常用配置
+---
+title: CentOS7常用配置
+tags:
+  - Linux
+categories:
+  - Linux
+date: 2019-07-31 21:10:51
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: CentOS7常用配置
+---
 
 ##	网络配置
 

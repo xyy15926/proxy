@@ -1,4 +1,18 @@
-MongoDb安装配置
+---
+title: MongoDb安装配置
+tags:
+  - 工具
+  - NoSQLDB
+categories:
+  - 工具
+  - NoSQLDB
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: MongoDb安装配置
+---
 
 1.	安装：建议访问https://docs.mongodb.com/manual/installation，参考官方教程进行安装（以下是对于3.6版本） 
 	a.	配置包管理yum：添加/etc/yum.repos.d/mongodb-org-3.6.repo文件，内容：

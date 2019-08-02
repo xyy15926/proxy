@@ -1,4 +1,18 @@
-#	Postgresql笔记
+---
+title: Postgresql笔记
+tags:
+  - 工具
+  - SQLDB
+categories:
+  - 工具
+  - SQLDB
+date: 2019-05-10 01:01:26
+updated: 2019-05-10 01:01:26
+toc: true
+mathjax: true
+comments: true
+description: Postgresql笔记
+---
 
 ##	安装
 

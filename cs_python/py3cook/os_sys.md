@@ -1,4 +1,16 @@
-#	Python系统编程
+---
+title: Python系统编程
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-05-16 23:46:33
+updated: 2019-05-16 23:46:33
+toc: true
+mathjax: true
+comments: true
+description: Python系统编程
+---
 
 ##	综述
 

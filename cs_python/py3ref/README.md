@@ -1,4 +1,18 @@
-#	Python概述
+---
+title: Python概述
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-09 17:23:02
+updated: 2019-06-09 17:23:02
+toc: true
+mathjax: true
+comments: true
+description: Python概述
+---
 
 ##	综述
 

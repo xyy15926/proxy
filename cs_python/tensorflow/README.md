@@ -1,4 +1,18 @@
-#	Tensorflow约定
+---
+title: Tensorflow约定
+tags:
+  - Python
+  - Tensorflow
+categories:
+  - Python
+  - Tensorflow
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: Tensorflow约定
+---
 
 ##	常用参数说明
 

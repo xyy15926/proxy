@@ -1,4 +1,16 @@
-#	Rust语法
+---
+title: Rust语法
+tags:
+  - Rust
+categories:
+  - Rust
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: Rust语法
+---
 
 ##	Rust是基于表达式的语言
 

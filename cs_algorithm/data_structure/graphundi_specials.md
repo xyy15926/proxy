@@ -1,4 +1,18 @@
-#	无向图衍生
+---
+title: 无向图衍生
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-03-24 09:03:52
+updated: 2019-03-24 09:03:52
+toc: true
+mathjax: true
+comments: true
+description: 无向图衍生
+---
 
 ##	Bipartite Graph
 
@@ -226,6 +240,7 @@ V中存在自由男士时，任选*求婚*、*回应*之一执行，直至不存
 -	非叶子顶点v**某棵子树**中没有指向v前驱的回边，则v为关节点
 
 > - 算法参见*algorithm/problems/graph*
+
 
 
 

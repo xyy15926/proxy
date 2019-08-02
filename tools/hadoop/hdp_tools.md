@@ -1,4 +1,18 @@
-#	Zookeeper
+---
+title: Zookeeper
+tags:
+  - 工具
+  - Hadoop
+categories:
+  - 工具
+  - Hadoop
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: Zookeeper
+---
 
 Zookeeper是一个协调软件服务，用于构建可靠的、分布式群组
 
@@ -459,5 +473,8 @@ Storm追踪由每个SpoutTuple产生的Tuple树
 
 -	每个Topology都有一个消息超时设置，如果Storm在时间内无法
 	检验tuple树是否完全执行，该tuple标记为执行失败，之后重发
+
+
+重发
 
 

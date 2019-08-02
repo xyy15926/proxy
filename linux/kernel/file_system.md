@@ -1,4 +1,16 @@
-#	Linux文件系统设计
+---
+title: Linux文件系统设计
+tags:
+  - Linux
+categories:
+  - Linux
+date: 2019-07-31 21:10:51
+updated: 2019-02-19 17:19:50
+toc: true
+mathjax: true
+comments: true
+description: Linux文件系统设计
+---
 
 ##	文件、文件系统
 

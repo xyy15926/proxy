@@ -1,4 +1,18 @@
-#	视频推荐
+---
+title: 视频推荐
+tags:
+  - 机器学习
+  - 推荐系统
+categories:
+  - 机器学习
+  - 推荐系统
+date: 2019-07-23 08:39:04
+updated: 2019-07-23 08:39:04
+toc: true
+mathjax: true
+comments: true
+description: 视频推荐
+---
 
 ##	Matching
 

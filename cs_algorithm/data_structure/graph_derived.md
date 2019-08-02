@@ -1,4 +1,18 @@
-#	图衍生
+---
+title: 图衍生
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-03-23 19:23:37
+updated: 2019-03-23 19:23:37
+toc: true
+mathjax: true
+comments: true
+description: 图衍生
+---
 
 ##	度
 

@@ -1,4 +1,16 @@
-#	Python安装配置
+---
+title: Python安装配置
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-03-21 17:27:15
+updated: 2019-02-28 15:12:54
+toc: true
+mathjax: true
+comments: true
+description: Python安装配置
+---
 
 ##	Python
 

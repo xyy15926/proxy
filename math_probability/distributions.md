@@ -1,4 +1,16 @@
-#	常见分布
+---
+title: 常见分布
+tags:
+  - 概率论
+categories:
+  - 概率论
+date: 2019-05-01 09:58:40
+updated: 2019-05-01 09:58:40
+toc: true
+mathjax: true
+comments: true
+description: 常见分布
+---
 
 ##	离散
 

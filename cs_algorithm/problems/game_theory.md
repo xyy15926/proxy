@@ -1,4 +1,16 @@
-#	博弈论
+---
+title: 博弈论
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-04-05 01:01:03
+updated: 2019-04-05 01:01:03
+toc: true
+mathjax: true
+comments: true
+description: 博弈论
+---
 
 ##	总述
 

@@ -1,4 +1,18 @@
-#	HBase
+---
+title: HBase
+tags:
+  - 工具
+  - Hadoop
+categories:
+  - 工具
+  - Hadoop
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: HBase
+---
 
 ##	HBase简介
 
@@ -260,6 +274,11 @@ HBase中Write Ahead Log存储格式，本质上是Hadoop Sequence File
 	-	timestamp：写入时间
 
 -	Squence File的Value是KeyValue对象，即对应HFile中KeyValue
+
+
+
+
+e
 
 
 

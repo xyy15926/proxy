@@ -1,4 +1,16 @@
-#	Abstract Data Type
+---
+title: Abstract Data Type
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-03-21 17:27:15
+updated: 2019-03-14 17:29:47
+toc: true
+mathjax: true
+comments: true
+description: Abstract Data Type
+---
 
 ##	概述
 

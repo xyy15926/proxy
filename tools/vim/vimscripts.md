@@ -1,4 +1,18 @@
-# vimscripts函数编程
+---
+title: vimscripts函数编程
+tags:
+  - 工具
+  - VIM
+categories:
+  - 工具
+  - VIM
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: vimscripts函数编程
+---
 
 ##	变量
 

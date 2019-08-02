@@ -1,4 +1,18 @@
-#	编码问题
+---
+title: 编码问题
+tags:
+  - 程序
+  - 字符
+categories:
+  - 程序
+  - 字符
+date: 2019-05-11 09:58:31
+updated: 2019-05-11 09:58:31
+toc: true
+mathjax: true
+comments: true
+description: 编码问题
+---
 
 ##	*Abstract Charater Repertoire*
 

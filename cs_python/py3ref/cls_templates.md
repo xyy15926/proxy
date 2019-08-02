@@ -1,4 +1,18 @@
-#	Python类用法实例
+---
+title: Python类用法实例
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-05-22 08:28:30
+updated: 2019-05-22 08:28:30
+toc: true
+mathjax: true
+comments: true
+description: Python类用法实例
+---
 
 ##	延迟计算
 

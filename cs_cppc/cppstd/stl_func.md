@@ -1,4 +1,16 @@
-#	C++函数式编程
+---
+title: C++函数式编程
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-03-21 17:27:37
+updated: 2019-03-11 12:44:09
+toc: true
+mathjax: true
+comments: true
+description: C++函数式编程
+---
 
 ##	`<functional>`
 

@@ -1,4 +1,18 @@
-#	Matrix Determinant
+---
+title: Matrix Determinant
+tags:
+  - 代数
+  - 线性代数
+categories:
+  - 代数
+  - 线性代数
+date: 2019-07-28 00:24:56
+updated: 2019-07-28 00:24:56
+toc: true
+mathjax: true
+comments: true
+description: Matrix Determinant
+---
 
 ##	行列式
 

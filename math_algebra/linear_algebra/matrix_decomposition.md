@@ -1,4 +1,18 @@
-#	Matrix Decomposition
+---
+title: Matrix Decomposition
+tags:
+  - 代数
+  - 线性代数
+categories:
+  - 代数
+  - 线性代数
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: Matrix Decomposition
+---
 
 ##	矩阵分解
 
@@ -233,5 +247,8 @@ A = Q R
 ###	特点
 
 -	正交矩阵逆为其转置，同样可以方便求解线性方程组
+
+
+
 
 

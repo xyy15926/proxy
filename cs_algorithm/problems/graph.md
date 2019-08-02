@@ -1,4 +1,16 @@
-#	图算法
+---
+title: 图算法
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-04-12 16:01:20
+updated: 2019-04-12 16:01:20
+toc: true
+mathjax: true
+comments: true
+description: 图算法
+---
 
 ##	总述
 
@@ -1370,4 +1382,6 @@ Held-Karp下界
 |2选|4.70|1.41|
 |3选|2.88|1.50|
 |Lin-Kernighan|2.00|2.06|
+
+
 

@@ -1,4 +1,18 @@
-#	TensorFlow搭建简单模型
+---
+title: TensorFlow搭建简单模型
+tags:
+  - Python
+  - Tensorflow
+categories:
+  - Python
+  - Tensorflow
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: TensorFlow搭建简单模型
+---
 
 ##	步骤
 

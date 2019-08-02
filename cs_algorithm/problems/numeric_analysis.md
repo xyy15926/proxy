@@ -1,4 +1,16 @@
-#	数值问题
+---
+title: 数值问题
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-03-21 17:27:37
+updated: 2019-02-22 11:21:42
+toc: true
+mathjax: true
+comments: true
+description: 数值问题
+---
 
 ##	总述
 

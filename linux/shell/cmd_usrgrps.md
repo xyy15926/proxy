@@ -1,4 +1,18 @@
-#	用户、登陆
+---
+title: 用户、登陆
+tags:
+  - Linux
+  - Shell命令
+categories:
+  - Linux
+  - Shell命令
+date: 2019-07-31 21:10:52
+updated: 2019-06-21 00:49:03
+toc: true
+mathjax: true
+comments: true
+description: 用户、登陆
+---
 
 用户类型
 

@@ -1,4 +1,18 @@
-#	DBMS查询优化
+---
+title: DBMS查询优化
+tags:
+  - 程序
+  - 数据库优化
+categories:
+  - 程序
+  - 数据库优化
+date: 2019-04-09 23:04:11
+updated: 2019-04-09 23:04:11
+toc: true
+mathjax: true
+comments: true
+description: DBMS查询优化
+---
 
 ##	查询优化技术
 
@@ -203,5 +217,8 @@ CBO：基于成本的优化器
 -	局部处理优化：传统单结点数据库的查询优化技术
 
 -	代价估计模型：总代价 = IO代价 + CPU代价 + 通信代价
+
+
+
 
 

@@ -1,4 +1,18 @@
-#	Tree
+---
+title: Tree
+tags:
+  - 算法
+  - 数据结构
+categories:
+  - 算法
+  - 数据结构
+date: 2019-06-04 23:11:44
+updated: 2019-06-04 23:11:44
+toc: true
+mathjax: true
+comments: true
+description: Tree
+---
 
 ##	树&森林
 
@@ -566,6 +580,8 @@ $$
 	按不同顺序进栈、出栈能得到排列的数目即为中序置换数目
 	$C_{2n}^n - C_{2n}^{n-1} = \frac 1 {n+1} C_{2n}^n$
 	
+
+
 
 
 

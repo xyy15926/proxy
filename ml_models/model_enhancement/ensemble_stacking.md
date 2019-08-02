@@ -1,4 +1,18 @@
-#	Stacked Generalization
+---
+title: Stacked Generalization
+tags:
+  - 模型
+  - 增强模型
+categories:
+  - 模型
+  - 增强模型
+date: 2019-07-23 08:39:04
+updated: 2019-07-23 08:39:04
+toc: true
+mathjax: true
+comments: true
+description: Stacked Generalization
+---
 
 ##	Stacked Generalization
 
@@ -102,4 +116,6 @@
 	-	LR基础上自动组合二阶交叉项
 
 -	Linear：训练模型、对训练结果线性加权
+
+�
 

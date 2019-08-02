@@ -1,4 +1,16 @@
-#	算法分析
+---
+title: 算法分析
+tags:
+  - 算法
+categories:
+  - 算法
+date: 2019-03-21 17:27:15
+updated: 2019-02-22 11:22:21
+toc: true
+mathjax: true
+comments: true
+description: 算法分析
+---
 
 ##	基础
 
@@ -726,5 +738,6 @@ NP-Hard问题：所有NP问题都可以通过多项式规约到其
 变量值，使得整个表达式值为*真*
 
 -	每个布尔表达式都可以表达为合取范式
+
 
 

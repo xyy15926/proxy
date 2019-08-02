@@ -1,4 +1,18 @@
-#	Spark Core
+---
+title: Spark Core
+tags:
+  - 工具
+  - Spark
+categories:
+  - 工具
+  - Spark
+date: 2019-08-02 23:17:39
+updated: 2019-08-02 23:17:39
+toc: true
+mathjax: true
+comments: true
+description: Spark Core
+---
 
 ##	Spark特性
 
@@ -263,5 +277,6 @@ val spark = SparkSession
 	.getOrCreate()
 spark.conf.set("spark.executor.memory", "2g")
 ```
+
 
 

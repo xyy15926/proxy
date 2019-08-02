@@ -1,4 +1,18 @@
-#	继承、Mixin
+---
+title: 继承、Mixin
+tags:
+  - 程序
+  - 程序设计
+categories:
+  - 程序
+  - 程序设计
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 继承、Mixin
+---
 
 ##	多重继承
 

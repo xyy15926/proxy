@@ -1,4 +1,18 @@
-#	CTR Stacking Models
+---
+title: CTR Stacking Models
+tags:
+  - 机器学习
+  - 推荐系统
+categories:
+  - 机器学习
+  - 推荐系统
+date: 2019-07-29 21:16:01
+updated: 2019-07-29 21:16:01
+toc: true
+mathjax: true
+comments: true
+description: CTR Stacking Models
+---
 
 ##	深度学习CTR
 
@@ -281,6 +295,11 @@ $$
 ![dien_structure](imgs/dien_structure.png)
 
 -	*Interest Extractor Layer*：使用GRU单元建模历史行为依赖
+	关系
+
+
+
+�
 	关系
 
 

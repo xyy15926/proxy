@@ -1,4 +1,18 @@
-#	EM算法
+---
+title: EM算法
+tags:
+  - 模型
+  - 无监督模型
+categories:
+  - 模型
+  - 无监督模型
+date: 2019-07-13 23:26:35
+updated: 2019-07-13 12:03:12
+toc: true
+mathjax: true
+comments: true
+description: EM算法
+---
 
 ##	总述
 

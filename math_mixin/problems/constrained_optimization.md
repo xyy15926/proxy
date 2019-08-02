@@ -1,4 +1,16 @@
-#	凸优化问题
+---
+title: 凸优化问题
+tags:
+  - 最优化
+categories:
+  - 最优化
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: 凸优化问题
+---
 
 ##	凸优化一般形式
 

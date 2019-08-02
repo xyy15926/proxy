@@ -1,4 +1,16 @@
-#	存储
+---
+title: 存储
+tags:
+  - 程序
+categories:
+  - 程序
+date: 2019-05-20 22:29:40
+updated: 2019-05-20 22:29:40
+toc: true
+mathjax: true
+comments: true
+description: 存储
+---
 
 ##	基本类型
 

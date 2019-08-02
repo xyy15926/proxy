@@ -1,4 +1,18 @@
-#	Keras
+---
+title: Keras
+tags:
+  - Python
+  - Keras
+categories:
+  - Python
+  - Keras
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: Keras
+---
 
 ##	Keras后端
 
@@ -1783,4 +1797,91 @@ def foldr(
 	-	`name`：节点名
 
 -	返回值：与`initializer`类型和形状一致
+
+_width=None,
+	dict_seq_lens=None,
+	dict_values=None
+)
+```
+
+使用贪婪算法或带约束的字典搜索算法解码softmax的输出
+
+-	参数
+
+	-	`y_pred`：包含预测值或输出的softmax值的张量
+	-	`input_length`：包含`y_pred`中每个batch序列长的张量
+	-	`greedy`：使用贪婪算法
+	-	`dict_seq_lens`：`dic_values`列表中各元素的长度
+	-	`dict_values`：列表的列表，代表字典
+
+-	返回值：包含了路径可能性（以softmax概率的形式）张量
+
+-	注意仍然需要一个用来取出argmax和处理空白标签的函数
+
+####	`map_fn`
+
+```python
+def map_fn(fn, elems, name=None)
+```
+
+元素elems在函数fn上的映射，并返回结果
+
+-	参数
+	-	`fn`：函数
+	-	`elems`：张量
+	-	`name`：节点的名字
+
+-	返回值：张量的第一维度等于`elems`，第二维度取决于`fn`
+
+####	`foldl`
+
+```python
+def foldl(
+	fn,
+	elems,
+	initializer=None,
+	name=None
+)
+```
+
+用fn从左到右连接它们，以减少`elems`值
+
+-	参数
+
+	-	`fn`：函数，例如：lambda acc, x: acc + x
+	-	`elems`：张量
+	-	`initializer`：初始化的值(elems[0])
+	-	`name`：节点名
+
+-	返回值：与`initializer`类型和形状一致
+
+####	`foldr`
+
+```python
+def foldr(
+	fn,
+	elems,
+	initializer=None,
+	name=None
+)
+```
+
+减少`elems`，用`fn`从右到左连接它们
+
+-	参数
+
+	-	`fn`：函数，例如：lambda acc, x: acc + x
+	-	`elems`：张量
+	-	`initializer`：初始化的值（elems[-1]）
+	-	`name`：节点名
+
+-	返回值：与`initializer`类型和形状一致
+
+-	`name`：节点名
+
+-	返回值：与`initializer`类型和形状一致
+
+
+
+
 

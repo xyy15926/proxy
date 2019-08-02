@@ -1,4 +1,16 @@
-#	通用操作系统服务
+---
+title: 通用操作系统服务
+tags:
+  - Python
+categories:
+  - Python
+date: 2019-06-09 23:57:08
+updated: 2019-06-09 23:57:08
+toc: true
+mathjax: true
+comments: true
+description: 通用操作系统服务
+---
 
 ##	`os`
 

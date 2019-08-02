@@ -1,4 +1,18 @@
-#	Mysql/Mariadb安装配置
+---
+title: Mysql/Mariadb安装配置
+tags:
+  - 工具
+  - SQLDB
+categories:
+  - 工具
+  - SQLDB
+date: 2019-07-10 00:48:33
+updated: 2019-07-10 00:48:33
+toc: true
+mathjax: true
+comments: true
+description: Mysql/Mariadb安装配置
+---
 
 ##	安装
 

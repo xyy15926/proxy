@@ -1,4 +1,16 @@
-#	类
+---
+title: 类
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-05-10 01:01:26
+updated: 2019-05-10 01:01:26
+toc: true
+mathjax: true
+comments: true
+description: 类
+---
 
 ##	*class*
 
@@ -646,6 +658,7 @@ int max(int x, int y){
 	...
 }
 ```
+
 
 
 

@@ -1,4 +1,18 @@
-#	Fenchel-Legendre Duality
+---
+title: Fenchel-Legendre Duality
+tags:
+  - 最优化
+  - 约束优化
+categories:
+  - 最优化
+  - 约束优化
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Fenchel-Legendre Duality
+---
 
 ##	*Legendre Transformation*
 
@@ -227,4 +241,6 @@ $$
 ![fenchel_conjugate_duality](imgs/fenchel_conjugate_duality.png)
 
 > - Fenchel对偶：寻找截距差值最大的平行切线
+
+�线
 

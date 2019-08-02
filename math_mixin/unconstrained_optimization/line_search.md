@@ -1,4 +1,18 @@
-#	Line Search
+---
+title: Line Search
+tags:
+  - 最优化
+  - 无约束优化
+categories:
+  - 最优化
+  - 无约束优化
+date: 2019-03-21 17:27:37
+updated: 2019-03-16 10:42:12
+toc: true
+mathjax: true
+comments: true
+description: Line Search
+---
 
 ##	综述
 
@@ -467,6 +481,8 @@ Armijo方法是Goldstein方法的变形
 	\end{align*}$$
 
 > - 能保证可接受解中包含最优解，而Goldstein方法不能保证
+
+
 
 
 

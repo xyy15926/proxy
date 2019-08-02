@@ -1,4 +1,16 @@
-#	C++STL算法库
+---
+title: C++STL算法库
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-03-21 17:27:37
+updated: 2019-03-11 12:07:16
+toc: true
+mathjax: true
+comments: true
+description: C++STL算法库
+---
 
 ##	选择函数
 

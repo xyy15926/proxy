@@ -1,4 +1,18 @@
-#	Scala自定义实体
+---
+title: Scala自定义实体
+tags:
+  - Java
+  - Scala
+categories:
+  - Java
+  - Scala
+date: 2019-08-02 23:17:39
+updated: 2019-08-02 23:17:39
+toc: true
+mathjax: true
+comments: true
+description: Scala自定义实体
+---
 
 ##	*Class*
 

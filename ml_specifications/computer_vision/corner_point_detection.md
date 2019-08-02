@@ -1,4 +1,18 @@
-#	角点检测特征提取
+---
+title: 角点检测特征提取
+tags:
+  - 机器学习
+  - CV
+categories:
+  - 机器学习
+  - CV
+date: 2019-07-13 12:03:12
+updated: 2019-07-13 12:03:12
+toc: true
+mathjax: true
+comments: true
+description: 角点检测特征提取
+---
 
 ##	综述
 

@@ -1,4 +1,18 @@
-#	社交网络
+---
+title: 社交网络
+tags:
+  - 机器学习
+  - 社会网络
+categories:
+  - 机器学习
+  - 社会网络
+date: 2019-07-14 12:13:11
+updated: 2019-07-14 12:12:53
+toc: true
+mathjax: true
+comments: true
+description: 社交网络
+---
 
 ##	网络结构
 

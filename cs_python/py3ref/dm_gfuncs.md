@@ -1,4 +1,18 @@
-#	数据模型--函数决定对象
+---
+title: 数据模型--函数决定对象
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-06-10 01:36:53
+updated: 2019-06-10 01:36:53
+toc: true
+mathjax: true
+comments: true
+description: 数据模型--函数决定对象
+---
 
 ##	函数
 

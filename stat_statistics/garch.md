@@ -1,4 +1,16 @@
-#	GARCH波动性建模
+---
+title: GARCH波动性建模
+tags:
+  - 统计
+categories:
+  - 统计
+date: 2019-03-21 17:27:15
+updated: 2019-02-17 11:57:08
+toc: true
+mathjax: true
+comments: true
+description: GARCH波动性建模
+---
 
 ##	白噪声检验
 

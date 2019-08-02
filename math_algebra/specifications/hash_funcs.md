@@ -1,4 +1,16 @@
-#	Hashing
+---
+title: Hashing
+tags:
+  - 代数
+categories:
+  - 代数
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Hashing
+---
 
 ##	*Hash Function*
 
@@ -577,4 +589,5 @@ $$
 
 -	在$E^2LSH$基础上通过**动态增强哈希键长**，增强哈希函数
 	区分能力，实现可扩展LSH
+
 

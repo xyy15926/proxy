@@ -1,4 +1,16 @@
-#	Data Science
+---
+title: Data Science
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-07-14 20:02:42
+updated: 2019-07-14 20:01:57
+toc: true
+mathjax: true
+comments: true
+description: Data Science
+---
 
 ##	*Statistic*
 
@@ -482,4 +494,6 @@
 		监督信息得到，且具有时延性
 	-	给出的监督信息也非“正确”策略，而是策略的延迟回报，
 		并通过调整策略以取得最大化期望回报
+
+
 

@@ -1,4 +1,18 @@
-#	Linux文本工具
+---
+title: Linux文本工具
+tags:
+  - Linux
+  - Shell命令
+categories:
+  - Linux
+  - Shell命令
+date: 2019-07-31 21:10:52
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: Linux文本工具
+---
 
 ##	Awk
 

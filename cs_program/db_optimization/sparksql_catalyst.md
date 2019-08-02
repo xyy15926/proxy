@@ -1,4 +1,18 @@
-#	Catalyst优化器
+---
+title: Catalyst优化器
+tags:
+  - 程序
+  - 数据库优化
+categories:
+  - 程序
+  - 数据库优化
+date: 2019-07-11 00:51:41
+updated: 2019-07-11 00:51:41
+toc: true
+mathjax: true
+comments: true
+description: Catalyst优化器
+---
 
 ##	结构
 
@@ -244,5 +258,8 @@ CBO依赖统计细节信息优化查询计划
 
 	$$
 	num(A FOJ B) = num(A ROJ B) + num(A ROJ B) - num(A IJ B)
+	$$
+
+B)
 	$$
 

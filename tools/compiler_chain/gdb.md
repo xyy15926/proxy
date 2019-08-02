@@ -1,4 +1,18 @@
-#	GDB
+---
+title: GDB
+tags:
+  - 工具
+  - 编译工具
+categories:
+  - 工具
+  - 编译工具
+date: 2019-03-21 17:27:37
+updated: 2019-03-01 01:32:49
+toc: true
+mathjax: true
+comments: true
+description: GDB
+---
 
 ##	概述
 

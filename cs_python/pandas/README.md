@@ -1,4 +1,18 @@
-#	Pandas约定
+---
+title: Pandas约定
+tags:
+  - Python
+  - Pandas
+categories:
+  - Python
+  - Pandas
+date: 2019-03-29 18:39:51
+updated: 2019-03-29 18:39:51
+toc: true
+mathjax: true
+comments: true
+description: Pandas约定
+---
 
 ##	常用参数说明
 

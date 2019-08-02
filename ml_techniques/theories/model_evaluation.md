@@ -1,4 +1,16 @@
-#	模型评估
+---
+title: 模型评估
+tags:
+  - 机器学习
+categories:
+  - 机器学习
+date: 2019-08-02 23:17:39
+updated: 2019-08-02 23:17:39
+toc: true
+mathjax: true
+comments: true
+description: 模型评估
+---
 
 ##	评估方向
 
@@ -406,4 +418,5 @@ C_p & = \frac {SSE} {\hat {\sigma^2}} - n + 2p
 > - $m$：所有特征数量
 > - $SSE_p$：选模型中残差平方和
 > - $SSE_m$：全模型中残差平方和
+
 

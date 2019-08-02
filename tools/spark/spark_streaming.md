@@ -1,4 +1,18 @@
-#	Spark Streaming
+---
+title: Spark Streaming
+tags:
+  - 工具
+  - Spark
+categories:
+  - 工具
+  - Spark
+date: 2019-07-21 00:46:35
+updated: 2019-07-21 00:46:35
+toc: true
+mathjax: true
+comments: true
+description: Spark Streaming
+---
 
 ##	Spark Streaming
 
@@ -164,4 +178,5 @@ def functionToCreateContext(): StreamingContext = {
 	ssc
 }
 ```
+
 

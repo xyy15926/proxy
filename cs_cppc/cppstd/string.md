@@ -1,4 +1,16 @@
-#	String
+---
+title: String
+tags:
+  - C/C++
+categories:
+  - C/C++
+date: 2019-03-21 17:27:37
+updated: 2019-03-08 21:38:16
+toc: true
+mathjax: true
+comments: true
+description: String
+---
 
 字符串：理论上是指特定字符序列
 

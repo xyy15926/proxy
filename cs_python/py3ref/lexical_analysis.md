@@ -1,4 +1,18 @@
-#	Lexical Analysis
+---
+title: Lexical Analysis
+tags:
+  - Python
+  - Py3Ref
+categories:
+  - Python
+  - Py3Ref
+date: 2019-08-01 01:38:59
+updated: 2019-08-01 01:38:59
+toc: true
+mathjax: true
+comments: true
+description: Lexical Analysis
+---
 
 -	python将读取的程序问题转换为Unicode码点
 	-	源文件的文本编码可由编码声明指定
