@@ -8,8 +8,7 @@ RDD：容错的、immutable、分布式、确定可重复计算的数据集
 	-	隶属于同一RDD数据，被划分为不同的Partition，以此为
 		单位分布到集群环境中各个节点上
 
--	RDD是无结构的数据表，和DataFrame不同
-	-	可以存放任何数据类型
+-	RDD是**无结构的数据表**，可以存放任何数据类型
 
 -	RDD immutable
 	-	对RDD进行转换，不会修改原RDD，只是返回新RDD
@@ -89,6 +88,7 @@ import org.apache.spark.rdd.RDD
 |Action|RDD|DStream|
 |-----|-----|-----|
 |`count()`||返回包含单元素RDD的DStream|
+|`collect()`|将RDD数据聚集至本地||
 |`countByValue()`|返回`(T, long)`键值对||
 |`countByKey()`|||
 |`first()`||返回包含单元素RDDd的DStream|
@@ -175,7 +175,7 @@ def updateStateByKey[S: ClassTag](
 |`persist()`|||
 |`cache()`|||
 
-##	*Directed Asycled Graph*
+##	Directed Asycled Graph
 
 Spark中DAG：可以看作由RDD、转换操作、动作操作构成，用于表达
 复杂计算
@@ -244,4 +244,95 @@ Spark中DAG：可以看作由RDD、转换操作、动作操作构成，用于表
 		处理，把已经执行过的阶段重新提交，以便重建丢失的数据
 	-	stage内其他失败情况由Task Scheduler本身进行处理，
 		将尝试执行任务一定次数、直到取消整个阶段
+
+##	DataFrame
+
+-	*DataFrame*：类似关系型数据库中表，数据被组织到具名列中
+	-	相较于RDD是对分布式、结构化数据集的高层次抽象，提供
+		特定领域的专用API进行处理
+	-	静态类型安全：相较于SQL查询语句，在编译时即可发现
+		语法错误
+
+-	*Dataset*：有明确类型数据、或无明确数据类型集合，相应API
+	也分为两类
+	-	相较于DataFrame，也可组织半结构化数据，同样提供方便
+		易用的结构化API
+	-	静态类型、运行时类型安全：相较于DataFrame，集合元素
+		有明确类型，在编译时即可发现分析错误
+
+> - Spark2.0中二者API统一
+> - DataFrame可视为无明确数据类型`Dataset[Row]`别名，每行是
+	无类型JVM对象
+
+###	创建方式
+
+-	`.toDF`
+
+	```scala
+	val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+	import sqlContext.implicits._
+
+	// `.toDF` + `Seq`创建
+	val df = Seq(
+		(1, "F", java.sql.Date.valueOf("2019-08-02")),
+		(2, "G", java.sql.Date.valueOf("2019-08-01"))
+	).toDF("id", "level", "date")
+	// 不指定列名，则默认为`_1`、`_2`等
+
+
+	// `.toDF` + `case Class`创建
+	case class Person(name: String, age: Int)
+	val people = sc.textFile("people.txt")
+		.map(_.split(","))
+		.map(p => Person(p(0),p(1).trim.toInt))
+		.toDF()
+	```
+
+-	`.createDataFrame`
+
+	```scala
+	import org.apache.spark.sql.types._
+	val schema = StrucType(List(
+		StructField("id", IntegerType, nullable=False),
+		StructField("level", StringType, nullable=False),
+		StructField("date", DateType, nullable=False)
+	))
+	val rdd = sc.parallelize(Seq(
+		(1, "F", java.sql.Date.valueOf("2019-08-02")),
+		(2, "G", java.sql.Date.valueOf("2019-08-01"))
+	))
+	val df = sqlContext.createDataFrame(rdd, schema)
+	```
+
+-	读取文件创建
+
+	```scala
+	val df = sqlContext.read.parquet("hdfs:/peopole.parq")
+	val df = spark.read.json("people.json")
+	// 读取csv仅2.0版本`SparkSession`后可
+	val df = spark.read.format("com.databricks.spark.csv")
+		.option("header", "true")
+		.option("mode", "DROPMALFORMED")
+		.load("people.csv")
+	```
+
+###	三种数据集对比
+
+-	空间、时间效率：DataFrame >= Dataset > RDD
+	-	DataFrame、Dataset基于SparkSQL引擎构建，使用Catalyst
+		生成优化后的逻辑、物理查询计划；无类型DataFrame相较
+		有类型Dataset运行更快
+	-	Spark作为编译器可以理解Dataset类型JVM对象，会使用
+		编码器将其映射为Tungsten内存内部表示
+
+-	RDD适合场景
+	-	对数据集进行最基本的转换、处理、控制
+	-	希望以函数式编程而不是以特定领域表达处理数据
+	-	数据为非结构化，如：流媒体、字符流
+
+-	DataFrame、Dataset使用场景
+	-	需要语义丰富、高级抽象、通用平台、特定领域API
+	-	需要对半结构化数据进行高级处理，如：filter、SQL查询
+	-	需要编译时/运行时类型安全、Catalyst优化、内存优化
+
 

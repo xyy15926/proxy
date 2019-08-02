@@ -248,3 +248,20 @@ def sc.hadoopRDD()
 		|`*`|0、多个字符|
 		|`{}`|**整体或选择**|
 
+##	Spark Session
+
+`SparkSession`：Spark2.0中新入口，封装有`SparkConf`、
+`SparkContext`、`SQLContext`、`HiveContext`等接口
+
+```scala
+val warehouseLocation = "file:${system:user.dir}/spark-warehouse"
+val spark = SparkSession
+	.builder()
+	.appName("App")
+	.config("spark.sql.warehouse.dir", warehouseLocation)
+	.enableHiveSupport()
+	.getOrCreate()
+spark.conf.set("spark.executor.memory", "2g")
+```
+
+

@@ -714,3 +714,21 @@ whileLoop(i > 0){
 	-	命名参数顺序可以打乱
 	-	未命名参数需要**按照方法签名中形参顺序**放在前面
 
+##	Exception
+
+异常处理：`try{throw...}catch{case...}`抛出捕获异常
+
+```c
+def main(args: Array[String]){
+	try{
+		val fp = new FileReader("Input")
+	}catch{
+		case ex: FileNotFoundException => println("File Missing")
+		case ex: IOException => println("IO Exception")
+	}finally{
+		println("finally")
+	}
+}
+```
+
+

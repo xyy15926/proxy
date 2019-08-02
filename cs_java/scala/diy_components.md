@@ -254,6 +254,47 @@ val message4 = Message("A", "B", "message")
 val message5 = message.copy(sender=message4.recipient, recipient="C")
 ```
 
+####	Value Class
+
+*Value Class*：通过继承`AnyVal`以避免运行时对象分配机制
+
+```scala
+class Wrapper(val underlying: Int) extends AnyVal
+```
+
+-	特点
+	-	参数：仅有被用作运行时底层表示的公有`val`参数
+	-	成员：可包含`def`自定义方法，但不能定义额外`val`、
+		`var`、内嵌`trait`、`class`、`object`
+	-	继承：只能继承*universal trait*，自身不能再被继承
+
+	> - 编译期类型为自定义类型，运行时类型为`val`参数类型
+	> - 调用universal trait中方法会带来对象分配开销
+
+-	用途
+
+	-	和隐式类联合获得免分配扩展方法
+
+		```scala
+		// 标准库中`RichInt`定义
+		implicit class RichInt(val self Int) extends AnyVal{
+			def toHexString: String = java.lang.Integer.toHexString(self)
+		}
+		```
+
+	-	不增加运行时开销同时保证数据类型安全
+
+		```scala
+		class Meter(val value: Double) extends AnyVal{
+			def +(m: Meter): Meter = new Meter(value + m.value)
+		}
+		```
+
+> - JVM不支持value class，Scala有时需实例化value class
+> > -	value class作为其他类型使用
+> > -	value class被赋值给数组
+> > -	执行运行时类型测试，如：模式匹配
+
 ##	*Object*
 
 单例对象：有且只有一个实例的特殊类，其中方法可以直接访问，
@@ -427,8 +468,8 @@ case object CC2 extends ST
 
 ###	自类型
 
-自类型：声明特质必须混入其他特质，尽管特质没有直接扩展其他
-特质
+自类型：声明特质必须**混入其他特质**，尽管特质没有直接扩展
+其他特质
 
 -	特质可以直接使用已声明自类型的特质中成员
 
@@ -464,6 +505,14 @@ class OuterClass{
 	}
 }
 ```
+
+###	Universal Trait
+
+*Universal Trait*：继承自`Any`、只有`def`成员、不作任何
+初始化的trait
+
+-	继承自universal trait的value class同时继承该trait方法，
+	但是调用其会带来对象分配开销
 
 ##	泛型
 
