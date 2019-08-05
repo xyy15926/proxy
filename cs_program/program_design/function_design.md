@@ -108,4 +108,23 @@ def test():
 		python
 	-	使用特定数据结构实现闭包，如：C++使用**函数类**实现
 
+##	Cache
+
+-	固定大小：存储空间有上限
+-	快速获取：插入、查找操作必须快速，最好$\in O(1)$
+-	达到存储空间上限时可以替换已有缓冲项
+
+###	Least Recently Used Cache
+
+*LRU Cache*：优先排除*least recently*缓冲条目
+
+![function_design_lru_cache](imgs/function_design_lru_cache.png)
+
+> - hashmap存储键、节点地址：常数时间查找
+> - 双向链表存储数据：利用地址可常数时间插入、删除
+
+-	缓冲条目每次被获取后，移至双向链表头
+-	缓冲区满后，删除双向链表最后节点条目，新条目插入表头
+
+> - <https://medium.com/@krishankantsinghal/my-first-blog-on-medium-583159139237>
 

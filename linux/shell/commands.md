@@ -14,6 +14,8 @@ comments: true
 description: Shell命令
 ---
 
+##	Shell命令
+
 -	builtin command：shell程序的一部分，包含简练的Linux系统
 	命令
 	-	由shell程序识别并在shell内部完成运行
@@ -22,8 +24,19 @@ description: Shell命令
 -	external command：linux系统中的实用程序部分
 	-	功能比较强大、包含的程序量更大
 	-	需要时才被调进内存
-		-	实体未包含在shell中，但是其执行过程由shell程序控制，
-		shell程序管理外部命令执行路径查找、加载、存放
+		-	实体未包含在shell中，但是其执行过程由shell程序
+			控制，shell程序管理外部命令执行路径查找、加载、
+			存放
+
+##	Shell命令快捷键
+
+-	`<c-k>`：删除光标至结尾文本
+-	`<c-u>`：删除光标至开头文本
+-	`<c-a>`：光标移至开头
+-	`<c-e>`：光标移至末尾
+-	`<m-f>`：光标前移一个单词
+-	`<m-b>`：光标后移一个单词
+-	`<c-w>`：删除单词
 
 ##	系统级查看、设置
 
