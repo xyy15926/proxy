@@ -528,6 +528,7 @@ Height(T):
 -	队列实现
 
 	```c
+	# 判断节点是否存在、再填充至队列
 	LevelTraversal(T):
 		q = InitQueue()
 		cur = T
@@ -538,8 +539,40 @@ Height(T):
 				q.push_back(cur.right)
 			visit(cur)
 			cur = q.pop_first()
+
+	# 先填充、再判断节点是否为`None`
+	# 填充可保证、适合节点位置和满二叉树对应
+	LevelTraversal(T):
+		q = InitQueue()
+		q.push(T)
+		# 层次遍历使用队列实现，所以无需像栈一样使用
+			# 两个判断条件`q.not_empty or cur`
+		while q.not_empty():
+			cur = q.pop_first()
+			# 弹出时判断节点是否有效
+			if cur:
+				visit(cur)
+				q.push_back(cur.left)
+				q.push_back(cur.right)
 	```
 
+-	**严格分层遍历**：记录队列长度、遍历固定长度
+
+	```c
+	LevelTraversal(T):
+		q = InitQueue()
+		q.push(T)
+		while q.not_empty():
+			# 记录当前开始时队列长度
+			# 每轮遍历该长度数目元素，严格分层遍历节点
+			for i=0 to len(q):
+				cur_node = q.pop_left()
+				visit(cur_node)
+				if cur.left:
+					q.push_back(cur.left)
+				if cur.right:
+					q.push_back(cur.right)
+	```
 
 ###	树的计数
 
