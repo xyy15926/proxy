@@ -31,11 +31,13 @@ $ tensorboard --logdir=/path/to/logdir --port XXXX
 
 ##	问题
 
+###	指令集
+
 >	Your CPU supports instructions that this TensorFlow binary was not cmpiled to use: SSE1.4, SSE4.2, AVX AVX2 FMA
 
 -	没从源代码安装以获取这些指令集的支持
 	-	从源代码编译安装
-	-	或者
+	-	或者设置log级别
 		```python
 		import os
 		os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
