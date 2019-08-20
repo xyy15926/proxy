@@ -49,8 +49,9 @@ description: Tensorflow约定
 
 -	`name = None/str`
 	-	含义：Operations名
-	-	默认：有的为None，有的为Operation类型，但效果一样，
-		没有传参时使用Operation类型（加顺序后缀）
+	-	默认：`None/OP类型`，后加上顺序后缀
+	-	说明
+		-	重名时TF自动加上`_[num]`后缀
 
 -	`axis = None/0/int`
 	-	含义：指定张量轴
@@ -62,10 +63,29 @@ description: Tensorflow约定
 	-	含义：是否保持维度数目
 	-	默认：`False`不保持
 
+-	`dtype=tf.int32/tf.float32/...`
+	-	含义：数据类型
+	-	默认：根据其他参数、函数名推断
+
+-	`shape/dims=(int)/[int]`
+	-	含义：各轴维数
+	-	默认：`None/1`???
+	-	说明
+		-	`-1`表示该轴维数由TF计算得到
+		-	有些情况下，此参数可省略，由TF隐式计算得到，
+			但显式指明方便debug
+
+-	`start=int`
+	-	含义：起始位置
+	-	默认：`0`
+
+-	`stop=int`
+	-	含义：终点位置
+	-	默认：一般无
+
 ##	TensorFlow基本概念
 
--	TensorFlow特点
-	-	将计算的定义、执行分开
+> - TensorFlow将计算的定义、执行分开
 
 ###	流程
 
