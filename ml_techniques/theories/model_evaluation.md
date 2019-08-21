@@ -295,33 +295,115 @@ AUC值：ROC曲线下方面积，越大越好
 	-	*=0.5*：同随机预测，无价值
 	-	*0~0.5*：差于随机预测，但是可以反向取预测值
 
--	计算AUC方法
-	-	绘制ROC曲线，计算曲线下面积
+####	AUC计算
 
-	-	正负样本分别配对，计算正样本预测概率大于负样本比例
+-	绘制ROC曲线，计算曲线下面积
+	-	给定一系列阈值（一般为样本数量），分别计算TPR、FPR
+	-	根据TPR、FPR计算AUC
 
-		$$\begin{align*}
-		auc & = \frac {\sum I(P_P > P_N)} {M * N} \\
-		I(P_P, P_N) = \left \{ begin{array}{l}
-			1, & P_P > P_N, \\
-			0.5, & P_P = P_N, \\
-			0, & P_P < P_N
-		\end{array} \right.
-		\end{align*}$$
+-	正负样本分别配对，计算正样本预测概率大于负样本比例
 
-		> - $M, N$：正、负样本数量
+	$$\begin{align*}
+	auc & = \frac {\sum I(P_P > P_N)} {M * N} \\
+	I(P_P, P_N) = \left \{ begin{array}{l}
+		1, & P_P > P_N, \\
+		0.5, & P_P = P_N, \\
+		0, & P_P < P_N
+	\end{array} \right.
+	\end{align*}$$
 
-	-	Wilcoxon-Mann-Witney检验（即分别配对简化）
+	> - $M, N$：正、负样本数量
 
-		$$
-		auc = \frac {\sum_{i \in Pos} rank(i) - 
-			\frac {M * (M+1)} 2} {M * N}
-		$$
+-	Mann-Witney U检验（即分别配对简化）
 
-		> - $Pos$：正样本集合
-		> - $rank(i)$：样本$i$的按正样本概率排序的秩
-			（对正样本概率值相同样本，应将秩加和求平均保证
-			其秩相等）
+	$$
+	auc = \frac {\sum_{i \in Pos} rank(i) - 
+		\frac {M * (M+1)} 2} {M * N}
+	$$
+
+	> - $Pos$：正样本集合
+	> - $rank(i)$：样本$i$的按正样本概率排序的秩
+		（对正样本概率值相同样本，应将秩加和求平均保证
+		其秩相等）
+
+####	加权AUC
+
+WAUC：给**每个样本**赋权，计算统计量时考虑样本权重
+
+-	FPR、TPR绘图
+
+	$$\begin{align*}
+	WTPR & = \frac {\sum_{i \in Pos} w_i I(\hat y_i=1)}
+		{\sum_{i \in Pos} w_i} \\
+	WFPR & = \frac {\sum_{j \in Neg} w_j I(\hat y_j=1)}
+		{\sum_{j \in Neg} w_j}
+	\end{align*}$$
+
+	> - $WTPR, WFPR$：加权TPR、加权FPR
+	> - $\hat y_i$：样本预测类别
+	> - $w_i$：样本权重
+
+-	Mann-Witney U检验：考虑其意义，带入权重即可得
+
+	$$\begin{align*}
+	auc = \frac {\sum_{i \in Pos} w_i * rank(i) -
+		\sum_{i \in Pos} w_i * rank_{pos}(i)}
+		{\sum_{i \in Pos} w_i * \sum_{j \in Neg} w_j}
+	\end{align*}$$
+
+	> - $rank_{pos}(i)$：正样本内部排序，样本$i$秩
+	> - $Neg$：负样本集合
+
+####	多分类AUC
+
+-	*micro*：所有类别统一考虑，将每个类别均视为样本标签
+	-	将n个样本的m个分类器共n * m个得分展平
+	-	将n个样本的m维one-hot标签展平，即其中有n个正样本、
+		n * (m-1)个负样本
+	-	使用以上预测得分、标签计算auc
+
+	```python
+	# one-vs-rest分类器得分
+	y_score = classifer.transform(X_test)
+	# 展平后计算fpr、tpr
+	fpr_micro, tpr_micro, threshhold_micro = \
+		skilearn.metrics.roc_curve(y_test.ravel(), y_score.ravel())
+	# 利用fpr、tpr计算auc
+	auc_micro = skilearn.metrics.auc(fpr_micro, tpr_micro)
+
+	# 等价于直接调用
+	auc_micro = skilearn.metrics.roc_auc_score(y_test, y_score,
+												average="micro")
+	```
+
+-	*macro*：对各类别，分别以计算roc曲线（即fpr、tpr），计算
+	平均roc曲线得到auc
+	-	对各类别分别计算fpr、tpr，共m组fpr、tpr
+	-	平均合并fpr、tpr，计算auc
+		-	方法1：合并fpr、去除重复值，使用m组fpr、tpr分别
+			求合并后fpr插值
+
+			```python
+			# 分别计算各类别fpr、tpr
+			fprs, tprs = [0] * n_classes, [0] * n_classes
+			for idx in range(n_classes):
+				fprs[idx], tprs[idx], _ = sklearn.metrics.ruc_curve(
+					y_test[:, i], y_score[:, i])
+			# 合并fpr
+			all_fpr = np.unique(np.concatenate(fprs))
+			mean_tpr = np.zeros_like(all_fpr)
+			# 计算合并后fpr插值
+			for idx in range(n_classes):
+				mean_tpr += scipy.interp(all_fpr, fpr[idx], tpr[idx])
+			mean_tpr /= n_classes
+			auc_macro = sklearn.metrics.auc(all_fpr, mean_tpr)
+
+			# 但是和以下结果不同
+			auc_macro = sklearn.metrics.roc_auc_score(fprs)
+			```
+
+> - 以上分类器均为*one-vs-rest*分类器，m个类别则m个分类器、
+	每个样本m个得分
 
 ###	*Accuracy*
 

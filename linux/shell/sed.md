@@ -2,10 +2,11 @@
 title: Linux文本工具
 tags:
   - Linux
-  - Shell命令
+  - Shell
+  - Command
 categories:
   - Linux
-  - Shell命令
+  - Shell Command
 date: 2019-07-31 21:10:52
 updated: 2019-02-17 11:57:07
 toc: true
