@@ -1,11 +1,13 @@
 ---
 title: Attention Machanism
 tags:
-  - 模型
-  - 模型组件
+  - Models
+  - Components
+  - Machine Learning
+  - Attention
 categories:
-  - 模型
-  - 模型组件
+  - Models
+  - Model Components
 date: 2019-07-29 21:16:01
 updated: 2019-07-29 21:16:01
 toc: true
@@ -74,9 +76,9 @@ e_t & = f_{Att}(K, Q)
 
 -	单隐层前馈网络（MLP）
 
-	$$\begin{align*}
-	e_{t,j} = v_a^T f_{act}(W_a [h_{t-1}; g_j]), & concat
-	\end{align*}$$
+	$$
+	e_{t,j} = v_a^T f_{act}(W_a [h_{t-1}; g_j])
+	$$
 
 	> - $h_{t-1}$：输出结构隐状态
 	> - $g_j$：输入结构隐状态
@@ -241,7 +243,7 @@ attention机制
 ![multi_head_attention](imgs/multi_head_attention.png)
 
 $$\begin{align*}
-MultiHead(X) & = Concat(head1, ..., head_h) W^O
+MultiHead(X) & = Concat(head1, ..., head_h) W^O \\
 head_i & = Attention(QW_i^Q, KW_i^K, VW_i^V)
 \end{align*}$$
 
@@ -249,6 +251,4 @@ head_i & = Attention(QW_i^Q, KW_i^K, VW_i^V)
 	一般就是原始输入序列矩阵
 
 -	可以并行训练，同时从序列中提取多组特征
-
-征
 
