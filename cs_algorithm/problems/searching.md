@@ -373,7 +373,7 @@ BinarySearchNoKeep(nums[0..n-1], target):
 			right = mid - 1
 
 	// post-processing
-	if nums[right] == target:
+	if right >= 0 and nums[right] == target:
 		return right
 
 	return -1
