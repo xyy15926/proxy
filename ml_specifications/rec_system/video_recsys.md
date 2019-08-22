@@ -1,11 +1,11 @@
 ---
 title: 视频推荐
 tags:
-  - 机器学习
-  - 推荐系统
+  - Recommendation System
+  - Machine Learning
 categories:
-  - 机器学习
-  - 推荐系统
+  - Maching Learning
+  - Recommendation System
 date: 2019-07-23 08:39:04
 updated: 2019-07-23 08:39:04
 toc: true

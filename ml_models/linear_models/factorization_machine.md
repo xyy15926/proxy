@@ -1,11 +1,13 @@
 ---
 title: Factorization Machines
 tags:
-  - 模型
-  - 线性模型
+  - Models
+  - linear models
+  - Machine Learning
+  - Factorization Machine
 categories:
-  - 模型
-  - 线性模型
+  - ML Models
+  - Linear Models
 date: 2019-07-29 21:16:01
 updated: 2019-07-29 21:16:01
 toc: true
@@ -30,8 +32,12 @@ $$
 > - $v_i$：$k$维向量，变量交叉影响因子
 
 -	FM通过**因子化交互影响解耦交互项参数**
+
 	-	即使没有足够数据也能较好估计高维稀疏特征交互影响参数
-		（包含某交互影响数据也能帮助估计相关的交互影响）
+		-	无需大量有交互影响（交互特征取值同时非0）样本
+		-	包含某交互影响数据也能帮助估计相关的交互影响
+		-	**可以学习数据不存在的模式**
+
 	-	可以视为embedding，特征之间关联性用embedding向量
 		（隐向量）內积表示
 
@@ -53,7 +59,11 @@ $$
 ###	模型表达能力
 
 -	考虑任何正定矩阵$W$总可以被分解为$W=V V^T$，则$k$足够大
-	时，FM总可以表达交叉项权重矩阵$W$
+	时，FM总可以表达（还原）交叉项权重矩阵$W$
+
+	-	FM是MF降维的推广，在用户-物品评分矩阵基础上集成其他
+		特征
+	-	特征组合发生所有变量之间
 
 -	实际应该选取较小的$k$
 	-	对较大$k$，稀疏特征没有足够数据估计复杂交叉项权重
@@ -102,9 +112,10 @@ $$\begin{align*}
 -	二分类：结合logit损失、hinge损失优化
 -	ranking：$\hat y(x)$作为得分排序，使用成对分类损失优化
 
-##	*Field-aware Factorization Machines*
+##	Field-aware Factorization Machines
 
-域感知因子分解机：对FM的升级
+域感知因子分解机：在FM基础上考虑对特征分类，特征对其他类别
+特征训练分别训练隐向量
 
 $$\begin{align*}
 \hat y(x) & = w_0 + \sum_{i=0}^m w_i x_i + \sum_{a=1}^m

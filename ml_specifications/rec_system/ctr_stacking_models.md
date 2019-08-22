@@ -52,14 +52,14 @@ embedding
 > > -	没有针对不同特征域进行交叉
 > > -	不是直接针对交叉特征设计
 
-##	Wide&Deep
+##	Wide&Deep Network
 
 *Wide&Deep*：结合深层网络、广度网络平衡记忆、泛化
 
 ![wide_and_deep_structure](imgs/wide_and_deep_structure.png)
 
 > - *deep models*：基于稠密embedding前馈神经网络
-> - *wide models*：基于稀疏特征、特征转换的线性模型
+> - *wide models*：基于稀疏特征、特征交叉、特征转换线性模型
 
 -	基于记忆的推荐通常和用户已经执行直接相关；基于泛化的推荐
 	更有可能提供多样性的推荐
@@ -72,7 +72,7 @@ embedding
 > - <https://arxiv.org/pdf/1606.07792.pdf>
 > - wide&deep系模型应该都属于stacking集成
 
-###	逻辑回归示例
+###	Google App Store实现
 
 ![wide_and_deep_logit_structure](imgs/wide_and_deep_logit_structure.png)
 
@@ -80,6 +80,25 @@ $$
 P(Y=1|x) = \sigma(w_{wide}^T[x, \phi(x)] + w_{deep}^T
 	\alpha^{l_f} + b)
 $$
+
+-	wide部分：*cross product transformation*
+	-	输入
+		-	已安装Apps
+		-	impression Apps
+		-	特征工程交叉特征
+	-	优化器：带L1正则的FTRL
+
+-	Deep部分：左侧DNN
+	-	输入
+		-	类别特征embedding：32维
+		-	稠密特征
+		-	拼接：拼接后1200维
+			（多值类别应该需要将embedding向量平均、极大化）
+	-	优化器：AdaGrad
+	-	隐层结构
+		-	激活函数relu优于tanh
+		-	3层隐层效果最佳
+		-	隐层使用塔式结构
 
 ##	DeepFM
 
@@ -90,15 +109,72 @@ $$
 > - *Dense Embeddings*：FM中各特征隐向量，FM、DNN公用
 > - *FM Layer*：FM內积、求和层
 
--	相当于同时组合wide、二阶交叉、deep三部分结构，增强模型
-	表达能力
+$$\begin{align*}
+y_{FM} & = <w, x> + \sum_i \sum_j <v_i, v_j> x_i x_j + b \\
+\hat y_{DeepFM} & = \sigma(y_{FM} + y_{DNN})
+\end{align*}$$
 
-##	Deep&Cross
+-	特点（和Wide&Deep关键区别）
+	-	wide部分为FM
+		（deep&wide中wide部分有特征交叉，但依靠特征工程实现）
+	-	FM、DNN部分共享embedding层
+
+-	同时组合wide、二阶交叉、deep三部分结构，增强模型表达能力
+	-	FM负责一阶特征、二阶特征交叉
+	-	DNN负责更高阶特征交叉、非线性
+
+###	实现
+
+-	DNN部分隐层
+	-	激活函数relu优于tanh
+	-	3层隐层效果最佳
+	-	神经元数目在200-400间为宜，略少于Wide&Deep
+	-	在总神经元数目固定下，constant结构最佳
+
+-	embedding层
+	-	实验中维度为10
+
+##	Deep&Cross Network
 
 *Deep&Cross*：用cross网络替代*wide&deep*中wide部分，提升其
 表达能力
 
 ![deep_and_cross_structure](imgs/deep_and_cross_structure.png)
+
+-	特点（和WDL、DeepFM区别）
+	-	使用交叉网络结构提取高阶交叉特征
+		-	无需特征工程（WDL）
+		-	不局限于二阶交叉特征（DeepFM）
+
+-	交叉网络可以使用较少资源提取高阶交叉特征
+
+<https://arxiv.org/pdf/1708.05123.pdf>
+
+###	交叉网络
+
+交叉网络：以有效地方式应用显式特征交叉，由多个交叉层组成
+
+![cross_network_cross_layer](imgs/cross_network_cross_layer.png)
+
+$$\begin{align*}
+x_{l+1} & = f(x_l, w_l, b_l) + x_l \\
+& = x_0 x_l^T w_l + b_l + x_l
+\end{align*}$$
+
+> - $x_l$：第$l$交叉层输出
+> - $w_l, b_l$：第$l$交叉层参数
+
+-	借鉴残差网络思想
+	-	交叉层完成特征交叉后，会再加上其输入
+	-	则映射函数$f(x_l, w_l, b_l)$即拟合残差
+
+-	特征高阶交叉
+	-	每层$x_0 x_l^T$都是特征交叉
+	-	交叉特征的阶数随深度$l$增加而增加，最高阶为$l+1$
+
+-	复杂度（资源消耗）
+	-	随输入向量维度、深度、线性增加
+	-	受益于$x_l^T w$为标量，由结合律无需存储中间过程矩阵
 
 ##	Nueral Factorization Machine
 
@@ -299,7 +375,7 @@ $$
 
 
 
-�
+?
 	关系
 
 
