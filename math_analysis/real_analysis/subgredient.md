@@ -1,23 +1,23 @@
 ---
 title: Subgredient/Subderivative/Subdifferential
 tags:
-  - 分析
-  - 实分析
+  - Math Analysis
+  - Real Analysis
+  - Subgredient
 categories:
-  - 分析
-  - 实分析
+  - Math Analysis
+  - Real Analysis
 date: 2019-07-21 00:46:35
 updated: 2019-07-21 00:46:35
 toc: true
 mathjax: true
 comments: true
-description: Subgredient/Subderivative/Subdifferential
+description: 次梯度
 ---
 
 ##	次梯度
 
 > - 次梯度：实变量凸函数$f$在点$x_0$的次梯度$c$满足
-
 	$$
 	\forall x, f(x) - f(x_0) \geq v(x - x_0)
 	$$
@@ -76,7 +76,7 @@ description: Subgredient/Subderivative/Subdifferential
 逐点最大函数：目标函数为
 
 $$\begin{align*}
-f(x) & = max{f_1(x), f_2(x), \cdots, f_m(x)} \\
+f(x) & = max \{f_1(x), f_2(x), \cdots, f_m(x)\} \\
 I(x) & = \{i | f_i(x) = f(x)\}
 \end{align*}$$
 
@@ -94,7 +94,7 @@ I(x) & = \{i | f_i(x) = f(x)\}
 ![subgredient_piecewise_function](imgs/subgredient_piecewise_function.png)
 
 -	折点处：
-	$\partial f(x) = conv{a_i, a_{i+1}} = [a_i, a_{i+1}]$
+	$\partial f(x) = conv\{a_i, a_{i+1}\} = [a_i, a_{i+1}]$
 -	非折点处：$\partial f(x) = {a_i}$
 
 ####	$L_1$范数
@@ -107,11 +107,11 @@ I(x) & = \{i | f_i(x) = f(x)\}
 
 $$\begin{align*}
 f(x) &= \sup_{\alpha \in A} f_{\alpha}(x) \\
-I(x) &= \{\alpha \in A\ | f_{\alpha}(x) = f(x)}
+I(x) &= \{\alpha \in A | f_{\alpha}(x) = f(x)\}
 \end{align*}$$
 
 > - 弱结果：可行梯度为
-	$\partial (\max_{\alpah} f_{\alpha}(x)) \in partial f(x)$
+	$\partial (\max_{\alpha} f_{\alpha}(x)) \in partial f(x)$
 > - 强结果：$\partial f(x) = conv \cup_{\alpha \in I(x)} \partial f_{alpha}(x) \subseteq \partial f(x)$
 
 ####	最大特征值
@@ -159,7 +159,7 @@ $$
 	> - $g_i \in \partial f_i(\hat x)$
 
 	-	证明
-g	$$\begin{align*}
+	$$\begin{align*}
 		f(x) \geq h(f_1(\hat x) + g_1^T(x - \hat x), \cdots,
 			f_k(\hat x) + g_k^T(x - \hat x) \
 		& \geq h(f_1(\hat x), \cdots, f_k(\hat x)) +

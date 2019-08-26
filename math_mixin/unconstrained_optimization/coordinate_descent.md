@@ -114,7 +114,7 @@ description: Coordinate Descent
 	$$
 	x_i = \left \{ \begin{array}{l}
 		\frac {-z_i + \lambda} {\rho_i}, & z_i > \lambda \\
-		0 , & -lambda < z_i < \lambda \\
+		0 , & -\lambda < z_i < \lambda \\
 		\frac {-z_i - \lambda} {\rho_i}, & z_i < -\lambda
 	\end{array} \right.
 	$$
