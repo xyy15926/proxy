@@ -237,6 +237,232 @@ os._exit(0)
 
 ##	`argparse`
 
+`argparse`：编写用户友好的命令行接口
+
+> - <https://docs.python.org/zh-cn/3/library/argparse.html>
+
+###	`argparse.ArgumentParser`
+
+```python
+class argparse.ArgumentParser:
+	def __init__(self,
+		prog=None,				# 程序名，可用`$(prog)s`引用
+		usage=None,				# 用法字符串
+		description=None,		# 程序描述
+		epilog=None,			# 程序尾描述
+		parents=[],				# 父解析器，共用当前参数
+		formatter_class=argparse.HelpFormatter,
+		prefix_chars="-"/str,	# 参数前缀（可包含多个可选）
+		fromfile_prefix_chars=None,		# 指定其后参数为存储参数文件名
+		argument_default=None,
+		conflict_handler="error"/"resolve"	# 默认不允许相同选项字符串
+											# 有不同行为，可设置为
+											# "resolve"表示允许覆盖
+		add_help=True,			# 符解释器中应禁止
+		allow_abbrev=True,		# 允许前缀匹配（若不存在重复前缀）
+	):
+		pass
+
+	# 打印、输出信息至标准输出
+	def print_usage(self, file=None/IO) -> None:
+		pass
+	def print_help(self, file=None/IO) -> None:
+		pass
+	def format_usage(self) -> str:
+		pass
+	def format_help(self) -> str:
+		pass
+
+	# 退出
+	def exit(self, exit=0, message=None):
+		pass
+	def error(self, message):
+		pass
+```
+
+####	添加参数
+
+```python
+ # 添加参数
+def add_argument(self,
+	?*name_or_flag=*[str],			# 选项名（无前缀表示位置参数）
+	action="store"/"store_const"/	# 参数动作
+		"store_true"/"store_false"/
+		"append"/"append_const"/
+		"count"/"help"/"version",
+	nargs=None/int/"?"/"*"/"+"
+	const=None,						# `action`、`nargs`所需常数
+	default=None,					# 未指定参数默认值
+	type=str/type,					# 参数被转换类型、内建函数
+	choices=None,					# 参数类型
+	required=None,					# 选项候选集
+	help=None,						# 选项描述
+	metavar=None,					# 参数值示例
+	dest=None,						# `parse_args()`返回的参数属性名
+):
+	pass
+
+ # 添加参数组，参数选项将可以注册至此
+def add_argument_group(self,
+	title=None,
+	description=None
+) -> argparse._ArgumentGroup:
+	pass
+
+ # 添加互斥参数组，互斥组内仅有一个参数可用
+def add_mutally_exclusive_group(self,
+	rquired=False				# 互斥组中至少有一个参数
+) -> argparse._MutaullyExclusiveGroup:
+	pass
+
+ # 设置默认值，优先级高于选项中默认值
+def set_defaults(self,
+	**kwargs: {参数属性名: 默认值}
+):
+	pass
+
+ # 获取默认值
+def get_default(self,
+	**kwargs: {参数属性名: 默认值}
+):
+	pass
+```
+
+-	参数
+	-	`action`：关联命令行参数、动作，除以下预定义行为，
+		还可以传递`argparse.Action`子类、相同接口类
+		-	`store`：存储值，默认行为
+		-	`store_const`：存储`const`指定值，通常用于在
+			选项中指定标志
+		-	`store_true`/`"store_false"`：类上
+		-	`append`：存储列表，适合多次使用选项
+		-	`append_const`：将`const`参数值追加至列表，
+			适合**多个选项需要在同一列表中存储常数**
+			（即多个`dest`参数相同）
+		-	`count`：计算选项出现次数
+		-	`help`：打印完整帮助信息
+		-	`version`：打印`version`参数值
+
+
+	-	`nargs`：参数消耗数目，指定后`pare_args`返回列表，
+		否则参数消耗由`action`决定
+
+		-	`int`：消耗参数数目，`nargs=1`产生单元素列表，
+			和默认不同
+		-	`?/*/+`：类似普通正则，`+`会在没有至少一个参数时
+			报错
+		-	`argparse.REMAINDER`：所有剩余参数，适合用于从
+			命令行传递参数至另一命令行
+
+	-	`const`：保存不从命令行读取、被各种动作需求的常数
+		-	`action="store_const"/"append_const"`：必须给出
+		-	`nargs=?`：气候选项没有参数时，使用`const`替代
+
+	-	`type`：允许任何类型检查、类型转换，一般内建类型、
+		函数可以直接使用
+		-	`argparse.FiltType("w")`：为文件读写方便，预定义
+			类型转换
+
+	-	`dest`：`parse_args()`返回的参数属性名
+		-	位置选项：缺省为首个选项名
+		-	关键字选项：优秀首个`--`开头长选项名，选项目中间
+			`-`被替换为`_`
+
+####	参数解析
+
+```python
+ # 解析参数，无法解析则报错
+def parse_args(self,
+	args=None/list,			# 需要解析参数列表，默认`sys.argv`
+	namespace=None			# 存放属性的`Namespace`对象，缺省创建新空对象
+) -> argparse.Namespace:
+	pass
+
+ # 解析部分参数，无法解析则返回
+def parse_known_args(self,
+	args=None/list,
+	namespace=None
+) -> (argparse.Namespace, [ ]):
+	pass
+
+ # 允许混合位置参数、关键字参数
+def parse_intermixed_args(self,
+	args=None,
+	namespace=None
+) -> argparse.Namespace:
+	pass
+def parse_known_intermixed_args(self,
+	args=None,
+	namespace=None
+) -> argparse.Namespace:
+	pass
+```
+
+-	说明
+	-	仅不包含类似负数的选项名，参数才会被尝试解释为负数
+		位置参数
+	-	前缀无歧义时，可以前缀匹配
+
+####	添加子命令
+
+```python
+def add_subparsers(self,
+	title,
+	description,
+	prog,
+	parser_class,
+	action,
+	option_string,
+	dest,
+	required,
+	help,
+	metavar
+):
+	pass
+```
+
+###	辅助类
+
+####	动作类
+
+```python
+class argparse.Action:
+	def __init__(self, option_string, dest, nargs=None, **kwargs):
+		pass
+
+	def __call__(self, parser, namespace, values, option_string=None):
+		pass
+```
+
+####	格式化类
+
+```python
+class argparse.ArgumentDefaultHelpFormatter
+ # 认为两程序描述已被正确格式化，保留原样输出
+class argparse.RawDescriptionHelpFormatter
+ # 保留所有种类文字的空格，包括参数描述
+class argparse.RawTextHelpFormatter
+ # 为每个参数使用`type`参数名作为其显示名，而不是`dest`
+class argparse.MetavarTypeHelpFormatter
+```
+
+####	其他类
+
+```python
+ # 容纳属性的类
+class argparse.Namespace:
+	pass
+ # IO接口简化类
+class argparse.FileType:
+	def __init__(self,
+		mode="r"/"w",
+		bufsize=-1,
+		encoding=None,
+		errors=None
+	):
+		pass
+```
+
 ##	`getopt`
 
 ##	`optparse`
