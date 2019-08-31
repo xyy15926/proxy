@@ -1,11 +1,13 @@
 ---
 title: Perceptron
 tags:
-  - 模型
-  - 线性模型
+  - Model
+  - Linear Model
+  - Perceptron
+  - Machine Learning
 categories:
-  - 模型
-  - 线性模型
+  - ML Model
+  - Linear Model
 date: 2019-07-13 23:23:48
 updated: 2019-07-13 12:03:11
 toc: true

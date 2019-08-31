@@ -1,11 +1,12 @@
 ---
 title: Support Vector Machine
 tags:
-  - 模型
-  - 线性模型
+  - Model
+  - Linear Model
+  - SVM
 categories:
-  - 模型
-  - 线性模型
+  - ML Model
+  - Linear Model
 date: 2019-07-13 23:23:47
 updated: 2019-07-13 12:03:11
 toc: true
