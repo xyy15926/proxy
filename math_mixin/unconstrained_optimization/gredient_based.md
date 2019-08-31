@@ -1,11 +1,13 @@
 ---
 title: 基于梯度算法
 tags:
-  - 最优化
-  - 无约束优化
+  - Optimization
+  - Unconstrained
+  - Newton's
+  - Gradient Descent
 categories:
-  - 最优化
-  - 无约束优化
+  - Optimization
+  - Unconstrianed Optimization
 date: 2019-06-04 01:18:34
 updated: 2019-06-04 01:18:34
 toc: true
@@ -19,8 +21,8 @@ description: 基于梯度算法
 对目标函数$f(x)$在$x^{(1)}$进行展开
 
 $$
-f(x) = f(x^{(1)}) + \triangledown f(x^{(1)})(x - x^{(1)})+
-	\frac 1 2 \triangledown^2 f(x^{(1)})(x - x^{(1)})^2 +
+f(x) = f(x^{(1)}) + \nabla f(x^{(1)})(x - x^{(1)})+
+	\frac 1 2 \nabla^2 f(x^{(1)})(x - x^{(1)})^2 +
 	o((x - x^{(1)})^2)
 $$
 
@@ -28,8 +30,8 @@ $$
 > - Newton法：保留一阶、二阶项，即使用二次函数近似
 
 -	利用近似函数求解元素问题极小值
-	-	对最速下降法，线性函数无极值，需要确定步长、迭代
-	-	对Newton法，二次函数有极值，直接求导算出极值、迭代
+	-	最速下降法：**线性函数无极值，需要确定步长、迭代**
+	-	Newton法：**二次函数有极值，直接求导算出极值、迭代**
 
 -	最速下降法
 	-	只考虑一阶导：甚至说根本没有考虑拟合原目标函数
@@ -45,10 +47,11 @@ $$
 
 ###	思想
 
--	设$x=x(t)$为最优点x以负梯度方向经过的曲线，则有
+-	设$x=x(t)$为最优点$x$从初始点、沿负梯度方向经过的曲线，
+	则有
 
 	$$\left \{ \begin{array}{l}
-	& \frac {dx(t)} {dt} = -\triangledown f(x(t)) \\
+	& \frac {dx(t)} {dt} = -\nabla f(x(t)) \\
 	& x(t_1) = x^{(1)}
 	\end{array} \right.$$
 
@@ -64,13 +67,13 @@ $$
 ###	算法
 
 > - 搜索方向最速下降方向：负梯度方向
-> - 终止准则：$\triangledown f(x^{(k)})=0$
+> - 终止准则：$\nabla f(x^{(k)})=0$
 
 1.	取初始点$x^{(1)}$，置k=1
 
-2.	若$\triangledown f(x^{(k)})=0$，则停止计算，得到最优解，
+2.	若$\nabla f(x^{(k)})=0$，则停止计算，得到最优解，
 	否则置
-	$$d^{(k)} = -\triangledown f(x^{(k)})$$
+	$$d^{(k)} = -\nabla f(x^{(k)})$$
 	以负梯度作为前进方向
 
 3.	一维搜索，求解一维问题
@@ -93,7 +96,7 @@ $$
 
 -	若$x^{ * }$是无约束问题局部解，则有
 
-	$$\triangledown f(x^{ * }) = 0$$
+	$$\nabla f(x^{ * }) = 0$$
 
 	可求解此问题，得到无约束问题最优解
 
@@ -101,15 +104,15 @@ $$
 	处泰勒展开
 
 	$$
-	\triangledown f(x) \approx \triangledown f(x^{(1)})
-		+ \triangledown^2 f(x^{(1)})(x - x^{(1)})
+	\nabla f(x) \approx \nabla f(x^{(1)})
+		+ \nabla^2 f(x^{(1)})(x - x^{(1)})
 	$$
 
 	解得
 
 	$$
-	x^{(2)} = x^{(1)} - (\triangledown^2 f(x^{(1)}))^{-1}
-		\triangledown f(x^{(1)})
+	x^{(2)} = x^{(1)} - (\nabla^2 f(x^{(1)}))^{-1}
+		\nabla f(x^{(1)})
 	$$
 
 	作为$x^{ * }$的第二次近似
@@ -122,7 +125,7 @@ $$
 
 	> - $d^{(k)}$：Newton方向，是满足以下方程组解
 		$$
-		\triangledown^2 f(x^{(k)}) d = -\triangledown
+		\nabla^2 f(x^{(k)}) d = -\nabla
 			f(x^{(k)}
 		$$
 
@@ -130,11 +133,11 @@ $$
 
 1.	初始点$x^{(1)}$、精度要求$\epsilon$，置k=1
 
-2.	若$\|\triangledown f(x^{(k)})\| \leq \epsilon$，停止计算
+2.	若$\|\nabla f(x^{(k)})\| \leq \epsilon$，停止计算
 	，得到最优解$x^{(k)}$，否则求解
 
 	$$
-	\triangledown^2 f(x^{(k)}) d = -\triangledown
+	\nabla^2 f(x^{(k)}) d = -\nabla
 		f(x^{(k)}
 	$$
 
@@ -170,11 +173,11 @@ $$
 
 1.	初始点$x^{(1)}$、精度要求$\epsilon$，置k=1
 
-2.	若$\|\triangledown f(x^{(k)})\| \leq \epsilon$，停止计算
+2.	若$\|\nabla f(x^{(k)})\| \leq \epsilon$，停止计算
 	，得到最优解$x^{(k)}$，否则求解
 
 	$$
-	\triangledown^2 f(x^{(k)}) d = -\triangledown
+	\nabla^2 f(x^{(k)}) d = -\nabla
 		f(x^{(k)}
 	$$
 
@@ -201,14 +204,14 @@ $$
 
 将Newton方向和最速下降方向结合
 
--	设$\theta_k$是$d_N^{(k)}, -\triangledown f(x^{(k)})$之间
+-	设$\theta_k$是$d_N^{(k)}, -\nabla f(x^{(k)})$之间
 	夹角，显然希望$\theta < \frac \pi 2$
 
 -	则置限制条件$\eta$，取迭代方向
 
 	$$d^{(k)} = \left \{ \begin{array}{l}
 	d_N^{(k)}, & cos\theta_k \geq \eta \\
-	-\triangledown f(x^{(k)}), & 其他
+	-\nabla f(x^{(k)}), & 其他
 	\end{array} \right.$$
 
 ###	*Negative Curvature*
@@ -220,12 +223,12 @@ $$
 -	可以取负曲率下降方向
 
 	$$
-	d^{(k)} = -sign(u^T \triangledown f(x^{(k)})) u
+	d^{(k)} = -sign(u^T \nabla f(x^{(k)})) u
 	$$
 
 > - $x^{(k)}$处负曲率方向$d^{(k)}$满足
 	$$
-	d^{(k)T} \triangledown^2 f(x^{(k)}) d^{(k)} < 0
+	d^{(k)T} \nabla^2 f(x^{(k)}) d^{(k)} < 0
 	$$
 
 ###	修正Hesse矩阵
@@ -233,11 +236,11 @@ $$
 取$d^{(k)}$为以下方程的解
 
 $$
-(\triangledown^2 f(x^{(k)}) + v_k I) d =
-	-\triangledown f(x^{k})
+(\nabla^2 f(x^{(k)}) + v_k I) d =
+	-\nabla f(x^{k})
 $$
 
-> - $v_k$：大于$\triangledown^2 f(x^{(k)})$最大负特征值
+> - $v_k$：大于$\nabla^2 f(x^{(k)})$最大负特征值
 	绝对值
 
 

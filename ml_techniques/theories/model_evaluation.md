@@ -145,73 +145,6 @@ $$
 	-	数据：调整、变换、扩展训练数据，让其展现更多、更有用
 		的信息
 
-##	*Generalization Ability*
-
-泛化能力：方法学习到的模型对未知数据的预测能力
-
--	是学习方法本质上重要的性质
-
--	测试误差衡量学习方法的泛化能力不可靠，其依赖于测试集，
-	而测试集有限
-
--	*generalization error*：泛化误差，即模型（期望）风险函数
-	
-	-	反映了学习方法的泛化能力
-	-	进一步发，学习方法的泛化能力往往是通过研究泛化误差的
-		概率上界进行
-
-###	*Generalization Error Bound*
-
-泛化误差上界：泛化误差的**概率**上界
-
--	是样本容量函数，样本容量增加时，泛化上界趋于0
--	是假设空间容量函数，假设空间容量越大，模型越难学习，泛化
-	误差上界越大
-
-###	二分类问题
-
-定理：对二分类问题，假设空间为有限个函数的集合
-$F={f_1, f_2, \cdots, f_d}$时，对任意函数$f \in F$，至少
-以概率$1 - \sigma$，以下不等式成立
-
-$$
-R(f) \leqslant \hat{R(f)} + \epsilon(d, N, \sigma)
-$$
-
-> - $\hat{R(f)}$：训练误差，则训练误差小其泛化误差（上界）
-	也较小（决定性基底，用经验估计期望）
-> - $\epsilon(d, N, \sigma) = \sqrt {\frac 1 {2N} (logd + log \frac 1 {\sigma})}$
-	：是样本量$N$递减函数、假设空间容量$d$的递增函数
-	（在给定把握$1-\sigma$下，用经验估计期望的波动）
-> - 不等式右端即为左端泛化误差$R(f)$上界
-
--	$\hat{R(f)}$是N个独立随机变量$L(Y, f(X))$的样本均值，
-	$R_(f)$是N个独立随机变量$L(Y, f(X))$期望
-
--	若损失函数值取值于$[0,1]$，由Hoeffding不等式
-	$$
-	P(R(f) - \hat{R(f)} \geqslant \epsilon) \geqslant
-		exp(-2N\epsilon^2)
-	$$
-
--	假设空间$F$为有限集，有
-	$$
-	\begin{align*}
-	P(\exists f \in F: R(f) - \hat{R(f)} \geq \epsilon) & =
-		P(\bigcup_{f \in F} \{R(f) - \hat{R(f)} \geq \epsilon\}) \\
-	& \leq \sum_{f \in F} P(R(f) - \hat{R(f)} \geq \epsilon) \\
-	& \leq dexp(-2N\epsilon^2)
-	\end{align*}
-	$$
-
--	即$\forall f \in F$，有
-	$$
-	P(R(f) - \hat{R(f)} < \epsilon) \geq 1 -
-		dexp(-2N\epsilon^2)
-	$$
-
--	令$\sigma = dexp(-2N\epsilon^2)$，得证
-
 ##	*Classification*/*Tagging*
 
 -	分类问题：输出变量$Y$为有限个离散变量
@@ -305,7 +238,7 @@ AUC值：ROC曲线下方面积，越大越好
 
 	$$\begin{align*}
 	auc & = \frac {\sum I(P_P > P_N)} {M * N} \\
-	I(P_P, P_N) = \left \{ begin{array}{l}
+	I(P_P, P_N) & = \left \{ \begin{array}{l}
 		1, & P_P > P_N, \\
 		0.5, & P_P = P_N, \\
 		0, & P_P < P_N

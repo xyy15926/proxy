@@ -1,9 +1,11 @@
 ---
 title: 参数估计方法
 tags:
-  - 机器学习
+  - Machine Learning
+  - Parameter Estimation
 categories:
-  - 机器学习
+  - ML Tech
+  - Optimization
 date: 2019-07-14 19:33:23
 updated: 2019-07-13 12:03:11
 toc: true

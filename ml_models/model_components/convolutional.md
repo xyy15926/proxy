@@ -1,11 +1,13 @@
 ---
 title: Convolutional
 tags:
-  - 模型
-  - 模型组件
+  - Models
+  - Components
+  - Machine Learning
+  - Convolutional
 categories:
-  - 模型
-  - 模型组件
+  - ML Models
+  - Model Components
 date: 2019-07-29 21:16:01
 updated: 2019-07-29 21:16:01
 toc: true

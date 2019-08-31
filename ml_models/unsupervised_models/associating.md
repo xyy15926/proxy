@@ -55,6 +55,7 @@ description: 频繁项集/序列
 
 > - 选择频繁数据集，一般需要自定义评估标准：自定义支持度、
 	自定义支持度和置信度组合
+
 ##	Apriori
 
 Apriori算法
@@ -117,13 +118,15 @@ FPTree：对Apriori算法改进，不在需要多次扫描数据
 	![fptree_item_head_table](imgs/fptree_build_fptree.png)
 
 -	挖掘FPTree：对项表头中每项，找到其条件模式基
-	-	将子树中每个节点计数置为叶子节点计数和
+	-	将子树中每个节点计数置为叶子节点计数和，则子树中节点
+		取值即为其与当前项组合出现频数/支持度
 	-	删除（当前子树内）支持度/频数低于支持度阈值$\alpha$
 		节点
+	-	剩余节点项、当前项组合即为相应频繁$k$项集
 
 	![fptree_mine_item_set](imgs/fptree_mine_item_set.png)
 
-> - 条件模式基：节点**作为叶子节点**所对应的FP子树
+	> - 条件模式基：节点**作为叶子节点**所对应的FP子树
 
 ##	Prefix-Projected Pattern Growth
 
@@ -153,4 +156,4 @@ FPTree：对Apriori算法改进，不在需要多次扫描数据
 
 > - *prefix*：前缀，正在处理的子序列
 > - *projected*：投影，各数据序列中位于前缀之后子串
-�串
+?串

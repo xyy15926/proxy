@@ -8,7 +8,7 @@ tags:
   - GRU
 categories:
   - ML Models
-  - ML Models Components
+  - Model Components
 date: 2019-07-29 21:16:01
 updated: 2019-07-29 21:16:01
 toc: true
