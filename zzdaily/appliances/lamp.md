@@ -1,4 +1,17 @@
-#	台灯知识
+---
+title: 台灯知识
+tags:
+  - Daily Life
+  - Appliance
+categories:
+  - Daily Life
+date: 2019-03-21 17:27:37
+updated: 2019-02-17 11:57:07
+toc: true
+mathjax: true
+comments: true
+description: 台灯常识
+---
 
 ##	3种常见光源
 
@@ -32,8 +45,8 @@
 
 ###	总结
 
+||卤素灯|节能灯|LED灯|
 |-----|-----|-----|-----|
-|	|卤素灯|节能灯|LED灯|
 |安全性|发热、易碎|汞蒸气、易碎|安全|
 |显色指数|99~100|80（一般）|80+|
 |能耗（800lm计）|17h|83h|125h|
