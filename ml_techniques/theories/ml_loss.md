@@ -1,0 +1,387 @@
+---
+title: 机器学习损失
+tags:
+  - Machine Learning
+  - Loss
+categories:
+  - ML Tech
+  - ML Theory
+date: 2019-08-25 21:53:20
+updated: 2019-08-25 21:53:28
+toc: true
+mathjax: true
+comments: true
+description: 机器学习中损失函数的理论
+---
+
+##	Loss Models
+
+模型（目标函数）在样本整体的损失：度量模型整体预测效果
+
+-	代表模型在整体上的性质，有不同的设计形式
+
+-	可以用于**设计学习策略、评价模型**
+	-	风险函数
+	-	评价函数
+
+-	有时在算法中也会使用整体损失
+
+###	Expected Risk/Expected Loss/Generalization Loss
+
+期望风险（函数）：损失函数$L(Y, f(X))$（随机变量）期望
+
+$$
+R_{exp}(f) = E_p[L(Y, f(X))] = \int_{x*y} L(y,f(x))P(x,y) dxdy
+$$
+
+> - $P(X, Y)$：随机变量$(X, Y)$遵循的联合分布，未知
+
+
+-	风险函数值度量模型预测错误程度
+	-	反映了学习方法的泛化能力
+	-	评价标准（**监督学习目标**）就应该是选择期望风险最小
+
+-	联合分布未知，所以才需要学习，否则可以直接计算条件分布
+	概率，而计算期望损失需要知道联合分布，因此监督学习是一个
+	病态问题
+
+###	Empirical Risk/Empirical Loss
+
+经验风险：模型关于给定训练数据集的平均损失
+
+$$\begin{align*}
+R_{emp}(f) & = \sum_{i=1}^N D_i L(y_i, f(x_i;\theta)) \\
+E(R_{emp}(f)) & = R_{exp}(f)
+\end{align*}$$
+
+> - $\theta$：模型参数
+> - $D_i$：样本损失权重，常为$\frac 1 N$，在Boosting框架中
+	不同
+
+-	经验风险损失是模型$f(x)$的函数
+	-	训练时，模型是模型参数的函数
+	-	即其为模型参数函数
+
+-	根据大数定律，样本量容量N趋于无穷时，$R_{emp}(f)$趋于
+	$R_{exp}(f)$
+
+-	但是现实中训练样本数目有限、很小，利用经验风险估计期望
+	常常并不理想，需要对经验风险进行矫正
+
+-	例子
+	-	*maximum probability estimation*：极大似然估计
+		-	模型：条件概率分布（贝叶斯生成模型、逻辑回归）
+		-	损失函数：对数损失函数
+
+###	Structual Risk/Structual Loss
+
+结构风险：在经验风险上加上表示**模型复杂度**的
+*regularizer*（*penalty term*）
+
+$$
+R_{srm} = \frac 1 N \sum_{i=1}^N L(y_i, f(x_i)) +
+	\lambda J(f)
+$$
+
+> - $J(f)$：模型复杂度，定义在假设空间$F$上的泛函
+> - $\lambda$：权衡经验风险、模型复杂度的系数
+
+-	结构风险最小化通过添加*regularization*（正则化）实现
+
+-	模型复杂度$J(f)$表示对复杂模型的惩罚：模型$f$越复杂，
+	复杂项$J(f)$越大
+
+-	例子
+	-	*maximum posterior probability estimation*：最大后验
+		概率估计
+		-	损失函数：对数损失函数
+		-	模型复杂度：模型先验概率对数后取负
+		-	先验概率对应模型复杂度，先验概率越小，复杂度越大
+
+##	Generalization Ability
+
+泛化能力：方法学习到的模型对未知数据的预测能力，是学习方法
+本质、重要的性质
+
+-	测试误差衡量学习方法的泛化能力不可靠，其依赖于测试集，
+	而测试集有限
+
+-	学习方法的泛化能力往往是通过研究泛化误差的概率上界进行
+
+###	Generalization Error Bound
+
+泛化误差上界：泛化误差的**概率**上界
+
+-	是样本容量函数，样本容量增加时，泛化上界趋于0
+-	是假设空间容量函数，假设空间容量越大，模型越难学习，泛化
+	误差上界越大
+
+####	泛化误差
+
+-	根据Hoeffding不等式，泛化误差满足
+
+	$$\begin{align*}
+	& \forall h \in H, & P(|E(h) - \hat E(h)| \geq \epsilon)
+		\leq 2 e^{-2 N \epsilon^2} \\
+
+	\Rightarrow & \forall h \in H, & P(|E(h) - \hat E(h)|
+		\leq \epsilon) \geq 1 - 2|H|e^{-2N\epsilon^2}
+	\end{align*}$$
+
+	> - $H$：假设空间
+	> - $N$：样本数量
+	> - $E(h) := R_{exp}(h)$
+	> - $\hat E(h) := R_{emp}(h)$
+
+-	证明如下：
+
+	$$\begin{align*}
+	P(\forall h \in H: |E(h) - \hat E(h)| \leq \epsilon|)
+		& = 1 - P(\exists h \in H: |E(h) - \hat E(h)|
+		\geq \epsilon) \\
+	& = 1 - P((|E(h_1) - \hat E(h_1) \geq \epsilon) \vee \cdots
+		\vee (|E(h_{|H|}) - \hat E_{|H|}| \geq \epsilon)) \\
+	& \geq 1 - \sum_{i=1}^{|H|} P(|E(h_i) - \hat E(h_i)|
+		\geq \epsilon) \\
+	& \geq 1 - 2|H|e^{-2N \epsilon^2}
+	\end{align*}$$
+
+-	对任意$\epsilon$，随样本数量$m$增大，
+	$|E(h) - \hat E(h)| \leq \epsilon$概率增大，可以使用经验
+	误差近似泛化误差
+
+####	二分类泛化误差上界
+
+-	由Hoeffding不等式
+	$$\begin{align*}
+	P(E(h) - \hat E(h) & \geq \epsilon) \leq
+		exp(-2N\epsilon^2) \\
+	P(\exists h \in H: E(h) - \hat E(h) \geq \epsilon) & =
+		P(\bigcup_{h \in H} \{ E(h) - \hat E(h)
+		\geq \epsilon \}) \\
+	& \leq \sum_{h \in H} P(E(h) - \hat E(h) \geq \epsilon) \\
+	& \leq |H| exp(-2 N \epsilon^2)
+	\end{align*}$$
+
+-	则$\forall h \in H$，有
+
+	$$
+	P(E(h) - \hat E(h) < \epsilon) \geq 1 - |H|
+		exp(-2 N \epsilon)
+	$$
+
+	则令$\sigma = |H| exp(-2N\epsilon^2)$，则至少以概率
+	$1-\sigma$满足如下，即得到泛化误差上界
+
+	$$\begin{align*}
+	E(h)  & \leq \hat E(h) + \epsilon(|H|, N, \sigma) \\
+	\epsilon(|H|, N, \sigma) & = \sqrt
+		{\frac 1 {2N} (log |H| + log \frac 1 {\sigma})}
+	\end{align*}$$
+
+###	Probably Approximate Correct可学习
+
+PAC可学习：在短时间内利用少量（多项式级别）样本能够找到假设
+$h^{'}$，满足
+
+$$
+P(E(h^{'}) \leq \epsilon) \geq 1 - \sigma, 0 < \epsilon,
+	\sigma < 1
+$$
+
+-	即需要假设满足两个PAC辨识条件
+	-	近似条件：泛化误差$E(h^{'})$足够小
+	-	可能正确：满足近似条件概率足够大
+
+-	同等条件下
+	-	模型越复杂，泛化误差越大
+	-	满足条件的样本数量越大，模型泛化误差越小
+
+-	PAC学习理论关心能否从假设空间$H$中学习到好的假设$h$
+	-	由以上泛化误差可得，取
+		$\sigma = 2|H|e^{-2N\epsilon^2}$，则样本量满足
+		$N = \frac {ln \frac {2|H|} \sigma} {2 \epsilon^2}$
+		时，模型是PAC可学习的
+
+##	*Regularization*
+
+正则化：（向目标函数）添加额外信息以求解病态问题、避免过拟合
+
+-	常应用在机器学习、逆问题求解
+
+	-	对模型（目标函数）复杂度惩罚
+	-	提高学习模型的泛化能力、避免过拟合
+	-	学习简单模型：稀疏模型、引入组结构
+
+-	有多种用途
+
+	-	最小二乘也可以看作是简单的正则化
+	-	岭回归中的$\mathcal{l_2}$范数
+
+###	模型复杂度
+
+模型复杂度：经常作为正则化项添加作为额外信息添加的，衡量模型
+复杂度方式有很多种
+
+-	函数光滑限制
+
+	-	多项式最高次数
+
+-	向量空间范数
+
+	-	$\mathcal{L_0}$ norm：参数个数
+	-	$\mathcal{L_1}$ norm：参数绝对值和
+	-	$\mathcal{L_2}$ norm：参数平方和
+
+####	$\mathcal{L_0}$ norm
+
+-	稀疏化约束
+
+-	解$\mathcal{L_0}$范数正则化是NP-hard问题
+
+####	$\mathcal{L_1}$ norm
+
+-	$\mathcal{L_1}$范数可以通过凸松弛得到$\mathcal{L_0}$的
+	近似解
+
+-	有时候出现解不唯一的情况
+
+-	$\mathcal{L_1}$范数凸但不严格可导，可以使用依赖次梯度的
+	方法求解极小化问题
+
+-	应用
+	-	*LASSO*
+
+-	求解
+	-	*Proximal Method*
+	-	*LARS*
+
+####	$\mathcal{L_2}$ norm
+
+-	$\mathcal{L_2}$范数凸且严格可导，极小化问题有解析解
+
+-	求解
+
+####	$\mathcal{L_1 + L_2}$
+
+-	有组效应，相关变量权重倾向于相同
+
+-	应用
+	-	*Elastic Net*
+
+###	Earlty Stopping
+
+*Early Stopping*也可以被视为是*regularizing on time*
+
+-	迭代式训练随着迭代次数增加，往往会有学习复杂模型的倾向
+-	对时间施加正则化，可以减小模型复杂度、提高泛化能力
+
+###	稀疏解产生
+
+稀疏解：待估参数系数在某些分量上为0
+
+####	$\mathcal{L_1}$稀疏解的产生
+
+$\mathcal{L_1}$范数在参数满足**一定条件**情况下，能对
+**平方损失**产生稀疏效果
+
+-	在$[-1,1]$内$y=|x|$导数大于$y=x^2$（除0点），所以特征在
+	一定范围内变动时，为了取到极小值，参数必须始终为0
+
+-	满足条件的**一定范围**就是，特征满足在0附近、$y=x$导数
+	较大
+
+	-	高阶项在0点附近增加速度较慢，所以$\mathcal{L_1}$
+		能产生稀疏解是很广泛的
+
+	-	$mathcal{L_1}$前系数越大，能够容许高阶项增加的幅度
+		越大，即压缩能力越强
+	
+-	在0附近导数“不小”，即导数在0点非0
+
+	-	对多项式正则化项而言，其必须“带有”$\mathcal{L_1}$，
+		并且稀疏化解就是$\mathcal{L_1}$起决定性作用，其他项
+		没有稀疏解的用途
+
+	-	对“非多项式”正则化项，比如：$e^{|x|}-1$、$ln(|x|+1)$
+		，在0点泰勒展开同样得到$\mathcal{L_1}$，但是这样的
+		正则化项难以计算数值，所以其实不常用
+
+####	$\mathcal{L_1}$稀疏解推广
+
+推广的方向有如下
+
+-	正负差异化：在正负设置不同大小的$\mathcal{L_1}$，赋予
+	在正负不同的压缩能力，甚至某侧完全不压缩
+
+-	分段函数压缩：即只要保证在0点附近包含$\mathcal{L_1}$用于
+	产生稀疏解，远离0处可以设计为常数等不影响精确解的值
+
+	-	*smoothly clipped absolute deviation*
+
+		$$
+		R(x|\lambda, \gamma) = \left \{ \begin{array} {l}
+			\lambda|x| \qquad & if |x| \leq \lambda \\
+			\frac {2\gamma\lambda|x| - x^2 - {\lambda}^2 }
+				{2(\gamma - 1)} &
+				if \gamma< |x| <\gamma\lambda \\
+			\frac { {\lambda}^2(\gamma+1)} 2 &
+				if |x| \geq \gamma\lambda
+		\end{array} \right.
+		$$
+
+	-	derivate of SCAD
+
+		$$
+		R(x; \lambda, \gamma) = \left \{ \begin{array} {l}
+			\lambda \qquad & if |x| \leq \gamma \\
+			\frac {\gamma\lambda - |x|} {\gamma - 1} &
+				if \lambda < |x| < \gamma\lambda \\
+			0 & if |x| \geq \gamma\lambda
+		\end{array} \right.
+		$$
+
+	-	*minimax concave penalty*
+
+		$$
+		R_{\gamma}(x;\lambda) = \left \{ \begin{array} {l}
+			\lambda|x| - \frac {x^2} {2\gamma} \qquad &
+				if |x| \leq \gamma\lambda \\
+			\frac 1 2 \gamma{\lambda}^2 &
+				if |x| > \gamma\lambda
+		\end{array} \right.
+		$$
+
+-	分指标：对不同指标动态设置$\mathcal{L_0}$系数
+
+	-	*adaptive lasso*：$\lambda \sum_J w_jx_j$
+
+####	稀疏本质
+
+稀疏本质：极值、**不光滑**，即导数符号突然变化
+
+-	若某约束项导数符号突然变化、其余项在该点处导数为0，为
+	保证仍然取得极小值，解会聚集（极小）、疏远（极大）该点
+	（类似坡的陡峭程度）
+
+	-	即这样的不光滑点会**抑制解的变化**，不光滑程度即导数
+		变化幅度越大，抑制解变化能力越强，即吸引、排斥解能力
+		越强
+	-	这样非常容易构造压缩至任意点的约束项
+	-	特殊的，不光滑点为0时，即得到稀疏解
+
+-	可以设置的多个极小不光滑点，使得解都在不连续集合中
+
+	-	可以使用三角函数、锯齿函数等构造，不过需要考虑的是
+		这样的约束项要起效果，必然会使得目标函数非凸
+
+		-	但是多变量场合，每个变量实际解只会在某个候选解
+			附近，其邻域内仍然是凸的
+		-	且锯齿函数这样的突变非凸可能和凸函数具有相当的
+			优秀性质
+
+	-	当这些点均为整数时，这似乎可以近似解**整数规划**
+
+
+
+
