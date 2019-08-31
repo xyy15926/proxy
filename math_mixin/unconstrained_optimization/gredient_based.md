@@ -1,10 +1,11 @@
 ---
-title: 基于梯度算法
+title: Gradient Descent Method
 tags:
   - Optimization
   - Unconstrained
-  - Newton's
   - Gradient Descent
+  - Momentum
+  - Learning Rate
 categories:
   - Optimization
   - Unconstrianed Optimization
@@ -13,10 +14,10 @@ updated: 2019-06-04 01:18:34
 toc: true
 mathjax: true
 comments: true
-description: 基于梯度算法
+description: 最速下降算法
 ---
 
-##	思想
+##	思想：最速下降&牛顿
 
 对目标函数$f(x)$在$x^{(1)}$进行展开
 
@@ -90,157 +91,254 @@ $$
 
 > - 最速下降算法不具有二次终止性
 
-##	Newton法
+##	叠加惯性
 
-###	思想
+模拟物体运动时惯性：指数平滑更新步长
 
--	若$x^{ * }$是无约束问题局部解，则有
+![momentum](imgs/momentum.png)
 
-	$$\nabla f(x^{ * }) = 0$$
+###	*Momentum*
 
-	可求解此问题，得到无约束问题最优解
+冲量方法：在**原始更新步**上叠加上次更新步，类似指数平滑
 
--	原始问题是非线性，考虑求解其线性逼近，在初始点$x^{(1)}$
-	处泰勒展开
+$$
+v^{(t)} = \gamma v^{(t-1)} + (1 - \gamma) \eta
+	\bigtriangledown_\theta L(\theta^{(t-1)}) \\
+\theta^{(t)} = \theta^{(t-1)} - v^{(t)}
+$$
 
-	$$
-	\nabla f(x) \approx \nabla f(x^{(1)})
-		+ \nabla^2 f(x^{(1)})(x - x^{(1)})
-	$$
+> - $v^{(t)}$：第$t$步时第k个参数更新步
+> - $L(\theta)$：往往是batch损失函数
 
-	解得
+-	更新参数时，一定程度**保持**上次更新方向
+-	可以在一定程度上保持稳定性，学习速度更快
+-	能够越过部分局部最优解
 
-	$$
-	x^{(2)} = x^{(1)} - (\nabla^2 f(x^{(1)}))^{-1}
-		\nabla f(x^{(1)})
-	$$
+###	*Nesterov Momentum*
 
-	作为$x^{ * }$的第二次近似
+*NGA*：在使用冲量修正最终方向基础上，使用冲量对当前
+**参数位置**进行修正，即使用“未来”位置计算梯度
 
--	不断迭代，得到如下序列
+-	先使用冲量更新一步
+-	再在更新后位置计算新梯度进行第二步更新
 
-	$$
-	x^{(k+1)} = x^{(k)} + d^{(k)}
-	$$
+$$
+v^{(t)} = \gamma v^{(t-1)} + \eta \bigtriangledown_\theta
+	L(\theta^{(t-1)} - \gamma v^{(t-1)}) \\
 
-	> - $d^{(k)}$：Newton方向，是满足以下方程组解
-		$$
-		\nabla^2 f(x^{(k)}) d = -\nabla
-			f(x^{(k)}
-		$$
+\theta^{(t)} = \theta^{(t-1)} - v^{(t)}
+$$
 
-###	算法
+##	动态学习率
 
-1.	初始点$x^{(1)}$、精度要求$\epsilon$，置k=1
+-	学习率太小收敛速率缓慢、过大则会造成较大波动
+-	在训练过程中动态调整学习率大小较好
 
-2.	若$\|\nabla f(x^{(k)})\| \leq \epsilon$，停止计算
-	，得到最优解$x^{(k)}$，否则求解
+> - 模拟退火思想：达到一定迭代次数、损失函数小于阈值时，减小
+	学习速率
 
-	$$
-	\nabla^2 f(x^{(k)}) d = -\nabla
-		f(x^{(k)}
-	$$
+![param_estimation_comparion_1](imgs/param_estimation_comparion_1.png)
+![param_estimation_comparion_2](imgs/param_estimation_comparion_2.png)
 
-	得到$d^{(k)}$
+###	*Vanilla Gradient Descent*
 
-3.	置
+每次迭代减小学习率$\eta$
 
-	$$x^{(k+1)} = x^{(k)} + d^{(k)}, k = k+1$$
+$$
+\eta^{(t)} = \frac \eta {\sqrt {t+1}} \\
 
-	转2
+\theta^{(t)} = \theta^{(t-1)} - \eta^{(t)}
+	\bigtriangledown_\theta L(\theta^{(t-1)})
+$$
 
-###	特点
+-	学习率逐渐减小，避免学习后期参数在最优解附近反复震荡
 
--	优点
-	-	产生点列$\{x^{k}\}$若收敛，则具有二阶收敛速率
-	-	具有二次终止性，事实上对正定二次函数，一步即可收敛
+###	*Adagrad*
+
+*adaptive gradient*：训练中**不同参数**学习率随着迭代次数、
+梯度动态变化，使得参数收敛更加平稳
+
+$$
+v^{(t)}_k = \bigtriangledown_{\theta_k} L(\theta^{(t-1)}) \\
+
+\theta^{(t)}_k = \theta^{(t-1)}_k - \frac \eta
+	{\sqrt {\sum_{i=0}^{t-1} (v^{(i)}_k)^2 + \epsilon}}
+	v^{(t)}_k
+$$
+
+> - $\epsilon$：fuss factor，避免分母为0
+> - $\theta^{(t)}_k$：第t轮迭代完成后待估参数第k个分量
+	（之前未涉及参数间不同，统一为向量）
+
+-	特点
+
+	-	较大梯度参数真正学习率会被拉小；较小梯度真正学习率
+		参数被拉小幅度较小
+	-	可以和异步更新参数结合使用，给不常更新参数更大学习率
 
 -	缺点
-	-	可能会在某步迭代时目标函数值上升
-	-	当初始点$x^{(1)}$距离最优解$x^{ * }$时，产生的点列
-		可能不收敛，或者收敛到鞍点
-	-	需要计算Hesse矩阵
-		-	计算量大
-		-	Hesse矩阵可能不可逆，算法终止
-		-	Hesse矩阵不正定，Newdon方向可能不是下降方向
 
-##	阻尼/修正Newton法
+	-	在训练后期，分母中梯度平方累加很大，学习步长趋于0，
+		收敛速度慢（可能触发阈值，提前结束训练）
 
--	克服Newton法目标函数值上升的缺点
--	一定程度上克服点列可能不收敛缺点
+###	*RMSprop*
 
-###	算法
-
-1.	初始点$x^{(1)}$、精度要求$\epsilon$，置k=1
-
-2.	若$\|\nabla f(x^{(k)})\| \leq \epsilon$，停止计算
-	，得到最优解$x^{(k)}$，否则求解
-
-	$$
-	\nabla^2 f(x^{(k)}) d = -\nabla
-		f(x^{(k)}
-	$$
-
-	得到$d^{(k)}$
-
-3.	一维搜索，求解一维问题
-
-	$$
-	\arg\min_{\alpha} \phi(\alpha) = f(x^{(k)} +
-		\alpha d^{(k)})
-	$$
-
-	得到$\alpha_k$，置
-
-	$$x^{(k+1)} = x^{(k)} + \alpha_k d^{(k)}, k = k+1$$
-
-	转2
-
-##	其他改进
-
--	针对Newton法、修正Newton法中Hesse矩阵可能不正定的改进
-
-###	结合最速下降方向
-
-将Newton方向和最速下降方向结合
-
--	设$\theta_k$是$d_N^{(k)}, -\nabla f(x^{(k)})$之间
-	夹角，显然希望$\theta < \frac \pi 2$
-
--	则置限制条件$\eta$，取迭代方向
-
-	$$d^{(k)} = \left \{ \begin{array}{l}
-	d_N^{(k)}, & cos\theta_k \geq \eta \\
-	-\nabla f(x^{(k)}), & 其他
-	\end{array} \right.$$
-
-###	*Negative Curvature*
-
-当Hesse矩阵非正定时，选择负曲率下降方向$d^{(k)}$（一定存在）
-
--	Hesse矩阵非正定时，一定存在负特征值、相应特征向量$u$
-
--	可以取负曲率下降方向
-
-	$$
-	d^{(k)} = -sign(u^T \nabla f(x^{(k)})) u
-	$$
-
-> - $x^{(k)}$处负曲率方向$d^{(k)}$满足
-	$$
-	d^{(k)T} \nabla^2 f(x^{(k)}) d^{(k)} < 0
-	$$
-
-###	修正Hesse矩阵
-
-取$d^{(k)}$为以下方程的解
+*root mean square prop*：指数平滑更新学习率分母
 
 $$
-(\nabla^2 f(x^{(k)}) + v_k I) d =
-	-\nabla f(x^{k})
+v^{(t)}_k = \bigtriangledown_{\theta_k} L(\theta^{(t-1)}) \\
+
+\theta^{(t)}_k = \theta^{(t-1)}_k - \frac \eta
+	{\sqrt { \gamma \sum_{i=1}^{t-1}(v^{(i)}_k)^2 +
+		(1 - \gamma)((v^{(t)})^2 + \epsilon}
+	} v^{(t)}
 $$
 
-> - $v_k$：大于$\nabla^2 f(x^{(k)})$最大负特征值
-	绝对值
+-	赋予当前梯度更大权重，减小学习率分母，避免学习速率下降
+	太快
 
+###	*Adam*
+
+*adptive moment estimation*：指数平滑更新步、学习率分母
+
+$$
+\begin{align*}
+v^{(t)}_k & = \gamma_1 v^{(t-1)}_k + (1 - \gamma_1)
+	\bigtriangledown_{\theta_k} L(\theta^{(t-1)}) \\
+s^{(t)}_k & = \gamma_2 s^{(t-1)}_k + (1 - \gamma_2)
+	\bigtriangledown_{\theta_k} L(\theta^{(t-1)})^2 \\
+
+\hat{v^{(t)}_k} & = \frac {v^{(t)}_k} {1 - \gamma_1^t} \\
+\hat{s^{(t)}_k} & = \frac {s^{(t)}_k} {1 - \gamma_2^t} \\
+
+\theta^{(t)}_k & = \theta^{(t-1)}_k - \frac \eta
+	{\sqrt{\hat{s^{(t)}_k} + \epsilon}} \hat{v^{(t)}_k}
+\end{align*}
+$$
+
+> - $\gamma_1$：通常为0.9
+> - $\gamma_2$：通常为0.99
+> - $\hat{v^{(t)}_k} = \frac {v^{(t)}_k} {1 - \gamma_1^t}$
+	：权值修正，使得过去个时间步，小批量随机梯度权值之和为1
+
+-	利用梯度的一阶矩$v^{(t)}$、二阶矩$s^{(t)}$动态调整每个
+	参数学习率
+
+-	类似于*mommentum*、*RMSprop*结合
+
+-	经过偏执矫正后，每次迭代学习率都有确定范围，参数比较平稳
+
+###	*Adadelta*
+
+指数平滑更新学习率（分子）、学习率分母
+
+$$
+\begin{align*}
+s^{(t)}_k & = \gamma_1 s^{(t-1)}_k + (1 - \gamma_1)
+	\bigtriangledown_{\theta_k} L(\theta^{(t-1)})^2 \\
+
+\hat{v^{(t)}_k} & = \sqrt {\frac {\Delta \theta^{(t-1)}_k + \epsilon}
+	{s^{(t)}_k + \epsilon}}
+	\bigtriangledown_{\theta_k} L(\theta^{(t-1)})^2 \\
+
+\Delta \theta^{(t)}_k & = \gamma_1 \Delta \theta^{(t-1)}_k +
+	(1 - \gamma_1) \hat{v^{(t)}_k}^2 \\
+
+\theta^{(t)}_k & = \theta^{(t)}_k - \hat{v^{(t)}_k}
+\end{align*}
+$$
+
+> - $s, \Delta \theta$共用超参$\gamma_1$
+
+-	在*RMSprop*基础上，使用$\sqrt {\Delta \theta}$作为学习率
+-	$\hat v$：中超参$\gamma_1$在分子、分母“抵消”，模型对
+	超参不敏感
+
+##	样本量
+
+###	Singular Loss/Stocastic Gradient Descent
+
+*SGD*：用模型在某个样本点上的损失极小化目标函数、计算梯度、
+更新参数
+
+-	单点损失度量模型“一次”预测的好坏
+	-	代表模型在单点上的优劣，无法代表模型在总体上性质
+	-	具有很强随机性
+
+-	单点损失不常用，SGD范围也不局限于单点损失
+
+> - 损失函数具体参见*ml_xxxxx*
+
+###	全局估计
+
+全局损失：用模型在全体样本点上损失极小化目标函数、计算梯度、
+更新参数
+
+$$
+\theta^{(t)} = \theta^{(t-1)} - \eta \bigtriangledown_\theta
+	L_{total}(\theta_{(t-1)})
+$$
+
+> - $\theta^{(t)}$：第t步迭代完成后待估参数
+> - $\eta$：学习率
+> - $L_{total}(\theta) = \sum_{i=1}^N L(\theta, x_i, y_i)$：
+	训练样本整体损失
+> - $N$：训练样本数量
+
+-	若损失函数有解析解、样本量不大，可**一步更新（计算）**
+	完成（传统参数估计场合）
+	-	矩估计
+	-	最小二乘估计
+	-	极大似然估计
+
+-	否则需要迭代更新参数
+	-	样本量较大场合
+	-	并行计算
+
+###	Mini-Batch Loss
+
+*mini-batch loss*：用模型在某个batch上的损失极小化目标函数、
+计算梯度、更新参数
+
+$$
+\theta^{(t)} = \theta^{(t-1)} - \eta \bigtriangledown_\theta
+	L_{batch}(\theta^{(t-1)})
+$$
+
+> - $L_{batch}(\theta)=\sum_{i \in B} L(\theta, x_i, y_i)$：
+	当前batch整体损失
+> - $B$：当前更新步中，样本组成的集合batch
+
+
+-	batch-loss是模型在batch上的特征，对整体的代表性取决于
+	batch大小
+	-	batch越大对整体代表性越好，越稳定；越小对整体代表
+		越差、不稳定、波动较大、难收敛
+	-	batch大小为1时，就是SGD
+	-	batch大小为整个训练集时，就是经验（结构）风险
+
+-	batch-loss是学习算法中最常用的loss，SGD优化常指此
+	-	实际中往往是使用batch-loss替代整体损失，表示经验风险
+		极小化
+	-	batch-loss同样可以带正则化项，表示结构风险极小化
+	-	损失极值：SVM（几何间隔最小）
+
+####	优点
+
+-	适合样本量较大、无法使用样本整体估计使用
+-	一定程度能避免局部最优（随机batch可能越过局部极值）
+-	开始阶段收敛速度快
+
+####	缺点
+
+-	限于每次只使用单batch中样本更新参数，batch-size较小时，
+	结果可能不稳定，往往很难得到最优解
+
+-	无法保证良好的收敛性，学习率小收敛速度慢，学习率过大
+	则损失函数可能在极小点反复震荡
+
+-	对所有参数更新应用相同学习率，没有对低频特征有优化
+	（更的学习率）
+
+-	依然容易陷入局部最优点
 
