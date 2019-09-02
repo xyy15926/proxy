@@ -44,7 +44,19 @@ info格式的帮助文档
 
 ###	`date`
 
-显示、设置系统日期时间
+`date`：显示、设置系统日期时间
+
+```shell
+date -d <time> "+<format>"
+```
+
+-	`-d`：指定时间，缺省今天
+-	`+`：指定输出格式
+	-	`%Y-%m-%d %h-%M-%S`：年月日时（24时）分秒
+	-	`%a/%A`：星期缩写、完整
+	-	`%b/%B`：月份缩写、完整
+	-	`%D`：`MM/DD/YY`
+	-	`%F`：`YYYY-MM-DD`
 
 ###	`hwclock`
 
@@ -137,14 +149,21 @@ $ rpm2cpio rpm_pkg | cpio -div
 
 ###	`ssh`
 
-ssh登陆服务器
+`ssh`：ssh登陆服务器
 
--	`$ ssh user_name@host`
--	可以使用`~/.ssh/config`配置文件简化登陆
+```shell
+ssh <user_name>@<host> [-p <port>] [-i <private_key>]
+	[-F <config_file>]
+```
+
+-	`-F`：指定配置文件，简化命令，缺省`~/.ssh/config`
+	-	有时会覆盖其余配置，可以指定`-F /dev/null`避免
+-	`-p`：指定端口
+-	`-i`：指定使用的私钥
 
 ###	`scp`
 
-secure cp，安全传输（cp）文件
+`scp`：secure cp，安全传输（cp）文件
 
 -	本机到远程
 	```shell

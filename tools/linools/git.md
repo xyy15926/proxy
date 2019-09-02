@@ -14,7 +14,7 @@ comments: true
 description: Git常识
 ---
 
-##	.gitingore忽略文件
+##	.gitingore
 
 ###	.gitignore忽略规则
 
@@ -89,7 +89,36 @@ $ git log [<file_name>]
 ##	`show`
 
 ```c
-$ git show <tag_no>
+$ git show <tag_no|commit_hash>
 	# 查看改动内容
 ```
+
+##	其他配置
+
+###	指定ssh key
+
+> - git依赖ssh进行存储库认证，无法直接告诉git使用哪个私钥
+
+-	`~/.ssh/config`中配置ssh host：git每次使用host代替原
+	服务器地址
+
+	```conf
+	host <host>
+	HostName github.com
+	IdentityFile $HOME/.ssh/id_rsa_github_private
+	User git
+	```
+
+	> - ssh host详见*linux/shell/config_files"
+
+-	`GIT_SSH_COMMAND`环境变量：指定ssh命令`-i`中参数
+
+	```shell
+	GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_github_private" git clone ...
+	// 可以`export`持久化
+	export GIT_SSH_COMMAND = ...
+	// 写入git配置
+	git config core.sshCommand "..."
+	```
+
 
