@@ -55,7 +55,7 @@ description: 排序
 
 ####	顺序表算法
 
-```c
+```python
 SelectionSort(A[0..n-1]):
 	// 选择排序排序数组
 	// 输入：可排序数组A[0..n-1]
@@ -76,7 +76,7 @@ SelectionSort(A[0..n-1]):
 
 ####	链表算法
 
-```c
+```python
 SelectionSort(linked):
 	// 选择排序排序链表
 	// 输入：可排序链表linked头
@@ -138,7 +138,7 @@ SelectionSort(linked):
 
 ####	顺序表算法
 
-```c
+```python
 BubbleSort(A[0..n-1]):
 	// 冒泡排序排序数组
 	// 输入：可排序数组A[0..n-1]
@@ -151,7 +151,7 @@ BubbleSort(A[0..n-1]):
 
 ####	链表算法
 
-```c
+```python
 BublleSort(head):
 	// 冒泡排序排序链表
 	// 输入：可排序链表首个元素
@@ -177,10 +177,10 @@ BublleSort(head):
 ####	算法
 
 -	假设对较小数组$A[0..i-2]$排序已经解决
--	从左至右扫描有序子数组，直到遇到首个小于等于$A[i-1]$元素
-	，将$A[i-1]$插入其后
+-	从右至左（方便将将元素右移）扫描有序子数组，直到遇到首个
+	小于等于$A[i-1]$元素，将$A[i-1]$插入其后
 
-```c
+```python
 InsertionSort(A[0..n-1])
 	// 用插入排序对给定数组排序
 	// 输入：n个可排序元素构成数组
@@ -229,7 +229,7 @@ InsertionSort(A[0..n-1])
 -	使用插入排序对*h子数组*独立排序，每次交换相隔h的元素
 -	h逐渐减小到1，shell排序退化（最后一轮）为插入排序
 
-```c
+```python
 ShellSort(A[0..n-1])
 	// 用插入排序对给定数组排序
 	// 输入：n个可排序元素构成数组
@@ -271,12 +271,12 @@ ShellSort(A[0..n-1])
 -	对两个子数组**递归排序**，然后把排序后的子数组合并为有序
 	数组
 
-```c
-Mergesort(A[0..n-1])
+```python
+Mergesort(A[0..n-1]):
 	// 递归调用MergeSort对数组排序
 	// 输入：可排序数组A[0..n-1]
 	// 输出：非降序排列数组A[0..n-1]
-	if n > 1
+	if n > 1:
 		copy A[0..floor(n/2)-1] to B[0..floor(n/2)-1]
 		copy A[floor(n/2)..n-1] to C[0..ceiling(n/2)-1]
 		Mergesort(B[0..floor(n/2)-1])
@@ -291,22 +291,22 @@ Mergesort(A[0..n-1])
 	的数组指针右移
 -	重复直到某一数组处理完毕，将未处理完数组复制到新数组尾部
 
-```c
-Merge(B[0..p-1], C[0..q-1], A[0..p+q-1])
+```python
+Merge(B[0..p-1], C[0..q-1], A[0..p+q-1]):
 	// 将两个有序数组合并为新的有序数组
 	// 输入：有序数组B[0..p-1]、C[0..q-1]
 	// 输出：存放有B、C中元素的有序数组A[0..p+q-1]
-	while i < p and j < q do
+	while i < p and j < q:
 		if B[i] <= C[j]
-			A[k] = B[j]
+			A[k] = B[i]
 			i = i + 1
-		else
+		else:
 			A[k] = C[j]
 			j = j + 1
 		k = k + 1
-	if i == p
+	if i == p:
 		copy C[j..q-1] to A[k..p+q-1]
-	else
+	else:
 		copy B[i..p-1] to A[k..p+q-1]
 ```
 
@@ -343,7 +343,7 @@ Merge(B[0..p-1], C[0..q-1], A[0..p+q-1])
 	-	此时A[s]已经位于它在有序数组中的最终位置
 -	接下来对A[s]左右子数组进行排序
 
-```c
+```python
 Quicksort(A[l..]r)
 	// 对给定可比较数组进行排序
 	// 输入：可比较数组A[0..n-1]子数组A[l..r]
@@ -407,7 +407,7 @@ Quicksort(A[l..]r)
 -	计算、记录列表中小于该元素的元素个数
 -	更新大于其的元素的小于元素的元素个数
 
-```c
+```python
 ComparisonCountingSort(A[0..n-1])
 	// 用比较计数法排序
 	// 输入：可排序数组A[0..n-1]
@@ -444,7 +444,7 @@ ComparisonCountingSort(A[0..n-1])
 -	扫描列表，计算、存储列表中元素出现频率于数组$F[l..u]$中
 -	再次扫描列表，根据值填入相应位置
 
-```c
+```python
 DistributionCountingSort(A[0..n-1], l, u):
 	// 分布计数法排序，对元素来自有限范围整数的数组排序
 	// 输入：数组[0..n-1]，数组中整数位于l、u间
@@ -499,7 +499,7 @@ DistributionCountingSort(A[0..n-1], l, u):
 	-	若：s > k-1，则应该是数组左边划分第k小元素
 -	这样就得到规模更小的问题实例
 
-```c
+```python
 QuickSelect(A[l..r], k)
 	// 用基于划分递归算法解决选择问题
 	// 输入：可排序数组A[0..n-1]的子数组A[l..r]、整数k
@@ -545,7 +545,7 @@ QuickSelect(A[l..r], k)
 	-	若`A[i] >= p`，扩大大于等于p元素段
 	-	若`A[i] < p`，需要扩大小于等于p元素段
 
-```c
+```python
 LomutoPartition(A[l..r])
 	// 采用Lomuto算法，用首个元素作中轴划分数组
 	// 输入：可排序数组A[0..n-1]的子数组A[l..r]
@@ -582,7 +582,7 @@ LomutoPartition(A[l..r])
 	-	如果指针重合i==j，此元素一定等于p，也得到数组的一个
 		划分，分裂点为s==i==j
 
-```c
+```python
 HoarePartition(A[l..r])
 	// 以首元素为中轴，对数组进行划分
 	// 输入：可排序数组A[1..n]的子数组A[l..r]

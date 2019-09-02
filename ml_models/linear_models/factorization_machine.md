@@ -2,11 +2,11 @@
 title: Factorization Machines
 tags:
   - Models
-  - linear models
+  - Linear Model
   - Machine Learning
   - Factorization Machine
 categories:
-  - ML Models
+  - ML Model
   - Linear Models
 date: 2019-07-29 21:16:01
 updated: 2019-07-29 21:16:01

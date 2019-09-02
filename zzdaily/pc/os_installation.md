@@ -1,9 +1,9 @@
 ---
 title: 系统安装常识
 tags:
-  - 日常
+  - Daily Life
 categories:
-  - 日常
+  - Daily Life
 date: 2019-03-21 17:27:37
 updated: 2019-02-17 11:57:07
 toc: true

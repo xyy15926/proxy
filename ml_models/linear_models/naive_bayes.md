@@ -1,11 +1,13 @@
 ---
 title: Naive Bayes
 tags:
-  - 模型
-  - 线性模型
+  - Model
+  - Linear Model
+  - Bayes
+  - Machine Learning
 categories:
-  - 模型
-  - 线性模型
+  - ML Model
+  - Linear Model
 date: 2019-07-13 23:24:10
 updated: 2019-07-13 12:03:11
 toc: true
@@ -58,7 +60,6 @@ description: Naive Bayes
 
 	-	朴素贝叶斯学习到的联合概率分布$P(X,Y)$是数据生成的
 		机制，即其为生成模型
-
 
 ###	策略
 

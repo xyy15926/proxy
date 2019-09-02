@@ -1,11 +1,13 @@
 ---
 title: Stacked Generalization
 tags:
-  - 模型
-  - 增强模型
+  - Model
+  - Model Enhancement
+  - Machine Learning
+  - Stacking
 categories:
-  - 模型
-  - 增强模型
+  - ML Models
+  - Model Enhancement
 date: 2019-07-23 08:39:04
 updated: 2019-07-23 08:39:04
 toc: true
@@ -117,5 +119,5 @@ description: Stacked Generalization
 
 -	Linear：训练模型、对训练结果线性加权
 
-�
+?
 

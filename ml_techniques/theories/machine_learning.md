@@ -1,15 +1,15 @@
 ---
 title: Data Science
 tags:
-  - 机器学习
+  - Machine Learning
 categories:
-  - 机器学习
+  - ML Tech
 date: 2019-07-14 20:02:42
 updated: 2019-07-14 20:01:57
 toc: true
 mathjax: true
 comments: true
-description: Data Science
+description: 机器学习范畴
 ---
 
 ##	*Statistic*

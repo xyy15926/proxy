@@ -1,11 +1,13 @@
 ---
 title: 最大熵模型
 tags:
-  - 模型
-  - 线性模型
+  - Model
+  - Linear Model
+  - Machine Learning
+  - Logistic Regression
 categories:
-  - 模型
-  - 线性模型
+  - ML Model
+  - Linear Model
 date: 2019-08-01 02:10:08
 updated: 2019-08-01 02:10:08
 toc: true
@@ -35,6 +37,17 @@ f(x) & = F^{'}(x) = \frac {e^{-(x-\mu)/\gamma}}
 		$$
 	-	曲线在靠近$\mu$中心附近增长速度快，两端速度增长慢
 	-	形状参数$\gamma$越小，曲线在中心附近增加越快
+
+-	模型优点
+	-	模型输出值位于0、1之间，天然具有概率意义，方便观测
+		样本概率分数
+	-	可以结合$l-norm$正则化解决过拟合、共线性问题
+	-	实现简单，广泛用于工业问题
+	-	分类时计算量比较小、速度快、消耗资源少
+
+-	模型缺点
+	-	特征空间很大时，性能不是很好，容易欠拟合，准确率一般
+	-	对非线性特征需要进行转换
 
 ###	*Binomial Logistic Regression Model*
 

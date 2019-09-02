@@ -158,71 +158,267 @@ PresortMode(A[0..n-1])
 
 ###	折半查找/二分查找
 
-对**有序数组**，比较查找K和数组中间元素A[m]完成查找工作
+二分查找：利用数组的有序性，通过对查找区间中间元素进行判断，
+缩小查找区间至一般大小
 
--	如果：A[m] == K，查找结束
--	若：K < A[m]，对数组前半部分执行该操作
--	若：K > A[m]，对数组后半部分执行该操作
+-	依赖数据结构，需能够快速找到中间元素，如数组、二叉搜索树
 
-> - 折半查找依赖数据结构能够快速找到中间元素，如数组、二叉
-	搜索树
+-	一般模板：比较中间元素和目标的大小关系、讨论
+
+	```c
+	left, right = ...
+	while condition(search_space is not NULL):
+		mid = (left + right) // 2
+		if nums[mid] == target:
+			// do something
+		elif nums[mid] > target:
+			// do something
+		elif nums[mid] < target:
+			// do somthing
+	```
+
+	-	函数独立时，找到`target`可在循环内直接返回
+	-	函数体嵌入其他部分时，为方便找到`target`应`break`，
+		此时涉及跳出循环时`target`可能存在的位置
+		-	找到`target`中途`break`
+		-	未找到`target`直到循环终止条件
 
 ####	基本版
 
-```c
-BinarySearchBase(nums[0..n-1], target)
-	// 非递归折半查找基本版
+```python
+BinarySearchEndReturnV1(nums[0..n-1], target):
+	// 非递归折半查找基本版，不直接返回，方便嵌入
 	// 输入：升序数组nums[0..n-1]、查找键target
 	// 输出：存在返回数组元素下标m，否则返回-1
-	if n == 0:
-		return -1
-
 	left, right = 0, n-1
-
 	while left <= right:
-		mid = floor((left + right) / 2)
-
-		if target = nums[mid]:
-			return mid
-		elif target < nums[mid]:
-			right = mid - 1
+		mid = (left + right) // 2
+		if nums[mid] == target:
+			break
+		elif nums[mid] < target:
+			left = mid+1
 		else:
-			left  = mid + 1
+			right = mid-1
+	else:
+		assert(mid == right == left-1)
 
-	return -1
+	# 仅最后返回，方便嵌入，下同
+	if nums[mid] == target:
+		return mid
+	else:
+		return -1
 ```
 
-> - 初始条件：`left = 0, right = n-1`
-> - **终止情况**：`left = right + 1`
-> - 指针移动：`left = mid+1, right= mid-1`
-> - 中点选择：`floor((l+r) / 2)`
-> > -	这个主要是考虑到整数除法的特性，以下均取`floor`
-> > -	对基本版本而言，`ceiling`、`floor`效果一样，对以下
-		版本的终止条件而言有区别
+-	输入判断：无需判断输入列表是否为空
+	-	终止条件保证不会进入，即不会越界
 
--	**关键特点**
+-	初始条件：`left, right = 0, n-1`
+	-	左、右均未检查、需检查
+	-	即代码中查找区间为**闭区间**$[left, right]$，此时
+		搜索区间非空
+
+-	中点选择：`mid = (left + right) // 2`
+	-	向下取整
+	-	对此版本无影响，`left`、`right`总是移动，不会死循环
+
+-	循环条件：`left <= right`
+	-	搜索区间为闭区间，则相应检查条件为`left <= right`，
+		否则有元素未被检查
 	-	在循环内`left`、`right`可能重合
-	-	需要和**左右邻居**、`left`、`right`比较情况下，容易
-		考虑失误
-	-	不适合扩展使用
 
--	终止情况：`left = right + 1`
+-	更新方式：`left=mid+1, right=mid-1`
+	-	为保证搜索区间始终为闭区间，需剔除`mid`
 
-	-	若存在`target`，则就位于`mid`，即**只需要检查mid**
-		即可判断是否找值
+-	终止情况：`right=left-1`、`mid=left/right`
+	-	循环条件、循环内部`+1`保证：上轮循环`left==right`
+	-	越界终止情况：左、右指针均剔除`mid`，两侧均可能越界
+		-	`mid=right=n-1, left=n`
+		-	`mid=left=0, right=-1`
 
 -	`target`位置
+	-	若存在`target`：必然在`mid`处，循环结束只需判断`mid`
+	-	若不存在`target`
+		-	`target`位于`[right, left]`间
+		-	`left=mid+1=right+1`表示小于`target`元素数量
 
-	-	若不存在`target`，则`target`位于`(right, left)`之间
-	-	循环终止后，`left=n`、`right=-1`有可能越界
-
--	不需要后续处理
-
-	-	**端点符合一般情况**
-	-	每步移动指针都检查是否找到元素
-	-	到达终止条件时，**所有可能点都被检查**
+> - 需要和**左右邻居（查找结束后）**、`left`、`right`比较
+	情况下，容易考虑失误，不适合扩展使用
 
 ####	高级版1
+
+```c
+BinarySearchV2(nums[0..n-1], target):
+	left, right = 0, n
+	while left < right:
+		mid = (left + right) // 2
+		if nums[mid] == target:
+			break
+		elif nums[mid] < target:
+			left = mid+1
+		else:
+			right = mid
+	else:
+		assert(mid-1 == left == right)
+
+	if nums[mid] == target:
+		return mid
+	else:
+		return -1
+```
+
+-	输入判断：无需判断输入列表是否为空
+	-	终止条件保证不会进入，即不会越界
+
+-	初始条件：`left, right = 0, n`
+	-	左未检查、需检查，右无需检查
+	-	即代码中查找区间为**左闭右开区间**$[left, right)$
+
+-	中点选择：`mid = (left + right) // 2`
+	-	向下取整
+	-	此处必须选择向下取整，否则`left=right-1`时进入死循环
+	-	即：**循环内检查所有元素，取整一侧指针必须移动**
+
+-	循环条件：`left < right`
+	-	搜索区间为左闭右开区间，则检查条件为`left < right`，
+		此时搜索区间非空
+	-	在循环内`left`、`right`不会重合
+
+-	更新方式：`left=mid+1, right=mid`
+	-	为保证搜索区间始终为左闭右开区间
+		-	移动左指针时需剔除`mid`
+		-	移动右指针时无需剔除`mid`
+
+-	终止情况：`right=left`、`mid=left/left-1`
+	-	循环条件、循环内部`+1`保证：上轮循环
+		-	`left+1=mid=right-1`
+		-	`left=mid=right-1`
+	-	越界终止情况：仅左指针剔除`mid`，仅可能右侧越界
+		-	`left=right=n=mid+1`
+
+-	`target`位置
+	-	若存在`target`：必然在`mid`处，循环结束只需判断`mid`
+	-	若不存在`target`
+		-	`left=mid=right`：循环过程中`target`可能已不在
+			搜索区间中，最终位于`(mid-1, mid)`
+		-	`mid+1=left=right`：`(mid, left)`
+		-	`left`表示小于`target`元素数量
+
+####	高级版2
+
+```c
+BainarySearchEndReturnV3(nums[0..n-1], target):
+	// 折半查找，保持左右指针顺序、不重合
+	// 输入：升序数组nums、查找键target
+	// 输出：存在返回数组元素下标m，否则返回-1
+	left, right = -1, n
+	while left < right:
+		mid = (left + right + 1) // 2
+		if nums[mid] == target:
+			break
+		elif nums[mid] < target:
+			right = mid-1
+		else:
+			left = mid
+
+	if nums[mid] == target:
+		return mid
+	else:
+		return -1
+```
+
+-	输入判断：无需判断输入列表是否为空
+	-	终止条件保证不会进入，即不会越界
+
+-	初始条件：`left, right = -1, n-1`
+	-	左无需检查，右未检查、需检查
+	-	即代码中查找区间为**左开右闭区间**$(left, right]$
+
+-	中点选择：`mid = (left + right + 1) // 2`
+	-	**向上取整**
+	-	此处必须选择向上取整，否则`left=right-1`时进入死循环
+		（或放宽循环条件，添加尾判断）
+	-	即：**循环内检查所有元素，取整一侧指针必须移动**
+
+-	循环条件：`left < right`
+	-	搜索区间为左开右闭区间，则检查条件为`left < right`，
+		此时搜索区间非空
+	-	在循环内`left`、`right`不会重合
+
+-	更新方式：`left=mid, right=mid+1`
+	-	为保证搜索区间始终为左闭右开区间
+		-	移动右指针时需剔除`mid`
+		-	移动左指针时无需剔除`mid`
+
+-	终止情况：`left=right`、`mid=left/left+1`
+	-	循环条件、循环内部`+1`保证：上轮循环
+		-	`left+1=mid=right-1`
+		-	`left+1=mid=right`
+	-	越界终止情况：仅右指针剔除`mid`，仅可能左侧越界
+		-	`left=right=-1=mid-1`
+
+-	`target`位置
+	-	若存在`target`：必然在`mid`处，循环结束只需判断`mid`
+	-	若不存在`target`
+		-	`left=mid=right`：循环过程中`target`可能已不在
+			搜索区间中，最终位于`(right, right+1)`
+		-	`mid+1=left=right`：`(left, right)`
+		-	`left+1`表示小于`target`元素数量
+
+####	高级版3
+
+```python
+BinarySearchEndReturnV2(nums[0..n-1], target):
+	// 折半查找，保持左右指针顺序、不重合
+	// 输入：升序数组nums、查找键target
+	// 输出：存在返回数组元素下标m，否则返回-1
+	left, right = -1, n
+	while left < right-1:
+		mid = (left + right) // 2
+		if nums[mid] == target:
+			break
+		elif nums[mid] < target:
+			left = mid
+		else:
+			right = mid
+
+	if nums[mid] == target:
+		return mid
+	else:
+		return -1
+```
+
+-	输入判断：无需判断输入列表是否为空
+	-	终止条件保证不会进入，即不会越界
+
+-	初始条件：`left, right = -1, n`
+	-	左、右均无需检查
+	-	即代码中查找区间为**开区间**$(left, right)$
+
+-	中点选择：`mid = (left + right) // 2`
+	-	向下取整、向上取整均可
+
+-	循环条件：`left < right-1`
+	-	搜索区间为左开右闭区间，则检查条件为`left < right-1`，
+		此时搜索区间非空
+	-	在循环内`left`、`right`不会重合
+
+-	更新方式：`left=mid, right=mid`
+	-	循环终止条件足够宽泛，不会死循环
+
+-	终止情况：`left=right-1`、`mid=right/right-1`
+	-	循环条件、循环内部`+1`保证：上轮循环
+		-	`left+1=mid=right-1`
+	-	越界终止情况：左右初始条件均越界，则左、右均可能越界
+		-	`mid=left=n-1`、`right=n`
+		-	`left=-1`、`mid=right=0`
+
+-	`target`位置
+	-	若存在`target`：必然在`mid`处，循环结束只需判断`mid`
+	-	若不存在`target`
+		-	`target`始终在搜索区间`(left, right)`内
+		-	最终位于`(left, right)`
+
+####	高级版1-原
 
 ```c
 BinarySearchKeep1(nums[0..n-1], target):
@@ -294,7 +490,7 @@ BinarySearchKeep1(nums[0..n-1], target):
 
 	-	即这个处理是可以放在循环之前进行处理
 
-####	高级版2
+####	高级版2-原
 
 ```c
 BinarySearchKeep0(nums[0..n-1], target):
@@ -351,7 +547,7 @@ BinarySearchKeep0(nums[0..n-1], target):
 
 -	判断`nums`长度在某些语言中也可以省略
 
-####	高级版本3
+####	高级版3-原
 
 ```c
 BinarySearchNoKeep(nums[0..n-1], target):
