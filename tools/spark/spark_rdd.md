@@ -58,7 +58,6 @@ RDD：容错的、immutable、分布式、确定可重复计算的数据集
 
 ##	RDD操作
 
-
 ```scala
 import org.apache.spark.rdd.RDD
 ```
@@ -89,6 +88,13 @@ import org.apache.spark.rdd.RDD
 |`union(other)`|无||
 
 > - `XXXByKey`：RDD中应为`(K, V)`键值对
+
+![spark_rdd_transformation](imgs/spark_rdd_transformation.png)
+
+> - 绿色、黑色：单、多RDD窄依赖转换
+> - 紫色：KV shuffle转换
+> - 黄色：重分区转换
+> - 蓝色：特例转换
 
 ###	Action
 
