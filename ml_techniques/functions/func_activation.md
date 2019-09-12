@@ -14,7 +14,7 @@ description: 激活函数
 
 ##	指数类
 
-##	Sigmoid
+###	Sigmoid
 
 将实数映射到(0, 1)区间
 
@@ -97,32 +97,6 @@ $$
 > - $\frac{\partial tanh(z)}{\partial z} = (1 - tanh(z))^2$
 	：非常类似普通正切函数，可以简化梯度计算
 
-##	线性指数类
-
-###	Elu
-
-线性指数
-
-$$
-elu(z, \alpha) =
-\left \{ \begin{array} {l}
-	z & z > 0 \\
-	\alpha (e^z - 1) & x \leqslant 0 \\
-\end{array} \right.
-$$
-
-###	Selu
-
-可伸缩指数线性激活：可以两个连续层之间保留输入均值、方差
-
--	正确初始化权重：`lecun_normal`初始化
--	输入数量足够大：`AlphaDropout`
--	选择合适的$\alpha, scale$值
-
-$$
-selu(z) = scale * elu(z, \alpha)
-$$
-
 ##	线性类
 
 ###	Softsign
@@ -155,9 +129,13 @@ relu(z, \alpha, max) = \left \{ \begin {array} {l}
 \end {array} \right.
 $$
 
-###	PReLU
+> - $\alpha$：超参，建议取0.01
 
-*Parametric ReLU*：参数化的修正线性
+-	解决了$z < 0$时进入死区问题，同时保留了ReLU的非线性特性
+
+###	Parametric ReLU
+
+*PReLU*：参数化的修正线性
 
 $$
 prelu(z) = \left \{ \begin{array} {l}
@@ -166,8 +144,8 @@ prelu(z) = \left \{ \begin{array} {l}
 \end{array} \right.
 $$
 
-> - *$\alpha$*：自学习参数（向量），需要给出权重初始化方法
-	（正则化方法、约束）
+> - $\alpha$：自学习参数（向量），初始值常设置为0.25，通过
+	momentum方法更新
 
 ###	ThreshholdReLU
 
@@ -183,6 +161,46 @@ $$
 ###	Linear
 
 线性激活函数：不做任何改变
+
+##	线性指数类
+
+###	Exponential Linear Unit
+
+*Elu*：线性指数
+
+$$
+elu(z, \alpha) =
+\left \{ \begin{array} {l}
+	z & z > 0 \\
+	\alpha (e^z - 1) & x \leqslant 0 \\
+\end{array} \right.
+$$
+
+> - $\alpha$：超参
+
+-	$x \leq 0$时，$f(x)$随$x$变小而饱和
+	-	ELU对输入中存在的特性进行了表示，对缺失特性未作定量
+		表示
+
+> - 网络深度超超过5层时，ELU相较ReLU、LReLU学习速度更快、
+	泛化能力更好
+
+###	Gausssion Error Liear Unit
+
+GELU：ReLU的可导版本
+
+###	Selu
+
+可伸缩指数线性激活：可以两个连续层之间保留输入均值、方差
+
+-	正确初始化权重：`lecun_normal`初始化
+-	输入数量足够大：`AlphaDropout`
+-	选择合适的$\alpha, scale$值
+
+$$
+selu(z) = scale * elu(z, \alpha)
+$$
+
 
 ##	梯度消失
 
