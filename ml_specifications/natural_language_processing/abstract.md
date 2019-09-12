@@ -46,6 +46,7 @@ description: 文本挖掘
 ####	基于词分布
 
 #####	问题描述
+
 > - 输入
 > > -	N个文档构成的文本集C
 > > -	话题个数K
@@ -56,6 +57,45 @@ description: 文本挖掘
 > > -	N个文档在K个话题上的概率分布
 		$(\pi_1, \pi_2, \cdots, \pi_N)$
 
+##	语言模型
+
+词向量：将向量表示词
+
+-	*1-of-N representation*/*one hot representation*：one-hot
+	表示词
+
+	![word_vector](imgs/word_vector_one_hot.png)
+
+	-	词向量维度为整个词汇表大小
+	-	简单、效率不高
+
+-	*distributed representation*：embedding思想，通过训练，
+	将词映射到较短词向量中
+
+	![word_vector](imgs/word_vector_embedding.png)
+
+	-	词向量维度自定义
+	-	容易分析词之间关系
+
+###	Continuous Bag-of-Words
+
+*CBOW*：输入特征词上下文相关词对应词向量，输出特征词的词向量
+
+-	CBOW使用词袋模型
+	-	特征词上下文相关从平等，不考虑和关注的词之间的距离
+
+###	Skip-Gram
+
+*Skip-Gram*：输入特征词词向量，输出softmax概率靠前的词向量
+
+##	神经网络词向量
+
+神经网络词向量：使用神经网络训练词向量
+
+-	一般包括三层：输入层、隐层、输出softmax层
+
+-	从隐藏层到输出softmax层计算量很大
+	-	需要计算所有词的softmax概率，再去找概率最大值
 
 
 
