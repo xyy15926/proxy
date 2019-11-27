@@ -59,7 +59,8 @@ Word2Vec：word embeding的一种，使用层次化softmax、负采样
 		[1 - \sigma(x^T w_{j_i} + b_{j_i})]^{1-d_i} \\
 	P(d_i|x, w_{j_i}) & = \left \{ \begin{array}{l}
 		1 - \sigma(x^T w_{j_i} + b_{j_i}), & d_i = 0 \\
-		\sigma(x^T w_{j_i} + b_{j_i}), & d_i = 1 \\
+		\sigma(x^T w_{j_i} + b_{j_i}), & d_i = 1
+		\end{array} \right. \\
 	\sigma(z) & = \frac 1 {1 + e^z}
 	\end{align*}$$
 
@@ -70,7 +71,7 @@ Word2Vec：word embeding的一种，使用层次化softmax、负采样
 -	则对数似然函数为
 
 	$$
-	L = log \prod_{i=1}^M P(d_i|x, w_{j_i}) & = \sum_{i=1}^M
+	L = log \prod_{i=1}^M P(d_i|x, w_{j_i}) = \sum_{i=1}^M
 		d_i log [\sigma(x^T w_{j_i} + b_{j_i})]
 		{1-d_i} log [1 - \sigma(x^T w_{j_i} + b_{j_i})]
 	$$

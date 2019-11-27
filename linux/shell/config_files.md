@@ -714,4 +714,36 @@ sortlist							# 允许将得到域名结果进行排序
 
 -	文件名
 
+##	系统环境变量
+
+###	NAME
+
+-	`PATH`：用户命令查找目录
+-	`HOME`：用户主工作目录
+-	`SHELL`：用户使用shell
+-	`LOGNAME`：用户登录名
+-	`LANG/LANGUAGE`：语言设置
+-	`MAIL`：用户邮件存储目录
+-	`PS1`：命令基本提示符
+-	`PS2`：命令附属提示符
+-	`HISTSIZE`：保存历史命令记录条数
+-	`HOSTNAME`：主机名称
+
+> - `/etc/passwd`、`/etc/hostname`等文件中设置各用户部分
+	默认值，缺省随系统改变
+
+###	PATH
+
+####	C PATH
+
+-	`LIBRARY_PATH`：程序编译时，动态链接库查找路径
+-	`LD_LIBRARAY_PATH`：程序加载/运行时，动态链接库查找路径
+
+> - 动态链接库寻找由`/lib/ld.so`实现，缺省包含`/usr/lib`、
+	`/usr/lib64`等
+> > - 建议使用`/etc/ld.so.conf`配置替代`LD_LIBRARY_PATH`，
+	或在编译时使用`-R<path>`指定
+> > - 手动添加动态链接库至`/lib`、`/usr/lib`等中时，可能
+	需要调用`ldconfig`生成cache，否则无法找到
+
 

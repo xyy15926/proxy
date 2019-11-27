@@ -64,7 +64,7 @@ L(\theta) & = log P(Y|\theta) \\
 -	利用Jensen不等式有
 
 	$$\begin{align*}
-	L(\theta) - L(|theta^{(i)}) & = log(\sum_Z P(Y|Z,
+	L(\theta) - L(|\theta^{(i)}) & = log(\sum_Z P(Y|Z,
 		\theta^{(i)}) \frac {P(Y|Z,\theta) P(Z|\theta)}
 		{P(Y|Z,\theta^{(i)})}) - log P(Y|\theta^{(i)}) \\
 	& \geq \sum_Z P(Z|Y,\theta^{(i)}) log \frac
@@ -90,7 +90,7 @@ L(\theta) & = log P(Y|\theta) \\
 	L(\theta) & \geq B(\theta, \theta^{(i)}) \\
 	\end{align*}$$
 
-	并根据$B(\theta, \theta^{(i)})$定义有b
+	并根据$B(\theta, \theta^{(i)})$定义有
 
 	$$\begin{align*}
 	L(\theta^{(i)}) = B(\theta^{(i)}, \theta^{(i)})
