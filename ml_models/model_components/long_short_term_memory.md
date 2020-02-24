@@ -39,9 +39,9 @@ description: Long Short Term Memory
 
 ###	LSTM标准细胞结构
 
-![lstm_cell_strucure](imgs/lstm_cell_strucure.png)
+![lstm_cell_structure](imgs/lstm_cell_structure.png)
 
-$$ \beign{align*}
+$$ \begin{align*}
 i^{(t)} & = \sigma(W_i[x^{(t)}, h^{(t-1)}], b_i), & input gate \\
 f^{(t)} & = \sigma(W_f[x^{(t)}, h^{(t-1)}], b_f), & forget gate \\
 o^{(t)} & = \sigma(W_o[x^{(t)}, h^{(t-1)}], b_o), & output gate \\
@@ -49,6 +49,7 @@ o^{(t)} & = \sigma(W_o[x^{(t)}, h^{(t-1)}], b_o), & output gate \\
 C^{(t)} & = f^{(t)} \odot c^{(t-1)} + i^{(t)} \odot c^{(t)}, & new memory \\
 h^{(t)} & = o^{(t)} \odot tanh(c^{(t)}), & output
 \end{align*}$$
+
 
 > - $W_i, b_i, W_f, b_f, W_o, b_o$：输入门、遗忘门、输出门
 	参数

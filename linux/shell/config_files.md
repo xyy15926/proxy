@@ -523,6 +523,13 @@ xxx.xxx.xxx.xxx domain.name
 
 ###	DNS Resolver
 
+####	相关问题
+
+-	`Temporary failure in name resolution`
+	-	问题：可能是DNS服务器配置缺失、错误
+	-	场景：`$ ping`
+	-	解决：设置`nameserver`配置DNS服务器地址
+
 ####	`/etc/resolv.conf`
 
 域名解析器（resolver）（DNS客户机）配置文件
