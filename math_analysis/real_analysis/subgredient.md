@@ -19,7 +19,7 @@ description: 次梯度
 
 > - 次梯度：实变量凸函数$f$在点$x_0$的次梯度$c$满足
 	$$
-	\forall x, f(x) - f(x_0) \geq v(x - x_0)
+	\forall x, f(x) - f(x_0) \geq c(x - x_0)
 	$$
 
 -	可以证明凸函数$f$在$x_0$处所有次梯度的集合是非空凸紧集
