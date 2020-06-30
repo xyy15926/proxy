@@ -16,6 +16,32 @@ description: TensorFlow安装配置
 
 ##	安装
 
+###	CUDA、CUDNN、CUDAtookit、NVCC
+
+-	CUDA：compute unified device architecture，通用并行计算
+	平台和编程模型，方便使用GPU进行通用计算
+-	cuDNN：深度学习加速库，计算设计的库、中间件
+	-	C++STL的thrust的实现
+	-	cublas：GPU版本blas
+	-	cuSparse：稀疏矩阵运算
+	-	cuFFT：快速傅里叶变换
+	-	cuDNN：深度学习网络加速
+-	CUDA Toolkit：包括以下组件
+	-	编译器`nvcc`：CUDA-C、CUDA-C++编译器，依赖`nvvm`
+		优化器
+		（`nvvm`本身依赖`llvm`编译器）
+	-	·`debuggers`、`profiler`等工具
+	-	科学库、实用程序库
+		-	cudart
+		-	cudadevrt
+		-	cupti
+		-	nvml
+		-	nvrtc
+		-	cublas
+		-	cublas_device
+	-	示例
+	-	驱动：
+
 ##	TensorBoard
 
 TensorBoard是包括在TensorFlow中可视化组件
