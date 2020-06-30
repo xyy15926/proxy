@@ -48,8 +48,8 @@ M_{\gamma, f}(x) & = prox_{\gamma, f}(x) \\
 
 ###	近端算子求解
 
--	对一般凸函数$f(x)$，通常使用次梯度进行的优化，其近端算子
-	解为
+-	对一般凸$f(x)$，通常使用次梯度进行优化，其近端算子解为
+	（即解变动方向$p-x$为负次梯度方向）
 
 	$$
 	p = prox_f(x) \Leftrightarrow x - p \in \partial f(p)
@@ -57,6 +57,7 @@ M_{\gamma, f}(x) & = prox_{\gamma, f}(x) \\
 	$$
 
 -	对光滑凸函数$f$，上述等式对其近端算子约简为
+	（即解变动方向$p-x$为负梯度方向）
 
 	$$
 	p = prox_f(x) \Leftrightarrow x-p = \bigtriangledown f(p)
@@ -179,7 +180,8 @@ proj_C(x) & = \arg\min_{y \in C} \|y - x\|^2 \\
 
 ##	*Proximal Gradient Method*
 
-目标函数
+近端算法：分两步分别优化可微凸$F(x)$、凸$R(x)$，近似优化目标
+函数整体，不断迭代直至收敛
 
 $$
 \min_{x \in \mathcal{H}}F(x) + R(x)
@@ -189,6 +191,22 @@ $$
 > - $\nabla F(x)$：*Lipschitz continous*、利普希茨常数为$L$
 > - $R(x)$：下半连续凸函函数，可能不光滑
 > - $\mathcal{H}$：目标函数定义域集合，如：希尔伯特空间
+
+-	*gredient step*：从$x^{(k)}$处沿$F(x)$负梯度方向微小移动
+	达到$x^{(k.5)}$
+
+	$$
+	x^{(k.5)} = x^{(k)} - \gamma \nabla F(x^{(k)})
+	$$
+
+-	*proximal operator step*：在$x^{(k.5)}$处应用$R(x)$近端
+	算子，即寻找$x^{(k.5)}$附近且使得$R(x)$较小点
+
+	$$
+	x^{(k+1)} = prox_{\gamma R}(x^{(k.5)})
+	$$
+
+###	目标函数推导
 
 $$\begin{align*}
 prox_{\gamma R}(x - \gamma \nabla F(x)) & = \arg\min_u
@@ -202,7 +220,7 @@ prox_{\gamma R}(x - \gamma \nabla F(x)) & = \arg\min_u
 
 > - $\frac {\gamma} 2 \|\nabla F(x)\|_2^2, F(x)$：与$u$无关
 	，相互替换不影响极值
-> - $0 < \gamma \geq \frac 1 L$：保证最后反向泰勒展开成立
+> - $0 < \gamma \leq \frac 1 L$：保证最后反向泰勒展开成立
 
 -	则$prox_{\gamma R}(x-\gamma \nabla F(x))$解即为
 	“原问题最优解”（若泰勒展开完全拟合$F(x)$）
@@ -211,40 +229,21 @@ prox_{\gamma R}(x - \gamma \nabla F(x)) & = \arg\min_u
 	-	若$R(x)$部分也可分离，则整个目标函数可以分离，可以
 		**拆分为多个一元函数分别求极值**
 
--	考虑泰勒展开是局部性质，$u$作为极小值只能保证在$x$附近
-	领域成立
+-	考虑泰勒展开是局部性质，$u$作为极小值点只能保证在$x$附近
+	领域成立，可将近端算子解作为下个迭代点
 
-	-	可直接将近端算子解作为下个迭代点
+	$$
+	x^{(k+1)} = prox_{\gamma R}(x^{(k)} - \gamma \nabla
+		F(x^{(k)}))
+	$$
 
-		$$
-		x^{(k+1)} = prox_{\gamma R}(x^{(k)} - \gamma \nabla
-			F(x^{(k)}))
-		$$
+-	迭代终止条件即
 
-		-	*gredient step*：
-			$x^{(k.5)} = x^{(k)} - \gamma \nabla F(x^{(k)})$
-		-	*proximal operator step*：
-			$x^{(k+1)} = prox_{\gamma R}(x^{(k.5)})$
+	$$
+	\hat x = prox_{\gamma R}(\hat x - \gamma \nabla F(\hat x))
+	$$
 
-	-	$L$已知时，可直接确定$\gamma \in (0, \frac 1 L]$，
-		否则可迭代搜索$\gamma := \gamma \beta,\beta < 1$，
-		直至
-
-		$$
-		F(x - PG_{\gamma R}(x)) \leq F(x) - \nabla F(x) PG_{\gamma R}(x)
-			+ \frac 1 2 \|PG_{\gamma R}(x)\|_2^2
-		$$
-
-		> - $PG_{\gamma R}(x)=x-prox_{\gamma R}(x-\gamma \nabla F(x))$
-		> - 直接根据下述利普希茨条件须求Hasse矩阵，计算量较大
-
-	-	迭代终止条件为
-
-		$$
-		\hat x = prox_{\gamma R}(\hat x - \gamma \nabla F(\hat x))
-		$$
-
-###	二阶近似证明
+####	二阶近似证明
 
 $$\begin{align*}
 F(u) & = F(x) + \nabla F(x)^T (u - x) + \frac 1 2
@@ -256,6 +255,21 @@ F(u) & = F(x) + \nabla F(x)^T (u - x) + \frac 1 2
 > - $\nabla^2 F(\zeta)$：凸函数二阶导正定
 > - $\|\nabla F(u) - \nabla F(x)\|_2 \leq L \|u-x\|_2$：
 	$\nabla F(x)$利普希茨连续性质
+
+###	参数确定
+
+-	$L$已知时，可直接确定$\gamma \in (0, \frac 1 L]$，
+
+-	否则可线性迭代搜索$\gamma := \beta \gamma,\beta < 1$，
+	直至
+
+	$$
+	F(x - PG_{\gamma R}(x)) \leq F(x) - \nabla F(x) PG_{\gamma R}(x)
+		+ \frac 1 2 \|PG_{\gamma R}(x)\|_2^2
+	$$
+
+	> - $PG_{\gamma R}(x)=x-prox_{\gamma R}(x-\gamma \nabla F(x))$
+	> - 直接根据下述利普希茨条件须求Hasse矩阵，计算量较大
 
 ###	反向推导
 
