@@ -1,11 +1,12 @@
 ---
 title: Tmux
 tags:
-  - 工具
+  - Tools
+  - Terminal
 categories:
-  - 工具
+  - Tools
 date: 2019-06-30 20:16:34
-updated: 2019-06-30 20:16:34
+updated: 2020-07-12 18:10:43
 toc: true
 mathjax: true
 comments: true
