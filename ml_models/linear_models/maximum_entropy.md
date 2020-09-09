@@ -56,7 +56,7 @@ f(x) & = F^{'}(x) = \frac {e^{-(x-\mu)/\gamma}}
 
 $$\begin{align*}
 P(Y=1|x) & = \frac {exp(wx + b)} {1 + exp (wx + b)} \\
-P(Y=0|x) & = \frac 1 {exp(wx + b)} \\
+P(Y=0|x) & = \frac 1 {1 + exp(wx + b)} \\
 P(Y=1|\hat x) & = \frac {exp(\hat w \hat x)}
 	{1 + exp (\hat w \hat x)} \\
 P(Y=0|\hat x) & = \frac 1 {1+exp(\hat w \hat x)}
@@ -66,23 +66,40 @@ P(Y=0|\hat x) & = \frac 1 {1+exp(\hat w \hat x)}
 > - $\hat x = (x^T|1)^T$
 > - $\hat w = (w^T|b)^T$
 
--	逻辑回归比较两个条件概率值，将实例x归于条件概率较大类
-
-####	逻辑回归性质
-
-> - *odds*：几率，事件发生与不发生的概率比值$\frac p {1-p}$
-
--	对逻辑回归有
-
-	$$
-	log \frac {P(Y=1|x)} {1-P(Y=0|x)} = \hat w \hat x
-	$$
-
-	-	在逻辑回归模型中，输出Y=1的对数几率是输入x的线性函数
+-	逻辑回归比较两个条件概率值，将实例$x$归于条件概率较大类
 
 -	通过逻辑回归模型，可以将线性函数$wx$转换为概率
 	-	线性函数值越接近正无穷，概率值越接近1
 	-	线性函数值越接近负无穷，概率值越接近0
+
+####	Odds/Odds Ratio
+
+-	在逻辑回归模型中，输出$Y=1$的对数几率是输入x的线性函数
+
+	$$
+	log \frac {P(Y=1|x)} {1-P(Y=1|x)} = \hat w \hat x
+	$$
+
+-	OR在逻辑回归中意义：$x_i$每增加一个单位，odds将变为原来
+	的$e^{w_i}$倍
+
+	$$\begin{align*}
+	odd &= \frac {P(Y=1|x)} {1-P(Y=1|x)} = e^{\hat w \hat x} \\
+	OR_{x_i+1 / x_i} &= e^{w_i}
+	\end{align*}$$
+
+	-	对数值型变量
+		-	多元LR中，变量对应的系数可以计算相应
+			*Conditional OR*
+		-	可以建立单变量LR，得到变量系数及相应
+			*Marginal OR*
+
+	-	对分类型变量
+		-	可以直接计算变量各取值间对应的OR
+		-	变量数值化编码建立模型，得到变量对应OR
+
+		> - 根据变量编码方式不同，变量对应OR的含义不同，其中
+			符合数值变量变动模式的是WOE线性编码
 
 ####	策略
 

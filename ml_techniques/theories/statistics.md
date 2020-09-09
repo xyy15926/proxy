@@ -86,6 +86,8 @@ $$
 	-	$H(p) = log k$：$\forall j, p_j=1/k$，随机变量
 		在任意取值概率相等，不确定性最大
 
+-	熵可以视为变量取值概率的加权和
+
 > - *empirical entropy*：经验熵，熵中的概率由数据估计时
 	（尤极大似然估计）
 
@@ -222,5 +224,129 @@ $$
 -	由于随机误差存在，卡方统计量容易夸大频数较小的特征影响
 -	只存在少数类别中特征的卡方统计量值可能很小，容易被排除，
 	而往往这类词对分类贡献很大
+
+##	Odds/Odds Ratio
+
+-	*Odds*：几率/优势，事件发生与不发生的概率比值
+
+	$$
+	odds = \frac p {1-p}
+	$$
+
+	> - $p$：事件发生概率
+
+-	*Odds Ratio*：优势比，两组事件odds的比值
+
+	$$
+	OR = \frac {odds_1} {odds_0}
+	$$
+
+##	WOE值
+
+WOE值：将预测变量（二分类场景中）集中度作为分类变量编码
+的数值
+
+$$\begin{align*}
+WOE_i & = log(\frac {\%B_i} {\%G_i}) \\
+& = log(\frac {\#B_i / \#B_T} {\#G_i / \#G_T}) \\
+& = log(\frac {\#B_i / \#G_i} {\#B_T / \#G_T}) \\
+& = log(\frac {\#B_i} {\#G_i}) - log(\frac {\#B_T} {\#G_T}) \\
+& = log(\frac {\#B_i / ({\#B_i + \#G_i})}
+	{\#G_i / (\#B_i + \#G_i)}) -
+	log(\frac {\#B_T} {\#G_T}) \\
+& = log(odds_i) - log(odds_T)
+\end{align*}$$
+
+> - $\%B_i, \%G_i$：分类变量取第$i$值时，预测变量为B类、G类占
+	所有B类、G类比例
+> - $\#B_i, \#B_T$：分类变量取第$i$值时，预测变量为B类占所有
+	B类样本比例
+> - $\#G_i, \#G_T$：分类变量取第$i$值时，预测变量为G类占所有
+	G类样本比例
+> - $odds_i$：分类变量取第$i$值时，预测变量取B类优势
+> - $odds_T$：所有样本中，预测变量取B类优势
+> - 其中$log$一般取自然对数
+
+
+-	WOE值可以衡量分类变量各取值中
+	-	B类占所有B类样本比例、G类占所有G类样本比例的差异
+	-	B类、G类比例，与所有样本中B类、G类比例的差异
+
+-	WOE值能体现分类变量取值的预测能力，变量各取值WOE值方差
+	越大，变量预测能力越强
+	-	WOE越大，表明该取值对应的取B类可能性越大
+	-	WOE越小，表明该取值对应的取G类可能性越大
+	-	WOE接近0，表明该取值预测能力弱，对应取B类、G类可能性
+		相近
+
+###	OR与WOE线性性
+
+$$\begin{align*}
+log(OR_{j,i}) &= log(odds_i) - log(odds_j) \\
+&= WOE_i - WOE_j
+\end{align*}$$
+
+-	即：预测变量对数优势值与WOE值呈线性函数关系
+	-	预测变量在取$i,j$值情况下，预测变量优势之差为取$i,j$
+		值的WOE值之差
+	-	WOE值编码时，分类变量在不同取值间跳转时类似于线性
+		回归中数值型变量
+
+	![woe_encoding_linear_sketch](imgs/woe_encoding_linear_sketch.png)
+
+-	考虑到对数优势的数学形式，单变量LR模型中分类型变量WOE
+	值可以类似数值型变量直接入模
+	-	当然，WOE值编码在多元LR中无法保证单变量分类情况下的
+		线性性
+	-	或者说多变量LR中个变量系数值不一定为1
+	-	在基于单变量预测能力优秀在多变量场合也优秀的假设下，
+		WOE值编码（IV值）等单变量分析依然有价值
+
+###	Bayes Factor、WOE编码、多元LR
+
+$$\begin{align*}
+ln(\frac {P(Y=1|x_1,x_2,\cdots,x_D)}
+	{P(Y=0|x_1,x_2,\cdots,x_D)})
+	&= ln(\frac {P(Y=1)} {P(Y=0)}) \\
+	& \overset {conditionally independent} {=}
+		ln (\frac {P(Y=1)} {P(Y=0)}) + 
+		\sum_{i=1}^D ln(\frac {P(x_i|Y=1)} {P(x_i|Y=0)}) \\
+ln(\frac {P(Y=1|x_1,x_2,\cdots,x_D)} 
+	{P(Y=0|x_1,x_2,\cdots,x_D)})
+	& \overset {semi} {=} ln (\frac {P(Y=1)} {P(Y=0)}) +
+		\sum_{i=1}^D \beta_i ln(\frac {P(x_i|Y=1)}
+		{P(x_i|Y=0)})
+\end{align*}$$
+
+> - $\frac {P(x_i|Y=1)} {P(x_i|Y=0)}$：贝叶斯因子，常用于
+	贝叶斯假设检验
+
+-	*Naive Bayes*中满足各特征$X$关于$Y$条件独立的强假设下，
+	第二个等式成立
+
+-	*Semi-Naive Bayes*中放宽各特征关于$Y$条件独立假设，使用
+	权重体现变量相关性，此时则可以得到多元LR的预测变量取值
+	对数OR形式
+	-	则多元LR场景中，WOE值可以从非完全条件独立的贝叶斯
+		因子角度理解
+
+###	IV值
+
+$$\begin{align*}
+IV_i &= (\frac {\#B_i} {\#B_T} - \frac {\#G_i} {\#G_T}) * 
+	WOE_i \\
+&= (\frac {\#B_i} {\#B_T} - \frac {\#G_i} {\#G_T}) *
+	log(\frac {\#B_i / \#B_T} {\#G_i / \#G_T}) \\
+IV &= \sum IV_i
+\end{align*}$$
+
+> - $IV_i$：特征$i$取值IV值
+> - $IV$：特征总体IV值
+
+-	特征总体的IV值实际上是其各个取值IV值的加权和
+	-	类似交叉熵为各取值概率的加权和
+
+
+
 
 
