@@ -122,6 +122,31 @@ Df/Ser = pd.concat(
 	-	`pd.merge`可以指定合并基准列，而`pd.concat`只能按
 		Index“合并”，且只能inner join或时outer join
 
+-	注意事项
+
+	-	`pd.concat`默认会对索引进行排序，所以若索引包含不可
+		比较元素则会报错，尤其是在多重索引情况下
+
+		-	改变索引类型规避
+
+			```python
+			# 改为categorical索引
+			df.index.astype("categorical")
+			# 改为str类型
+			df.index.astype(str)
+			```
+
+		-	reset索引规避
+
+			```python
+			df_new = pd.cancat([df1.reset_index(), df2.reset_index()])
+			df_new = df_new.set_index(col_name)
+			```
+
+	-	`pd.concat`连接会尝试转换数据类型，如：
+		`pd.Timestamp`可能会被转换为`int`
+
+
 ####	`combine_first`
 
 ```python

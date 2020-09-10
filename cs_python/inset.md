@@ -276,6 +276,20 @@ $ conda config --set show_channel_urls yes
 
 > - conda源不是pypi源，不能混用
 
+####	Win平台设置
+
+-	添加菜单项
+
+	```sh
+	 # 可用于恢复菜单项
+	$ cd /path/to/conda_root
+	$ python .\Lib\_nsis.py mkmenus
+	```
+
+-	VSCode是通过查找、执行`activate.bat`激活虚拟环境
+	-	所以若虚拟环境中未安装`conda`（无`activate.bat`）
+		则虚拟环境无法自动激活
+
 ###	常用命令
 
 ```shell

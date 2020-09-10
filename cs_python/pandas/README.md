@@ -39,5 +39,32 @@ description: Pandas约定
 		-	`b`（bottom）：底层级`-1`（仅表意）
 		-	默认值为`None`表示所有层级
 
+##	Pandas非必须依赖包
+
+###	文件相关
+
+-	Excel
+	-	`xlrd/xlwt`：*xls*格式读写，速度较快
+	-	`openpyxl`：*xlsx*格式读写，速度较慢
+
+##	Pandas版本
+
+-	`0.22.x`
+	-	`flaot`类型可作为`Categorical Index`成员，不能被用于
+		`loc`获取值
+
+-	`l.1.1`
+	-	`astype`方法不支持`pd.Timestamp`类型，只能用
+		`"datetime64"`替代
+
+-	`ALL`
+	-	`Category Series`作为`groupby`聚集键时，类别元素都会
+		出现在聚集结果中，即使其没有出现在seris值中
+	-	`set`、`frozenset`被认为是*list-like*的indexer，所以
+		在索引中的`frozenset`无法用一般方法获取
+
+		```python
+		df.iloc[list(df.index).index(fronzenset)]
+		```
 
 
