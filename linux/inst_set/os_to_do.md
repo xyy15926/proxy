@@ -219,26 +219,26 @@ RPM安装包
 	$ ssh-add /path/to/rsa_private_key
 	```
 
-####	配置
-
-参见[脚本文件](../../home_config/setting.sh)
-
 ##	本地化
 
 ###	字体
 
-linux系统本身不带有中文字体，用于terminal的字需要是monospace
-字体，否则可能在terminal中字符直接会重叠。在官方源中一般会有
-一些开源字体（wqy-microhei），但是这些字体一般是ttc文件，而
-有些应用不支持ttc文件安装的字体，所以需要手动安装ttf
+-	terminal中字体需要为*monospace*，否则在terminal中字符
+	可能会重叠
+-	`fc-`系列默认从以下路径查找可用字体
+	-	`$HOME/.fonts`
+	-	`/usr/share/fonts`
 
 ```shell
-$ sudo cp /path/to/fonts.ttf /usr/share/fonts/
-$ cd /usr/share/fonts
+$ sudo cp /path/to/fonts.ttf /path/for/fc
+ # 建立字体cache
 $ fc-cache
+ #输出已安装字体，并仅保留中文字体
 $ fc-list :lang=zh
-	#输出已安装中文字体
 ```
+
+> - 字体名称不是字体文件名，是在字体文件内部定义，指定未安装
+	字体只能通过文件名，而已安装字体应使用字体名称
 
 ###	`Locale`
 

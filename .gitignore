@@ -1,6 +1,7 @@
 # tmp files
 tmp/
 temp/
+Session.vim
 
 # executable directories
 bin/

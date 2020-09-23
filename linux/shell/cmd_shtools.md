@@ -156,10 +156,88 @@ ssh <user_name>@<host> [-p <port>] [-i <private_key>]
 	[-F <config_file>]
 ```
 
--	`-F`：指定配置文件，简化命令，缺省`~/.ssh/config`
-	-	有时会覆盖其余配置，可以指定`-F /dev/null`避免
--	`-p`：指定端口
--	`-i`：指定使用的私钥
+-	参数
+	-	`-F`：指定配置文件，简化命令，缺省`~/.ssh/config`
+		-	有时会覆盖其余配置，可以指定`-F /dev/null`避免
+	-	`-p`：指定端口
+	-	`-i`：指定使用的私钥
+	-	`-T`：测试连接
+
+####	`ssh-keygen`
+
+`ssh-keygen`：生成ssh密钥
+
+```sh
+ # 生成位长为4096的RSA密钥
+$ ssh-keygen -t rsa -b 4096 -C "xyy15926@163.com"
+ # 更改现有私钥密钥
+$ ssh-keygen -p [-f keyfile] [-m format] [-N new_pwd] [-p old_pwd]
+```
+
+-	参数
+	-	`-t [dsa|ecdsa|ecdsa-sk|ed25519|ed25519-sk|ras]`：
+		生成密钥类型
+	-	`-f <output_keyfile>`：密钥保存文件
+	-	`-b <bits>`：密钥位数
+	-	`-C <comment>`
+	-	`-p`：修改现有密钥密码
+
+-	在生成密钥时可以设置密钥，避免计算机访问权限被获取后密钥
+	被用于访问其他系统
+	-	设置有密钥的私钥每次使用都需要输入密码
+	-	`ssh-agent`可以用于管理私钥密码，将私钥添加给
+		`ssh-agent`无需每次输入密码
+
+####	`ssh-add`
+
+`ssh-add`：管理`ssh-agent`代理密钥
+
+```sh
+ # 缺省将`$HOME/.ssh/id_rsa`私钥添加至`ssh-agent`
+$ ssh-add <keyfile>
+```
+
+-	参数
+	-	`-l`：查看代理中私钥
+	-	`-L`：查看代理中私钥对应公钥
+	-	`-d <keyfile>`：移除指定私钥
+	-	`-D`：移除所有私钥
+	-	`-x/-X`：锁定/解锁`ssh-agent`（需要设置密码）
+	-	`-t <seconds>`：密钥时限
+
+####	`ssh-agent`
+
+`ssh-agent`：控制和保存公钥验证所使用的私钥程序
+
+-	参数
+	-	`-k`：关闭当前`ssh-agent`进程
+
+-	启动方式
+
+	```sh
+	# 创建默认子shell，在子shell中运行`ssh-agent`
+	# 会自动进入子shell中，退出子shell则`ssh-agent`关闭
+	$ ssh-agent $SHELL
+	# 启动后台`ssh-agent`进程，需手动关闭`ssh-agent`进程
+	$ eval `ssh-agent`
+	```
+
+-	说明
+	-	向`ssh-agent`添加私钥需要输入私钥密码
+		（无密码私钥无管理必要）
+	-	`ssh-agent`不会默认启动，应是每次需要大量使用私钥
+		前启动、添加私钥，然后关闭
+
+###	`/etc/init.d/sshd`
+
+`sshd`：ssh连接的服务器守护程序（进程）
+
+```shell
+$ sudo systemctl start sshd
+	# 使用`systemctl`启动
+$ /etc/init.d/sshd restart
+	# 直接启动进程
+```
 
 ###	`scp`
 
@@ -181,27 +259,6 @@ ssh <user_name>@<host> [-p <port>] [-i <private_key>]
 
 -	远程到远程
 
-###	`ssh-keygen`
-
-生成ssh需要的rsa密钥
-
--	`$ ssh-keygen -t rsa`：生成rsa密钥
--	`$ ssh-keygen -r rsa -P '' -f ~/.ssh/id_rsa`
-
-###	`ssh-add`
-
-添加密钥给`ssh-agent`（避免每次输入密码？）
-
-###	`/etc/init.d/sshd`
-
-ssh连接的服务器守护程序（进程）
-
-```shell
-$ sudo systemctl start sshd
-	# 使用`systemctl`启动
-$ /etc/init.d/sshd restart
-	# 直接启动进程
-```
 
 ###	`rsync`
 

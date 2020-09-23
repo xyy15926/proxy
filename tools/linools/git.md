@@ -45,55 +45,67 @@ description: Git常识
 	-	对单一项目有效
 	-	非所有人共用忽略规则
 
-##	`config`
+##	Git配置/`config`
 
--	修改配置类型：缺省查看配置
-	-	`--global`：全局配置
-	-	`--local`：局部repo配置
+-	配置文件、配置类型
+	-	`--system`：系统全局配置，配置文件`/etc/gitconfig`
+	-	`--global`：用户全局配置，配置文件
+		`$HOME/.gitconfig`、`$HOME/.config/git/config`
+	-	`--local`：局部repo配置，配置文件`repo/.git/config`
 
-###	`user`
+	```sh
+	# 修改`section.key`值（缺省`--local`）
+	$ git config [--system|--global|--local] <section>.<key> <value>
+	# 删除配置项
+	$ git config [--system|--global|--local] --unset <section>.<key>
+	```
 
--	`user.name`：用户名
--	`user.email`：用户邮箱
+###	配置文件常用
 
-```shell
-$ git config user.name
-$ git config --global user.name "username"
-$ git config --local user.email "email"
+```md
+ # 核心修改
+[core]
+	# 忽略文件权限修改
+	filemode = false
+	editor = vim
+	# 提交、检出时换行符设置
+		# `input`：提交时转换为`<LF>`、检出时不转换
+		# `false`：提交、检出均不转换
+		# `true`：提交时转换为`<LF>`、检出时转换为`<CRLF>`
+	autocrlf = input
+	# 是否允许文件混用换行符
+		# `true`：拒绝提交包含混合换行符文件
+		# `false`：允许提交包含混合换行符文件
+		# `warn`：提交包含混合换行符文件时警告
+	safecrlf = true
+[user]
+	name = xyy15926
+	email = xyy15926@163.com
+ # 设置别名
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	d  =  difftool
+ # 输出着色
+[color]
+	# 打开所有默认终端着色
+	ui = true
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
 ```
 
-###	`core`
+###	`remote`
 
-```shell
-$ git config --global core.autocrlf input
-$ git config --global core.safecrlf true
+```sh
+ # 查看远程仓库
+$ git remote -v
+ # 设置远程仓库地址
+$ git remote set-url <repo_name> <new_url>
 ```
-
--	`core.autocrlf`：提交、检出时换行符设置
-	-	`input`：提交时转换为`<LF>`、检出时不转换
-	-	`false`：提交、检出均不转换
-	-	`true`：提交时转换为`<LF>`、检出时转换为`<CRLF>`
-
--	`core.safecrlf`：是否允许文件混用换行符
-	-	`true`：拒绝提交包含混合换行符文件
-	-	`false`：允许提交包含混合换行符文件
-	-	`warn`：提交包含混合换行符文件时警告
-
-##	`log`
-
-```shell
-$ git log [<file_name>]
-	# 查看文件提交历史
-```
-
-##	`show`
-
-```c
-$ git show <tag_no|commit_hash>
-	# 查看改动内容
-```
-
-##	其他配置
 
 ###	指定ssh key
 
@@ -121,4 +133,19 @@ $ git show <tag_no|commit_hash>
 	git config core.sshCommand "..."
 	```
 
+##	展示命令
+
+###	`log`
+
+```shell
+$ git log [<file_name>]
+	# 查看文件提交历史
+```
+
+###	`show`
+
+```c
+$ git show <tag_no|commit_hash>
+	# 查看改动内容
+```
 
