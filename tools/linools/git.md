@@ -98,6 +98,13 @@ description: Git常识
 	prompt = false
 ```
 
+-	`autocrlf`在linux若设置为`input`，在`add`包含`<CRLF>`
+	文件会报`fatal`错
+	-	因为`input`在提交时会将`<CRLF>`转换为`<LF>`，但在
+		检出时无操作
+	-	所以导致即使`add`也不能保证repo当前状态和提交状态
+		一致
+
 ###	`remote`
 
 ```sh
