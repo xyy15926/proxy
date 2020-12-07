@@ -33,12 +33,14 @@ description:
 		看到实际效果
 		```vb
 		// 页面切换事件
+		// 注意不要`Private Sub`，否则事件不会被触发
 		// 若想手动触发可以使用button控件的`CommandButton<X>_Click`事件
 		Sub OnSlideShowPageChange()
 			Dim FileName As String
 			FileName = "<FILENAME>"
-			// `WebBrowser1`是控件名称，唯一（单个slide内）标识控件
-			// `ActivePresentation.PATH`：当前工作目录
+			// `WebBrowser1`：控件名称，唯一（单个slide内）标识控件
+			// `ActivePresentation.PATH`：当前工作目录（未保存文件返回空），
+			//		浏览器默认`http://`协议
 			// `Navigate`方法可能会无法加载
 			WebBrowser1.Navigate2(ActivePresentation.PATH + "/" + "<FILENAME>")
 		End Sub
