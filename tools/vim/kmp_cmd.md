@@ -155,6 +155,7 @@ normal模式下移动，visual模式下选取，无特殊说明visual和normal
 -	`<c-d>`/`<c-i>`：insert模式减少/增加缩进
 -	`gc(visual/normal)`：选中区域按行注释/取消注释
 	（应该是按vim的filetype确定注释格式）
+-	`<c-a>`/`<c-x>`：将光标下数字增加/减少1，支持多种进制
 
 ###	功能性
 

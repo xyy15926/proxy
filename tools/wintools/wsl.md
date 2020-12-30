@@ -94,7 +94,7 @@ WSL是一个兼容层，类似反过来的Wine，但更底层
 
 ###	版本管理
 
-`wslconfig.exe`可以用于管理多个子系统的发行版
+-	`wslconfig.exe`可以用于管理多个子系统的发行版
 
 ###	WSL、Windows互操作
 
@@ -135,9 +135,7 @@ WSL是一个兼容层，类似反过来的Wine，但更底层
 -	WSL与Windows共享端口（NT内核？）
 -	WSL继承Windows的部分环境变量，如：`PATH`
 
-###	Terminal
-
-终端模拟器推荐
+###	Terminal推荐
 
 -	[wsl-terminal](https://github.com/goreliu/wsl-terminal)：
 	专为WSL开发的终端模拟器，基于*mintty*、*wslbridge*，稳定
@@ -149,16 +147,38 @@ WSL是一个兼容层，类似反过来的Wine，但更底层
 -	[Hyper](https://hyper.is/)：基于Electron的跨平台
 	终端模拟器
 
+####	WSL-Terminal
+
+-	WSL-Terminal中包含一些快捷工具
+	-	`tools`目录中包含一些脚本，可以通过`wscripts.exe`
+		执行修改注册列表，添加一些功能
+		-	添加*WSL中vim、emacs等打开*到右键菜单
+		-	添加*在WSL中打开文件夹*到右键菜单
+	-	`run-wsl-file.exe`可以用于在快捷执行wsl脚本，只需要
+		将其选择为文件打开方式
+	-	`vim.exe`可以用WSL中vim打开任何文件，当然一般是配合
+		`tools/`中脚本在右键注册后使用
+
+-	配置
+	-	配置文件`etc/wsl-terminal.conf`
+	-	主题文件`etc/themes/`
+	-	*mintty*配置文件`etc/mintty`
+
+> - 因为*wslbridge*的原因，WSL-Terminal必须在NTFS文件系统中
+	使用
+> - *mintty*本身依赖*cmd*，包括字体等在内配置受限于*cmd*
+> - <https://zhuanlan.zhihu.com/p/22033219>
+
 ##	其他问题
 
 ###	文件权限问题
 
-在WSL中，windows实现了两种文件系统用于支持不同使用场景
+-	在WSL中，windows实现了两种文件系统用于支持不同使用场景
 
 ####	VolFs
 
-着力于在windows文件系统上提供完整的linux文件系统特性，通过
-各种手段实现了对*Inodes*、*Directory Entries*、
+VolFs：着力于在windows文件系统上提供完整的linux文件系统特性
+，通过各种手段实现了对*Inodes*、*Directory Entries*、
 *File Objects*、*File Descriptors*、*Special File Types*
 的支持
 
@@ -177,8 +197,8 @@ WSL是一个兼容层，类似反过来的Wine，但更底层
 
 ####	DrvFs
 
-着力提供于Windows系统的互操作性，从Windows的文件权限（即
-文件->属性->安全选项卡中的权限）推断出文件对应的Linux权限
+DrvFs：着力提供于Windows系统的互操作性，从Windows的文件权限
+（即文件->属性->安全选项卡中的权限）推断出文件对应Linux权限
 
 -	所有windows盘符挂在在WSL中`/mnt`是都使用DrsFs文件系统
 
