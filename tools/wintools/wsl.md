@@ -164,10 +164,12 @@ WSL是一个兼容层，类似反过来的Wine，但更底层
 	-	主题文件`etc/themes/`
 	-	*mintty*配置文件`etc/mintty`
 
+> - <https://zhuanlan.zhihu.com/p/22033219>
 > - 因为*wslbridge*的原因，WSL-Terminal必须在NTFS文件系统中
 	使用
 > - *mintty*本身依赖*cmd*，包括字体等在内配置受限于*cmd*
-> - <https://zhuanlan.zhihu.com/p/22033219>
+    <https://www.zhihu.com/question/36344262/answer/67191917>、
+	<https://www.zhihu.com/question/38752831>
 
 ##	其他问题
 
@@ -200,18 +202,17 @@ VolFs：着力于在windows文件系统上提供完整的linux文件系统特性
 DrvFs：着力提供于Windows系统的互操作性，从Windows的文件权限
 （即文件->属性->安全选项卡中的权限）推断出文件对应Linux权限
 
--	所有windows盘符挂在在WSL中`/mnt`是都使用DrsFs文件系统
+-	所有windows盘符挂在在WSL中`/mnt`是都使用DrvFs文件系统
 
 -	由于DrvFs文件权限继承机制很微妙，结果就是所有文件权限
 	都是**0777**
-	
+
 	-	所以`ls`结果都是绿色的
 	-	早期DrvFs不支持metadata，在*Build 17063*之后支持
 		文件写入metadata，但是需要重新挂载磁盘
 
-#####	Metadata支持
 
--	手动启用DrvFs metadata支持
+-	可以通过设置DrvFs metadata设置默认文件权限
 
 	```shell
 	$ sudo umount /mnt/e
@@ -221,30 +222,39 @@ DrvFs：着力提供于Windows系统的互操作性，从Windows的文件权限
 		// 此时磁盘中默认文件权限为*0644*
 	```
 
--	通过[Automatically Configuring WSL](https://blogs.msdn.microsoft.com/commandline/2018/02/07/automatically-configuring-wsl/)
-	实现自动挂载
+> - 更合适的方式是通过`/etc/wsl.conf`配置DrvFs自动挂载属性
+
+###	AutoMatically Configuring WSL
+
+```cnf
+ # `/etc/wsl.conf`
+[automount]
+ # 是否自动挂载
+enabled = true
+ # 是否处理`/etc/fstab`文件
+mountFsTab = true
+ # 挂载路径
+root = /mnt/
+ # DrvFs挂载选项，若需要针对不同drive配置，建议使用`/etc/fstab`
+options = "metadata,umask=023,dmask=022,fmask=001"
+[network]
+generateHosts = true
+generateResolvConf = true
+[interop]
+ # 是否允许WSL载入windows进程
+enabled = true
+appendWindowsPath = true
+```
+
+-	如果需要给不同盘符设置不同挂载参数，需要**再**修改
+	`/etc/fstab`
 
 	```cnf
-	# `/etc/wsl.conf`
-	[automount]
-	enable = true
-	root = /mnt/
-	options = "metadata,umask=023,fmask=001"
-	mountFsTab = true
+	E: /mnt/e drvfs rw,relatime,uid=1000,gid=1000,metadata,umask=22,fmask=111 0 0
 	```
 
-	-	如果需要给不同盘符设置不同挂载参数，需要**再**修改
-		`/etc/fstab`（否则*0644*权限无法执行windows命令）
-		```cnf
-		E: /mnt/e drvfs rw,relatime,uid=1000,gid=1000,metadata,umask=22,fmask=111 0 0
-		```
-
-> - 注意：文件夹`x`权限表示是否能经过，注意`umask/dmask`设置
-
-
-
-
-
-
+> - Automatically Configuring WSL
+> - -	<https://blogs.msdn.microsoft.com/commandline/2018/02/07/automatically-configuring-wsl/>
+> -	-	<https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/>
 
 
