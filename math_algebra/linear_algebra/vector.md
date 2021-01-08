@@ -40,6 +40,93 @@ description: Vector
 -	三角系数矩阵可以方便的递推求解
 -	初等变换可将系数矩阵变换为上三角矩阵，而不影响方程解
 
+##	Linear Transformation
+
+###	Affline Transformation
+
+仿射变换：对向量空间进行线性变换、平移得到另一个向量空间
+
+[affline_transformation](imgs/affline_transformation.png)
+
+$$\begin{align*}
+y &= Ax + b \\
+y &= (A|b^T) \begin {bmatrix} x \\ 1 \end {bmatrix}
+\end{align*}$$
+
+> - $y \in R^n, x \in R^n$
+> - $A \in R^{n*n}$：可视为产生旋转、放缩
+> - $b \in R^n$：可视为产生平移
+
+-	仿射变换可以理解为：放缩、旋转、平移
+
+-	从仿射变换的角度，对向量空间进行仿射变换
+	-	$n+1$对变换前、变换后向量坐标即可以求解仿射变换的
+		全部参数
+	-	变换后的向量之间仍然保留某种相关性，所以$n+1$对向量
+		坐标可以完全确定仿射变换
+
+-	从仿射变换几何含义，将向量空间中向量统一变换
+	-	$n+1$个不共线$n$维向量即唯一确定n维空间
+	-	若所有向量变换均遵循同一“线性”变换规则，即进行相同
+		放缩、旋转、平移，则这样的变换可以使用仿射变换表示
+
+-	说明
+	-	$n$变换前、变换后向量坐标可以求解$A$（不考虑$b$），
+		但第$n+1$对向量坐标未必满足$A$变换
+	-	若$n+2$对向量坐标不满足$(A|b)$的解，则表示不是进行
+		仿射变换:-)
+
+###	Perspective Transformation
+
+透视变换：将向量空间映射到更高维度，再降维到另一向量空间
+
+[perspective_transformation](imgs/perspective_transformation.png)
+
+$$\begin{align*}
+y &= P \begin {bmatrix} x \\ 1 \end {bmatrix} \\
+y &= \begin {bmatrix} A & b \\ c & p_{n+1,n+1} \end {bmatrix}
+	\begin {bmatrix} x \\ 1 \end {bmatrix}
+\end{align*}$$
+
+> - $P \in R^{(n+1) * (n+1)}, A \in R^{n*n}$
+> - $x \in R^n, y \in R^{n+1}$：这里默认$x$第$n+1$维为1
+> - $c$：可视为产生透视，若其为0向量，则退化为仿射变换
+> - $p_{n+1,n+1}$：可视为决定透视放缩，所以若是已确定新向量
+	空间的“位置”，此参数无效，即$n+2$对向量坐标即可求解变换
+
+-	透视变换虽然是向量空间变换至另一向量空间，但仍然存在一个
+	透视“灭点”，作为所有透视线的交点
+	-	对平面成像而言，“灭点”是成像平面、视角决定
+
+-	变换后$y$维数增加，一般会再次投影、缩放回原维度空间，
+	如原向量空间$(R^n,1)$
+
+> - 仿射变换可以视为是新的向量空间和原始空间“平行”的透视变换
+	特例
+
+####	变换矩阵求解
+
+$$\begin{align*}
+\begin {bmatrix} P & b \\ c & p_{n+1,n+1} \end {bmatrix}
+	\begin {bmatrix} x \\ 1 \end {bmatrix} &=
+	\gamma \begin {bmatrix} x^{'} \\ 1 \end {bmatrix} \\
+\Rightarrow Px + b &= \gamma x^{'} \\
+	c^Tx + p_{n+1,n+1} &= \gamma \\
+\Rightarrow Px + b &= (c^Tx + p_{n+1,n+1}) x^{'}
+\end{align*}$$
+
+> - 考虑变换后再次缩放回更低维$(R^n,1)$向量空间
+> - $\gamma$：变换后向量缩放比例
+
+-	可解性
+	-	共$n+2$对变换前、后向量坐标，即$n*(n+2)$组方程
+	-	对每对向量，其中$n$组方程如上可以看出是齐次方程组，
+		**不包含常数项**
+	-	则对$P \in R^{(n+1) * (n+1)}$中除$p_{n+1,n+1}$其他项
+		均可被其比例表示（不含常数项）
+
+> - 当然$p_{n+1,n+1}$可以置1参加运算，不影响结果
+
 ##	证明技巧
 
 -	向量证明的都转换到内积上
