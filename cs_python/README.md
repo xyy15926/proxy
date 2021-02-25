@@ -15,8 +15,12 @@ description: Python笔记约定
 ##	函数书写声明
 
 ```python
-return = func(essential(type), optional=defaults/type,
-	*args, **kwargs)
+return = func(
+	essential(type),
+	optional=defaults/type,
+	*args,
+	**kwargs
+)
 ```
 
 ###	格式说明
@@ -36,7 +40,7 @@ return = func(essential(type), optional=defaults/type,
 		-	`None`（默认行为等价参数值）
 	-	`type`：之后表示可能取值类型
 
--	`args`参数：`[参数名]=defaults/type`
+-	`*args`参数：`[参数名]=defaults/type`
 	-	首参数值为具体值表示函数默认行为（不是默认值，`args`
 		参数没有默认值一说）
 	-	其后为可取参数值类型
@@ -44,16 +48,15 @@ return = func(essential(type), optional=defaults/type,
 		-	参数名仅是**标记**作用，不能使用关键字传参
 		-	`[]`：代表参数“可选”
 
--	`kwargs`参数：`[param_name=defaults/type]`
+-	`**kwargs`参数：`[param_name=defaults/type]`
 	-	参数默认为可选参数，格式规则类似`args`参数
 
--	POSITION_ONLY参数：`[param_name](defaults/type)`
+-	*POSITION_ONLY*参数：`[param_name](defaults/type)`
 	-	POSITION_ONLY参数同样没有默认值一说，只是表示默认
 		行为方式（对应参数值）
 
-补充：
--	参数名后有`?`表示参数名待确定
--	参数首字母大写表示唯一参数
+> - 参数名后有`?`表示参数名待确定
+> - 参数首字母大写表示唯一参数
 
 ####	返回值
 
