@@ -87,7 +87,7 @@ description:
 	-	含义：指示符合条件、需执行操作的bool map
 		-	`True`：广播为全`True`，所有元素
 		-	`False`：广播为全`False`，所有元素都不
-		-	`Array[bool]`：`True`对应的元素执行计算
+		-	`Array[bool]`：`True`表示对应位置的元素满足条件
 			（需要和输入操作数广播兼容）
 
 -	`weekmask="1111100"/str/list`
@@ -96,4 +96,11 @@ description:
 			-	`1`、`0`按顺序表示周一到周日为、非工作日
 			-	空白符、驼峰分割周一至周日全称或缩写
 		-	列表：`0`、`1`按顺序表示周一到周日为、非工作日
+
+-	`condition=Array[bool,int]`
+	-	含义：指示符合条件、需要执行操作的bool map
+		-	`Array[bool]`：`True`表示对应位置的元素满足条件
+		-	`Array[int]`：根据是否为`0`转换为bool数组
+
+
 

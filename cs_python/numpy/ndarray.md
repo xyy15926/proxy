@@ -36,6 +36,25 @@ class ndarray(shape[,dtype,buffer,offset])
 
 <https://www.numpy.org.cn/reference/arrays/ndarray.html></https://www.numpy.org.cn/reference/arrays/ndarray.html>
 
+###	Broadcast 广播规则
+
+Broadcasting：4条广播规则用于处理不同shape的数组
+
+-	非维数最大者在`shape`前用`1`补足
+-	输出的`shape`中各维度是各输入对应维度最大值
+-	各输入的维度同输出对应维度相同、或为`1`
+-	输入中维度为`1`者，对应的（首个）数据被用于沿该轴的
+	所有计算
+	（即对应的`stride`为`0`，*ufunc*不step along该维度）
+
+```
+shape(3, 2, 2, 1) + shape(1, 3)
+	-> shape(3, 2, 2, 1) + shape(1, 1, 1, 3)
+	-> shape(3, 2, 2, 3) + shape(1, 1, 2, 3)
+	-> shape(3, 2, 2, 3) + shape(1, 2, 2, 3)
+	-> shape(3, 2, 2, 3) + shape(3, 2, 2, 3)
+```
+
 ##	数组属性
 
 ###	内存布局 
@@ -80,538 +99,7 @@ class ndarray(shape[,dtype,buffer,offset])
 |-----|-----|
 |`ndarray.ctypes`|简化数组和`ctypes`模块交互的对象|
 
-##	数组方法
-
-> - 类标准数学运行方法`ndarray`均有实现，参加类方法
-
-###	数组转换
-
-|方法|描述|
-|-----|-----|
-|`.item(*args)`|复制元素至标准python标量|
-|`.tolist()`|转换为`.ndim`层嵌套python标量列表|
-|`.itemset(*args)`|插入元素（尝试转换类型）|
-|`.tobytes([order])`/`.tostring`|转换为字节串|
-|`.tofile(fid[,sep,format])`|作为文本或二进制写入文件|
-|`.dump(file)`|以pickle格式存储至文件|
-|`.dumps()`|返回pickle字节串|
-|`.astype(dtype[,order,casting,...])`|转换为指定类型|
-|`.byteswap([inplace])`|交换字节|
-|`.copy([order])`|复制|
-|`.view([dtype,type])`|创建新视图|
-|`.getfield(dtype[,offset])`|设置数据类型为指定类型|
-|`.setflags([write,align,uic])`|设置标志|
-|`.fill(value)`|使用标量填充|
-
-###	形状操作
-
-|方法|描述|
-|-----|-----|
-|`.reshape(shape[,order])`|创建新形状数组|
-|`.resize(new_shape[,refcheck])`|直接改变数组形状|
-|`.transpose(*axes)`|返回轴转置视图|
-|`.swapaxes(axis1,axis2)`|返回轴交换视图|
-|`.flatten([order])`|创建一维副本|
-|`.ravel([order])`|返回一维视图|
-|`.squeeze([axis])`|删除长度为1的维度|
-
-###	项目选择、操作
-
-|方法|描述|
-|-----|-----|
-|`.take(indices[,axis,out,mode])`|获取指定位置元素|
-|`.put(indices,values[,mode])`|设置元素值|
-|`.repeat(repeats[,axis])`|重复数组元素|
-|`.choose(choices[,out,mode])`|以自身为索引从`choices`中选择元素|
-|`.sort([axis,kind,order])`||
-|`.argsort([axis,kind,order])`|返回对数组排序的索引|
-|`.partition(kth[,axis,kind,order])`|用`kth`元素作为基准快排划分|
-|`.argpartition(kth[,axis,kind,order])`|返回快排划分的索引|
-|`.searchsorted(v[,side,sorter])`|元素`v`应插入的位置|
-|`.compress(condition[,axis,out])`|返回选定切片|
-|`.diagonal([offset,axis1,axis2])`|返回对角线|
-
-###	计算
-
--	`axis=None`：默认值`None`，表示在整个数组上执行操作
-
-|方法|描述|
-|-----|-----|
-|`.max([axis,out,keepdims,initial,...])`||
-|`.argmax([axis,out])`||
-|`.min([axis,out,keepdims,initial,...])`||
-|`.argmin([axis,out])`||
-|`.ptp([axis,out,keepdims])`|极差|
-|`.clip([min,max,out])`|以`min-max`过滤|
-|`.conj()`|共轭|
-|`.round([decimals,out])`|四舍五入|
-|`.trace([offset,axis1,axis2,dtype,out])`|迹|
-|`.sum([axis,dtype,out,keepdims,...])`||
-|`.cumsum([axis,dtype,out])`|累计和|
-|`.mean([axis,dtype,out,ddof,keepdims])`||
-|`.var([axis,dtype,out,ddof,keepdims])`||
-|`.std([axis,dtype,out,ddof,keepdims])`||
-|`.prod([axis,dtype,out,keepdims])`||
-|`.cumprod([axis,dtype,out])`||
-|`.all([axis,out,keepdims])`|与|
-|`.any([axis,out,keepdims])`|或|
-
-##	索引、切片
-
-###	基本切片、索引
-
--	基本切片`[Slice]start:stop:step`（基本同原生类型切片）
-	-	`start`、`stop`负值时，按维度长取正模
-	-	`step>0`时，`start`缺省为`0`、`stop`缺省为维度长`N`
-	-	`step<0`时，`start`缺省为`N-1`、`stop`缺省为`-N-1`
-	-	`stop`、`start`可以超过维度长`N`
-
--	`Ellipsis`/`...`：放在切片中表示选择所有
-	-	`...`存在的场合，结果总是数组而不是数组标量，即使其
-		没有大小
-
--	`np.newaxis`/`None`：为切片生成数组在所在位置添加长度为
-	`1`的维度
-
--	切片可以用于设置数组中的值
-
-> - 基本切片可认为是依次对各维度切片，若靠前维度为索引，则
-	可以把靠前维度独立出来
-> - 基本切片生成的所有数组始终是原始数组的视图，也因此存在
-	切片引用的数组内存不会被释放
-> - 注意：基本索引可用于改变数组的值，但是返回值不是对数组
-	中对应值的引用
-
-###	高级索引
-
--	选择对象为以下类型时会触发高级索引
-	-	非元组序列
-	-	`ndarray`（整形或boolean类型）
-	-	包含至少一个序列、`ndarray`（整型或boolean类型）的
-		元组
-
--	高级索引总是返回数据的**副本**
-
-####	整数索引
-
--	整数索引`X[obj]`允许根据其各维度索引选择数组`X`任意元素
-	-	各整数索引（数组）表示对应维度的索引
-	-	各维度索引迭代、连接得到各元素位置：`zip(obj*)`
-	-	索引维数小于数组维数时，以子数组作为元素
-		（可以理解为索引和数组高维对齐后广播）
-
--	整数索引结果shape由`obj`中各维度索引shape决定
-	-	整数索引`obj`中各维度索引数组会被广播
-		-	各维度索引shape可能不同
-		-	为保证各维度索引能正常迭代选取元素，各维度索引
-			shape需要能被广播、符合广播要求
-	-	则高级索引出现场合
-		-	“普通索引（标量值）”不存在，必然被广播
-		-	切片能够共存
-
--	切片（包括`np.newaxis`）和高级索引共存时
-	-	高级索引特点导致其结果维度不可割
-		-	“标量索引”本应削减该维度
-		-	而高级索引整体（广播后）决定唯一shape
-	-	高级索引结果维度应整体参与结果构建
-		-	高级索引被切片分割：高级索引结果维度整体提前
-		-	高级索引相邻：高级索引结果维度填充至该处
-
-> - 高级索引操作结果中无元素，但单个维度索引越界的错误未定义
-> - 高级索引结果内存布局对每个索引操作有优化，不能假设特定
-	内存顺序
-
-```python
-X = np.array([[0,1,2],[3,4,5],[6,7,8],[9,10,11]])
-rows = [0, 3]
-cols = [0, 2]
- # 整数索引
-X[np.ix_(rows, cols)]
- # 整数索引数组
-X[[[1,2],[2,1]],:]
-X.take([[1,2],[2,1]], axis=0)
-```
-
-####	Boolean索引
-
--	Boolean索引`obj`选择其中`True`处位置对应元素
-	-	索引`obj`维数较数组`X`小，直接抽取子数组作为元素
-		（可以理解为索引和数组高维对齐后广播）
-	-	索引`obj`在超出数组`X.shape`范围处有`True`值，会引发
-		索引错误
-	-	索引`obj`在`X.shape`内未填充处等同于填充`False`
-
--	Boolean索引通过`.nonezero`方法转换为高级整数索引实现
-	-	Boolean索引等价于`True`数量长的1维整数索引
-		-	`X[..,bool_obj,..]`等价于
-			`X[..,bool_obj.nonzero(),..]`
-		-	Boolean索引总是削减对应索引，展开为1维
-	-	Boolean索引、高级整数索引共同存在场合行为诡异
-		-	Boolean索引转换为等价的整数索引
-		-	整数索引需要广播兼容转换后整数索引
-		-	整数索引、转换后整数索引整体得到结果
-
-> - 索引`obj`和数组`X`形状相同计算速度更快
-
-###	字段名称形式访问
-
--	`ndarray`中元素为结构化数据类型时，可以使用字符串索引
-	访问
-	-	字段元素非子数组时
-		-	其shape同原数组
-		-	仅包含该字段数据
-		-	数据类型为该字段数据类型
-	-	字段元素为子数组时
-		-	子数组shape会同原数组shape合并
-	-	支持字符串列表形式访问
-		-	返回数组视图而不是副本（Numpy1.6后）
-
-##	NDArray标量
-
--	numpy中定义了24种新python类型（NDArray标量类型）
-	-	类型描述符主要基于CPython中C语言可用的类型
-
--	标量具有和`ndarray`相同的属性和方法
-	-	数组标量不可变，故属性不可设置
-
-![numpy_dtype_hierarchy](imgs/numpy_dtype_hierarchy.png)
-
-###	内置标量类型
-
--	*Booleans*
-
-	|类型|说明|字符代码|
-	|-----|-----|-----|
-	|`bool_`|兼容python `bool`|`'?'`|
-	|`bool8`||
-
-	> - `bool_`不是`int_`子类，而python3中`bool`继承自`int`
-
--	*Integers*
-
-	|类型|说明|字符代码|
-	|-----|-----|-----|
-	|`byte`|兼容C `char`|`'b'`|
-	|`short`|兼容C `short`|`'h'`|
-	|`intc`|兼容C `int`|`'i'`|
-	|`int_`|兼容python `int`|`'l'`|
-	|`longlong`|兼容C `long`|`'q'`|
-	|`intp`|大到足以适合指针|`'p'`|
-	|`int8`|8位||
-	|`int16`|16位||
-	|`int32`|32位||
-	|`int64`|64位||
-
-	> - `int_`不是继承自python3内置`int`
-
--	*Unsigned Integers*
-
-	|类型|说明|字符代码|
-	|-----|-----|-----|
-	|`ubyte`|兼容C `unsigned char`|`'B'`|
-	|`ushort`|兼容C `unsigned short`|`'H'`|
-	|`uintc`|兼容C `unsigned int`|`'I'`|
-	|`uint_`|兼容python `int`|`'L'`|
-	|`ulonglong`|兼容C `long`|`'Q'`|
-	|`uintp`|大到足以适合指针|`'P'`|
-	|`uint8`|8位|`'I1'`|
-	|`uint16`|16位|`'I2'`|
-	|`uint32`|32位|`'I4'`|
-	|`uint64`|64位|`'I8'`|
-
--	*Floating-Point Numbers*
-
-	|类型|说明|字符代码|
-	|-----|-----|-----|
-	|`half`||`'e'`|
-	|`single`|兼容C `float`|`'f'`|
-	|`double`|兼容C `double`||
-	|`float_`|兼容（继承自）python `float`|`'d'`|
-	|`longfloat`|兼容C `long float`|`'g'`|
-	|`float16`|16位|`'f2'`|
-	|`float32`|32位|`'f4'`|
-	|`float64`|64位|`'f8'`|
-	|`float96`|96位（需平台支持）||
-	|`float128`|128位（需平台支持）||
-
--	*Complex Floating-Point Numbers*
-
-	|类型|说明|字符代码|
-	|-----|-----|-----|
-	|`csingle`|单精度复数|`'F'`|
-	|`complex_`|兼容（继承自）python `complex`|`'D'`|
-	|`clongfloat`||`'G'`|
-	|`complex64`|双32位复数||
-	|`complex128`|双64位复数||
-	|`complex192`|双96位复数||
-	|`complex256`|双128位复数||
-
--	*Any Python Object*
-
-	|类型|说明|字符代码|
-	|-----|-----|-----|
-	|`object_`|任何python对象|`'O'`|
-
-	> - 实际存储是python对象的引用，其值不必是相同的python
-		类型
-
--	*Flexible*
-
-	|类型|说明|字符代码|
-	|-----|-----|-----|
-	|`bytes_`|兼容（继承自）python `bytes`|`'S#'`/`'a#'`|
-	|`unicode_`|兼容（继承自）python `unicode/str`|`'U#'`|
-	|`void`||`'V#'`|
-
-> - 数组标量类型代码字符和数据类型中类型字符不完全一致，而是
-	兼容`struct`模块等
-
-###	属性
-
--	数组标量属性基本同`ndarray`
-
-###	索引
-
--	数组标量类似0维数组一样支持索引
-
-###	方法
-
--	数组标量与`ndarray`有完全相同的方法
-	-	默认行为是在内部将标量转换维等效0维数组，并调用相应
-		数组方法
-
-###	定义数组标量类型
-
--	从内置类型组合结构化类型
--	子类化`ndarray`
-	-	部分内部行为会由数组类型替代
--	完全自定义数据类型，在numpy中注册
-	-	只能使用numpy C-API在C中定义
-
-##	数据类型`np.dtype`
-
-```python
-class dtype(obj[,align,copy])
-```
-
--	`numpy.dtype`类描述如何解释数组项对应内存块中字节
-	-	数据大小
-	-	数据内存顺序：*little-endian*、*big-endian*
-	-	数据类型
-		-	结构化数据
-			-	各字段名称
-			-	各字段数据类型
-			-	字段占用的内存数据块
-		-	子数组
-			-	形状
-			-	数据类型
-
-> - 数组标量类型不是`numpy.dtype`实例，即使有些场合可用其
-	替代数据类型对象（标量类型内蕴结构）
-> - numpy中函数、方法需要数据类型参数时，可提供`dtype`实例，
-	或可转换为`dtype`的对象（即可用于创建`dtype`的参数）
-
-###	数据类型元素
-
-####	类型类
-
--	NumPy内置类型
-	-	24中内置数组标量类型
-	-	泛型类型
-
-		|Generic类型|转换后类型|
-		|-----|-----|
-		|`number`,`inexact`,`floating`|`float`|
-		|`complexfloating`|`cfloat`|
-		|`integer`,`signedinteger`|`int_`|
-		|`unsignedinteger`|`uint`|
-		|`character`|`string`|
-		|`generic`,`flexible`|`void`|
-
--	python内置类型，等效于相应数组标量
-	-	`None`：缺省值，转换为`float_`
-	-	其他内置类型
-
-		|Python内置类型|转换后类型|
-		|-----|-----|
-		|`int`|`int_`|
-		|`bool`|`bool_`|
-		|`float`|`float_`|
-		|`complex`|`cfloat`|
-		|`bytes`|`bytes`|
-		|`str`|`unicode_`|
-		|`unicode`|`unicode_`|
-		|`buffer`|`void`|
-		|Others|`object_`|
-
--	带有`.dtype`属性的类型：直接访问、使用该属性
-	-	该属性需返回可转换为`dtype`对象的内容
-
-####	可转换类型的字符串
-
--	`numpy.sctypeDict.keys()`中字符串
-
--	*Array-protocal*类型字符串
-	-	首个字符指定数据类型
-	-	（可选）其余字符指定项目字节数
-		（只能指定满足平台要求的字节数）
-		（*Unicode*指定字符数）
-
-	|代码|类型|
-	|-----|-----|
-	|`'?'`|boolean|
-	|`'b'`|(signed) byte，等价于`'i1'`|
-	|`'B'`|unsigned byte，等价于`'u1'`|
-	|`'i'`|(signed) integer|
-	|`'u'`|unsigned integer|
-	|`'f'`|floating-point|
-	|`'c'`|complex-floating point|
-	|`'m'`|timedelta|
-	|`'M'`|datetime|
-	|`'O'`|(Python) objects|
-	|`'S'`/`'a'`|zero-terminated bytes (not recommended)|
-	|`'U'`|Unicode string|
-	|`'V'`|raw data (void)|
-
-> - 与数组标量描述字符不完全一致
-
-###	结构化数据类型
-
--	结构化数据类型
-	-	包含一个或多个数据类型字段，每个字段有可用于访问的
-		名称
-	-	父数据类型应有足够大小包含所有字段
-	-	父数据类型几乎总是基于`void`类型
-
--	仅包含不具名、单个基本类型时，数组结构会穿透
-	-	字段不会被隐式分配名称
-	-	子数组shape会被添加至数组shape
-
-####	参数格式
-
--	可转换数据类型的字符串指定类型、shape
-	-	依次包含四个部分
-		-	字段shape
-		-	字节序描述符：`<`、`>`、`|`
-		-	基本类型描述符
-		-	数据类型占用字节数
-			-	对非变长数据类型，需按特定类型设置
-			-	对变长数据类型，指字段包含的数量
-	-	逗号作为分隔符，分隔多个字段
-	-	各字段名称只能为默认字段名称
-
-	> - 对变长类型，仅设置shape时，会将其视为bytes长度
-
-	```python
-	dt = np.dtype("i4, (2,3)f8, f4")
-	```
-
--	元组指定字段类型、shape
-	-	元组中各元素指定各字段名、数据类型、shape：
-		`(<field_name>, <dtype>, <shape>)`
-		-	若名称为`''`空字符串，则分配标准字段名称
-	-	可在列表中多个元组指定多个字段
-		`[(<field_name>, <dtype>, <shape>),...]`
-	-	数据类型`dtype`可以**嵌套其他数据类型**
-		-	可转换类型字符串
-		-	元组/列表
-
-	```python
-	dt = np.dtype(("U10", (2,2)))
-	dt = np.dtype(("i4, (2,3)f8, f4", (2,3))
-	dt = np.dtype([("big", ">i4"), ("little", "<i4")])
-	```
-
--	字典元素为名称、类型、shape列表
-	-	分别指定名称列表、类型列表等：
-		`{"names":...,"formats":...,"offsets":...,"titles":...,"itemsize":...}`
-		-	`"name"`、`"formats"`为必须
-		-	`"itemsize"`指定总大小，必须足够大
-	-	分别指定各字段：`"field_1":..., "field_2":...`
-		-	不鼓励，容易与上一种方法冲突
-
-	```python
-	dt = np.dtype({
-		"names": ['r', 'g', 'b', 'a'],
-		"formats": ["u1", "u1", "u1", "u1"]
-	})
-	```
-
--	解释基数据类型为结构化数据类型：
-	`(<base_dtype>, <new_dtype>)`
-	-	此方式使得`union`成为可能
-
-	```python
-	dt = np.dtype(("i4", [("r", "I1"), ("g", "I1"), ("b", "I1"), ("a", "I1")]))
-	```
-
-###	属性
-
--	描述数据类型
-
-	|属性|描述|
-	|-----|-----|
-	|`.type`|用于实例化此数据类型的数组标量类型|
-	|`.kind`|内置类型字符码|
-	|`.char`|内置类型字符码|
-	|`.num`|内置类型唯一编号|
-	|`.str`|类型标识字符串|
-
--	数据大小
-
-	|属性|描述|
-	|-----|-----|
-	|`.name`|数据类型位宽名称|
-	|`.itemsize`|元素大小|
-
--	字节顺序
-
-	|属性|描述|
-	|-----|-----|
-	|`.byteorder`|指示字节顺序|
-
--	字段描述
-
-	|属性|描述|
-	|-----|-----|
-	|`.fields`|命名字段字典|
-	|`.names`|字典名称列表|
-
--	数组类型（非结构化）描述
-
-	|属性|描述|
-	|-----|-----|
-	|`.subtype`|`(item_dtype,shape)`|
-	|`.shape`||
-
--	附加信息
-
-	|属性|描述|
-	|-----|-----|
-	|`.hasobject`|是否包含任何引用计数对象|
-	|`.flags`|数据类型解释标志|
-	|`.isbuiltin`|与内置数据类型相关|
-	|`.isnative`|字节顺序是否为平台原生|
-	|`.descr`|`__array_interface__`数据类型说明|
-	|`.alignment`|数据类型需要对齐的字节（编译器决定）|
-	|`.base`|基本元素的`dtype`|
-
-###	方法
-
--	更改字节顺序
-
-	|方法|描述|
-	|-----|-----|
-	|`.newbyteorder([new_order])`|创建不同字节顺序数据类型|
-
--	Pickle协议实现
-
-	|方法|描述|
-	|-----|-----|
-	|`.reduce()`|pickle化|
-	|`.setstate()`||
-
-##	迭代数组
+##	`np.nditer`
 
 -	`ndarray`对象的默认迭代器是序列类型的默认迭代器
 	-	即以对象本身作为迭代器时，默认行为类似
@@ -620,6 +108,15 @@ class dtype(obj[,align,copy])
 		for i in range(X.shape[0]):
 			pass
 		```
+
+|Routine|Function Version|Method Version|
+|-----|-----|-----|
+|`nditer(op[,flags,op_flags,...])`|高性能迭代器|无|
+|`nested_iters(op,axes[,flags,op_flags,...])`|在多组轴上嵌套创建`nditer`迭代器|无|
+|`ndenumerate(arr)`|`(idx,val)`迭代器|无|
+|`lib.Arrayterator(var[,buf_size])`|适合大数组的缓冲迭代|
+|`flat`|无|返回`np.flatiter`迭代器|
+|`ndindex(*shape)`|迭代shape对应数组的索引|无|
 
 ###	`np.nditer`
 
@@ -858,12 +355,24 @@ class np.nditer(
 		result = it.operands[1]
 	```
 
+###	`nested_iters`
+
+-	`nested_iters`：按维度嵌套`nditer`
+	-	迭代参数类似`nditer`
+
+	```python
+	i, j = np.nested_iters(X, flags=["multi_index"])
+	for x in i:
+		print(i.multi_index)
+		for y in j:
+			print("", j.multi_index, y)
+	```
+
 ###	`flat`迭代器
 
--	`X.flat`：返回C-contiguous风格迭代器
+-	`X.flat`：返回C-contiguous风格迭代器`np.flatiter`
 	-	支持切片、高级索引
-
-> - `X.flat`实际上是数组的一维视图
+	-	实质上是数组的一维视图
 
 ###	`np.ndenumerate`
 
