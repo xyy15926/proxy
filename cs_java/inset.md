@@ -12,105 +12,56 @@ comments: true
 description: Java安装设置
 ---
 
-##	Java概念
+##	*Java* 概念
 
-###	Java
+-	*Java* 平台包括
+	-	*Standard Edition* / *SE*：桌面、简单服务器应用平台
+	-	*Enterprise Edition* / *EE*：在 *SE* 基础上添加企业级技术标准、模块
+		-	包括 *JDBC*、*EJB* 等
+		-	适合复杂服务器应用
+		-	*Oracle* 已停止更新，类似一般模块
+	-	*Micro Edition* / *ME*：手机等小型设备
 
-java有两种理解方式
+-	*Java* 版本号包含小数、整数两种方式
+	-	以 *SE* 平台为例
+		-	*J2SE 1.4* 使用小数点后一位标识大版本
+		-	*Java SE 5* 后使用整数标识大版本
+	-	 *Java* 平台对应的 *JDK* 版本
+		-	*JDK 1.9* 使用小数点后一位标识大版本
+		-	*JDK 10* 使用整数标识大版本
 
--	java语言：指java编程语言，都是整数版本，如：`Java5`、
-	`Java8`等
--	java环境：指jre/jdk环境，版本一般从`1.x`开始，如：
-	`Java1.5.x`
+> - *J2* / *Java 2* 曾经用于标识 *Java* 版本
 
-###	JVM（Java Virtual Machine）
+###	*Java Virtual Machine*
 
-运行java字节码（`.class`)的虚拟机
+-	*JVM*：运行java字节码（`.class`)的虚拟机
+	-	无法直接执行`.java`文件，需要编译为`.class`
+	-	java能够跨平台的关键，在所有平台上都有JVM的实现，可以
+		直接执行编译后的`.class`文件
 
--	无法直接执行`.java`文件，需要编译为`.class`
--	java能够跨平台的关键，在所有平台上都有JVM的实现，可以
-	直接执行编译后的`.class`文件
+-	*JVM*版本
+	-	*Google dalvik*
+	-	*ART*
+	-	*Oracle JRE* 自带 *JVM*
 
-JVM有很多版本：
+###	*Java Runtime Environment*
 
--	Google dalvik
--	ART
--	Oracle JRE 自带JVM
+-	*JRE*：*Java* 运行环境，运行 *Java* 编写的应用
+	-	*JRE* = *JVM* + `.class`库文件 + 其他支持文件
 
-###	JRE（Java Runtime Environment）
+###	*Java Development Kits*
 
--	JRE = JVM + `.class`库文件 + 其他支持文件
--	java运行环境，运行java编写的应用
+-	*JDK*：*Java* 开发工具集合
+	-	*JDK* = *Java* 开发工具 + *JRE*
+	-	包括 *complier*、*debugger*，用于开发 *Java* 应用
 
-###	JDK（Java Development Kits）
+###	*Java* 发行版
 
--	JDK = java开发工具 + JRE
--	包括：complier、debugger，用于开发java应用
-
-####	OpenJDK
-
--	**JDK**的一个“发行版”，Java SE 7 JSR的一个开源实现
--	现在同Oracle JDK区别很小
-
-####	Java JDK版本
-
-Java常见的发行版本两个：OpenJDK和JDK
-
--	JDK（Sun JDK）：Sun公司发布，
-
--	OpenJDK：JDK的开源版本，其实也是Sun公司发布的Java版本，
-	Sun被Oracle收购之后也称为Oracle OpenJDK
-
-#####	授权协议不同
-
--	JDK有两个协议发布
-
-	-	SCSL（Sun Community Source License）：允许商用
-
-	-	JRL（Java Research License）：开放源码，但仅允许个人
-		研究使用，随JDK6发布（2004）开始使用
-
--	OpenJDK：GPL V2协议发布，开放源码，允许商业使用
-
-
-#####	源代码完整性
-
-OpenJDK：采用GPL协议发布发布，JDK的部分源代码因产权问题无法
-开放OpenJDK使用（最重要部分为JMX中的可选元件SNMP部分源码）
-
--	这些无法开放的源码可作为plugin供OpenJDK编译时使用
-
--	替换为功能相同的开源代码
-
-	-	Icedtea为很多不完整的部分开发了相同功能的源码
-		（OpenJDK6）
-
-	-	字体栅格化引擎使用Free Type代替
-
-代码完整度排序：Sun JDK > SCSL > JRL > OpenJDK
-
--	Sun JDK有少量代码是完全不开放的，在SCSL中也没有，但少
--	SCSL代码比JRL多一些`closed`目录中的代码
--	JRL比OpenJDK多一些受lisense影响而无法以GPLv2开放的
-
-#####	功能
-
-OpenJDK相较于JDK有些功能缺失
-
--	不包含部署功能，包括：Browser Plugin、Java Web Start、
-	Java控制面板
-
--	不包含其他软件包，如：Rhino、Java DB、JAXP，并且可以
-	分离的软件包也都尽量分离
-
-但是从JDK7/OpenJDK7开始，两者实质差异非常小，相较于“OpenJDK
-是不完整JDK”，更像是JDK7在OpenJDK7上带有一些value-add
-
-#####	商标
-
-OpenJDK不能使用Java商标，安装OpenJDK的机器上的，输入
-`$ java --version`，输出`OpenJDK`
-
+-	*Java* 常见的发行版本两个：*OpenJDK* 和 *JDK*
+	-	*JDK(Sun JDK)*：*Sun* 公司发布
+	-	*OpenJDK*：*JDK* 的开源版本，其实也是Sun公司发布的Java版本，Sun被Oracle收购之后也称为Oracle OpenJDK
+		-	*JDK* 的一个“发行版”，*Java SE 7 JSR* 的一个开源实现
+		-	现在同 *Oracle JDK* 区别很小
 ##	配置
 
 ###	JAVA
