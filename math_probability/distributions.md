@@ -18,14 +18,13 @@ description: 常见分布
 
 ###	*P-stable Distributions*
 
-> - *p_stable distribution*：随机变量$\sum_i v_i X_i$和变量
-	$(\sum_i |v_i|^P)^{1\p} X$具有相同的分布
-> > -	$v_1, v_2, \cdots, v_n$：任意实数
-> > -	$X_1, X_2, \cdots, X_n$：独立同分布$D$随机变量
-> > -	$X$：服从分布$D$随机变量
+*p_stable distribution*：随机变量 $\sum_i v_i X_i$ 、随机变量 $(\sum_i \|v_i\|^p)^{1/p} X$ 具有相同的分布
 
--	$\forall p \in (0, 2]$，稳定分布存在，但仅$p=1,2$时，
-	有解析解
+> -	$v_1, v_2, \cdots, v_n$：任意实数
+> -	$X_1, X_2, \cdots, X_n$：独立同分布$D$随机变量
+> -	$X$：服从分布$D$随机变量
+
+-	$\forall p \in (0, 2]$，稳定分布存在，但仅$p=1,2$时，有解析解
 
 	-	$p=1$：柯西分布
 
@@ -44,21 +43,18 @@ description: 常见分布
 
 ####	性质、用途
 
--	若向量$a$中每个元素独立从p-stable分布中抽取，则
-	$\|v\|_p X = (\sum_i \|v_i\|^p)^{1/p} X$和$<a,v>$同分布
-
-	-	用较好计算的内积估计$\|v\|_p$
-	-	考虑到$a(v_1 - v_2) = av_1 - av_2$，联系了内积和点
-		之间距离$\|v_1 - v_2\|_p$
+-	若向量 $a$ 中每个元素独立从 *p-stable* 分布中抽取，则 $\|v\|_p X = (\sum_i \|v_i\|^p)^{1/p} X$ 和 $<a,v>$ 同分布
+	-	可用较好计算的内积估计 $\|v\|_p$
+	-	考虑到 $a(v_1 - v_2) = av_1 - av_2$，联系了内积和点之间距离 $\|v_1 - v_2\|_p$
 
 ##	*Exponential Family of Distributions*
 
 单变量指数分布概率密度/分布
 
 $$\begin{align*}
-f_X(x|\theta) & = h(x) exp(\eta(\theta) T(x) - A(\theta)) \\
-& h(x) g(\theta) exp(\eta(\theta) T(x)) \\
-& exp(\eta(\theta) T(x) - A(\theta) + B(x))
+f_X(x|\theta) &= h(x) e^{\eta(\theta) T(x) - A(\theta)} \\
+&= h(x) g(\theta) e^{\eta(\theta) T(x)} \\
+&= e^{\eta(\theta) T(x) - A(\theta) + B(x)}
 \end{align*}$$
 
 > - $\eta(\theta)$：*nutural parameter*，自然参数
@@ -74,15 +70,14 @@ f_X(x|\theta) & = h(x) exp(\eta(\theta) T(x) - A(\theta)) \\
 -	对数规范化$A(\theta)$使得概率密度函数满足积分为1
 
 	$$\begin{align*}
-	f(x|\theta) exp(A(\theta)) & = h(x)
-		exp(\eta(\theta)T(x)) \\
-	\int exp(A(\theta)) f(x|\theta) dx & =
-		\int h(x) exp(\eta(\theta) T(x)) dx \\
-	exp(A(\theta)) \int f(x|\theta) dx & =
-		\int h(x) exp(\eta(\theta) T(x)) dx \\
-	A(\theta) = ln \int h(x) exp(\eta(\theta) T(x)) dx
+	f(x|\theta) e^{A(\theta)} & = h(x) e^{\eta(\theta)T(x)} \\
+	\int e^{A(\theta)} f(x|\theta) dx & = \int h(x) e^{\eta(\theta) T(x)} dx \\
+	e^{A(\theta)} \int f(x|\theta) dx & = \int h(x) e^{\eta(\theta) T(x)} dx \\
+	A(\theta) & = ln \int h(x) e^{\eta(\theta) T(x)} dx
 	\end{align*}
 	$$
+
+> - <https://zhuanlan.zhihu.com/p/148776108>
 
 ###	性质
 
@@ -95,7 +90,7 @@ f_X(x|\theta) & = h(x) exp(\eta(\theta) T(x) - A(\theta)) \\
 -	$h(x) = 1$
 -	$T(x) = x$
 -	$\eta = log \frac \theta {1 - \theta}$
-	$A()
+-	$A(\theta) = ln(1+e^{\theta})$
 
 ###	*Possion*
 
@@ -107,7 +102,7 @@ f_X(x|\theta) & = h(x) exp(\eta(\theta) T(x) - A(\theta)) \\
 
 ###	*Normal*
 
--	$h(x) = \frac 1 \sqrt{2\pi\sigma^2} e^{-\frac {x^2} {2\sigma^2}}$
+-	$h(x) = \frac 1 {\sqrt{2\pi\sigma^2}} e^{-\frac {x^2} {2\sigma^2}}$
 -	$T(x) = \frac x \sigma$
 -	$A(\theta) = \frac {\mu^2} {2\sigma^2}$
 -	$\eta(\theta) = \frac \mu \sigma$

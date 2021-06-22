@@ -14,26 +14,26 @@ comments: true
 description: Norm
 ---
 
-###	$\mathcal{L_p}$ Norm
+##	*Norm*
 
-$\mathcal{L_p}$范数
+###	$\mathcal{L_p}$ 范数
 
-$$
-\|x\|_p = (|x_1|^p + |x_2|^p + \cdots + |x_N|^p)^{1/p}
-$$
+-	$\mathcal{L_p}$ 范数
 
-> - $x \in R^n$
+	$$
+	\|x\|_p = (|x_1|^p + |x_2|^p + \cdots + |x_N|^p)^{1/p}
+	$$
 
-####	Dual Norm
+	> - $x \in R^n$
 
-对偶范数
+-	$\mathcal{L_p}$ *Dual Norm* 对偶范数
 
-$$
-\|x\|^{*} = \mathop \sup_{z}{x^Tz|\|z\| \leq 1}
-$$
+	$$
+	\|x\|^{*} = \mathop \sup_{z}{x^Tz|\|z\| \leq 1}
+	$$
 
-> - $x \in R^N$
-> - $\|x\|$：$x$的某个范数
+	> - $x \in R^N$
+	> - $\|x\|$：$x$的某个范数
 
 ####	Holder定理
 

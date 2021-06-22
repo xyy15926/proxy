@@ -16,40 +16,36 @@ description: Fenchel-Legendre Duality
 
 ##	*Legendre Transformation*
 
-勒让德变换：用$f^{*}(p)$表示凸、可导函数$f(x)$的转换，其中
-$p$是$f(x)$导数
+勒让德变换：用 $f^{ * }(p)$ 表示凸、可导函数 $f(x)$ 的变换，其中 $p$ 是 $f(x)$ 导数
 
 $$
-f^{*}(p) = p^T u - f(u)|_{\frac {d(p^T u - f(u))} {du} = 0}
+f^{*}(p) = p^T x - f(x)|_{\frac {d(p^T x - f(x))} {dx} = 0}
 $$
 
-> - $u$：参数，满足$\frac {d(p^T u - f(u))} {du} = 0$
-> - 可导：有导数，凸：导数唯一
+> - $x$：参数，满足 $\frac {d(p^T x - f(x))} {dx} = 0$，随 $p$ 取值改变
+> - 可导：有导数；凸：导数唯一
 
--	实变量的实值凸函数的对合变换
-	-	把定义在线性空间上的函数对应至其对偶空间的函数
+-	勒让德变换是实变量的实值凸函数的对合变换
+	-	把定义在线性空间上的函数变换至对偶空间的函数
 	-	是点、（切）线之间对偶关系的应用
+		-	严格凸函数中，切线、导数一一对应
+		-	函数关系 $f(x)$ 可使用 $(x, y=f(x))$ 点集表示，也可用**切线集合**表示
 
-> - 对合[函数]：反函数的等于自身的函数，即$f(f(x))=x$
-> - 函数$f(x)$表示的函数关系可使用$(x, y=f(x))$点集合表示，
-	也可以用**切线集合**表示
-	（严格凸函数下，切线、导数一一对应）
+> - *involution* 对合：对合函数 $f$ 的反函数的为自身，即 $f(f(x))=x$；对合线性变换 $V$ 满足 $V^2 = E$
 
-###	理解（按Fenchel共轭）
+###	*Legendre* 变换理解（按 *Fenchel* 共轭）
 
--	$f^{*}(p)$：可理解为斜率为$p$、同$f(x)$有交点$x_0$的直线
-	在零点处值（截距）和$f(x_0)$的最大差
+-	$f^{*}(p)$：可理解为斜率为 $p$、同 $f(x)$ 有交点 $x_0$ 的直线在零点处值（截距）和 $f(x_0)$ 的最大差
 
 	![fenchel_conjugate_max_interception](imgs/fenchel_conjugate_max_interception.png)
 
--	$x$：可以理解为函数$f(x)$上距离给定斜率为$p$、过原点的
-	直线$f(x)=px$**竖直**距离最大的点
+-	$x$：可以理解为函数 $f(x)$ 上距离给定斜率为 $p$、过原点的直线 $f(x)=px$ 竖直距离最大的点
 
 	![fenchel_conjugate_max_vertical_distance](imgs/fenchel_conjugate_max_vertical_distance.png)
 
-	> - 类似Bregman散度
+	> - 类似一个端点为 $0$ 的 *Bregman* 散度
 
--	Legendre变换的变换得到原函数
+-	*Legendre* 变换为对合变换，进行两次的变换得到原函数
 
 	![fenchel_conjugate_transformation_cycle](imgs/fenchel_conjugate_transformation_cycle.png)
 
@@ -57,34 +53,31 @@ $$
 	f^{**}(x) & = \sup_{p \in dom(f^{*})} [x^T p - f^{*}(p)] \\
 	& = \sup_{u \in dom(f)}[x^T \nabla f(u) -
 		\nabla f(u)^T u + f(u)] \\
-	& = \sup_{u \in dom(f)}[f(u) + \nabla f(u)^T (x-u)]
+	& = \sup_{u \in dom(f)}[f(u) + \nabla f(u)^T (x-u)] \\
 	& = f(x)
 	\end{align*}$$
 
--	凸函数$f(x)$视为积分，则其共轭$f^{*}(x)$为对另一轴积分，
-	即二者导函数互为反函数
+-	若视凸函数 $f(x)$ 视为积分，则其共轭 $f^{ * }(x)$ 为对另一轴积分，二者导函数互为反函数
 
 	$$
 	f(x) + f^{*}(p) = xp, p = \frac {df(x)} {dx}
 	$$
 
-> - 以上性质均按Fenchel共轭，但要求$f(x)$为凸、可导函数，故
-	等价于Legendre变换
+> - 以上性质均按 *Fenchel* 共轭，但要求 $f(x)$ 为凸、可导函数，故等价于 *Legendre* 变换
 
-###	最大值式定义
+###	*Legendre* 变换最大值式定义
 
 $$\begin{align*}
-& L(p, x) & = px - f(x) \\
-& \frac {\partial (px - f(x))} {\partial x} & = p - 
-	\frac {df(x)} {dx} = 0 \\
+L(p, x) &= px - f(x) \\
+\frac {\partial (px - f(x))} {\partial x} &= p - \frac {df(x)} {dx} = 0 \\
 \Rightarrow & p = \frac {df(x)} {dx}
 \end{align*}$$
 
-> - 考虑到$f(x)$为凸函数，则$p=\frac {df(x)} {dx}$是最大值
-> - 则计算$f(x)$的勒让德变换只需求$f(x)$导函数的反函数带入
-	即可
+-	*Legendre* 变换可以视为寻找 $px-f(x)$ 最大值（如前述）
+	-	$f(x)$ 为凸函数，则 $p=\frac {df(x)} {dx}$ 是最大值点
+	-	则将 $f(x)$ 导函数的反函数 $x=f^{-1}(p)$ 带入即可
 
-###	数学性质
+###	*Legendre* 变换数学性质
 
 -	标度性质
 
@@ -122,25 +115,16 @@ $$\begin{align*}
 	> - $A$：$R^n \rightarrow R^m$的线性变换
 	> - $A^{*}: <Ax, y^{*}> = <x, A^{*}y^{*}>$：$A$伴随算子
 
-##	Fenchel Conjugate
-
-Fenchel共轭
-
+##	*Fenchel Conjugate* / 凸共轭
 
 $$
-f^{*}(p) = \sup_{x \in R}{px - f(x)}
+f^{*}(p) = \sup_{x \in R}{p^Tx - f(x)}
 $$
 
--	Fenchel共轭是对Legendre变换的扩展，不再局限于凸、可导
-	函数
-	-	Fenchel共轭可类似Legendra理解，但是范围更广
-	-	对凸函数Fenchel共轭的共轭即为原函数，对非凸函数
-		Fenchel共轭得到**原函数凸包**
-
--	Fenchel共轭
-	-	用罗尔中值定理描述极值、导数关系：兼容Legendre导数
-		支撑面
-	-	用上确界保证函数唯一性
+-	*Fenchel* 共轭是对 *Legendre* 变换的扩展，不再局限于凸、可导函数
+	-	*Fenchel* 共轭可类似 *Legendre* 理解，但是适用范围更广
+	-	对凸函数 *Fenchel* 共轭的共轭即为原函数，对非凸函数 *Fenchel* 共轭得到**原函数凸包**
+	-	用罗尔中值定理描述极值、导数关系：兼容 *Legendre* 变换中导数支撑面
 
 > - 非凸函数线性外包络是凸函数
 
@@ -153,7 +137,7 @@ $$
 -	证明
 
 	$$\begin{align*}
-	f(x) + f^{*}(p) & = f(x) + \sup_{u \in dom(f)} {u^T p - f(u)} \\
+	f(x) + f^{*}(p) & = f(x) + \sup_{x \in dom(f)} {(x^T p - f(x))} \\
 	& \geq f(x) + x^T p - f(x) = x^T p
 	\end{align*}$$
 
@@ -161,24 +145,23 @@ $$
 
 	![fenchel_conjugate_integration_for_fenchel_young_ineq](imgs/fenchel_conjugate_integration_for_fenchel_young_ineq.png)
 
-###	推导*Lagrange Duality*
+###	*Fenchel Conjugate* 推导 *Lagrange Duality*
 
--	原问题Prime、等价形式如下
+-	原问题 *Prime* 
 
-	$$\begin{array}{l}
-	&min f(x) \\
+	$$\begin{align*}
+	& \min {f(x)} \\
 	s.t. & g(x) \leq 0 \\
-	p(0) & = \inf_{x \in X, g(x) \leq 0} f(x)
-	\end{array}$$
+	\end{align*}$$
 
--	函数化、Fenchel共轭
+-	约束条件 $g(x) \leq 0$ 扰动函数化、求 *Fenchel* 共轭
 
 	$$\begin{align*}
 	p(u) & = \inf_{x \in X, g(x) \leq u} f(x) \\
 	p^{*}(y) & = \sup_{y \in R^r} \{u^T y - p(u)\}
 	\end{align*}$$
 
--	替换对偶中$p(u)$
+-	记 $\lambda = -y$，并将 $y=-\lambda$ 带入 $-p^{*}(y)$ 中得到
 
 	$$\begin{align*}
 	-p^{*}(y) & = \inf_{u \in R^r} \{p(u) - u^T y\} \\
@@ -189,7 +172,7 @@ $$
 
 	> - $\lambda = -y$
 
--	考虑到约束$g(x) \leq u$，则
+-	将 $\inf_{x \in X, g(x) \leq u}$ 外提，并考虑到约束 $g(x) \leq u$（即 $u \geq g(x)$），则
 
 	$$\begin{align*}
 	\lambda \geq 0 & \Rightarrow \lambda^T g(x) \leq \lambda u \\
@@ -200,7 +183,7 @@ $$
 		\end{array} \right.
 	\end{align*}$$
 
--	考虑Fenchel不等式
+-	考虑 *Fenchel* 不等式
 
 	$$\begin{align*}
 	p(u) + p^{*}(-y) & \geq u^T (-y) \\
@@ -209,7 +192,7 @@ $$
 	p(0) & \geq d(\lambda)
 	\end{align*}$$
 
--	则可得Lagrange对偶Prime、Dual最优关系
+-	则可得 *Lagrange* 对偶 *Prime*、*Dual* 最优关系
 
 	$$
 	L(x, \lambda) = f(x) + \lambda^T g(x), \lambda \geq 0 \\
@@ -219,9 +202,9 @@ $$
 
 	![fenchel_conjugate_dual_gap](imgs/fenchel_conjugate_dual_gap.png)
 
-###	Lagrange Duality推导Fenchel对偶
+###	*Lagrange Duality* 推导 *Fenchel* 对偶
 
-> - Fenchel对偶可以视为Lagrange对偶的应用
+> - *Fenchel* 对偶可以视为 *Lagrange* 对偶的应用
 
 -	原问题、等价问题
 
@@ -231,15 +214,15 @@ $$
 	& s.t. & x = z
 	\end{align*}$$
 
--	对上式取Lagrange对偶$L(u)$、等价得到
+-	对上式取 *Lagrange* 对偶 $L(u)$、等价得到
 
 	$$\begin{align*}
-	L(u) = \min_{x,z} f(x) - g(z) + u^T(z-x) \\
-	& = -(f^{*}(u) - g^{(-u)})
-	\begin{align*}$$
+	L(u) &= \min_{x,z} f(x) - g(z) + u^T(z-x) \\
+	&= -(f^{*}(u) - g^{(-u)})
+	\end{align*}$$
 
 ![fenchel_conjugate_duality](imgs/fenchel_conjugate_duality.png)
 
-> - Fenchel对偶：寻找截距差值最大的平行切线
+> - *Fenchel* 对偶：寻找截距差值最大的平行切线
 
 
