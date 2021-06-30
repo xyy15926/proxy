@@ -20,31 +20,36 @@ s.t. & c_i(x) = 0, i \in E = \{1,2,\cdots,l\}, \\
 & c_i(x) \leq 0, i \in I = \{l,l+1,\cdots,l+m\}
 \end{array}$$
 
-> - 对于一般约束优化问题，记其可行域为
+-	对于一般约束优化问题，记其可行域为
+
 	$$
 	D = \{x| c_i(x) = 0, i \in E, c_i(x) \leq 0, i \in I\}
 	$$
-	若$\forall x^{*} \in D, \exists \epsilon$，使得当
-	$x \in D, \|x - x^{*}\| \leq \epsilon$时，总有
+
+-	若 $\forall x^{*} \in D, \exists \epsilon$，使得当 $x \in D, \|x - x^{*}\| \leq \epsilon$ 时，总有
+
 	$$ f(x) \geq f(x^{*}) $$
-	则称$x^{*}$为约束问题的局部解，简称为最优解，若
-	$x \in D, \|x - x^{*}\| \leq \epsilon$时，总有
-	$$ f(x) > f(x^{*}) $$
+
+	则称$x^{*}$为约束问题的局部解，简称为最优解
+
+-	若 $x \in D, 0 < \|x - x^{*}\| \leq \epsilon$ 时，总有
+
+	$$ f(x) > f(x^{*})$$
+
 	则称$x^{*}$是约束问题的严格局部最优解
 
 ##	约束问题局部解一阶必要条件
 
 ###	定理1
 
-> - 设$a_1,a_2,\cdots,a_m$和$w \in R^n$，C定义如下
-	$$
-	C = \{v |\sum_{i=1}^m \lambda_i a_i, \lambda_i \geq 0,
+> - 设 $a_1,a_2,\cdots,a_m$ 和 $w \in R^n$，$C$ 定义如下 $$
+		C = \{v |\sum_{i=1}^m \lambda_i a_i, \lambda_i \geq 0,
 		i=1,2,\cdots,m \}
 	$$
-	若$w \notin C$，则存在超平面$d^T w = 0$，分离C和w，即
-	$$\begin{align*}
-	d^T w & \leq 0 \\
-	d^T w & > 0
+	若 $w \notin C$，则存在超平面 $d^T w = 0$，分离 $C$ 和 $w$，即 $$
+	\begin{align*}
+		d^T w & \leq 0 \\
+		d^T w & > 0
 	\end{align*}$$
 
 -	显然C是闭凸集，则$\exists d \in R^n, d \neq 0$，
