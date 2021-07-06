@@ -1,11 +1,15 @@
 ---
-title: 
+title: 未归类概念
 categories:
-  - 
+  - Math Analysis
+  - Optimization
 tags:
-  - 
+  - Math Analysis
+  - Optimization
+  - Distance
+  - Function
 date: 2021-04-26 19:01:08
-updated: 2021-04-26 19:01:08
+updated: 2021-07-02 18:44:10
 toc: true
 mathjax: true
 description: 
@@ -32,27 +36,24 @@ description:
 
 	$$\phi(r) = e^{-(\epsilon r)^2}$$
 
--	*Multiquadric*多二次函数：
+-	*Multiquadric* 多二次函数：
 
 	$$\phi(r) = \sqrt {1 + (\epsilon r)^2}$$
 
--	*Inverse Quadric*逆二次函数：
+-	*Inverse Quadric* 逆二次函数：
 
 	$$\phi(r) = \frac 1 {1 + (\epsilon r)^2}$$
 
--	*Polyharmonic Spline*多重调和样条：
+-	*Polyharmonic Spline* 多重调和样条：
 
 	$$\begin{align*}
 	\phi(r) &= r^k, & k=1,3,5,\cdots \\
 	\phi(r) &= r^k (ln(r))^{}, & k=2,4,6,\cdots  \\
 	\end{align*}$$
 
--	*Thin Plate Spline*薄板样条（多重调和样条特例）：
+-	*Thin Plate Spline* 薄板样条（多重调和样条特例）：
 
 	$$\phi(r) = r^2 ln(r)$$
-
-
-
 
 
 

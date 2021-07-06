@@ -1,16 +1,17 @@
 ---
-title: 参数优化
+title: 调参
+categories:
+  - Machine Learning
+  - Parameter Adjustment
 tags:
   - Machine Learning
+  - Parameter Adjustment
   - Parameter Initialization
-categories:
-  - ML Tech
-date: 2019-09-01 10:43:18
-updated: 2019-09-01 10:43:23
+date: 2020-11-03 17:52:44
+updated: 2020-11-03 17:52:44
 toc: true
 mathjax: true
-comments: true
-description: 参数优化
+description: 
 ---
 
 ##	参数初始化
@@ -77,5 +78,16 @@ $$
 
 
 > - 基于Xavier初始化在ReLU上的改进，实际中二者都可以使用
+
+
+
+##	超参搜索
+
+###	*Random Search*
+
+###	*Grid Search*
+
+###	*Bayesian Optimization*
+
 
 
