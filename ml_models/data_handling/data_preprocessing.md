@@ -270,6 +270,13 @@ $$
 Z = \frac {X - \mu} {\sigma}
 $$
 
+####	其他一些变换方式
+
+-	对数变换：$X^{'} = lg(X)$
+-	反余切函数变换：$X^{'} = \frac {2 arctan(x)} {\pi}$
+-	*Sigmoid* 变换：$X^{'} = \frac 1 {1 + e^{-x}}$
+-	模糊向量变：$X^{'} = \frac 1 2 + \frac 1 2 sin \frac {X - \frac{max(X) - min(X)} 2} {max(X) - min(X)} * \pi$
+
 ###	*Regularization*
 
 正则化：将样本/特征**某个范数**缩放到单位 1
