@@ -36,7 +36,7 @@ $$
 > - $P = \frac {TP} {TP+FP}$：查准率、精确率
 > - $R = \frac {TP} {TP+FN}$：查全率、召回率、覆盖率
 
-####	F1值
+####	*F1* 值
 
 *F1值*：$\beta=1$ 时的 *F测度*
 
@@ -91,6 +91,17 @@ mis & = 1 - acc
 -	对给定测试集，分类器正确分类样本数与总样本数比值
 -	即 *0-1* 损失函数时经验风险
 
+###	*Top PR*
+
+头部准召：评估模型头部性能
+
+$$
+pr_{top} = \frac {TP_{top}} {TOP}
+$$
+
+> - $TOP$：指定的头部数量
+> - $TP_{top}$：头部中正例数量（正例指已知原 $TOP$ 样本）
+
 ##	*Area Under Curve*
 
 *AUC* 值：*ROC* 曲线下方面积，越大越好
@@ -102,7 +113,7 @@ mis & = 1 - acc
 	-	$=0.5$：同随机预测，无价值
 	-	$[0, 0.5)$：差于随机预测，但是可以反向取预测值
 
-###	AUC计算
+###	*AUC* 计算
 
 -	绘制 *ROC* 曲线，计算曲线下面积
 	-	给定一系列阈值（最精确时为样本数量），分别计算 *TPR*、*FPR*
@@ -204,6 +215,17 @@ mis & = 1 - acc
 
 > - 以上分类器均为 *one-vs-rest* 分类器，$m$ 个类别则 $m$ 个分类器、每个样本 $m$ 个得分
 
+###	*Kolmogorov-Smirnov* 统计量
+
+*KS* 值：刻画区分正负样本能力
+
+$$
+KS = max \{|TPR - FPR|\}
+$$
+
+-	*KS* 值体现 **最理想情况** 下，对正负样本区分能力
+	-	即 *ROC* 曲线与 $TPR = FPR$ 直线的最远距离
+
 ##	*Squared Error*
 
 ###	*Mean Squared Error*
@@ -211,7 +233,31 @@ mis & = 1 - acc
 *MSE*：均方误差（偏差）
 
 $$
-MSE = \frac {1} {n} \sum_{i=1}^{n} (y_{i} - \hat{y_{i}})^{2}
+MSE = \frac 1 n \sum_{i=1}^{n} (y_{i} - \hat{y_{i}})^{2}
+$$
+
+####	*Mean Absolute Error*
+
+*MAE*：平均绝对误差
+
+$$
+MAE = \frac 1 n \sum_{i=1}^n |y_i - \hat {y_i}|
+$$
+
+####	*Mean Absolute Percentage Error*
+
+*MAPE*：平均绝对百分比误差
+
+$$
+MAPE = \frac 1 n \sum_{i=1}^n |\frac {y_i - \hat {y_i}} {y_i}|
+$$
+
+####	*Symmetric Mean Absolute Percentage Error*
+
+*SMAPE*：对称平均绝对百分比误差
+
+$$
+MAPE = \frac 1 n \sum_{i=1}^n |\frac {y_i - \hat {y_i}} {(|y_i| + |\hat {y_i}|) / 2}|
 $$
 
 ###	$R^2$
@@ -261,4 +307,6 @@ C_p & = \frac {SSE} {\hat {\sigma^2}} - n + 2p \\
 > - $m$：所有特征数量
 > - $SSE_p$：选模型中残差平方和
 > - $SSE_m$：全模型中残差平方和
+
+
 
