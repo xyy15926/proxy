@@ -1,11 +1,18 @@
 ---
 title: 常用层
-tags:
-  - Python
-  - Keras
 categories:
   - Python
   - Keras
+tags:
+  - Python
+  - Keras
+  - Machine Learning
+  - Layer
+  - Dense
+  - Flatten
+  - Dropout
+  -	Reshape
+  - Activation
 date: 2019-02-20 23:58:15
 updated: 2019-02-17 11:57:07
 toc: true

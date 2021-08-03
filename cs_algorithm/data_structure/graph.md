@@ -1,13 +1,14 @@
 ---
 title: 图
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Graph
 date: 2019-04-11 12:25:59
-updated: 2019-04-11 12:25:59
+updated: 2021-08-02 18:07:33
 toc: true
 mathjax: true
 comments: true

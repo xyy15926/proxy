@@ -1,11 +1,13 @@
 ---
 title: 无向图衍生
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Graph
+  - Undirected Graph
 date: 2019-03-24 09:03:52
 updated: 2019-03-24 09:03:52
 toc: true

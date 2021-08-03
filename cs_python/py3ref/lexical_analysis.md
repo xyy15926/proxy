@@ -1,11 +1,13 @@
 ---
 title: Lexical Analysis
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Grammer
+  - Lexical
 date: 2019-08-01 01:38:59
 updated: 2019-08-01 01:38:59
 toc: true

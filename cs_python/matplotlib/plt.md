@@ -1,9 +1,12 @@
 ---
 title: Matplotlib.plot笔记
-tags:
-  - Python
 categories:
   - Python
+  - Matplotlib
+tags:
+  - Python
+  - Data Visualization
+  - Matplotlib
 date: 2019-03-21 17:27:37
 updated: 2019-02-17 11:57:07
 toc: true

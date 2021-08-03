@@ -1,11 +1,12 @@
 ---
 title: Shell执行控制
-tags:
-  - Linux
-  - Bash编程
 categories:
   - Linux
-  - Bash编程
+  - Bash Programming
+tags:
+  - Linux
+  - Bash
+  - Grammer
 date: 2019-08-01 01:37:27
 updated: 2019-08-01 01:37:27
 toc: true

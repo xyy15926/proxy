@@ -1,9 +1,12 @@
 ---
 title: 随机算法
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Specification
+tags:
+  - Algorithm
+  - Specification
+  - Random
 date: 2019-07-21 00:46:35
 updated: 2019-07-21 00:46:35
 toc: true

@@ -1,13 +1,14 @@
 ---
 title: 标准库
-tags:
-  - Java
-  - Scala
 categories:
   - Java
   - Scala
+tags:
+  - Java
+  - Scala
+  - Stdlib
 date: 2019-08-01 20:04:09
-updated: 2019-08-01 20:04:09
+updated: 2021-08-02 17:37:29
 toc: true
 mathjax: true
 comments: true

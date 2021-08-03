@@ -1,15 +1,14 @@
 ---
 title: TensorFlow资源管理
-tags:
- - Python
- - TensorFlow
- - Machine Learning
- - Resources Managerment
 categories:
  - Python
  - TensorFlow
+tags:
+ - Python
+ - TensorFlow
+ - Resources
 date: 2019-08-19 17:25
-updated: 2019-08-19 17:25
+updated: 2021-08-02 15:08:50
 toc: true
 mathjax: true
 comments: true

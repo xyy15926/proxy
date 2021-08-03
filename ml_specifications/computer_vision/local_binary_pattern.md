@@ -1,13 +1,14 @@
 ---
 title: Local Binary Pattern
-tags:
-  - 机器学习
-  - CV
 categories:
-  - 机器学习
-  - CV
+  - Computer Vision
+tags:
+  - Machine Learning
+  - Computer Vision
+  - Local Binary Pattern
+  - LBP
 date: 2019-07-13 12:03:12
-updated: 2019-07-13 12:03:12
+updated: 2021-07-16 16:12:15
 toc: true
 mathjax: true
 comments: true

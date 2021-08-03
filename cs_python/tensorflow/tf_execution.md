@@ -1,15 +1,15 @@
 ---
 title: TensorFlow执行
+categories:
+ - Python
+ - TensorFlow
 tags:
  - Python
  - TensorFlow
  - Machine Learning
  - Execution Model
-categories:
- - Python
- - TensorFlow
 date: 2019-08-19 17:09
-updated: 2019-08-19 17:09
+updated: 2021-08-02 15:07:32
 toc: true
 mathjax: true
 comments: true

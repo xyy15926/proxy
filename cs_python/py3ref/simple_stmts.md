@@ -1,11 +1,12 @@
 ---
 title: Simple Statements
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Statements
 date: 2019-06-11 15:56:31
 updated: 2019-06-11 15:56:31
 toc: true

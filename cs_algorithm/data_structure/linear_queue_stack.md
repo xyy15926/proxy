@@ -1,11 +1,14 @@
 ---
 title: Stack&Queue
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Linear
+  - Stack
+  - Queue
 date: 2019-03-21 17:27:37
 updated: 2019-03-13 14:56:03
 toc: true

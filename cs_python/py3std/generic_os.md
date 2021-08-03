@@ -1,9 +1,12 @@
 ---
 title: 通用操作系统服务
-tags:
-  - Python
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Platform
 date: 2019-06-09 23:57:08
 updated: 2019-06-09 23:57:08
 toc: true

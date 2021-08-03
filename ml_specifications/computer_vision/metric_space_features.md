@@ -1,13 +1,15 @@
 ---
 title: 传统图像特征提取
-tags:
-  - 机器学习
-  - CV
 categories:
-  - 机器学习
-  - CV
+  - Computer Vision
+tags:
+  - Machine Learning
+  - Computer Vision
+  - SIFT
+  - SURF
+  - Brief
 date: 2019-07-13 12:03:12
-updated: 2019-07-13 12:03:12
+updated: 2021-07-16 16:15:30
 toc: true
 mathjax: true
 comments: true
@@ -244,10 +246,6 @@ SURF特征：对SIFT算法的改进，降低了时间复杂度，提高了稳健
 *ORB*：Brief算法改进版
 
 -	比SIFT算法快100倍
-
-
-
-00倍
 
 
 

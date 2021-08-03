@@ -1,15 +1,18 @@
 ---
-title: 欢迎使用 Cmd Markdown 编辑阅读器
-tags:
-  - 程序
+title: Cmd Markdown Reference
 categories:
-  - 程序
+  - Tool
+  - Markup Language
+tags:
+  - Tool
+  - Markup Language
+  - Markdown
 date: 2019-03-21 17:27:37
-updated: 2019-02-17 11:57:07
+updated: 2021-07-16 17:42:53
 toc: true
 mathjax: true
 comments: true
-description: 欢迎使用 Cmd Markdown 编辑阅读器
+description: Cmd Markdown Reference
 ---
 
 ------

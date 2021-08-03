@@ -1,13 +1,17 @@
 ---
 title: 数据模型--函数决定对象
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Data Model
+  - Function
+  - Coroutine
+  - Asynchronous
 date: 2019-06-10 01:36:53
-updated: 2019-06-10 01:36:53
+updated: 2021-08-02 11:46:05
 toc: true
 mathjax: true
 comments: true

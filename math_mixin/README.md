@@ -1,9 +1,10 @@
 ---
 title: 函数说明
-tags:
-  - 机器学习
 categories:
-  - 机器学习
+  - README
+tags:
+  - Math
+  - README
 date: 2019-07-13 23:44:28
 updated: 2019-07-13 12:03:11
 toc: true

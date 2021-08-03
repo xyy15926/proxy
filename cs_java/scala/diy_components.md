@@ -1,13 +1,16 @@
 ---
-title: Scala自定义实体
-tags:
-  - Java
-  - Scala
+title: Scala 自定义实体
 categories:
   - Java
   - Scala
+tags:
+  - Java
+  - Scala
+  - Object
+  - Trait
+  - Generic
 date: 2019-08-02 23:17:39
-updated: 2019-08-02 23:17:39
+updated: 2021-08-02 17:36:11
 toc: true
 mathjax: true
 comments: true

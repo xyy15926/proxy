@@ -1,9 +1,12 @@
 ---
 title: 并行开发
-tags:
-  - Python
 categories:
   - Python
+  - Cookbook
+tags:
+  - Python
+  - Cookbook
+  - Parallel
 date: 2019-03-31 23:44:28
 updated: 2019-03-31 23:44:28
 toc: true

@@ -1,11 +1,14 @@
 ---
-title: 函数式编程
-tags:
-  - Python
+title: Python 函数式编程
 categories:
   - Python
+  - Cookbook
+tags:
+  - Python
+  - Cookbook
+  - Lambda
 date: 2019-04-22 00:33:40
-updated: 2019-04-22 00:33:40
+updated: 2021-08-02 11:34:11
 toc: true
 mathjax: true
 comments: true

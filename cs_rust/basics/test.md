@@ -1,11 +1,12 @@
 ---
-title: Rust测试笔记
-tags:
-  - Rust
+title: Rust 测试
 categories:
   - Rust
+tags:
+  - Rust
+  - Test
 date: 2019-03-21 17:27:37
-updated: 2019-02-17 11:57:08
+updated: 2021-08-02 11:09:57
 toc: true
 mathjax: true
 comments: true

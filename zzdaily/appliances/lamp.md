@@ -1,12 +1,12 @@
 ---
 title: 台灯知识
+categories:
+  - Daily Life
 tags:
   - Daily Life
   - Appliance
-categories:
-  - Daily Life
 date: 2019-03-21 17:27:37
-updated: 2019-02-17 11:57:07
+updated: 2021-07-19 09:16:18
 toc: true
 mathjax: true
 comments: true
@@ -140,7 +140,7 @@ description: 台灯常识
 -	紫外线透出：材料不好，紫外线容易透出
 -	寿命：冷态灯泡电阻小，瞬间电流很大，材料不好容易坏
 
-欧司朗、飞利浦较好，不推荐国产
+> - 欧司朗、飞利浦较好，不推荐国产
 
 ###	普通阅读
 

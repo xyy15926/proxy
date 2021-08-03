@@ -1,9 +1,12 @@
 ---
 title: Linux介绍
-tags:
-  - Linux
 categories:
   - Linux
+  - Configuration
+tags:
+  - Linux
+  - Installment
+  - Configuration
 date: 2019-07-31 21:11:52
 updated: 2019-02-19 17:20:02
 toc: true

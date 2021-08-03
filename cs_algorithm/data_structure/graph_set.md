@@ -1,11 +1,12 @@
 ---
 title: 无向图
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Graph
 date: 2019-03-23 23:43:02
 updated: 2019-03-23 23:43:02
 toc: true

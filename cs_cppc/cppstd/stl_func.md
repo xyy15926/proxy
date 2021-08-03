@@ -1,9 +1,12 @@
 ---
 title: C++函数式编程
-tags:
-  - C/C++
 categories:
   - C/C++
+  - STL
+tags:
+  - C/C++
+  - STL
+  - Lambda
 date: 2019-03-21 17:27:37
 updated: 2019-03-11 12:44:09
 toc: true

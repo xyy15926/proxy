@@ -1,10 +1,11 @@
 ---
 title: 风险管理
 categories:
+  - FinTech
   - Risk Control
 tags:
-  - Risk Control
-  - Risk Management
+  - FinTech
+  - Financial Risk
 date: 2021-01-11 08:47:42
 updated: 2021-01-11 08:47:42
 toc: true

@@ -1,13 +1,14 @@
 ---
 title: Tree
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Tree
 date: 2019-06-04 23:11:44
-updated: 2019-06-04 23:11:44
+updated: 2021-08-02 18:11:00
 toc: true
 mathjax: true
 comments: true

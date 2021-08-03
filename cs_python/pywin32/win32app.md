@@ -5,10 +5,11 @@ categories:
   -	Pywin32
 tags:
   - Python
+  -	Pywin32
   - Python32
   - Automatic
 date: 2021-05-31 11:12:29
-updated: 2021-05-31 11:12:29
+updated: 2021-08-02 14:48:55
 toc: true
 mathjax: true
 description: 

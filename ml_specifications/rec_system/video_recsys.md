@@ -1,13 +1,14 @@
 ---
 title: 视频推荐
-tags:
-  - Recommendation System
-  - Machine Learning
 categories:
-  - Maching Learning
-  - Recommendation System
+  - Click Through Rate
+  - Recommandation System
+tags:
+  - Machine Learning
+  - Click Through Rate
+  - Recommandation System
 date: 2019-07-23 08:39:04
-updated: 2019-07-23 08:39:04
+updated: 2021-07-16 16:50:56
 toc: true
 mathjax: true
 comments: true

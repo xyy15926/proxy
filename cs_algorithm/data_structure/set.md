@@ -1,11 +1,12 @@
 ---
 title: Set
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Set
 date: 2019-05-25 19:55:48
 updated: 2019-05-25 19:55:48
 toc: true

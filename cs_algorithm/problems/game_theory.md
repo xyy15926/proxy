@@ -1,9 +1,12 @@
 ---
 title: 博弈论
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Problem
+tags:
+  - Algorithm
+  - Problem
+  - Game Theory
 date: 2019-04-05 01:01:03
 updated: 2019-04-05 01:01:03
 toc: true

@@ -1,9 +1,12 @@
 ---
 title: Python系统编程
-tags:
-  - Python
 categories:
   - Python
+  - Cookbook
+tags:
+  - Python
+  - Cookbook
+  - Platform
 date: 2019-05-16 23:46:33
 updated: 2019-05-16 23:46:33
 toc: true

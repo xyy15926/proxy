@@ -1,13 +1,17 @@
 ---
 title: 文本预处理
-tags:
-  - 机器学习
-  - NLP
 categories:
-  - 机器学习
   - NLP
+tags:
+  - Machine Learning
+  - NLP
+  - Feature Engineering
+  - Data Preprocessing
+  - VSM
+  - LSA
+  - SVD
 date: 2019-07-14 20:58:18
-updated: 2019-07-13 12:03:12
+updated: 2021-07-16 16:43:03
 toc: true
 mathjax: true
 comments: true

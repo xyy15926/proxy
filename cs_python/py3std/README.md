@@ -1,9 +1,11 @@
 ---
 title: Python标准库
-tags:
-  - Python
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
 date: 2019-06-05 20:46:24
 updated: 2019-06-05 20:46:24
 toc: true

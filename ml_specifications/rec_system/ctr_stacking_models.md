@@ -1,13 +1,21 @@
 ---
 title: CTR Stacking Models
-tags:
-  - 机器学习
-  - 推荐系统
 categories:
-  - 机器学习
-  - 推荐系统
+  - Click Through Rate
+  - Recommandation System
+tags:
+  - Machine Learning
+  - Click Through Rate
+  - Recommandation System
+  - ML Models
+  - Deep Crossing
+  - Factorization Machine
+  - Wide&Deep
+  - DeepFM
+  - Deep&Cross
+  - DIN
 date: 2019-07-29 21:16:01
-updated: 2019-07-29 21:16:01
+updated: 2021-07-16 16:49:01
 toc: true
 mathjax: true
 comments: true

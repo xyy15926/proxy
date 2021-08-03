@@ -1,11 +1,13 @@
 ---
 title: Shell编程基础
-tags:
-  - Linux
-  - Bash编程
 categories:
   - Linux
-  - Bash编程
+  - Bash Programming
+tags:
+  - Linux
+  - Shell
+  - Bash
+  - Grammer
 date: 2019-08-01 02:23:16
 updated: 2019-08-01 02:23:16
 toc: true

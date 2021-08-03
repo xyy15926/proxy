@@ -1,11 +1,13 @@
 ---
-title: Keras
-tags:
-  - Python
-  - Keras
+title: Keras 后端
 categories:
   - Python
   - Keras
+tags:
+  - Python
+  - Machine Learning
+  - Keras
+  - Backend
 date: 2019-03-21 17:27:37
 updated: 2019-02-17 11:57:07
 toc: true

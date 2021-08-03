@@ -1,9 +1,12 @@
 ---
 title: 图算法
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Problem
+tags:
+  - Algorithm
+  - Problem
+  - Graph
 date: 2019-04-12 16:01:20
 updated: 2019-04-12 16:01:20
 toc: true

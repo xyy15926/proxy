@@ -1,9 +1,11 @@
 ---
 title: Python
-tags:
-  - Python
 categories:
   - Python
+  - Cookbook
+tags:
+  - Python
+  - Cookbook
 date: 2019-03-30 09:14:21
 updated: 2019-03-30 09:14:21
 toc: true

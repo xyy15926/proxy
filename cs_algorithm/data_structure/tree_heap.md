@@ -1,11 +1,13 @@
 ---
 title: Heap
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Tree
+  - Heap
 date: 2019-05-30 00:38:54
 updated: 2019-05-30 00:38:54
 toc: true

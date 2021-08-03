@@ -1,11 +1,13 @@
 ---
 title: String
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Linear
+  - String
 date: 2019-03-21 17:27:37
 updated: 2019-03-13 16:53:40
 toc: true

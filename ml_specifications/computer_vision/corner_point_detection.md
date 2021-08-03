@@ -1,13 +1,15 @@
 ---
 title: 角点检测特征提取
-tags:
-  - 机器学习
-  - CV
 categories:
-  - 机器学习
-  - CV
+  - Computer Vision
+tags:
+  - Machine Learning
+  - Computer Vision
+  - Corner Point Detection
+  - Moravec
+  - Harris
 date: 2019-07-13 12:03:12
-updated: 2019-07-13 12:03:12
+updated: 2021-07-16 16:10:12
 toc: true
 mathjax: true
 comments: true

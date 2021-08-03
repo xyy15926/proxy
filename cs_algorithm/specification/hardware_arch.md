@@ -1,11 +1,14 @@
 ---
-title: 
+title: 架构相关算法
 categories:
-  - 
+  - Algorithm
+  - Specification
 tags:
-  - 
+  - Algorithm
+  - Specification
+  - Platform
 date: 2021-04-06 09:00:06
-updated: 2021-04-06 09:00:06
+updated: 2021-08-02 18:17:40
 toc: true
 mathjax: true
 description: 

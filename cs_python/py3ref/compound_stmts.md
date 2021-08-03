@@ -1,11 +1,12 @@
 ---
 title: Compound Statements
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Statements
 date: 2019-05-14 23:42:55
 updated: 2019-05-14 23:42:55
 toc: true

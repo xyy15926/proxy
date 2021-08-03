@@ -1,9 +1,12 @@
 ---
 title: 数据持久化
-tags:
-  - Python
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Persistence
 date: 2019-06-10 01:11:37
 updated: 2019-06-10 01:11:37
 toc: true

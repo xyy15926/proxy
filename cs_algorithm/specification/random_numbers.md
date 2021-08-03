@@ -1,9 +1,12 @@
 ---
-title: 
+title: Random
 categories:
-  - 
+  - Algorithm
+  - Specification
 tags:
-  - 
+  - Algorithm
+  - Specification
+  - Random
 date: 2021-05-13 17:13:29
 updated: 2021-05-13 17:13:29
 toc: true

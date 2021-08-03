@@ -1,17 +1,18 @@
 ---
-title: 文本挖掘
-tags:
-  - 机器学习
-  - NLP
+title: NLP 总述
 categories:
-  - 机器学习
   - NLP
+tags:
+  - Machine Learning
+  - NLP
+  - CBOW
+  - Skip-Gram
 date: 2019-07-13 12:03:12
-updated: 2019-07-13 12:03:12
+updated: 2021-07-16 16:35:29
 toc: true
 mathjax: true
 comments: true
-description: 文本挖掘
+description: NLP 总述
 ---
 
 ##	文本挖掘

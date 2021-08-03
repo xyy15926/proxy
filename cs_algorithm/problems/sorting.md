@@ -1,9 +1,12 @@
 ---
 title: 排序
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Problem
+tags:
+  - Algorithm
+  - Problem
+  - Sorting
 date: 2019-04-18 13:32:24
 updated: 2019-04-18 13:32:24
 toc: true

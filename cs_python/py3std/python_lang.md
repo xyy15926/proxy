@@ -1,9 +1,12 @@
 ---
 title: Python语言服务
-tags:
-  - Python
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Parameter
 date: 2019-06-10 00:04:03
 updated: 2019-06-10 00:04:03
 toc: true

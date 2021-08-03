@@ -1,9 +1,10 @@
 ---
 title: C++函数
-tags:
-  - C/C++
 categories:
   - C/C++
+tags:
+  - C/C++
+  - Function
 date: 2019-05-20 22:27:04
 updated: 2019-05-20 22:27:04
 toc: true

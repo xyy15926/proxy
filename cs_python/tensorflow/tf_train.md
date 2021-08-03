@@ -1,9 +1,9 @@
 ---
 title: TensorFlow训练
-tags:
+categories:
  - Python
  - TensorFlow
-categories:
+tags:
  - Python
  - TensorFlow
  - Machine Learning

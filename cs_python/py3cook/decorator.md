@@ -1,9 +1,11 @@
 ---
-title: Python元编程
-tags:
-  - Python
+title: Python 元编程
 categories:
   - Python
+  - Cookbook
+tags:
+  - Python
+  - Cookbook
 date: 2019-03-30 01:54:46
 updated: 2019-02-17 11:57:07
 toc: true

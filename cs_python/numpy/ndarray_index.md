@@ -1,9 +1,13 @@
 ---
-title: 
+title: Numpy 索引
 categories:
-  - 
+  - Python
+  - Numpy
 tags:
-  - 
+  - Python
+  - Numpy
+  - Data Science
+  - Index
 date: 2021-03-11 09:34:47
 updated: 2021-03-11 09:34:47
 toc: true

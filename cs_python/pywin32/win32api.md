@@ -5,6 +5,7 @@ categories:
   - Pywin32
 tags:
   - Python
+  - Pywin32
   - Shell
   - Automatic
 date: 2021-05-19 10:46:48

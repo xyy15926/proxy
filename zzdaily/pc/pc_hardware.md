@@ -4,8 +4,15 @@ tags:
   - Daily Life
 categories:
   - Daily Life
+  - Hard Drive
+  - SSD
+  - SATA
+  - PCI-E
+  - NVMe
+  - AHCI
+  - M.2
 date: 2019-03-21 17:27:37
-updated: 2019-02-17 11:57:07
+updated: 2021-07-19 09:17:58
 toc: true
 mathjax: true
 comments: true

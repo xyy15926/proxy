@@ -1,11 +1,15 @@
 ---
 title: 系统安装常识
-tags:
-  - Daily Life
 categories:
   - Daily Life
+tags:
+  - Daily Life
+  - Installment
+  - Windows
+  - Linux
+  - Grub
 date: 2019-03-21 17:27:37
-updated: 2019-02-17 11:57:07
+updated: 2021-07-19 09:17:10
 toc: true
 mathjax: true
 comments: true

@@ -1,13 +1,14 @@
 ---
-title: 代数运算
-tags:
-  - 代数
-  - 抽象代数
+title: 集合
 categories:
-  - 代数
-  - 抽象代数
+  - Set
+tags:
+  - Math
+  - Set
+  - Order
+  - Base
 date: 2019-07-21 00:46:35
-updated: 2019-07-21 00:46:35
+updated: 2021-07-19 09:19:48
 toc: true
 mathjax: true
 comments: true

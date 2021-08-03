@@ -1,9 +1,12 @@
 ---
 title: 查找
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Problem
+tags:
+  - Algorithm
+  - Problem
+  - Searching
 date: 2019-07-23 08:39:04
 updated: 2019-07-23 08:39:04
 toc: true

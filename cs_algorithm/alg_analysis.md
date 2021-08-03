@@ -1,9 +1,9 @@
 ---
 title: 算法分析
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+tags:
+  - Algorithm
 date: 2019-03-21 17:27:15
 updated: 2019-02-22 11:22:21
 toc: true

@@ -1,9 +1,14 @@
 ---
-title: 
+title: Numpy 附加库
 categories:
-  - 
+  - Python
+  - Numpy
 tags:
-  - 
+  - Python
+  - Numpy
+  - Finance
+  - Histogram
+  - Set
 date: 2021-03-11 09:36:49
 updated: 2021-03-11 09:36:49
 toc: true

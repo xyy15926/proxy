@@ -1,11 +1,14 @@
 ---
-title: Python运行时服务
-tags:
-  - Python
+title: Python 运行时服务
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Runtime
 date: 2019-06-10 01:42:37
-updated: 2019-06-10 01:42:37
+updated: 2021-08-02 14:47:45
 toc: true
 mathjax: true
 comments: true

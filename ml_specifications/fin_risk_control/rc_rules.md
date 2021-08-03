@@ -1,12 +1,16 @@
 ---
 title: 风控规则
 categories:
+  - FinTech
   - Risk Control
 tags:
-  - Risk Control
-  - Rules
+  - Machine Learning
+  - FinTech
+  - Financial Risk
+  - Swap Set Analysis
+  - Rule Evaluation
 date: 2021-01-11 08:49:48
-updated: 2021-01-11 08:49:48
+updated: 2021-07-16 16:28:43
 toc: true
 mathjax: true
 description: 

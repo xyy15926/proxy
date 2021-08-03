@@ -1,11 +1,12 @@
 ---
 title: SBT
-tags:
-  - Java
-  - Scala
 categories:
   - Java
   - Scala
+tags:
+  - Java
+  - Scala
+  - SBT
 date: 2019-07-10 00:48:32
 updated: 2019-07-10 00:48:32
 toc: true

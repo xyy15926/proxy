@@ -1,11 +1,13 @@
 ---
-title: Layers总述
+title: Layers 总述
 tags:
   - Python
   - Keras
 categories:
   - Python
   - Keras
+  - Machine Learning
+  - Layer
 date: 2019-02-20 23:58:15
 updated: 2019-02-17 11:57:07
 toc: true

@@ -1,12 +1,13 @@
 ---
 title: TensorFlow控制算符
-tags:
- - Python
- - TensorFlow
- - Flow Control
 categories:
  - Python
  - TensorFlow
+tags:
+ - Python
+ - TensorFlow
+ - Machine Learning
+ - Flow Control
 date: 2019-08-19 17:20
 updated: 2019-08-19 17:20
 toc: true

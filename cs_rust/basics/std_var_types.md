@@ -1,9 +1,10 @@
 ---
-title: rust标准库数据类型
-tags:
-  - Rust
+title: Rust 标准库数据类型
 categories:
   - Rust
+tags:
+  - Rust
+  - Datatype
 date: 2019-03-21 17:27:37
 updated: 2019-02-17 11:57:08
 toc: true

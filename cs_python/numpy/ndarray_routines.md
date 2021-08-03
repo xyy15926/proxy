@@ -1,9 +1,14 @@
 ---
-title: 
+title: NDArray Routine
 categories:
-  - 
+  - Python
+  - Numpy
 tags:
-  - 
+  - Python
+  - Numpy
+  - Data Science
+  - NDArray
+  - Routine
 date: 2021-03-11 10:12:42
 updated: 2021-03-11 10:12:42
 toc: true

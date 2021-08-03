@@ -1,9 +1,12 @@
 ---
 title: Python类说明
-tags:
-  - Python
 categories:
   - Python
+  - Cookbook
+tags:
+  - Python
+  - Cookbook
+  - Class
 date: 2019-03-31 23:33:26
 updated: 2019-03-31 23:33:26
 toc: true

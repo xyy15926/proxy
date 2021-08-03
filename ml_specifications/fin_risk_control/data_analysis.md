@@ -1,12 +1,19 @@
 ---
 title: 风控中数据分析
 categories:
+  - FinTech
   - Risk Control
 tags:
-  - Risk Control
+  - Machine Learning
+  - FinTech
+  - Financial Risk
   - Data Analysis
+  - MOB
+  - Vintage Analysis
+  - Roll Rate Analysis
+  - Flow Rate Analysis
 date: 2021-01-11 08:44:39
-updated: 2021-01-11 08:44:39
+updated: 2021-07-16 16:19:01
 toc: true
 mathjax: true
 description: 风控中的数据分析

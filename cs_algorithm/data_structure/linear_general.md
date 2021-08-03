@@ -1,13 +1,16 @@
 ---
 title: 数组和广义表
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Linear
+  - Array
+  - List
 date: 2019-03-21 17:27:37
-updated: 2019-03-14 01:02:38
+updated: 2021-08-02 18:09:32
 toc: true
 mathjax: true
 comments: true

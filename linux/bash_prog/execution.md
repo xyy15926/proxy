@@ -1,11 +1,14 @@
 ---
-title: Shell脚本执行
-tags:
-  - Linux
-  - Bash编程
+title: Bash 脚本执行
 categories:
   - Linux
-  - Bash编程
+  - Bash Programming
+tags:
+  - Linux
+  - Shell
+  - Bash
+  - Environment
+  - Execution
 date: 2019-07-31 23:59:23
 updated: 2019-07-31 23:59:23
 toc: true

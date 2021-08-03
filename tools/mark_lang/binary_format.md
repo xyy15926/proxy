@@ -1,11 +1,14 @@
 ---
 title: 二进制文件格式
-tags:
-  - 程序
 categories:
-  - 程序
+  - Tool
+  - Markup Language
+tags:
+  - Tool
+  - Markup Language
+  - IDX
 date: 2019-05-10 01:01:26
-updated: 2019-05-10 01:01:26
+updated: 2021-07-16 17:41:11
 toc: true
 mathjax: true
 comments: true

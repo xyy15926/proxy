@@ -1,9 +1,9 @@
 ---
 title: 算法设计策略
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+tags:
+  - Algorithm
 date: 2019-05-30 00:38:54
 updated: 2019-05-30 00:38:54
 toc: true

@@ -1,13 +1,18 @@
 ---
 title: 数据模型--基本数据类型
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Data Model
+  - Variable
+  - Object
+  - Value
+  - Datatype
 date: 2019-06-05 11:05:43
-updated: 2019-06-05 11:05:43
+updated: 2021-08-02 11:44:48
 toc: true
 mathjax: true
 comments: true

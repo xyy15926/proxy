@@ -1,11 +1,12 @@
 ---
 title: Linear List
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Linear
 date: 2019-04-18 13:32:00
 updated: 2019-04-18 13:32:00
 toc: true

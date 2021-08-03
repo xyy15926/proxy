@@ -5,11 +5,12 @@ categories:
   - Pywin32
 tags:
   - Python
+  - Pywin32
   - Device
   - Driver
   - Automatic
 date: 2021-05-31 11:14:47
-updated: 2021-05-31 11:14:47
+updated: 2021-08-02 14:49:09
 toc: true
 mathjax: true
 description: 

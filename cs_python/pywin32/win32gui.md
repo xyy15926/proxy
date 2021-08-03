@@ -5,6 +5,7 @@ categories:
   - Pywin32
 tags:
   - Python
+  - Pywin32
   - GUI
 date: 2021-05-31 11:10:44
 updated: 2021-05-31 11:10:44

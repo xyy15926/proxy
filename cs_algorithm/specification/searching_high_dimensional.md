@@ -1,9 +1,13 @@
 ---
 title: 高维数据检索方法
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Specification
+tags:
+  - Algorithm
+  - Specification
+  - Index
+  - High Dimension
 date: 2019-06-04 23:11:44
 updated: 2019-06-04 23:11:44
 toc: true

@@ -1,11 +1,15 @@
 ---
 title: 数据模型--执行相关
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Data Model
+  - Module
+  - Frame
+  - Traceback
 date: 2019-05-20 22:24:33
 updated: 2019-05-20 22:24:33
 toc: true

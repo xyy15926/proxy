@@ -1,14 +1,16 @@
 ---
 title: 评分卡模型
 categories:
-  - Machine Learning
   - FinTech
+  - Risk Control
 tags:
   - Machine Learning
-  - Score Card
   - FinTech
+  - Financial Risk
+  - Score Card
+  - ML Model
 date: 2020-08-10 19:37:47
-updated: 2020-08-10 19:37:47
+updated: 2021-07-16 16:26:34
 toc: true
 mathjax: true
 comments: true

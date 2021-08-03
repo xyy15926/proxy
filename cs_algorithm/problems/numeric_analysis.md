@@ -1,11 +1,14 @@
 ---
 title: 数值问题
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Problem
+tags:
+  - Algorithm
+  - Problem
+  - Numeric
 date: 2019-03-21 17:27:37
-updated: 2019-02-22 11:21:42
+updated: 2021-08-02 18:16:43
 toc: true
 mathjax: true
 comments: true

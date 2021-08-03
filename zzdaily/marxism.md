@@ -4,8 +4,9 @@ tags:
   - Daily Life
 categories:
   - Daily Life
+  - Maxism
 date: 2019-03-21 17:27:15
-updated: 2019-02-17 11:57:07
+updated: 2021-07-19 09:18:54
 toc: true
 mathjax: true
 comments: true
@@ -25,11 +26,9 @@ description: 马恩的社会主义观
 意义和实践意义
 
 
-
 在资本主义社会和共产主义社会之间，有一个从前者转变为后者
 的个命转变时期，同这个时期相适应的也有一个政治上的过渡时期，
 这个时期的国家，只能是国产阶级的革命专政
-
 
 
 ##	社会主义初级阶段

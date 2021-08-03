@@ -1,5 +1,7 @@
 ---
 title: Word2Vec
+categories:
+  - NLP
 tags:
   - Machine Learning
   - NLP
@@ -8,8 +10,6 @@ tags:
   - Hoffuman Tree
   - Softmax
   - Negtive Sampling
-categories:
-  - NLP
 mathjax: true
 toc: true
 comments: true

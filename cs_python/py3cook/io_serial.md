@@ -1,9 +1,12 @@
 ---
 title: Python IO、持久化
-tags:
-  - Python
 categories:
   - Python
+  - Cookbook
+tags:
+  - Python
+  - Cookbook
+  - IO
 date: 2019-03-31 23:24:27
 updated: 2019-03-31 23:21:56
 toc: true

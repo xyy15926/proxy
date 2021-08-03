@@ -1,13 +1,18 @@
 ---
 title: 社交网络
-tags:
-  - 机器学习
-  - 社会网络
 categories:
-  - 机器学习
-  - 社会网络
+  - Graph Analysis
+tags:
+  - Machine Learning
+  - Graph Analysis
+  - Social Network
+  - Girvan-Newman
+  - Newman Fast Algorithm
+  - Edge-Clustering Detection
+  - Walk Trap
+  - Random Walk
 date: 2019-07-14 12:13:11
-updated: 2019-07-14 12:12:53
+updated: 2021-07-16 16:33:59
 toc: true
 mathjax: true
 comments: true

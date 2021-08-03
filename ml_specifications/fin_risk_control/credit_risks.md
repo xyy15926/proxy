@@ -1,15 +1,17 @@
 ---
 title: 风险控制
 categories:
-  - Machine Learning
   - FinTech
+  - Risk Control
 tags:
   - Machine Learning
   - FinTech
   - Financial Risk
+  - Anti-Fraud
+  - FPD
+  - Credit Risk
 date: 2021-04-06 09:45:15
-updated: 2021-04-06 09:45:15
-toc: true
+updated: 2021-07-16 16:18:26 toc: true
 mathjax: true
 description: 
 ---

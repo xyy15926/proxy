@@ -1,9 +1,12 @@
 ---
 title: Funtioncal Programming Tools
-tags:
-  - Python
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Lambda
 date: 2019-06-09 23:24:56
 updated: 2019-06-06 00:01:44
 toc: true

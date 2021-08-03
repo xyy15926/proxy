@@ -1,11 +1,13 @@
 ---
 title: 二叉树衍生
-tags:
-  - 算法
-  - 数据结构
 categories:
-  - 算法
-  - 数据结构
+  - Algorithm
+  - Data Structure
+tags:
+  - Algorithm
+  - Data Structure
+  - Tree
+  - Huffman
 date: 2019-06-04 23:11:44
 updated: 2019-06-04 23:11:44
 toc: true

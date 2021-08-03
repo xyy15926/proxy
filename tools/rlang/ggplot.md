@@ -1,16 +1,19 @@
 ---
 title: GGPLOT
-tags:
-  - R语言
 categories:
-  - R语言
+  - R Lang
+tags:
+  - R Lang
+  - GGPlot
 date: 2019-03-21 17:27:15
-updated: 2019-02-17 11:57:08
+updated: 2021-07-19 08:57:20
 toc: true
 mathjax: true
 comments: true
-description: GGPLOT
+description: GGPLOT 绘图
 ---
+
+##	GGPlot 绘图
 
 ```R
 p <- ggplot(data=mtcars, aes(x=wt, y=mpg))

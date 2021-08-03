@@ -1,9 +1,10 @@
 ---
-title: Rust所有权、引用、生命周期
-tags:
-  - Rust
+title: Rust 所有权、引用、生命周期
 categories:
   - Rust
+tags:
+  - Rust
+  - Ownership
 date: 2019-03-21 17:27:37
 updated: 2019-02-17 11:57:08
 toc: true

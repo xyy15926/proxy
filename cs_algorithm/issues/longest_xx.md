@@ -1,9 +1,13 @@
 ---
 title: 线性最长问题
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Issue
+tags:
+  - Algorithm
+  - Issue
+  - Linear
+  - Longest
 date: 2019-08-02 08:17:02
 updated: 2019-07-23 08:39:04
 toc: true

@@ -1,13 +1,15 @@
 ---
-title: shell编程技巧
-tags:
-  - Linux
-  - Bash编程
+title: Bash 编程技巧
 categories:
   - Linux
-  - Bash编程
+  - Bash Programming
+tags:
+  - Linux
+  - Shell
+  - Bash
+  - Twists
 date: 2019-08-01 00:18:17
-updated: 2019-02-17 11:57:07
+updated: 2021-07-21 14:43:27
 toc: true
 mathjax: true
 comments: true

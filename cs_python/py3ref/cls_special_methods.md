@@ -1,11 +1,13 @@
 ---
 title: Special Methods
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Routine
+  - Method
 date: 2019-06-04 00:55:56
 updated: 2019-06-04 00:55:56
 toc: true

@@ -1,14 +1,15 @@
 ---
 title: TeX、LaTeX、XeLaTeX
+categories:
+  - Tool
+  - Markup Language
 tags:
+  - Tool
+  - Markup Language
   - TeX
   - LaTeX
-  - MarkupLang
-categories:
-  - Tools
-  - MarkupLang
 date: 2020-07-12 10:53:21
-updated: 2020-07-12 10:53:31
+updated: 2021-07-16 17:43:48
 toc: true
 mathjax: true
 description: TeX、LaTeX、XeLateX等介绍

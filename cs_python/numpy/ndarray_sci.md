@@ -1,9 +1,14 @@
 ---
-title: 
+title: NDArray 科学计算
 categories:
-  - 
+  - Python
+  - Numpy
 tags:
-  - 
+  - Python
+  - Numpy
+  - Data Science
+  - Linear Algbra
+  - Fourier Transformation
 date: 2021-03-14 17:52:56
 updated: 2021-03-14 17:52:56
 toc: true

@@ -1,15 +1,15 @@
 ---
 title: Recommendation System
+categories:
+  - Click Through Rate
+  - Recommandation System
 tags:
   - Machine Learning
-  - Recommendation
-  - Matching
-  - Ranking
-categories:
-  - Machine Learning
-  - Recommendation Systems
+  - Click Through Rate
+  - Recommandation System
+  - Collaborative Filtering
 date: 2019-07-21 00:46:35
-updated: 2019-07-21 00:46:35
+updated: 2021-07-16 16:50:35
 toc: true
 mathjax: true
 comments: true

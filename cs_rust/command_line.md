@@ -1,9 +1,10 @@
 ---
-title: rust程序设计笔记
-tags:
-  - Rust
+title: Rust 程序设计笔记
 categories:
   - Rust
+tags:
+  - Rust
+  - CMD
 date: 2019-03-21 17:27:15
 updated: 2019-02-17 11:57:08
 toc: true

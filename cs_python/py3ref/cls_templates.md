@@ -1,11 +1,12 @@
 ---
 title: Python类用法实例
-tags:
-  - Python
-  - Py3Ref
 categories:
   - Python
   - Py3Ref
+tags:
+  - Python
+  - Py3Ref
+  - Templates
 date: 2019-05-22 08:28:30
 updated: 2019-05-22 08:28:30
 toc: true

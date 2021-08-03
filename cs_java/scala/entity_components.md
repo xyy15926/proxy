@@ -1,11 +1,13 @@
 ---
-title: Scala基本实体
-tags:
-  - Java
-  - Scala
+title: Scala 基本实体
 categories:
   - Java
   - Scala
+tags:
+  - Java
+  - Scala
+  - Expression
+  - Routine
 date: 2019-08-02 23:17:39
 updated: 2019-08-02 23:17:39
 toc: true

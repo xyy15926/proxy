@@ -1,13 +1,14 @@
 ---
 title: MarkDown Basics
-tags:
-  - MarkDown
-  - MarkupLang
 categories:
-  - Tools
-  - MarkupLang
+  - Tool
+  - Markup Language
+tags:
+  - Tool
+  - Markup Language
+  - Markdown
 date: 2019-03-21 17:27:37
-updated: 2020-07-12 11:01:57
+updated: 2021-07-16 17:41:57
 toc: true
 mathjax: true
 comments: true

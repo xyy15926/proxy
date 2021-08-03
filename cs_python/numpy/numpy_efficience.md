@@ -1,9 +1,13 @@
 ---
-title: 
+title: Numpy 性能
 categories:
-  - 
+  - Python
+  - Numpy
 tags:
-  - 
+  - Python
+  - Numpy
+  - Efficience
+  - Error
 date: 2021-03-11 09:47:45
 updated: 2021-03-11 09:47:45
 toc: true

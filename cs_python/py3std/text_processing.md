@@ -1,9 +1,12 @@
 ---
 title: 文本处理服务
-tags:
-  - Python
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Text
 date: 2019-06-09 23:32:39
 updated: 2019-06-09 23:32:39
 toc: true

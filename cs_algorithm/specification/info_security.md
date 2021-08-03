@@ -1,11 +1,16 @@
 ---
 title: Infomation Security
-tags:
-  - 算法
 categories:
-  - 算法
+  - Algorithm
+  - Specification
+tags:
+  - Algorithm
+  - Specification
+  - Hashing
+  - Digest
+  - Encrypt
 date: 2019-05-25 19:55:48
-updated: 2019-05-25 19:55:48
+updated: 2021-08-02 18:18:15
 toc: true
 mathjax: true
 comments: true

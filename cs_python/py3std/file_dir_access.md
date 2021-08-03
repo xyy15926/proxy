@@ -1,11 +1,15 @@
 ---
 title: 文件、目录访问
-tags:
-  - Python
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Platform
+  - File System
 date: 2019-06-09 23:58:05
-updated: 2019-06-09 23:58:05
+updated: 2021-08-02 11:50:46
 toc: true
 mathjax: true
 comments: true

@@ -1,13 +1,13 @@
 ---
 title: TensorFlow Python IO接口
+categories:
+ - Python
+ - TensorFlow
 tags:
  - Python
  - TensorFlow
  - ProtoBuf
  - IO
-categories:
- - Python
- - TensorFlow
 date: 2019-08-19 17:20
 updated: 2019-08-19 17:20
 toc: true

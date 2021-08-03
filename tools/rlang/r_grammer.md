@@ -1,7 +1,7 @@
 ---
 title: R语法
 tags:
-  - R语言
+  - RLang
 categories:
   - R语言
 date: 2019-03-21 17:27:15

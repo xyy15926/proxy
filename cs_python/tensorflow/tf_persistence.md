@@ -1,13 +1,13 @@
 ---
-title: TensorFlow持久化
+title: TensorFlow 持久化
+categories:
+ - Python
+ - TensorFlow
 tags:
  - Python
  - TensorFlow
  - Machine Learning
  - Persistence
-categories:
- - Python
- - TensorFlow
 date: 2019-08-19 17:13
 updated: 2019-08-19 17:13
 toc: true

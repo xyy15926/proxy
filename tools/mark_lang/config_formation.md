@@ -1,15 +1,16 @@
 ---
 title: 配置文件笔记
+categories:
+  - Tool
+  - Markup Language
 tags:
+  - Tool
+  - Markup Language
   - Ini
   - Toml
   - Yaml
-  - MarkupLang
-categories:
-  - Tools
-  - MarkupLang
 date: 2019-07-11 00:51:41
-updated: 2020-07-12 11:01:52
+updated: 2021-07-16 17:40:58
 toc: true
 mathjax: true
 comments: true

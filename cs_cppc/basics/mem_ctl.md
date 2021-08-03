@@ -1,9 +1,12 @@
 ---
 title: C++内存控制
-tags:
-  - C/C++
 categories:
   - C/C++
+tags:
+  - C/C++
+  - Pointer
+  - Array
+  - Memory
 date: 2019-05-20 22:27:04
 updated: 2019-05-20 22:27:04
 toc: true
