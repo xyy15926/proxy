@@ -1,11 +1,15 @@
 ---
 title: Hilbert空间
-tags:
-  - 代数
 categories:
-  - 代数
+  - Math Algebra
+  - Universal Algebra
+tags:
+  - Math
+  - Algebra
+  - Hilbert
+  - Kernel
 date: 2019-07-21 00:46:35
-updated: 2019-07-21 00:46:35
+updated: 2021-08-04 11:05:02
 toc: true
 mathjax: true
 comments: true

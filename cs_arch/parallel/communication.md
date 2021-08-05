@@ -1,13 +1,14 @@
 ---
 title: 通信、锁
-tags:
-  - 程序
-  - 并行
 categories:
-  - 程序
-  - 并行
+  - CS
+  - Parallel
+tags:
+  - CS
+  - Parallel
+  - Lock
 date: 2019-03-31 21:39:50
-updated: 2019-03-31 17:52:02
+updated: 2021-08-04 16:29:41
 toc: true
 mathjax: true
 comments: true
@@ -80,14 +81,6 @@ description: 通信、锁
 	-	没有发生死锁时正常运行
 	-	一旦发生死锁，无法重置计数器导致计数器超时，程序通过
 		重启恢复自身状态
-
-
-
-
-
-
-
-
 
 
 

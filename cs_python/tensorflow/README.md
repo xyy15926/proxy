@@ -1,11 +1,12 @@
 ---
-title: Tensorflow约定
-tags:
-  - Python
-  - Tensorflow
+title: TensorFlow Readme
 categories:
   - Python
-  - Tensorflow
+  - TensorFlow
+tags:
+  - Python
+  - TensorFlow
+  - Readme
 date: 2019-03-21 17:27:37
 updated: 2019-02-17 11:57:07
 toc: true

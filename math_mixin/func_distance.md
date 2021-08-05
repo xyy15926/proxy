@@ -1,9 +1,13 @@
 ---
 title: 距离函数
-tags:
-  - 机器学习
 categories:
-  - 机器学习
+  - Math Mixin
+tags:
+  - Math
+  - Algbra
+  - Analysis
+  - Uncharted
+  - Function
 date: 2019-07-21 00:46:35
 updated: 2019-07-21 00:46:35
 toc: true

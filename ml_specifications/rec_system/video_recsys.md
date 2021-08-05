@@ -1,6 +1,7 @@
 ---
 title: 视频推荐
 categories:
+  - ML Specification
   - Click Through Rate
   - Recommandation System
 tags:

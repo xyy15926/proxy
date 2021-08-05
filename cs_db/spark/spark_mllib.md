@@ -1,9 +1,10 @@
 ---
 title: Spark MLLib
 categories:
-  - DataBase
+  - Database
   - Spark
 tags:
+  - Database
   - Spark
   - Machine Learning
   - Classification

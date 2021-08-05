@@ -1,9 +1,13 @@
 ---
-title: 
+title: 常用不等式
 categories:
-  - 
+  - Math Mixin
 tags:
-  - 
+  - Math
+  - Algbra
+  - Analysis
+  - Uncharted
+  - Equality
 date: 2021-06-09 17:46:15
 updated: 2021-06-09 17:46:15
 toc: true

@@ -1,9 +1,9 @@
 ---
 title: 文件、目录
-tags:
+categories:
   - Linux
   - Shell
-categories:
+tags:
   - Linux
   - Shell
   - Editor

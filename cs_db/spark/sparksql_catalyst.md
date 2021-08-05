@@ -1,15 +1,15 @@
 ---
-title: Catalyst优化器
+title: Catalyst 优化器
 categories:
-  - DataBase
+  - Database
   - Spark
 tags:
-  - DataBase
+  - Database
   - Spark
   - Optimizer
   - Catalyst
 date: 2019-07-11 00:51:41
-updated: 2019-07-11 00:51:41
+updated: 2021-08-04 16:17:23
 toc: true
 mathjax: true
 comments: true

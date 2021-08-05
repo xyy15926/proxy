@@ -1,11 +1,25 @@
 ---
 title: 常用统计量
-tags:
-  - 机器学习
 categories:
-  - 机器学习
+  - Math Mixin
+  - Statistics
+tags:
+  - Math
+  - Statistics
+  -	Correlation
+  - Maching Learning
+  - TPR
+  - FRP
+  - ROC
+  - AUC
+  - MSE
+  - MAE
+  - MAPE
+  - SMAE
+  - AIC
+  - BIC
 date: 2019-07-14 20:04:44
-updated: 2019-07-14 20:04:44
+updated: 2021-08-04 11:32:19
 toc: true
 mathjax: true
 comments: true

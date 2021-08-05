@@ -1,7 +1,7 @@
 ---
 title: Zookeeper
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
   - Tool

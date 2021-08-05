@@ -1,11 +1,14 @@
 ---
 title: Proximal Gredient Method
-tags:
-  - 最优化
-  - 约束优化
 categories:
-  - 最优化
-  - 约束优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Constrained
+  - Proxmial
 date: 2019-07-29 21:16:01
 updated: 2019-07-29 21:16:01
 toc: true

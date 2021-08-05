@@ -1,9 +1,10 @@
 ---
 title: Hadoop安装配置
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
+  - Database
   - Hadoop
   - Installment
   - Setting

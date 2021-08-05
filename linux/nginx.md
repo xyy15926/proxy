@@ -2,6 +2,7 @@
 title: Nginx 使用、配置
 categories:
   - Linux
+  - Tool
 tags:
   - Linux
   - Tool

@@ -1,11 +1,12 @@
 ---
-title: Pandas约定
-tags:
-  - Python
-  - Pandas
+title: Pandas Readme
 categories:
   - Python
   - Pandas
+tags:
+  - Python
+  - Pandas
+  - Readme
 date: 2019-03-29 18:39:51
 updated: 2019-03-29 18:39:51
 toc: true

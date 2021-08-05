@@ -1,9 +1,9 @@
 ---
 title: GGPLOT
 categories:
-  - R Lang
+  - RLang
 tags:
-  - R Lang
+  - RLang
   - GGPlot
 date: 2019-03-21 17:27:15
 updated: 2021-07-19 08:57:20

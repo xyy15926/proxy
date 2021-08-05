@@ -2,6 +2,7 @@
 title: Linux 远程工具
 categories:
   - Linux
+  - Tool
 tags:
   - Linux
   - Tool

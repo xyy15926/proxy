@@ -1,11 +1,17 @@
 ---
 title: Matrix Decomposition
-tags:
-  - 代数
-  - 线性代数
 categories:
-  - 代数
-  - 线性代数
+  - Math Algebra
+  - Linear Algebra
+tags:
+  - Math
+  - Algebra
+  - Linear
+  - Matrix
+  - Matrix Decomposition
+  - SVD
+  - QRD
+  - LUD
 date: 2019-07-29 21:16:01
 updated: 2019-07-29 21:16:01
 toc: true

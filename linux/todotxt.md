@@ -2,6 +2,7 @@
 title: Todo.txt
 categories:
   - Linux
+  - Tool
 tags:
   - Linux
   - Tool

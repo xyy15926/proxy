@@ -1,6 +1,7 @@
 ---
 title: 风险控制
 categories:
+  - ML Specification
   - FinTech
   - Risk Control
 tags:
@@ -11,7 +12,8 @@ tags:
   - FPD
   - Credit Risk
 date: 2021-04-06 09:45:15
-updated: 2021-07-16 16:18:26 toc: true
+updated: 2021-08-04 10:55:20
+toc: true
 mathjax: true
 description: 
 ---

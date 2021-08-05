@@ -1,13 +1,13 @@
 ---
 title: 未归类概念
 categories:
-  - Math Analysis
-  - Optimization
+  - Math Mixin
 tags:
-  - Math Analysis
-  - Optimization
-  - Distance
-  - Function
+  - Math
+  - Algbrea
+  - Analysis
+  - Uncharted
+  - RBF
 date: 2021-04-26 19:01:08
 updated: 2021-07-02 18:44:10
 toc: true

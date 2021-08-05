@@ -1,9 +1,11 @@
 ---
 title: Vim KeyMapper CMD
 categories:
+  - Linux
   - Tool
   - Vi
 tags:
+  - Linux
   - Tool
   - Vi
   - Keymapper

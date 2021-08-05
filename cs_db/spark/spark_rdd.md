@@ -1,9 +1,10 @@
 ---
 title: Resilient Distributed Dataset
 categories:
-  - DataBase
+  - Database
   - Spark
 tags:
+  - Database
   - Spark
   - RDD
   - DAG

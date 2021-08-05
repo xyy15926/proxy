@@ -1,13 +1,13 @@
 ---
 title: R可视化
 categories:
-  - R Lang
+  - RLang
 tags:
-  - R Lang
+  - RLang
   - GGPlot
   - Visualization
 date: 2019-03-21 17:27:15
-updated: 2019-02-17 11:57:08
+updated: 2021-08-04 19:23:45
 toc: true
 mathjax: true
 comments: true

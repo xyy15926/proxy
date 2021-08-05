@@ -3,7 +3,6 @@ title: NDArray子类
 categories:
   - Python
   - Numpy
-  - NDArray
 tags:
   - Python
   - Numpy

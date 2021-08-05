@@ -1,7 +1,7 @@
 ---
 title: Data Science
 categories:
-  - ML Theories
+  - ML Theory
 tags:
   - Machine Learning
   - Supervised Learning

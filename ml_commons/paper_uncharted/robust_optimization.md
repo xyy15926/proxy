@@ -1,11 +1,14 @@
 ---
 title: Robust Optimization
-tags:
-  - 机器学习
 categories:
-  - 机器学习
+  - ML Theory
+  - Optimization
+tags:
+  - Machine Learning
+  - Optimization
+  - Uncharted
 date: 2019-07-14 00:16:47
-updated: 2019-07-13 12:03:11
+updated: 2021-08-04 16:42:31
 toc: true
 mathjax: true
 comments: true

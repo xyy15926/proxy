@@ -1,13 +1,15 @@
 ---
 title: 语言设计
-tags:
-  - 程序
-  - 程序设计
 categories:
-  - 程序
-  - 程序设计
+  - CS
+  - Program Design
+tags:
+  - CS
+  - Program Design
+  - Variable
+  - Polymorphism
 date: 2019-07-10 00:48:32
-updated: 2019-07-10 00:48:32
+updated: 2021-08-04 16:33:38
 toc: true
 mathjax: true
 comments: true

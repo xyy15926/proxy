@@ -1,13 +1,13 @@
 ---
 title: Parallel
+categories:
+  - CS
+  - Parallel
 tags:
-  - Programming Theory
+  - CS
   - Parallel
   - Process
   - Thread
-categories:
-  - Programming Theory
-  - Parallel
 date: 2019-06-03 17:02:43
 updated: 2020-09-19 11:49:30
 toc: true

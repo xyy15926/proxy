@@ -1,10 +1,10 @@
 ---
 title: SQL语法
 categories:
-  - DataBase
+  - Database
   - SQL DB
 tags:
-  - DataBase
+  - Database
   - SQL DB
   - Grammer
   - CUAD

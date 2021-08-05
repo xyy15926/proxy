@@ -3,7 +3,6 @@ title: NDArray
 categories:
   - Python
   - Numpy
-  - NDArray
 tags:
   - Python
   - Numpy

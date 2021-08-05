@@ -2,6 +2,7 @@
 title: Pandoc介绍
 categories:
   - Linux
+  - Tool
 tags:
   - Linux
   - Tool

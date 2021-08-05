@@ -1,17 +1,18 @@
 ---
 title: Dropout
 categories:
-  - ML Optimization
+  - ML Technique
   - Neural Network
 tags:
   - Machine Learning
+  - Technique
   - ML Model
   - Neural Network
   - Normalization
   - Regularization
   - Dropout
 date: 2019-07-29 21:16:01
-updated: 2021-07-21 14:36:38
+updated: 2021-08-04 19:35:20
 toc: true
 mathjax: true
 comments: true

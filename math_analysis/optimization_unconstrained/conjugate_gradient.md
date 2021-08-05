@@ -1,13 +1,16 @@
 ---
 title: Conjugate Gradient Method
-tags:
-  - 最优化
-  - 无约束优化
 categories:
-  - 最优化
-  - 无约束优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Unconstrained
+  - Conjugate
 date: 2019-03-21 17:27:37
-updated: 2019-03-17 11:35:09
+updated: 2021-08-04 11:25:02
 toc: true
 mathjax: true
 comments: true

@@ -1,13 +1,16 @@
 ---
 title: Fourier Transformation
-tags:
-  - 分析
-  - 傅里叶分析
 categories:
-  - 分析
-  - 傅里叶分析
+  - Math Analysis
+  - Fourier Analysis
+tags:
+  - Math
+  - Analysis
+  - Fourier
+  - DDT
+  - DCT
 date: 2019-07-21 00:46:35
-updated: 2019-07-21 00:46:35
+updated: 2021-08-04 11:06:02
 toc: true
 mathjax: true
 comments: true

@@ -1,9 +1,9 @@
 ---
 title: Shell 本地化
-tags:
+categories:
   - Linux
   - Shell
-categories:
+tags:
   - Linux
   - Shell
   - Locale

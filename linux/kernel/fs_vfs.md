@@ -1,9 +1,9 @@
 ---
 title: Linux文件系统设计
-tags:
+categories:
   - Linux
   - File System
-categories:
+tags:
   - Linux
   - File System
   - VFS

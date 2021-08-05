@@ -1,9 +1,9 @@
 ---
 title: Keras 安装配置
-tags:
+categories:
   - Python
   - Keras
-categories:
+tags:
   - Python
   - Keras
   - Configuration

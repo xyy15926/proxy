@@ -2,7 +2,9 @@
 title: GCC
 categories:
   - Linux
+  - Tool
 tags:
+  - Linux
   - Tool
   - Compiler
   - GCC

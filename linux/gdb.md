@@ -2,7 +2,9 @@
 title: GDB
 categories:
   - Linux
+  - Tool
 tags:
+  - Linux
   - Tool
   - Compiler
   - Debug

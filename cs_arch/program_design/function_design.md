@@ -1,13 +1,14 @@
 ---
 title: 函数设计
-tags:
-  - 程序
-  - 程序设计
 categories:
-  - 程序
-  - 程序设计
+  - CS
+  - Program Design
+tags:
+  - CS
+  - Program Design
+  - Callback
 date: 2019-03-21 17:27:37
-updated: 2019-03-11 01:15:30
+updated: 2021-08-04 16:31:37
 toc: true
 mathjax: true
 comments: true

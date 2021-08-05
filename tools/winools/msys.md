@@ -1,7 +1,7 @@
 ---
 title: MSYS配置
 categories:
-  - Tools
+  - Tool
   - Windows
 tags:
   - Tool

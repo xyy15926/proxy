@@ -1,6 +1,7 @@
 ---
 title: NLP 总述
 categories:
+  - ML Specification
   - NLP
 tags:
   - Machine Learning

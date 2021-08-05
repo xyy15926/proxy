@@ -1,7 +1,8 @@
 ---
 title: 损失函数理论
 categories:
-  - ML Optimizer
+  - ML Theory
+  - Loss
 tags:
   - Machine Learning
   - Optimizer
@@ -12,7 +13,7 @@ tags:
   - Regularization
   - Early Stopping
 date: 2019-08-25 21:53:20
-updated: 2021-07-21 10:08:59
+updated: 2021-08-04 17:40:21
 toc: true
 mathjax: true
 comments: true

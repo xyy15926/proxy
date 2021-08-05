@@ -1,16 +1,18 @@
 ---
 title: Gradient Descent Method
+categories:
+  - Math Analysis
+  - Optimization
 tags:
+  - Math
+  - Analysis
   - Optimization
   - Unconstrained
-  - Gradient Descent
+  - Descent
   - Momentum
   - Learning Rate
-categories:
-  - Optimization
-  - Unconstrianed Optimization
 date: 2019-06-04 01:18:34
-updated: 2019-06-04 01:18:34
+updated: 2021-08-04 11:26:19
 toc: true
 mathjax: true
 comments: true

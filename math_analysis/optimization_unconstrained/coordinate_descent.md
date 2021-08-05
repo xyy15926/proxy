@@ -1,13 +1,16 @@
 ---
 title: Coordinate Descent
-tags:
-  - 最优化
-  - 无约束优化
 categories:
-  - 最优化
-  - 无约束优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Unconstrained
+  - Descent
 date: 2019-07-29 21:16:01
-updated: 2019-07-29 21:16:01
+updated: 2021-08-04 11:25:54
 toc: true
 mathjax: true
 comments: true

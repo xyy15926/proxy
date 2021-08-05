@@ -1,6 +1,7 @@
 ---
 title: RNN 语言模型
 categories:
+  - ML Specification
   - NLP
 tags:
   - Machine Learning

@@ -1,7 +1,7 @@
 ---
 title: Hadoop 计算模型
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
   - Hadoop

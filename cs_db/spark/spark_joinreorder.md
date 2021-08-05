@@ -1,13 +1,15 @@
 ---
 title: SparkSQL2.4中启用CBO时JoinReorder分析
-tags:
-  - 程序
-  - 数据库优化
 categories:
-  - 程序
-  - 数据库优化
+  - Database
+  - Spark
+tags:
+  - Database
+  - Spark
+  - Optimization
+  - Join
 date: 2019-04-10 02:35:42
-updated: 2019-04-10 02:35:18
+updated: 2021-08-02 17:30:55
 toc: true
 mathjax: true
 comments: true

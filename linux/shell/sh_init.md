@@ -1,9 +1,9 @@
 ---
 title: Linux 系统启动
-tags:
+categories:
   - Linux
   - Shell
-categories:
+tags:
   - Linux
   - Shell
   - Startup

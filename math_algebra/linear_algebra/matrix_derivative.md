@@ -1,11 +1,13 @@
 ---
 title: Matrix Derivative/Matrix Differential
-tags:
-  - 代数
-  - 线性代数
 categories:
-  - 代数
-  - 线性代数
+  - Math Algebra
+  - Linear Algebra
+tags:
+  - Math
+  - Algebra
+  - Derivative
+  - Differential
 date: 2019-07-28 00:24:56
 updated: 2019-07-28 00:24:56
 toc: true

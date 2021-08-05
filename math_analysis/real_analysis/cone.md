@@ -1,13 +1,15 @@
 ---
 title: Cone
-tags:
-  - 分析
-  - 实分析
 categories:
-  - 分析
-  - 实分析
+  - Math Analysis
+  - Real Analysis
+tags:
+  - Math
+  - Analysis
+  - Real Analysis
+  - Cone
 date: 2019-07-21 00:46:35
-updated: 2019-07-21 00:46:35
+updated: 2021-08-04 11:29:45
 toc: true
 mathjax: true
 comments: true

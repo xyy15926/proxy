@@ -1,6 +1,7 @@
 ---
 title: 传统图像特征提取
 categories:
+  - ML Specification
   - Computer Vision
 tags:
   - Machine Learning

@@ -1,6 +1,7 @@
 ---
 title: Word2Vec
 categories:
+  - ML Specification
   - NLP
 tags:
   - Machine Learning
@@ -10,6 +11,8 @@ tags:
   - Hoffuman Tree
   - Softmax
   - Negtive Sampling
+date: 2020-08-04 22:47:06
+updated: 2021-08-04 22:47:06
 mathjax: true
 toc: true
 comments: true
@@ -100,12 +103,12 @@ Word2Vec：word embeding的一种，使用层次化softmax、负采样
 
 -	基于预料训练样本建立霍夫曼树
 -	随机初始化模型参数$w$、词向量$w$
--	对训练集中每个样本$(context(x), x)$（$2C$个上下文）如下
+-	对训练集中每个样本 $(context(x), x)$（$2C$个上下文）如下
 	计算，直至收敛
 
 	-	置：$e=0, x_w=\frac 1 {2C} \sum_{c=1}^{2C} x_c$
 
-	-	对$x$的霍夫曼编码$d=\{d_1, \cdots, d_M\}$中$d_i$计算
+	-	对$x$的霍夫曼编码 $d=\{d_1, \cdots, d_M\}$ 中 $d_i$ 计算
 
 		$$\begin{align*}
 		\sigma_i & = \sigma(x_w^T w_{j_i} + b_{j_i}) \\
@@ -114,7 +117,7 @@ Word2Vec：word embeding的一种，使用层次化softmax、负采样
 		w_{j_i} & = w_{j_i} + g x_w
 		\end{align*}$$
 
-	-	更新$2C$上下文词对应词向量
+	-	更新 $2C$ 上下文词对应词向量
 
 		$$
 		x_i = x_i + e
@@ -122,21 +125,16 @@ Word2Vec：word embeding的一种，使用层次化softmax、负采样
 
 ###	Skip-Gram流程
 
-> - 考虑上下文是相互的，则$P(x_{context}|x)$最大化时，
-	$P(x|x_{context})$也最大
-> - 为在迭代窗口（样本）内更新仅可能多词向量，应该最大化
-	$P(x|x_{context})$，使用梯度更新上下文$2C$个词向量，
-	**更新输出**
-	（条件概率中更新条件）
+> - 考虑上下文是相互的，则 $P(x_{context}|x)$ 最大化时，$P(x|x_{context})$ 也最大
+> - 为在迭代窗口（样本）内更新仅可能多词向量，应该最大化 $P(x|x_{context})$，使用梯度更新上下文 $2C$ 个词向量，**更新输出**（条件概率中更新条件）
 
 -	基于预料训练样本建立霍夫曼树
--	随机初始化模型参数$w$、词向量$w$
--	对训练集中每个样本$(x, context(x))$、每个样本中上下文
-	词向量$x_c$（$2C$个上下文），训练直至收敛
+-	随机初始化模型参数 $w$、词向量 $w$
+-	对训练集中每个样本 $(x, context(x))$、每个样本中上下文词向量 $x_c$（$2C$ 个上下文），训练直至收敛
 
 	-	置：$e=0$
 
-	-	对$x$的霍夫曼编码$d=\{d_1, \cdots, d_M\}$中$d_i$计算
+	-	对 $x$ 的霍夫曼编码 $d=\{d_1, \cdots, d_M\}$ 中 $d_i$ 计算
 
 		$$\begin{align*}
 		\sigma_i & = \sigma(x_c^T w_{j_i} + b_{j_i}) \\
@@ -145,7 +143,7 @@ Word2Vec：word embeding的一种，使用层次化softmax、负采样
 		w_{j_i} & = w_{j_i} + g x_c
 		\end{align*}$$
 
-	-	更新$2C$上下文词对应词向量
+	-	更新 $2C$ 上下文词对应词向量
 
 		$$
 		x_c = x_c + e

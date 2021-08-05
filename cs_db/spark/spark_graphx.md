@@ -1,10 +1,10 @@
 ---
 title: Spark GraphX
 categories:
-  - DataBase
+  - Database
   - Spark
 tags:
-  - DataBase
+  - Database
   - Spark
   - Graph
 date: 2019-07-11 00:51:41

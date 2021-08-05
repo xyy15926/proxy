@@ -1,11 +1,14 @@
 ---
-title: 对偶理论
-tags:
-  - 最优化
-  - 约束优化
+title: Lagrange 对偶
 categories:
-  - 最优化
-  - 约束优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Constrained
+  - Lagrange
 date: 2019-06-27 01:01:10
 updated: 2019-06-27 01:01:10
 toc: true

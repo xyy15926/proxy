@@ -1,6 +1,7 @@
 ---
 title: 风控中数据分析
 categories:
+  - ML Specification
   - FinTech
   - Risk Control
 tags:

@@ -1,6 +1,7 @@
 ---
 title: CTR Stacking Models
 categories:
+  - ML Specification
   - Click Through Rate
   - Recommandation System
 tags:

@@ -2,7 +2,7 @@
 title: Linux 归档、压缩
 categories:
   - Linux
-  - Tool
+  - Shell
 tags:
   - Linux
   - Tool

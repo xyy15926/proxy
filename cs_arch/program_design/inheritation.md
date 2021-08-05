@@ -1,13 +1,15 @@
 ---
 title: 继承、Mixin
-tags:
-  - 程序
-  - 程序设计
 categories:
-  - 程序
-  - 程序设计
+  - CS
+  - Program Design
+tags:
+  - CS
+  - Program Design
+  - Inherit
+  - Mixin
 date: 2019-03-21 17:27:37
-updated: 2019-02-17 11:57:07
+updated: 2021-08-04 16:31:58
 toc: true
 mathjax: true
 comments: true

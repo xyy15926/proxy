@@ -1,12 +1,14 @@
 ---
 title: Newton's Method
+categories:
+  - Math Analysis
+  - Optimization
 tags:
+  - Math
+  - Analysis
   - Optimization
   - Unconstrained
-  - Newton's
-categories:
-  - Optimization
-  - Unconstrianed Optimization
+  - Newton
 date: 2019-06-04 01:18:34
 updated: 2019-06-04 01:18:34
 toc: true

@@ -1,10 +1,10 @@
 ---
 title: 数据库背景
 categories:
-  - DataBase
+  - Database
   - SQL DB
 tags:
-  - DataBase
+  - Database
   - SQL DB
 date: 2019-07-10 00:48:33
 updated: 2021-07-19 09:04:42

@@ -1,6 +1,7 @@
 ---
 title: Local Binary Pattern
 categories:
+  - ML Specification
   - Computer Vision
 tags:
   - Machine Learning

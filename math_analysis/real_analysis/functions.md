@@ -1,11 +1,13 @@
 ---
 title: 函数
-tags:
-  - 分析
-  - 实分析
 categories:
-  - 分析
-  - 实分析
+  - Math Analysis
+  -	Real Analysis
+tags:
+  - Math
+  - Analysis
+  - Real Analysis
+  - Function
 date: 2019-07-21 00:46:35
 updated: 2019-07-21 00:46:35
 toc: true

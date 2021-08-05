@@ -1,9 +1,10 @@
 ---
 title: 凸分析
-tags:
-  - Analysis
-  -	Real Analysis
 categories:
+  - Math Analysis
+  -	Real Analysis
+tags:
+  - Math
   - Analysis
   - Real Analysis
   - Convex

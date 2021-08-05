@@ -2,10 +2,10 @@
 title: 统计推断
 categories:
   - Probability
-  - Statistic
 tags:
   - Math
   - Probability
+  - Statistic
   - Likelihood
 date: 2021-07-19 09:28:38
 updated: 2021-07-20 10:25:49

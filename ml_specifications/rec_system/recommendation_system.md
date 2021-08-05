@@ -1,6 +1,7 @@
 ---
 title: Recommendation System
 categories:
+  - ML Specification
   - Click Through Rate
   - Recommandation System
 tags:

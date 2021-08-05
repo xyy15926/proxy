@@ -1,13 +1,15 @@
 ---
-title: Vim内建函数、变量
+title: Vim 内建函数、变量
 categories:
+  - Linux
   - Tool
   - Vi
 tags:
+  - Linux
   - Tool
   - Vi
 date: 2019-05-11 09:55:22
-updated: 2021-07-19 09:09:57
+updated: 2021-08-04 10:51:37
 toc: true
 mathjax: true
 comments: true

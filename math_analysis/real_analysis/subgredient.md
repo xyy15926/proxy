@@ -1,14 +1,15 @@
 ---
 title: 次梯度
-tags:
-  - Math Analysis
-  - Real Analysis
-  - Subgredient
 categories:
   - Math Analysis
   - Real Analysis
+tags:
+  - Math
+  - Analysis
+  - Real Analysis
+  - Subgredient
 date: 2019-07-21 00:46:35
-updated: 2019-07-21 00:46:35
+updated: 2021-08-04 11:31:21
 toc: true
 mathjax: true
 comments: true

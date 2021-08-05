@@ -1,6 +1,7 @@
 ---
 title: 角点检测特征提取
 categories:
+  - ML Specification
   - Computer Vision
 tags:
   - Machine Learning

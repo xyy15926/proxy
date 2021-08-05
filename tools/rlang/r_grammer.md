@@ -1,11 +1,12 @@
 ---
 title: R语法
+categories:
+  - RLang
 tags:
   - RLang
-categories:
-  - R语言
+  - Grammer
 date: 2019-03-21 17:27:15
-updated: 2019-02-17 11:57:08
+updated: 2021-08-04 17:07:32
 toc: true
 mathjax: true
 comments: true

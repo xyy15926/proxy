@@ -1,10 +1,10 @@
 ---
 title: Postgre SQL笔记
 categories:
-  - DataBase
+  - Database
   - SQL DB
 tags:
-  - DataBase
+  - Database
   - SQL DB
   - Postgre SQL
   - Roles

@@ -1,8 +1,8 @@
 ---
 title: PC硬件
-tags:
-  - Daily Life
 categories:
+  - Daily Life
+tags:
   - Daily Life
   - Hard Drive
   - SSD

@@ -1,9 +1,9 @@
 ---
 title: Pandas函数目录
-tags:
+categories:
   - Python
   - Pandas
-categories:
+tags:
   - Python
   - Pandas
   - Data Science

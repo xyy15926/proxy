@@ -1,6 +1,7 @@
 ---
 title: 评分卡模型
 categories:
+  - ML Specification
   - FinTech
   - Risk Control
 tags:

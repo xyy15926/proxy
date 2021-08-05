@@ -1,6 +1,7 @@
 ---
 title: 边发现
 categories:
+  - ML Specification
   - Graph Analysis
 tags:
   - Machine Learning

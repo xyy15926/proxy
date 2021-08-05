@@ -6,7 +6,7 @@ categories:
 tags:
   - Python
   - Matplotlib
-  - Data Visulization
+  - Data Visualization
 date: 2019-03-21 17:27:37
 updated: 2020-09-09 13:17:38
 toc: true

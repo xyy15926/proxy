@@ -1,10 +1,10 @@
 ---
 title: Mysql/Mariadb安装配置
 categories:
-  - DataBase
+  - Database
   - SQL DB
 tags:
-  - DataBase
+  - Database
   - SQL DB
   - MySQL
   - MariaDB

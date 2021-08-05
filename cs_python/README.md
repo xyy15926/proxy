@@ -1,9 +1,10 @@
 ---
-title: Python笔记约定
+title: Python Readme
 tags:
   - Python
 categories:
   - Python
+  - Readme
 date: 2019-03-29 18:41:32
 updated: 2019-03-29 18:41:32
 toc: true

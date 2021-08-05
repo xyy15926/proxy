@@ -1,7 +1,7 @@
 ---
 title: 函数说明
 categories:
-  - README
+  - Math Mixin
 tags:
   - Math
   - README

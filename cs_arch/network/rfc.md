@@ -1,11 +1,12 @@
 ---
 title: RFC
-tags:
-  - 程序
-  - 网络
 categories:
-  - 程序
-  - 网络
+  - CS
+  - Network
+tags:
+  - CS
+  - Network
+  - OSI
 date: 2019-05-01 09:58:40
 updated: 2019-05-01 09:58:40
 toc: true

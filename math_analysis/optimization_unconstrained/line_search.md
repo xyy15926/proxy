@@ -1,11 +1,13 @@
 ---
 title: Line Search
-tags:
-  - 最优化
-  - 无约束优化
 categories:
-  - 最优化
-  - 无约束优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Unconstrained
 date: 2019-03-21 17:27:37
 updated: 2019-03-16 10:42:12
 toc: true

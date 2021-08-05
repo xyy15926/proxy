@@ -1,9 +1,10 @@
 ---
 title: Hadoop概述
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
+  - Database
   - Hadoop
   - YARN
   - MapReduce
@@ -12,7 +13,7 @@ tags:
   - Zookeeper
   - Tez
 date: 2019-03-21 17:27:37
-updated: 2021-07-16 17:14:17
+updated: 2021-08-04 16:18:27
 toc: true
 mathjax: true
 comments: true

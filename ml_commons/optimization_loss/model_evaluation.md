@@ -1,12 +1,13 @@
 ---
 title: 模型评估
 categories:
-  - ML Theories
+  - ML Theory
+  - Loss
 tags:
   - Machine Learning
   - Model Evaluation
 date: 2019-08-02 23:17:39
-updated: 2021-07-19 19:01:29
+updated: 2021-08-04 16:41:29
 toc: true
 mathjax: true
 comments: true

@@ -1,13 +1,13 @@
 ---
 title: 设计模式简介
-tags:
-  - 程序
-  - 程序设计
 categories:
-  - 程序
-  - 程序设计
+  - CS
+  - Program Design
+tags:
+  - CS
+  - Program Design
 date: 2019-03-21 17:27:37
-updated: 2019-03-07 23:26:56
+updated: 2021-08-04 16:31:11
 toc: true
 mathjax: true
 comments: true

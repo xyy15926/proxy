@@ -1,9 +1,9 @@
 ---
 title: Shell 环境变量
-tags:
+categories:
   - Linux
   - Shell
-categories:
+tags:
   - Linux
   - Shell
   - Environment

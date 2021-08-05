@@ -1,9 +1,9 @@
 ---
 title: Jupyter 常用基础
-tags:
+categories:
   - Python
   - Jupyter
-categories:
+tags:
   - Python
   - Jupyter
   - Configuration

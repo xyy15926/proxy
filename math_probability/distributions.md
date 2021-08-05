@@ -1,11 +1,13 @@
 ---
 title: 常见分布
-tags:
-  - 概率论
 categories:
-  - 概率论
+  - Probability
+tags:
+  - Math
+  - Probability
+  - Distribution
 date: 2019-05-01 09:58:40
-updated: 2019-05-01 09:58:40
+updated: 2021-08-04 11:18:28
 toc: true
 mathjax: true
 comments: true
@@ -45,7 +47,7 @@ description: 常见分布
 
 -	若向量 $a$ 中每个元素独立从 *p-stable* 分布中抽取，则 $\|v\|_p X = (\sum_i \|v_i\|^p)^{1/p} X$ 和 $<a,v>$ 同分布
 	-	可用较好计算的内积估计 $\|v\|_p$
-	-	考虑到 $a(v_1 - v_2) = av_1 - av_2$，联系了内积和点之间距离 $\|v_1 - v_2\|_p$
+	-	考虑到 $a(v_1 - v_2) = av_1 - av_2$，将内积和点之间 $L_p$ 范数距离 $\|v_1 - v_2\|_p$ 相联系
 
 ##	*Exponential Family of Distributions*
 

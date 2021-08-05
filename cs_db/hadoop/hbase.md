@@ -1,9 +1,10 @@
 ---
 title: HBase
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
+  - Database
   - Hadoop
   - HBase
   - HFile

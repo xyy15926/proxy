@@ -1,6 +1,7 @@
 ---
 title: 风险管理
 categories:
+  - ML Specification
   - FinTech
   - Risk Control
 tags:

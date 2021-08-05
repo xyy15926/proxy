@@ -1,10 +1,10 @@
 ---
 title: HiveSQL
 categories:
-  - DataBase
+  - Database
   - SQL DB
 tags:
-  - DataBase
+  - Database
   - SQL DB
   - Hive
 date: 2019-07-10 00:48:33

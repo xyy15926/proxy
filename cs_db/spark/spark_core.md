@@ -1,10 +1,10 @@
 ---
 title: Spark Core
 categories:
-  - DataBase
+  - Database
   - Spark
 tags:
-  - DataBase
+  - Database
   - Spark
   - Broadcast
 date: 2019-08-02 23:17:39

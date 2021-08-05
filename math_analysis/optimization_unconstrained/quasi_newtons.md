@@ -1,11 +1,14 @@
 ---
 title: Quasi-Newton Method/Variable Metric Method
-tags:
-  - 最优化
-  - 无约束优化
 categories:
-  - 最优化
-  - 无约束优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Unconstrained
+  - Newton
 date: 2019-04-23 01:32:09
 updated: 2019-04-23 01:32:09
 toc: true

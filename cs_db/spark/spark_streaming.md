@@ -1,10 +1,10 @@
 ---
 title: Spark Streaming
 categories:
-  - DataBase
+  - Database
   - Spark
 tags:
-  - DataBase
+  - Database
   - Spark
   - Streaming
 date: 2019-07-21 00:46:35

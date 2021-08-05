@@ -1,15 +1,16 @@
 ---
-title: vimscriptss基础--Setting
+title: Vim 配置
 categories:
+  - Linux
   - Tool
   - Vi
 tags:
+  - Linux
   - Tool
   - Vi
-  - Installment
-  - Setting
+  - Configuration
 date: 2019-08-01 01:53:29
-updated: 2021-07-19 09:10:29
+updated: 2021-08-04 19:43:08
 toc: true
 mathjax: true
 comments: true

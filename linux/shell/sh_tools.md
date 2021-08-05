@@ -1,9 +1,9 @@
 ---
 title: Shell 常用工具
-tags:
+categories:
   - Linux
   - Shell
-categories:
+tags:
   - Linux
   - Shell
   - Tool

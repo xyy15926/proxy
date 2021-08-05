@@ -1,7 +1,7 @@
 ---
 title: AdaBoost
 categories:
-  - ML Model
+  - ML Theory
   - Model Enhencement
 tags:
   - Machine Learning

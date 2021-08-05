@@ -1,10 +1,10 @@
 ---
 title: MSSQL Puzzles
 categories:
-  - DataBase
+  - Database
   - SQL DB
 tags:
-  - DataBase
+  - Database
   - SQL DB
   - Data Migration
 date: 2019-03-21 17:27:37

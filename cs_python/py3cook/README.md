@@ -1,9 +1,12 @@
 ---
-title: Py3std说明
-tags:
-  - Python
+title: Py3std Readme
 categories:
   - Python
+  - Py3std
+tags:
+  - Python
+  - Py3std
+  - Readme
 date: 2019-04-20 15:39:09
 updated: 2019-04-20 15:39:09
 toc: true

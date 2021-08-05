@@ -1,11 +1,11 @@
 ---
 title: 并行计算简介
-tags:
-  - 程序
-  - 并行
 categories:
-  - 程序
-  - 并行
+  - CS
+  - Parallel
+tags:
+  - CS
+  - Parallel
 date: 2019-03-28 21:04:06
 updated: 2019-03-08 22:51:57
 toc: true

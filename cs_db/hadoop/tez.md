@@ -1,7 +1,7 @@
 ---
 title: Tez
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
   - Hadoop

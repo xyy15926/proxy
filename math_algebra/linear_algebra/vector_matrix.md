@@ -1,11 +1,17 @@
 ---
 title: Vector
-tags:
-  - 代数
-  - 线性代数
 categories:
-  - 代数
-  - 线性代数
+  - Math Algebra
+  - Linear Algebra
+tags:
+  - Math
+  - Algebra
+  - Matrix
+  - Vector
+  - Determinant
+  - Eigen Value
+  - Eigne Vector
+  - Sherman-Morrison
 date: 2019-07-28 00:24:56
 updated: 2019-07-28 00:24:56
 toc: true

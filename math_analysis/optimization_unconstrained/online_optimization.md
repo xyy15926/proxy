@@ -1,12 +1,15 @@
 ---
 title: 在线最优化
-tags:
-  - Machine Learning
-  - Optimization
-  - Online
 categories:
+  - Math Analysis
   - Optimization
-  - Constraint Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Unconstrained
+  - Machine Learning
+  - Online
 date: 2019-08-26 09:53:43
 updated: 2019-08-26 09:53:48
 mathjax: true

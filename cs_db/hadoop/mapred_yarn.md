@@ -1,7 +1,7 @@
 ---
 title: MapReduce YARN
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
   - Hadoop

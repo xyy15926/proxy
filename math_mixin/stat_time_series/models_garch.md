@@ -1,9 +1,12 @@
 ---
 title: GARCH波动性建模
-tags:
-  - 统计
 categories:
-  - 统计
+  - Math Mixin
+  - Time Series
+tags:
+  - Statistics
+  - Time Series
+  - GARCH
 date: 2019-03-21 17:27:15
 updated: 2019-02-17 11:57:08
 toc: true

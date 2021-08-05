@@ -1,17 +1,15 @@
 ---
 title: 参数优化
 categories:
-  - ML Optimization
-  - Trick
+  - ML Technique
 tags:
   - Machine Learning
-  - ML Model
-  - ML Optimization
+  - Technique
   - Neural Network
-  - Parameter Adjustment
-  - Parameter Initialization
+  - Parameter
+  - Twists
 date: 2020-11-03 17:52:44
-updated: 2021-07-21 10:59:05
+updated: 2021-08-04 19:37:06
 toc: true
 mathjax: true
 description: 

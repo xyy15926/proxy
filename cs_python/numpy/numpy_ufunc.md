@@ -3,11 +3,11 @@ title: Universal Functions
 categories:
   - Python
   - Numpy
-  - Ufunc
 tags:
   - Python
   - Numpy
   - NDArray
+  - Ufunc
   - Data Science
 date: 2021-02-20 08:40:31
 updated: 2021-02-20 08:40:31

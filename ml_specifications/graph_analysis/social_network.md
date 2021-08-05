@@ -1,6 +1,7 @@
 ---
 title: 社交网络
 categories:
+  - ML Specification
   - Graph Analysis
 tags:
   - Machine Learning

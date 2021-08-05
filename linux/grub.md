@@ -2,6 +2,7 @@
 title: Grub
 categories:
   - Linux
+  - Tool
 tags:
   - Linux
   - Tool

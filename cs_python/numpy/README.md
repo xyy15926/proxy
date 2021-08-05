@@ -1,11 +1,14 @@
 ---
-title: 
+title: Numpy Readme
 categories:
-  - 
+  - Python
+  - Numpy
 tags:
-  - 
+  - Python
+  - Numpy
+  - Readme
 date: 2021-01-31 15:49:04
-updated: 2021-01-31 15:49:04
+updated: 2021-08-04 16:51:12
 toc: true
 mathjax: true
 description: 

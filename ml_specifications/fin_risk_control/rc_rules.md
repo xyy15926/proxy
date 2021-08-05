@@ -1,6 +1,7 @@
 ---
 title: 风控规则
 categories:
+  - ML Specification
   - FinTech
   - Risk Control
 tags:

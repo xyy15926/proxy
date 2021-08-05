@@ -1,15 +1,17 @@
 ---
-title: vimscripts函数编程
+title: Vimscripts 编程
 categories:
+  - Linux
   - Tool
   - Vi
 tags:
+  - Linux
   - Tool
   - Vi
   - Grammer
   - VimScripts
 date: 2019-03-21 17:27:37
-updated: 2021-07-19 09:11:50
+updated: 2021-08-04 10:52:55
 toc: true
 mathjax: true
 comments: true

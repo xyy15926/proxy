@@ -1,9 +1,14 @@
 ---
 title: 凸优化问题
-tags:
-  - 最优化
 categories:
-  - 最优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Linear Programming
+  - Convex
 date: 2019-07-21 00:46:35
 updated: 2019-07-21 00:46:35
 toc: true

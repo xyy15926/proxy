@@ -1,9 +1,10 @@
 ---
 title: Hadoop HDFS
 categories:
-  - DataBase
+  - Database
   - Hadoop
 tags:
+  - Database
   - Hadoop
   - HDFS
   - Parquet

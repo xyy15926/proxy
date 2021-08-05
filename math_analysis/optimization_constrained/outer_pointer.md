@@ -1,11 +1,13 @@
 ---
-title: 
-tags:
-  - 最优化
-  - 约束优化
+title: 外点法
 categories:
-  - 最优化
-  - 约束优化
+  - Math Analysis
+  - Optimization
+tags:
+  - Math
+  - Analysis
+  - Optimization
+  - Constrained
 date: 2019-07-21 00:46:35
 updated: 2019-07-21 00:46:35
 toc: true

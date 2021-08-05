@@ -1,6 +1,7 @@
 ---
 title: 统计量
 categories:
+  - Math Mixin
   - Statistics
 tags:
   - Math

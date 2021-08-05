@@ -1,9 +1,9 @@
 ---
 title: 网络、进程间通信
-tags:
+categories:
   - Python
   - Py3std
-categories:
+tags:
   - Python
   - Py3std
   - Network

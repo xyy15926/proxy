@@ -1,16 +1,16 @@
 ---
 title: 激活函数
 categories:
-  - ML Optimization
+  - ML Technique
   - Neural Network
 tags:
   - Machine Learning
-  - ML Model
+  - Technique
   - Neural Network
   - Activation
   - Function
 date: 2019-07-29 21:16:01
-updated: 2021-07-16 15:05:31
+updated: 2021-08-04 17:29:58
 toc: true
 mathjax: true
 comments: true

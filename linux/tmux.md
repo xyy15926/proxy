@@ -2,6 +2,7 @@
 title: Tmux
 categories:
   - Linux
+  - Tool
 tags:
   - Linux
   - Tool

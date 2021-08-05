@@ -1,17 +1,17 @@
 ---
-title: TensorFlow安装配置
+title: TensorFlow 安装配置
 categories:
   - Python
-  - Tensorflow
+  - TensorFlow
 tags:
   - Python
-  - Tensorflow
+  - TensorFlow
   - Configuration
   - CUDA
   - CUDNN
   - NVCC
 date: 2019-03-21 17:27:37
-updated: 2019-02-17 11:57:07
+updated: 2021-08-04 19:38:46
 toc: true
 mathjax: true
 comments: true

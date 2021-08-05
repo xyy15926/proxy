@@ -1,11 +1,12 @@
 ---
 title: 解释型语言
-tags:
-  - 程序
-  - 程序设计
 categories:
-  - 程序
-  - 程序设计
+  - CS
+  - Program Design
+tags:
+  - CS
+  - Program Design
+  - AST
 date: 2019-04-09 00:12:41
 updated: 2019-04-09 00:12:41
 toc: true

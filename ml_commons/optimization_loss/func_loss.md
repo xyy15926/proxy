@@ -1,8 +1,8 @@
 ---
 title: Loss Function
 categories:
-  - ML Model
-  - Model Component
+  - ML Theory
+  - Loss
 tags:
   - Machine Learning
   - ML Model

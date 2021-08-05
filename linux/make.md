@@ -2,6 +2,7 @@
 title: Make
 categories:
   - Linux
+  - Tool
 tags:
   - Linux
   - Tool

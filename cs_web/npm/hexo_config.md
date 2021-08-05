@@ -9,7 +9,7 @@ tags:
   - Hexo
   - Blog
 date: 2021-08-03 15:46:51
-updated: 2021-08-03 18:28:54
+updated: 2021-08-04 19:26:39
 toc: true
 mathjax: true
 description: 
@@ -87,6 +87,18 @@ hexo version
 
 > - <https://hexo.io/zh-cn/docs/commands>
 
+-	更新配置、安装依赖（如：修改渲染引擎）之后，尝试清空缓存使生效
+	-	`$ hexo clean`
+	-	删除 `db.json` 文件
+
+##	Hexo 模块
+
+-	Markdown 渲染
+	-	`hexo-renderer-mark`：建议立刻删除，渲染能力极差
+	-	`hexo-renderer-markdonw-it`：不好用
+	-	`hexo-renderer-markdonw-it-plus`：也不好用
+	-	`hexo-renderer-pandoc`：太重，需要 *pandoc* 支持
+	-	`hexo-renderer-kramed`：快用，快用
 
 
 

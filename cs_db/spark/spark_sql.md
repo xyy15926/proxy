@@ -1,10 +1,10 @@
 ---
 title: Spark SQL
-tags:
-  - DataBase
-  - Spark
 categories:
-  - DataBase
+  - Database
+  - Spark
+tags:
+  - Database
   - Spark
   - SQL
 date: 2019-07-11 00:51:41
