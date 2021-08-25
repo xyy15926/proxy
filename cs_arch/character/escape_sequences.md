@@ -8,7 +8,6 @@ tags:
   - Character
   - Escape Sequence
   - ANSI
-  - Terminal
 date: 2019-04-26 01:49:38
 updated: 2021-07-23 12:27:50
 toc: true
@@ -155,8 +154,8 @@ description: 转义序列
 
 ####	*Select Graphic Rendition*
 
--	*SGR* 选择图形再现：`ESC[[n]m`
-	-	`[n]`：多个参数用 `;` 分隔，缺省为 0
+-	*SGR* 选择图形再现：`ESC[<n>m`
+	-	`n`：样式参数，多个参数用 `;` 分隔，缺省为 0
 	-	`m`：结束字节
 
 #####	样式

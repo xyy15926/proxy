@@ -9,7 +9,7 @@ tags:
   - Hexo
   - Blog
 date: 2021-08-03 15:46:51
-updated: 2021-08-04 19:26:39
+updated: 2021-08-06 14:52:32
 toc: true
 mathjax: true
 description: 
@@ -35,12 +35,19 @@ description:
 	# 安装独立的服务器模块（也可以不注册依赖）
 	npm install hexo-server --save
 	# 启动服务器
-	hexo server [-p <port>]
+	hexo server [-p <port>] [--config <config-yml>]
+	```
+
+-	部署站点
+
+	```sh
+	hexo deploy
 	```
 
 ###	Hexo 站点结构
 
 -	`_config.yml`：配置信息
+	-	`_config.<theme>.yml`、`/path/to/theme/_config.yml`：独特的主题配置文件
 -	`package.json`：*Hexo* 模块 `npm` 配置文件
 -	`scaffolds`：模板文件
 	-	新建文章时，尝试根据布局参数寻找相应模板建立文章

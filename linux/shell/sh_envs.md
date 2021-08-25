@@ -8,7 +8,7 @@ tags:
   - Shell
   - Environment
 date: 2019-07-31 21:10:52
-updated: 2021-07-29 21:38:25
+updated: 2021-08-09 19:13:54
 toc: true
 mathjax: true
 comments: true
@@ -27,8 +27,9 @@ description: Linux 环境变量
 -	`-n`：取消导出变量，原shell仍可用
 -	`-p`：列出所有shell赋予的环境变量
 
-
 ##	系统环境变量
+
+-	`envs`：列出环境变量
 
 ###	NAME
 
