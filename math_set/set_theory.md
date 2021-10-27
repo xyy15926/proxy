@@ -8,7 +8,7 @@ tags:
   - Order
   - Base
 date: 2019-07-21 00:46:35
-updated: 2021-07-19 09:19:48
+updated: 2021-09-29 14:05:32
 toc: true
 mathjax: true
 comments: true
@@ -29,6 +29,22 @@ description: 代数运算
 	-	自然数集 $N = \{0, 1, 2, 3, \cdots\}$ 和闭区间 $[0,1]$ 不等势
 
 > - <https://zhuanlan.zhihu.com/p/34097692>
+
+###	*Equivalence Relation*
+
+-	等价关系：设 $R$ 是集合 $A$ 上的二元关系，若 $R$ 满足以下条件则称为定义在 $A$ 上的等价关系，并习惯性改记为 $\sim$
+	-	自反性：$\forall x \in A, xRx$
+	-	对称性：$\forall x,y \in A, xRy \Rightarrow yRx$
+	-	传递性：$\forall x,y,z \in A, (xRy \wedge yRz) \Rightarrow xRz$
+
+-	同余关系：若 $aRb, cRd \Rightarrow (ac)R(bd)$，则称 $R$ 是同余关系
+
+###	商集
+
+-	等价类：在集合 $A$ 上定义等价关系 $R$，则 $A$ 中元素 $a$ 的等价类，为 $A$ 中等价于 $a$ 的所有元素形成的子集 $[a] = \{x \in A| aRx \}$
+-	商集：$A$ 中等价关系 $R$ 的所有等价类的集合称为 $A$ 除以 $R$ 的商集，记为 $A/R$
+	-	商集是集合的集合
+	-	若 $A$ 有限且等价类等势，则 $A/\sim$ 的势为 $A$ 的势除以等价类的势
 
 ##	序
 
