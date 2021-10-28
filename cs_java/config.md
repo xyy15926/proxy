@@ -5,7 +5,7 @@ tags:
 categories:
   - Java
 date: 2019-07-10 00:48:32
-updated: 2019-07-10 00:48:32
+updated: 2021-09-03 18:40:59
 toc: true
 mathjax: true
 comments: true
@@ -23,12 +23,12 @@ description: Java安装设置
 	-	*Micro Edition* / *ME*：手机等小型设备
 
 -	*Java* 版本号包含小数、整数两种方式
-	-	以 *SE* 平台为例
-		-	*J2SE 1.4* 使用小数点后一位标识大版本
-		-	*Java SE 5* 后使用整数标识大版本
-	-	 *Java* 平台对应的 *JDK* 版本
-		-	*JDK 1.9* 使用小数点后一位标识大版本
-		-	*JDK 10* 使用整数标识大版本
+	-	*Java* 平台版本：以 *SE* 平台为例
+		-	*J2SE 1.<X>*：使用小数点后一位标识大版本，*J2SE 1.4*
+		-	*Java SE <X>*：*Java SE 5* 后使用整数标识大版本
+	-	*JDK* 版本：版本数同 *SE* 平台，但
+		-	*JDK 1.9* 及之前：使用小数点后一位标识大版本
+		-	*JDK 10* 及之后：使用整数标识大版本
 
 > - *J2* / *Java 2* 曾经用于标识 *Java* 版本
 
