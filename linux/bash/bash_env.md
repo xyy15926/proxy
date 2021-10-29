@@ -9,7 +9,7 @@ tags:
   - Shell
   - Environment
 date: 2021-08-17 15:02:20
-updated: 2021-08-24 19:47:46
+updated: 2021-09-01 20:30:15
 toc: true
 mathjax: true
 description: 
@@ -97,12 +97,12 @@ Shell 变量：Shell 自行管理、分配值的变量
 -	用户相关变量
 	-	`UID`：当前用户 ID
 	-	`USER`：当前用户名
+	-	`LOGNAME`：用户登录名
+	-	`LANG/LANGUAGE`：语言设置
 
 -	特殊变量：手动修改后重置也不能恢复其行为
 	-	`RANDOM`：返回 0-32767 间随机数
 	-	`LINENO`：当前正在执行脚本、函数的行号
-
-> - `$ printenv <ENV-VAR>`、`$ echo $<ENV-VAR>` 查看单个环境变量值
 
 ###	环境变量设置
 
@@ -122,6 +122,12 @@ Shell 变量：Shell 自行管理、分配值的变量
 
 -	狭义：`export`/`declare -x`声明的变量，只有这样的变量才能默认被子进程继承
 -	广义：shell中所有的变量（包括局部变量）
+
+####	`/etc/environment`
+
+-	`/etc/environment`：设置整个系统的环境
+	-	系统在登陆时读取第一个文件
+	-	用于所有为所有进程设置环境变量
 
 ##	Bash 配置项
 

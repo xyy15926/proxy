@@ -9,7 +9,7 @@ tags:
   - Shell
   - Config
 date: 2021-08-17 14:54:40
-updated: 2021-08-25 23:09:08
+updated: 2021-09-01 20:28:09
 toc: true
 mathjax: true
 description: 
@@ -58,6 +58,77 @@ description:
 	-	用户输入、输出交互支持
 	-	上、下翻页查看内容
 	-	终端中复制、粘贴功能
+
+###	*Login Shell*
+
+-	*Login Shell*：需登录 Shell （模式）
+	-	此 Shell 进程是登录会话时该用户的首个进程
+	-	`/bin/login` 读取 `/etc/passwd` 文件成功登录后，即启动 *Login Shell*
+		-	Login 进程通过以下约定告诉 Shell 以 *Login Shell* 方式执行
+			-	将 `-` 添加在位置参数 `$0`（通常是可执行文件名） 前
+		-	之后会读取 `profile`、`login` 配置文件设置环境变量
+
+-	*(Interacive) Login Shell*：用户登陆、创建交互式 Session 时使用的 Shell（模式）
+	-	在创建用户、修改用户信息时设置，可被 root 修改
+		-	环境变量 `$SHELL` 用户的 *Login Shell*
+
+-	*Non-interactive Login Shell*：非交互、登录 Shell（模式）
+	-	比较罕见，出现场合
+		-	某些 GUI 设置中，会运行 Shell 以读取 *profile* 文件
+		-	`$ ssh <REMOTE> <LOCAL-SCIRPTS>`：通过标准输入执行命令而与 Shell 交互
+
+> - 可通过 Shell `$0` 中是否 `-` 开头确定是否 *Login Shell*
+> - `$ ssh <REMOTE> <REMOTE-SCIRPTS>` 为非交互、不登陆 Shell 模式
+
+####	`profile`、`login` 文件
+
+-	`profile`、`login` 文件：一般在 *Login Shell* 模式下执行一次，**用户配置**
+	-	`/etc/profile`、`/etc/profile.d`：所有 Shell、所有用户配置
+	-	`/etc/<SHELL>_profile`：特定 Shell、所有用户配置
+	-	`~/.profile`：所有 Shell、当前用户配置
+	-	`~/.<SHELl>_profile`：特定 Shell、当前用户配置
+
+-	`profile` 文件中配置
+	-	特定应用环境变量
+	-	不需要、不能重复执行配置，如：`export PATH=$PATH:xxxx/bin/`
+
+-	一次登录过程中 `profile`、`rc` 文件没有确定执行顺序，不同的 Linux 发行版本有不同的设置、调用顺序
+	-	但可确认
+		-	`/etc/profile`一般是第一个被调用
+		-	`~/.<SHELL>_rc`、`/etc/<SHELL>_rc` 中某个最后调用
+
+> - 对于 *WSL*，`~/.profile` 可能永远不会执行（非登录），虽然 `$0` 以 `-` 开头
+
+####	`logout` 文件
+
+-	`logout` 文件：退出登陆时执行
+	-	`~/.<SHELL>_logout`：当前用户退出登陆时执行
+
+###	*Non-login Shell*/*Sub Shell*
+
+-	*Non-login Shell*/*Sub Shell*：无需登录 Shell 模式
+
+-	*Interactive Non-login Shell*：交互式、不登陆 Shell（模式）
+	-	在 *Login Shell* 或其他 *Sub Shell* 中直接执行而唤醒的 Shell
+		-	读取 `rc` Shell 配置文件
+
+-	*Non-interactive Non-login Shell*：非交互、不登陆 Shell（模式）
+	-	Shell 执行脚本、命令行执行命令时即为非交互、不登陆 Shell 模式
+	-	某些 Shell 还会读取环境配置文件
+		-	*Bash* 读取 `$BASH_ENV` 指定的文件
+		-	*Zsh* 读取 `/etc/zshenv`、`~/.zshenv`
+
+> - `rc` for *run commands*
+
+####	`rc` 文件
+
+-	`rc` 文件：每次 *Interactive No-login Shell* 模式都会执行，**Shell 配置**
+	-	`/etc/<SHELL>_rc`：特定 Shell、所有用户配置
+	-	`~/<SHELL_rc`：特定 Shell、当前用户配置
+
+-	`rc` 文件中配置
+	-	与 Shell 关系紧密的 Shell 配值，如：`alias`
+	-	每次执行交互式 Shell 都需要设置的配置
 
 ##	行操作
 

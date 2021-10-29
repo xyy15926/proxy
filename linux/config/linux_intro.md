@@ -8,7 +8,7 @@ tags:
   - Installment
   - Configuration
 date: 2019-07-31 21:11:52
-updated: 2019-02-19 17:20:02
+updated: 2021-10-26 19:32:55
 toc: true
 mathjax: true
 comments: true
@@ -86,7 +86,7 @@ $ /usr/sbin/swapoff swapfile
 > - 可以在`fstab`文件中添加交换文件，自动挂载，格式参见
 	`config_files`
 
-###	`/`根分区目录
+###	`/` 根分区目录
 
 -	`/usr`：用户程序
 -	`/sbin`：系统管理员执行程序
@@ -103,5 +103,14 @@ $ /usr/sbin/swapoff swapfile
 	-	logs
 	-	requests
 	-	mail
+	-	`/var/log`
+		-	`bootstrap.log`：系统引导相关信息
+		-	`cron`：系统调度执行信息
+		-	`dmesg`：内核启动时信息，包括硬件、文件系统
+		-	`maillog`：邮件服务器信息
+		-	`message`：系统运行过程相关信息，包括IO、网络
+		-	`secure`：系统安全信息
 -	`/proc`：进程（映射）信息
+
+
 

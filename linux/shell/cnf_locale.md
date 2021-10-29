@@ -8,7 +8,7 @@ tags:
   - Shell
   - Locale
 date: 2019-07-31 21:10:52
-updated: 2021-07-29 21:56:51
+updated: 2021-08-31 09:34:24
 toc: true
 mathjax: true
 comments: true
@@ -19,7 +19,7 @@ description: Shell 本地化
 
 ###	字体
 
-####	`fc-` 
+####	`fc-list`、`fc-cache`、`mkfontdir`
 
 -	`fc-list`：列出系统已安装字体
 

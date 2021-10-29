@@ -15,7 +15,7 @@ tags:
   - Hard Link
   - Symbolic Link
 date: 2021-07-29 15:36:10
-updated: 2021-07-29 20:38:33
+updated: 2021-10-28 11:18:35
 toc: true
 mathjax: true
 description: 介绍 Linux Ext2/3 文件系统
@@ -30,9 +30,132 @@ description: 介绍 Linux Ext2/3 文件系统
 > - `dumpe2fs` 命令可以获取 *Ext* 类文件系统信息
 > - <https://www.junmajinlong.com/linux/ext_filesystem/>
 
+##	*Block*
+
+-	*Block* 块：文件系统提供的读写单元
+
+> - 文件系统块由文件系统维护，不等价于磁盘的逻辑数据块
+
+###	*Block Group*
+
+*Block Group* 块组：逻辑上对块分组，提高查询效率
+
+-	块组划分是文件系统创建的一部分
+	-	一个磁盘分区包含多个块组
+	-	块组是逻辑层面的划分，不会类似分区在磁盘上标记、划分
+
+-	每个块组包含多个元数据区、数据区
+	-	元数据区：存储 *Bmap*、*Inode Table*、*Imap* 等数据
+	-	数据区：存储文件数据
+
+-	块组特点
+	-	块组大小（包含块数）= 块 *bit* 数，即单个 *block* （作为）*Bmap* 能标记的块数量
+		-	此大小包含元数据区（也需要 *Bmap* 标记是否被占用）
+	-	块组设置的 *Inode* 数量、*Inode Table* 由系统决定
+
+###	分区级 *Block*
+
+> - 以下这些块不会出现在所有块组中，存储文件系统级别信息
+
+####	*Boot Block*
+
+-	*Boot Block* / *Boot Sector*：存放有 *boot loader* 的块
+	-	特点
+		-	位于分区的首个块
+		-	占用 1024B
+		-	只有装有系统的主分区、逻辑分区才有 *Boot Block*
+	-	*Boot Block* 在不同分区时称为
+		-	主分区装有操作系统时：*Volume Boot Records*
+		-	逻辑分区装有操作系统时：*Extended Boot Records*
+
+-	*MBR* 会引导 *VBR*/*EBR*，开机启动时，首先加载 *MBR* 上 *boot loader*
+	-	单操作系统时，直接定位到所在分区的 *Boot Block*，加载此处的 *boot loader*
+	-	多操作系统时，加载 *MBR* 中 *boot loader* 后列出操作系统菜单，指向各分区的 *boot block*
+
+	> - 通过 *MBR* 管理启动菜单方式已经被 *Grub* 取代
+
+####	*Super Block*
+
+-	*Super Block*：存储文件系统信息、属性元数据
+	-	存储的信息包括
+		-	块组的 *block* 数量、*Inode* 号数量
+		-	文件系统本身的空闲 *block* 数量、*Inode* 数量
+		-	文件系统本身的属性信息：时间戳、是否正常、自检时间
+	-	（首个）超级块的位置取决于块大小
+		-	块大小为 1KB 时，引导块正好占用 1 个 *block*，则超级块号为 1
+		-	块大小大于 1KB 时，超级块和引导块均位于 0 号块
+
+-	超级块对文件系统至关重要
+	-	超级块丢失和损坏必然导致文件系统损坏
+	-	*Ext2* 只在 0、1 和 3、5、7 的幂次块组中保存超级块信息
+		-	但文件系统只使用首个块组的超级块信息获取文件系统属性，除非损坏或丢失
+
+		> - 有些旧式文件系统将超级块备份至每个块组
+
+> - `df` 命令读取文件系统的超级块，统计速度快
+
+####	*Group Descriptor Table*
+
+-	*GDT* 块组描述符表：存储块组的信息、属性元数据
+	-	*Ext* 每个块组使用 32B 描述，被称为块组描述符，所有块组描述符组成 *GBT*
+		-	*GDT* 和超级块同时出现在某些块组中
+		-	默认也只会读取 0 号块组的中 *GDT*
+
+-	*Reserved GDT*：保留作为 *GDT* 使用的块（扩容之后块组增加）
+	-	和 *GDT*、超级块同时出现，同时修改
+
+> - *GDT*、*Reserved GDT*、超级块在某些块组同时出现，能提升维护效率
+
+###	块组级 *Block*
+
+####	*Block Bitmap*
+
+*Block Bitmap*/*Bmap* 块位图：标记各块空闲状态
+
+-	*Bmap* 只优化写效率
+	-	向磁盘写数据时才需要寻找空闲块，读数据时按照索引读取即可
+	-	*Bamp* 查询速度足够快，则向磁盘写数据效率极大取决于磁盘的随机读写效率
+
+####	*Inode Table*
+
+-	*Inode Table*：物理上将多个 *Inode* 合并存储在块中
+	-	*Inode* 大小一般小于块大小，合并存储能节约存储空间
+
+####	*Inode Bitmap*
+
+*Inode Bitmap*/*Imap* 位图：标记各 *Inode* 号占用状态
+
+###	*Data Blocks*
+
+-	*Data Blocks*：直接存储数据的块
+	-	数据占用的块由文件对应 *Inode* 记录中块指针找到
+	-	不同类型文件在数据块中存储的内容不同
+		-	常规文件：存储文件数据
+		-	目录：存储目录下文件、一级子目录
+		-	符号链接：目标路径名较短则直接存储在 *Inode* 中，否则分配数据块保存
+
+####	目录文件数据块
+
+![linux_file_system_ext_data_block_directory](imgs/linux_file_system_ext_data_block_directory.png)
+
+-	目录文件数据块存储多条目录项，每条目录项包含目录下
+	-	文件 *Inode* 号
+	-	目录项长度 `rec_len`
+	-	文件名长度 `name_len`
+	-	文件类型
+		-	`0`：未知
+		-	`1`：普通文件
+		-	`2`：目录
+		-	`3`：*character devicev
+		-	`4`：*block device*
+		-	`5`：命名管道
+		-	`6`：*socket*
+		-	`7`：符号链接
+	-	文件名：文件名、一级子目录名、`.`、`..`
+
 ##	*Index Node*
 
-*Index Node*/*Inode* 索引节点：记录文件的元信息
+*Index Node*/*Inode* 索引节点：记录文件的元信息，索引技术在文件系统上的具体实现
 
 -	文件元信息
 	-	文件大小
@@ -134,143 +257,6 @@ description: 介绍 Linux Ext2/3 文件系统
 	-	没有大小，不占用数据块，在 *Inode* 记录中即可描述完成
 		-	主设备号：标识设备类型
 		-	次设备号：标识同种设备类型的不同编号
-
-##	*Block Group*
-
-*Block Group* 块组：逻辑上对块分组，提高查询效率
-
--	块组划分是文件系统创建的一部分
-	-	一个磁盘分区包含多个块组
-	-	块组是逻辑层面的划分，不会类似分区在磁盘上标记、划分
-
--	每个块组包含多个元数据区、数据区
-	-	元数据区：存储 *Bmap*、*Inode Table*、*Imap* 等数据
-	-	数据区：存储文件数据
-
--	块组特点
-	-	块组大小（包含块数）= 块 *bit* 数，即单个 *block* （作为）*Bmap* 能标记的块数量
-		-	此大小包含元数据区（也需要 *Bmap* 标记是否被占用）
-	-	块组设置的 *Inode* 数量、*Inode Table* 由系统决定
-
-###	分区级 *Block*
-
-> - 以下这些块不会出现在所有块组中，存储文件系统级别信息
-
-####	*Boot Block*
-
--	*Boot Block* / *Boot Sector*：存放有 *boot loader* 的块
-	-	特点
-		-	位于分区的首个块
-		-	占用 1024B
-		-	只有装有系统的主分区、逻辑分区才有 *Boot Block*
-	-	*Boot Block* 在不同分区时称为
-		-	主分区装有操作系统时：*Volume Boot Records*
-		-	逻辑分区装有操作系统时：*Extended Boot Records*
-
--	*MBR* 会引导 *VBR*/*EBR*，开机启动时，首先加载 *MBR* 上 *boot loader*
-	-	单操作系统时，直接定位到所在分区的 *Boot Block*，加载此处的 *boot loader*
-	-	多操作系统时，加载 *MBR* 中 *boot loader* 后列出操作系统菜单，指向各分区的 *boot block*
-
-	![linux_file_system_ext_super_block_mbr](imgs/linux_file_system_ext_super_block_mbr.png)
-
-	> - 通过 *MBR* 管理启动菜单方式已经被 *Grub* 取代
-
-####	*Super Block*
-
--	*Super Block*：存储文件系统信息、属性元数据
-	-	存储的信息包括
-		-	块组的 *block* 数量、*Inode* 号数量
-		-	文件系统本身的空闲 *block* 数量、*Inode* 数量
-		-	文件系统本身的属性信息：时间戳、是否正常、自检时间
-	-	（首个）超级块的位置取决于块大小
-		-	块大小为 1KB 时，引导块正好占用 1 个 *block*，则超级块号为 1
-		-	块大小大于 1KB 时，超级块和引导块均位于 0 号块
-
--	超级块对文件系统至关重要
-	-	超级块丢失和损坏必然导致文件系统损坏
-	-	*Ext2* 只在 0、1 和 3、5、7 的幂次块组中保存超级块信息
-		-	但文件系统只使用首个块组的超级块信息获取文件系统属性，除非损坏或丢失
-
-		> - 有些旧式文件系统将超级块备份至每个块组
-
-> - `df` 命令读取文件系统的超级块，统计速度快
-
-####	*Group Descriptor Table*
-
--	*GDT* 块组描述符表：存储块组的信息、属性元数据
-	-	*Ext* 每个块组使用 32B 描述，被称为块组描述符，所有块组描述符组成 *GBT*
-		-	*GDT* 和超级块同时出现在某些块组中
-		-	默认也只会读取 0 号块组的中 *GDT*
-
--	*Reserved GDT*：保留作为 *GDT* 使用的块（扩容之后块组增加）
-	-	和 *GDT*、超级块同时出现，同时修改
-
-> - *GDT*、*Reserved GDT*、超级块在某些块组同时出现，能提升维护效率
-
-###	块组级 *Block*
-
-####	*Block Bitmap*
-
-*Block Bitmap*/*Bmap* 块位图：标记各块空闲状态
-
--	*Bmap* 只优化写效率
-	-	向磁盘写数据时才需要寻找空闲块，读数据时按照索引读取即可
-	-	*Bamp* 查询速度足够快，则向磁盘写数据效率极大取决于磁盘的随机读写效率
-
-####	*Inode Table*
-
--	*Inode Table*：物理上将多个 *Inode* 合并存储在块中
-	-	*Inode* 大小一般小于块大小，合并存储能节约存储空间
-
-####	*Inode Bitmap*
-
-*Inode Bitmap*/*Imap* 位图：标记各 *Inode* 号占用状态
-
-###	*Data Blocks*
-
--	*Data Blocks*：直接存储数据的块
-	-	数据占用的块由文件对应 *Inode* 记录中块指针找到
-	-	不同类型文件在数据块中存储的内容不同
-		-	常规文件：存储文件数据
-		-	目录：存储目录下文件、一级子目录
-		-	符号链接：目标路径名较短则直接存储在 *Inode* 中，否则分配数据块保存
-
-####	目录文件数据块
-
-![linux_file_system_ext_data_block_directory](imgs/linux_file_system_ext_data_block_directory.png)
-
--	目录文件数据块存储多条目录项，每条目录项包含目录下
-	-	文件 *Inode* 号
-	-	目录项长度 `rec_len`
-	-	文件名长度 `name_len`
-	-	文件类型
-		-	`0`：未知
-		-	`1`：普通文件
-		-	`2`：目录
-		-	`3`：*character devicev
-		-	`4`：*block device*
-		-	`5`：命名管道
-		-	`6`：*socket*
-		-	`7`：符号链接
-	-	文件名：文件名、一级子目录名、`.`、`..`
-
-##	*Directory Entry*
-
-*Directory Entry*/*Dentry* 目录项（缓存）：存放内存中的缩略版磁盘文件系统目录树结构
-
--	*Dentry* 中需要记录
-	-	文件名称
-	-	*Inode* 指针：与文件名建立映射关系
-	-	与其他目录项的层级关联关系
-		-	包括：父目录、子目录链表
-		-	多个目录项通过指针关联起来就形成目录结构
-
--	*Dentry* 是由内核维护，缓存在内存中
-	-	内核会把读过的文件用 *Dentry* 缓存在内存中，提高文件系统效率
-
--	*Inode*、*Dentry* 是一对多的关系
-	-	即一个文件可以有多个别字
-	-	硬链接实现就是多个 *Dentry* 中的 *Inode* 指向同一个文件
 
 ##	文件系统挂载
 
