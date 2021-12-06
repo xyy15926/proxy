@@ -1,5 +1,5 @@
 ---
-title: Vimscripts 编程
+title: Vimscripts
 categories:
   - Linux
   - Tool
@@ -11,12 +11,18 @@ tags:
   - Grammer
   - VimScripts
 date: 2019-03-21 17:27:37
-updated: 2021-08-04 10:52:55
+updated: 2021-11-04 10:31:36
 toc: true
 mathjax: true
 comments: true
 description: vimscripts函数编程
 ---
+
+##	打印信息
+
+-	`:echo`：打印信息，但是信息不会保存
+-	`:echom`：打印信息会保存在`:messages`中
+-	`:messages`：查看`:echom`保存的信息
 
 ##	变量
 
@@ -357,4 +363,73 @@ vim有四种不同的解析正则表达式的“模式”
 
 -	`\v`模式下，vim使用“very magic”**正常**正则解析模式
 	-	`:execute "normal! gg".'/\vfor .+ in .+:'."\<cr>"`
+
+##	文件、路径相关函数
+
+-	`expand(option)`：根据参数返回当前文件相关信息
+-	`fnamemodify(file_name, option)`：返回当前文件夹下文件
+	信息
+-	`globpath(dir, type)`：返回的`dir`下符合`type`的文件
+	列表值字符串，使用`,`分隔，`type`为`**`时将递归的列出
+	文件夹及文件
+
+##	特殊变量
+
+command-line模式的特殊变量，在执行命令前会将其替换为相应的
+变量
+
+-	`<cword>`：光标处单词
+-	`<cWORD>`：光标处单词大写形式
+
+##	*Autocmd* 自动命令
+
+###	`autocmd` 使用
+
+-	`autocmd` 注意事项
+	-	同时监听多个事件，使用 `,` 分隔，中间不能有空格
+	-	一般同时监听 `bufnewfile`、`bufread`，这样打开文件时无论文件是否存在都会执行命令
+	-	所有事件后面都需要注明适用场景，可用`*`表示全部场景，中间也不能有空格
+	-	`autocmd` 是定义命令，不是执行命令
+		-	每次执行都会定义命令，而*vim* 不会忽略重复定义
+		-	如：`:autocmd bufwrite * :sleep 200m`，每次执行时都会重复定义命令
+
+-	缓冲区事件
+
+	```vimscriptss
+	autocmd bufnewfile * :write
+	autocmd bufnewfile *.txt :write
+	autocmd bufwritepre *.html :normal gg=g
+	autocdm bufnewfile,bufread *.html setlocal nowrap
+	```
+
+-	*filetype* 事件（*vim* 设置缓冲区 *filetype* 时触发）
+
+	```vimscriptss
+	autocmd filetype javascript nnoremap <buffer> <localleader>c i//<esc>
+	autocmd filetype python nnoremap <buffer> <localleader>c i#<esc>
+	autocmd filetype javascript :iabbrev <buffer> iff if ()<left>
+	autocmd filetype python :iabbrev <buffer> iff if:<left>
+	```
+
+###	`augroup` 自动命令组
+
+-	自动命令组
+
+	```vimscripts
+	augroup cmdgroup
+		autocmd bufwrite * :echom "foo"
+		autocmd bufwrite * :echom "bar"
+	augroup end
+	```
+
+-	注意事项
+	-	类似 `autocmd`，*vim* 不会忽略重复定义，但是可以通过 `:autocmd!` 清除一个组
+
+		:augroup cmdgroup
+		:	autocmd!
+		:	autocmd bufwrite * :echom "foo"
+		:	autocmd bufwrite * :echom "bar"
+		:augroup end
+
+
 
