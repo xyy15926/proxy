@@ -29,6 +29,7 @@ description: Tmux
 
 > - *(Shell) Session*：*Shell* 工作状态、环境，一般指用户与 *Shell* 的一次交互
 > - <https://man7.org/linux/man-pages/man1/tmux.1.html>
+> - <http://louiszhai.github.io/2017/09/30/tmux/#Buffer%E7%BC%93%E5%AD%98>
 
 ###	服务器、客户端管理
 
