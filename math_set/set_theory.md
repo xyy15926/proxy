@@ -8,7 +8,7 @@ tags:
   - Order
   - Base
 date: 2019-07-21 00:46:35
-updated: 2021-09-29 14:05:32
+updated: 2021-12-30 16:24:39
 toc: true
 mathjax: true
 comments: true
@@ -118,6 +118,56 @@ description: 代数运算
 
 > - <https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%95%B0_(%E6%95%B0%E5%AD%A6)>
 
+## 空间：集合 + 结构
+
+-	（数学、集合上）结构：附加在集合上的对象，使得集合更易操作、被赋予特殊意义
+	-	常见结构
+		-	代数结构
+		-	拓扑
+		-	度量结构
+		-	序
+		-	几何关系
+	-	集合可以同时拥有多种、相互关联（导出）结构，丰富研究属性
+
+## *Morphism*
+
+-	*Morphism* 态射：数学结构之间保持结构的映射
+	-	不同数学领域，态射有不同形式（定义）
+		-	集合论：函数
+		-	群论：群同态
+		-	拓扑学：连续函数、同胚
+		-	光滑流形：光滑函数、微分同胚
+		-	泛函：同态、同构
+		-	范畴论：函子
+	-	对态射、其结构的抽象研究构成范畴论
+		-	范畴 $C$ 由两个类给定：对象类、态射类
+
+-	态射必须满足两条公理
+	-	存在恒等态射：对每个对象 $X$，存在态射 $id_x: X \rightarrow X$ 称为 $X$ 上的恒等态射，使得对于每个态射 $f: A \rightarrow B$ 有 $id_B \circ f = f = f \circ id_A$
+	-	满足结合率：$h \circ ( g \circ f) = (h \circ g) \circ f$ 在任何操作有定义
+
+> - <https://zh.wikipedia.org/wiki/%E6%80%81%E5%B0%84>
+
+###	态射类型
+
+-	*Isomorphism* 同构：令 $f: X \rightarrow Y$ 为态射，若存在态射 $g: Y \rightarrow X$ 使得 $f \circ g = id_Y$、$g \circ f = id_X$ 成立，则称 $f$ 称为一个同构
+	-	$g$ 互为 $f$ 逆态射，存在则唯一
+	-	若两个对象之的间存在同构，称两个对象为同构、等价
+
+-	*Epimorphism* 满同态：态射 $f: X \rightarrow Y$ 称为满同态，若对于所有 $Y \rightarrow Z$ 的态射 $g_1, g_2$，有 $g_1 \circ f = g_2 \circ f \Rightarrow g_1 = g_2$ 成立
+	-	集合范畴中，满同态通常是满射函数
+
+-	*Monomorphism* 单同态：态射 $f: X \rightarrow Y$ 称为单同态，若对于所有 $Z \rightarrow X$ 的态射 $g_1, g_2$，有 $f \circ g_1 = f \circ g_2 \Rightarrow g_1 = g_2$ 成立
+	-	集合范畴中，单同态通常是单射函数
+
+-	*Bimorphism* 双同态：若态射 $f$ 既是满同态、也是单同态，则称为双同态
+	-	每个同构都是双同态，反之不然
+		-	若某个范畴中每个双同态都是同构，则称为平衡范畴
+		-	交换环范畴中，包含映射是双同态，但不是同构
+
+-	*Endomorphism* 自同态：态射 $f: X \rightarrow X$ 称为 $X$ 上的一个自同态
+
+-	*Automorphism* 自同构：若一个自同态也是自同构的，那么称为自同构
 
 
 
