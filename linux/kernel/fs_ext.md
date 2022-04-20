@@ -15,7 +15,7 @@ tags:
   - Hard Link
   - Symbolic Link
 date: 2021-07-29 15:36:10
-updated: 2021-10-28 11:18:35
+updated: 2022-02-15 17:12:43
 toc: true
 mathjax: true
 description: 介绍 Linux Ext2/3 文件系统
@@ -146,7 +146,7 @@ description: 介绍 Linux Ext2/3 文件系统
 		-	`0`：未知
 		-	`1`：普通文件
 		-	`2`：目录
-		-	`3`：*character devicev
+		-	`3`：*character device*
 		-	`4`：*block device*
 		-	`5`：命名管道
 		-	`6`：*socket*

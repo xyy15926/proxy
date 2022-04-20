@@ -100,4 +100,21 @@ N &= (-1)^F * 2^{-126} * F, & 非规格化数 \\
 
 > - 事实上指数底数可以是任意值，但 *IEEE 754* 标准规定底数为 `2`
 
+##	32bits X86 寄存器
+
+-	通用寄存器：兼容 8bits、16bits 架构
+	-	`eax`：*Accumulator* 累加器
+		-	可作为加法、乘法指令的缺省寄存器
+		-	存放函数返回值
+	-	`ecx`：*Counter* 计数器
+		-	`rep`、`loop` 指令的默认计数器
+	-	`edx`：*Data* 数据
+		-	存放整数除法产生的余数
+	-	`ebx`：基址寄存器
+	-	`ebp`：*Base Pointer* 堆栈基指针，指向栈底
+	-	`esp`：*Stack Pointer* 堆栈指针，指向栈顶
+	-	`esi`、`edi`：*Source Index* 源变址、*Destination Index* 目标变址
+		-	字符串操作指令中，`ds:esi` 指向源字符串，`es:edi` 指向目标字符串
+	
+
 
