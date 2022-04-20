@@ -14,7 +14,7 @@ tags:
   - Roll Rate Analysis
   - Flow Rate Analysis
 date: 2021-01-11 08:44:39
-updated: 2021-10-11 15:21:29
+updated: 2022-03-30 14:50:39
 toc: true
 mathjax: true
 description: 风控中的数据分析
@@ -181,19 +181,160 @@ description: 风控中的数据分析
 	-	进件业务员
 	-	进件时间
 
-###	信贷类数据
+##	人行征信数据
 
--	三方征信数据：通过各机构贷前审批、贷后管理等记录
-	-	收入数据
-	-	负债数据
-		-	多头负债
-		-	共债
-	-	多头借贷数据
-	-	黑名单
-	-	信用评分
-	-	原始数据（极少）
-
-###	人行征信数据
+```json
+{
+	"ReportrHead":{
+		"ReportIdentInfo": "报告信息标识",
+		"ThisQueryReqInfo": "本次查询请求信息",
+		"OtherIdInfo": "其他证件信息",
+		"AntiFruadWarnInfo": "防欺诈警示信息",
+		"ObjPromptMsg": "异议提示信息",
+	},
+	"BaseInfo":{
+		"IdentityInfo":{
+			"SurveryInfo": "基本概况",
+			"PhoneInfo": [ "手机号码信息", ],
+		},
+		"SpouseInfo": "配偶信息",
+		"ResideInfo": [ "居住信息", ],
+		"OccupationInfo": [ "职业信息", ],
+	},
+	"ReportSummary":{
+		"PerCredRptNum": "个人信用报告数字解读",
+		"CreditTranPromptInfo": [ "信贷交易提示信息", ],
+		"CreditDefaultSumInfo": {
+			"BeRecoverySummInfo": [ "被追偿信息汇总", ],
+			"BadDebtsSummInfo": "呆账汇总信息",
+			"OverdueSummInfo": [ "逾期（透支）信息汇总" ],
+		},
+		"CreditTranAndDebtSummInfo": {
+			"NonrevolvingLoanSummInfo": "非循环贷账户信息汇总",
+			"RevolvingQuotaLoanSummInfo": "循环额度下分账户信息汇总",
+			"RevolvingLoanAccountSummInfo": "循环贷账户信息汇总",
+#TODO
+			"DebitCardAccountSummInfo": "贷记卡账户信息汇总",
+			"QuasiDebitCardSummInfo": "准贷记卡账户信息汇总",
+			"RepayLibtySummInfo": [ "相关还款责任信息汇总", ],
+		},
+		"NonCreditTranSummInfo":{
+			"PostPaidBusinessArrearsSummInfo": [ "后付费业务欠费信息汇总" ],
+		},
+		"PublicSummInfo":{
+			"PublicInfo": [ "公共信息汇总", ],
+		},
+		"NonFinanceSummInfo": [ "非金融信息概要", ],
+		"OpenSummInfo": {
+			"OpenInfo": [ "公开信息汇总", ],
+		},
+		"QueryRecordsSummary": {
+			"LastQueryRecordInfo": "上次查询记录信息",
+			"QueryRecordSummInfo": "查询记录汇总信息",
+			"ObjectionAndExplainInfo": [ "异议及说明信息", ],
+		},
+	},
+	"CreditTranDetailsInfo":{
+		// C1
+		"BeRecoveryDetailsInfo":[
+			{
+				"BaseInfo": "基本信息",
+				"LatestPerformanceInfo": "最新表现信息",
+				"SpecialTranInfo": [ "特殊交易", ],
+				"AnnotationInfo": [ "标注及声明", ],
+			},
+		],
+#TODO
+		// D1
+		"NonrevolvingLoanDetInfo":[
+			{
+				"BaseInfo": "基本信息",
+				"LatestPerformanceInfo": "最新表现信息",
+				"LatestMonPerfmInfo": "最近一次月度表现信息",
+#TODO
+				"Latest5YearsHisPerFmInfo": "最近五年内历史表现信息",
+				"SpecialEvenInfo": "特殊事件说明",
+				"SpecialTranInfo": [ "特殊交易", ],
+				"AnnotationInfo": [ "标注及声明", ],
+			},
+		],
+		// R4
+		"LoopQuotaSubAct": [
+			{
+				"BaseInfo": "基本信息",
+				"LatestPerformanceInfo": "最新表现信息",
+				"LatestMonPerfmInfo": "最近一次月度表现信息",
+				"Latest5YearsHisPerFmInfo": "最近五年内历史表现信息",
+				"SpecialTranInfo": [ "特殊交易", ],
+				"AnnotationInfo": [ "标注及声明", ],
+			},
+		],
+		// R1
+		"RevolvinLoanAct": [
+			{
+				"BaseInfo": "基本信息",
+				"LatestPerformanceInfo": "最新表现信息",
+				"LatestMonPerfmInfo": "最近一次月度表现信息",
+				"Latest5YearsHisPerFmInfo": "最近五年内历史表现信息",
+				"SpecialTranInfo": [ "特殊交易", ],
+				"AnnotationInfo": [ "标注及声明", ],
+			},
+		],
+		// R2
+		"CreditCardAct": [
+			{
+				"BaseInfo": "基本信息",
+				"LatestPerformanceInfo": "最新表现信息",
+				"LatestMonPerfmInfo": "最近一次月度表现信息",
+				"LargeAmtSpeclStgdInfo": "大额专项分期信息",
+				"Latest5YearsHisPerFmInfo": "最近五年内历史表现信息",
+				"SpecialEvenInfo": "特殊事件说明",
+				"SpecialTranInfo": [ "特殊交易", ],
+				"AnnotationInfo": [ "标注及声明", ],
+			},
+		],
+		// R3
+		"SemiCreditCardAct": [
+			{
+				"BaseInfo": "基本信息",
+				"LatestPerformanceInfo": "最新表现信息",
+				"LatestMonPerfmInfo": "最近一次月度表现信息",
+				"Latest5YearsHisPerFmInfo": "最近五年内历史表现信息",
+				"SpecialTranInfo": [ "特殊交易", ],
+				"AnnotationInfo": [ "标注及声明", ],
+			},
+		],
+		"RelvRepayRsbltyInfo": [ "相关还款责任信息", ],
+		"CreditPrtInfo": [ "授信协议信息", ],
+	},
+	"NonCreditTranDetailsInfo":{
+		"PostPaidBusinessInfo":{
+			"BaseInfo": "基本信息",
+			"Last2YearsHisInfo": "近两年表现信息",
+		}
+	},
+	"PublicInfo":{
+		"TaxInfo": [ "欠税记录", ],
+		"CivilJudgementRecord": [ "民事判决记录", ],
+		"EnforceRecord": [ "强制执行记录", ],
+		"AdmPenaltyRecord": [ "行政处罚记录", ],
+		"HosFundPayRecord": [ "住房公积金参缴记录", ],
+		"SubReliefRecord": [ "低保救助记录", ],
+		"PracticeQuaRecord": [ "低保救助记录", ],
+		"AdmRewardRecord": [ "行政奖励记录", ],
+	},
+	"NonFinanceInfo": "非金融交易信息",
+	"OpenInfo":{
+		"ExecutiveInfo": [ "执行信息", ],
+		"CognizanceInfo": [ "认定类信息", ],
+		"DisciplineInfo": [ "惩戒类信息", ],
+		"ArrearsInfo": [ "欠缴信息", ],
+	},
+	"UserDeclare": [ "本人声明", ],
+	"ObjLabel": [ "异议标注", ],
+	"QueryInfo": [ "查询记录", ],
+}
+```
 
 -	人行征信数据分区
 	-	个人基本信息
@@ -205,7 +346,7 @@ description: 风控中的数据分析
 	-	异议标注
 	-	查询记录
 
-####	信贷交易信息
+###	信贷交易信息
 
 -	信贷交易信息占人行征信很大部分
 	-	账户间数据构建统计指标
@@ -228,7 +369,7 @@ description: 风控中的数据分析
 
 > - 账户：还款独立的实体
 
-####	公共信息
+###	公共信息
 
 -	公共信息按类型分块
 	-	欠税记录
@@ -240,10 +381,22 @@ description: 风控中的数据分析
 	-	职业资格记录
 	-	行政奖励记录
 
-####	查询记录
+###	查询记录
 
 -	
 	-	查询记录
+
+###	信贷类数据
+
+-	三方征信数据：通过各机构贷前审批、贷后管理等记录
+	-	收入数据
+	-	负债数据
+		-	多头负债
+		-	共债
+	-	多头借贷数据
+	-	黑名单
+	-	信用评分
+	-	原始数据（极少）
 
 ###	生活行为类数据
 
