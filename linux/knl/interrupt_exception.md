@@ -58,7 +58,7 @@ description:
 		-	*Abort* 异常中止：发生严重错误，处理程序只能强制终止受影响程序
 			-	控制单元出现问题，无法在 `eip` 寄存器中保存引起异常的指令的位置
 			-	用于报告严重错误
-	-	*Programmed Exception* 编程异常、*Software Interrupt* 软中断
+	-	*Programmed Exception* 编程异常、*Software Interrupt* 软件中断
 		-	触发条件
 			-	`int`、`int3` 指令
 			-	`into` 检查溢出、`bound` 检查地址越界指令检查结果为假

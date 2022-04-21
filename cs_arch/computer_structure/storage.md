@@ -115,6 +115,18 @@ N &= (-1)^F * 2^{-126} * F, & 非规格化数 \\
 	-	`esp`：*Stack Pointer* 堆栈指针，指向栈顶
 	-	`esi`、`edi`：*Source Index* 源变址、*Destination Index* 目标变址
 		-	字符串操作指令中，`ds:esi` 指向源字符串，`es:edi` 指向目标字符串
+
+![x86_register_eflags](imgs/x86_register_eflags.png)
+
+-	`eflags` 寄存器：标志位寄存器
+	-	`CF` *Carry Flag*：进位标志，无符号数运算结果溢出（最高位产生进位、借位），置 1
+	-	`PF` *Parity Flag*：奇偶标志，运算结果中 `1` 数量为偶数，置 1
+	-	`AF` *Auxiliary Carry Flag*：辅助进位标志
+	-	`ZF` *Zero Flag*：零标志，指令执行结果为 0，置 1
+	-	`SF` *Sign Flag*：正负标志位，有符号数执行结果为负，置 1
+	-	`OF` *Overflow Flag*：溢出标志，有符号数运算结果溢出，置 1
+	-	`DF` *Direction Flag*：方向标志，控制字符串指令方向
+		-	`DF=1` 时：`esi`、`edi` 递减，高地址向低地址方向处理字符串
 	
 
 
