@@ -10,7 +10,7 @@ tags:
   - Vi
   - Configuration
 date: 2019-08-01 01:53:29
-updated: 2021-12-30 16:40:30
+updated: 2022-05-05 10:59:05
 toc: true
 mathjax: true
 comments: true
@@ -218,20 +218,26 @@ description: Vim 配置
 	-	`fileformats`/`ffs`：指定读取文件时尝试使用 `<EOL>` 格式
 		-	非空时，根据此选项指定的 `<EOL>` 编辑新缓冲区，并设置 `fileformat`
 		-	可取列表值，*Vim* 将自动进行 `<EOL>` 检测
-	-	`encoding`：*Vim* 内部使用的字符编码
-		-	用于缓冲区、寄存器、表达式所属的字符串、*viminfo* 保存的文本
-		-	修改此选项不会改变已有文本编码，但可能使非 *ASCII* 文本非法
+	-	`encoding`：*Vim* 内部使用的字符编码（即运行时、处理数据所用编码）
+		-	用于缓冲区、寄存器、表达式所用的字符串、*viminfo* 保存的文本
+		-	修改此选项不会改变已有缓冲区内容，仅改变内容 “解释” 方式
+			-	未乱码可能导致乱码
+			-	已乱码也无法改善：若 `encoding` 非 8bit 编码，则读取时已被错误转码
 		-	通常应使此选项等同于现有 *locale*，否则需要设置 `termencoding` 选项转换输入、显示的文本
-	-	`fileencoding`/`fenc`：指定缓冲区所属文件的字符编码
-		-	写文件时，若不同于 `encoding`，写文件时发生转换
-		-	读文件时，此选项依次根据 `fileencodings` 选项，即此选项只影响文件写入
+	-	`fileencoding`/`fenc`：指定缓冲区所属文件的字符编码（即读、写时，认定的文件编码）
+		-	读、写文件时，若与 `encoding` 不同，则发生转换
+		-	读文件时，此选项依次根据 `fileencodings` 选项设置
 	-	`fileencodings`/`fencs`：指定读取文件时尝试使用的文件编码
 		-	依次尝试给出的编码，并设置 `fileencoding` 选项，若全部失败则将 `fileencoding` 置空
 			-	可用 `++enc` 参数在读入文件时指定编码，并忽略此选项
+			-	*8bits* 编码/单字节（如： `latin1` 等）须置于最后，因为不会报错
 		-	取值说明
 			-	`ucs-bom`：检查 *BOM* 的特殊值，必须置于所有 *Unicode* 编码前
 			-	`default`：`encoding` 缺省值，即本地环境值
-			-	8bits 编码/单字节（如： `latin1` 等）须置于最后，因为不会报错
+			-	`euc-cn`、`chinese`、`prc`：中文编码
+			-	`8bits-<NAME>`：任意 8bits 编码
+			-	`cp<NAME>`：*MS-Windows* 任意已安装双字节代码页
+			-	`2byte-<NAME>`：*Unix* 任意双字节编码
 
 > - <https://yianwillis.github.io/vimcdoc/doc/mbyte.html>
 
