@@ -10,7 +10,7 @@ tags:
   - Vi
   - Configuration
 date: 2019-08-01 01:53:29
-updated: 2022-05-05 10:59:05
+updated: 2022-11-10 16:31:02
 toc: true
 mathjax: true
 comments: true
@@ -81,6 +81,8 @@ description: Vim 配置
 	-	字符串选项值包含特殊字符字面值需用 `\` 转义：空格、`|`、`\`、`"`
 		-	对于 *Win32* 平台下的文件名，不删除普通字符前 `\`
 	-	字符串选项值中 `$<VAR>` 可以扩展为环境变量
+	-	`let &<OPT>` 可用于给选项赋值，即可设置选项
+		-	部分选选项如 `t_EI`、`t_SI` 等甚至使用 `set` 设置无法生效
 
 > - `:verbose set {OPTION}` 查看选项值上次设置的位置
 
