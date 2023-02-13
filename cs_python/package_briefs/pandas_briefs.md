@@ -1,4 +1,4 @@
-
+---
 title: Pandas Briefs
 categories:
   - Python
@@ -10,7 +10,7 @@ tags:
   - Numpy Array
   - Pandas
 date: 2022-07-26 11:28:10
-updated: 2022-09-07 18:21:46
+updated: 2022-12-07 15:56:50
 toc: true
 mathjax: true
 description: 
@@ -359,12 +359,20 @@ df.loc(axis=1)["A": "C"]						# 切换轴向
 |`DF` 方法|描述|返回值|说明|
 |-----|-----|-----|-----|
 |`astype(dtype[,copy,errors])`|转换类型|`S`| |
-|`convert_dtypes()`|转换为新式类型|`S`|以支持 `StringDtype`、`NA` 等|
-|`infer_objects()`|推断类型|`S`| |
+|`convert_dtypes()`|转换为最适合的新式类型|`S`|以支持 `pd.NA`，包括 `StringDtype` 等|
+|`infer_objects()`|推断类型|`C=1`| |
 |`bool()`|转换为 `bool`|`bool S`| |
 |`pd.to_numeric(args,errors,downcast)`|转换为数值| | |
 |`pd.to_datetime(args,errors,format)`|转换为 `datetime64`| | |
 |`pd.to_timedelta(args,errors)`|转换为 `timedelta64`| | |
+
+-   以下自动转换类型函数均仅只修改 `dtypes` 属性，不会转换实际值
+    -   `DF.convert_dtypes`：转换为支持 `pd.NA` 的类型
+    -   `DF.infer_objects`：转换为更适合类型
+    -   `pd.api.types.infer_dtype`：推断类型
+    -   即不可用于
+        -   判断、转换字符串类型值
+        -   包含 `pd.NA` 的整形数据甚至无法被 `convert_dtypes`、`infer_objects` 正确转换类型
 
 > - <https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#conversion>
 
@@ -446,6 +454,9 @@ df.loc(axis=1)["A": "C"]						# 切换轴向
 			-	即，仅在 `&` 另一者为 `True` 时，返回 `pd.NA`
 			-	但，`or`、`and` 等涉及 `__bool__` 将 `raise TypeError`
 		-	实现 *Numpy* 的 `__array_func__` 协议，大部分 *ufunc* 将返回 `pd.NA`
+
+-   *Pandas 1.4.4* 中 `pd.NA` 存在如下问题
+    -   包含 `pd.NA` 的整形数据无法被 `convert_dtypes` 正确转换类型，且 `astype(int)` 将报错
 
 > - `pd.NA` 仍为实验性机制，行为可能会修改
 > - 缺失值处理：<https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html>
@@ -1111,6 +1122,8 @@ pivoted.stack().reset_index()									# 同
 
 ##	*I/O* 工具
 
+### 直接工具
+
 |数据格式|数据描述|*Reader*|Writer*|
 |-----|-----|-----|-----|
 |文本|`csv`|`read_csv`|`to_csv`|
@@ -1138,7 +1151,7 @@ pivoted.stack().reset_index()									# 同
 > - *I/O* 工具：<https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html>
 > - *I/O API*：<https://pandas.pydata.org/pandas-docs/stable/reference/io.html>
 
-###	*CSV I/O* 参数
+####	*CSV I/O* 参数
 
 |`read_csv` 参数|含义|实参类型|说明|
 |-----|-----|-----|-----|
@@ -1190,13 +1203,37 @@ pivoted.stack().reset_index()									# 同
 |`dialect`|格式风格|`None`、`str`、`csv.Dialect`| |
 |`on_bad_lines`|处理异常行|`error`、`warn`、`skip`| |
 
-###	*Excel*、*OpenDocument* 参数
+####	*Excel*、*OpenDocument* 参数
 
--	`read_excel`、`write_excel` 参数、语义类似 *CSV* 文件 *API*
+-	`read_excel`、`write_excel` 参数、语义类似 *CSV* 文件 *API*，但
 	-	`engine`：文件解析引擎，不同格式依赖不同模块
 		-	`.xlsx` 依赖 `openpyxl`、`xlsxwriter`
 		-	`.xls` 依赖 `xlrd`、`xlwt`
 		-	`.xlsb` 依赖 `pyxlsb`
 		-	`.odf` 依赖 `odfpy`
 	-	`sheet_name`：读取子表名称
+
+####    注意事项
+
+-   *Pandas 1.4.4* 中不同文件解析引擎逻辑不同
+	-	以 `openpyxl` 为标准，在数据读入完毕后、根据数据列整体处理数据，即按如下顺序：
+		-	数据结构参数确定读取数据：`usecols`、`skipfooter`、`header`、`skiprows` 等
+		-	逐元素处理
+			-	控制符、分隔符处理：`thousands`
+			-	缺失值填充：`na_values`、`keep_default_na`
+		-   逐列类型转换
+			-	对非文本类型值，可逐元素直接确定类型（列中各元素类型可不同）
+			-	对文本类型值，无法整列转换为数值型时，所有元素都将保持为字符串
+		-	且，存在问题
+			-	若列可整体转换为整形，且若列中有文本整形值、对应整型值在 `na_value` 中，该文本整型值不会被替换为 `NaN`
+			-	`thousands` 将符合数值格式的文本中分隔符删除后直接转换类型，不等待整列类型转换
+				-	但，若列无法转换为数值，将被转换回字符串
+				-	即，会出现 `na_values` 中包含整形空值，包含 `,` 文本类型整形字符串会被替换为 `NaN`，但列整体因无法转换为数值型而保持字符串，且其中 `,` 被删除
+	-	对 `c`（`.csv` 缺省引擎），且有以下特点
+        -   其中数据均以文本存储，即无法整列转换为数值型时，所有元素将保持为字符串
+		-	`thousands` 分隔符仅在数据列可整体转换为数值型时被应用
+		-	不支持 `skipfooter` 参数（非 0 时，文本解析引擎被隐式设置为 `python`）
+
+
+
 
