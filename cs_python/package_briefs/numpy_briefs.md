@@ -10,7 +10,7 @@ tags:
   - Numpy
   - Numpy Array
 date: 2023-01-12 15:06:16
-updated: 2023-02-10 18:16:51
+updated: 2023-02-15 18:26:22
 toc: true
 mathjax: true
 description: 
@@ -1352,7 +1352,141 @@ np.choose(a,choices) == np.array([choices[a[I]][I] for I in np.ndindex(a.shape)]
 |`np.isin(element,test_elemtents[,...])`|是否存在|
 
 > - *NumPy 1.18* 集合操作：<https://www.numpy.org.cn/reference/routines/bitwise.html>
-> - *NumPy 1.24 * 参考：<https://numpy.org/doc/1.24/reference/routines.bitwise.html>
+> - *NumPy 1.24 Bitwise Routines*：<https://numpy.org/doc/1.24/reference/routines.bitwise.html>
+
+##	科学计算
+
+|函数|描述|
+|-----|-----|
+|`np.i0(X)`|第1类修改的Bessel函数，0阶|
+|`np.einsum(subscripts,*operands[,out,dtype,...])`|*Einstein* 求和约定|
+|`np.einsum_path(subscripts,*operands[,optimize])`|考虑中间数组情况下评估计算表达式最小代价|
+
+-	*Einstein* 求和约定：简化求和式中的求和符号
+
+	```python
+	a = np.arange(0,15).reshape(3,5)
+	b = np.arange(1,16).reshape(3,5)
+	# Transpose
+	np.einsum("ij->ji", a)
+	# Sum all
+	np.einsum("ij->", a)
+	# Sum along given axis
+	np.einsum("ij->i", a)
+	np.einsum("ij->j", a)
+	# Multiply
+	np.einsum("ij,ij->",a,b)
+	# Inner product
+	np.einsum("ik,jk->",a,b)
+	```
+
+###	线代 `np.linalg`
+
+-	NumPy的线代基于 *BLAS* 、*LAPACK*提供高效的标准底层实现
+	-	依赖库可以是 *NumPy* 提供的 *C* 版本子集
+	-	也可是针对特定平台优化的库（更好）
+		-	*OpenBLAS*
+		-	*MKL*
+		-	*ATLAS*
+
+> - *NumPy 1.18* 线代：<https://www.numpy.org.cn/reference/routines/linalg.html>
+> - *NumPy 1.24 Linear Algebra Routines*：<https://numpy.org/1.24/reference/routines.linalg.html>
+
+####	矩阵运算
+
+|矩阵、向量乘积|描述|
+|-----|-----|
+|`np.dot(a,b[,out])`|`a` 最后轴与 `b` 倒数第二轴的点积，形状应满足线代要求|
+|`linalg.multi_dot(arrays)`|自动选择最快的计算顺序计算内积|
+|`np.vdot(a,b)`|向量点积，多维将被展平|
+|`np.tensordot(a,b[,axes])`|沿指定轴计算张量积|
+|`linalg.matrix_power(a,n)`|方阵幂|
+|`np.inner(a,b[,out])`|`a` 最后轴与 `b` 最后轴的点积|
+|`np.outer(a,b[,out])`|向量外积，多维将被展平|
+|`np.matmul(x1,x2,/[,out,casting,order,...])`|矩阵乘积|
+|`np.kron(a,b)`|*Kronecker* 积（矩阵外积，分块）|
+
+-	说明
+	-	`np.tensordot` 张量积即类似普通内积，但可通过 `axes` 指定轴
+		-	`axes=0`：*Kronecker* 积
+		-	`axes > 0` 为整形时，`a` 末尾维度、`b` 开头维度对齐做内积
+		-	`axes` 为 2 元组时，指定 `a`、`b` 执行内积轴
+
+####	矩阵求解
+
+|矩阵分解|描述|
+|-----|-----|
+|`linalg.svd(a[,full_matrices,compute_uv,hermitian])`|奇异值分解|
+|`linalg.cholesky(a)`|*Cholesky* 分解|
+|`linalg.qr(a[,mode])`|*QR* 分解|
+
+|矩阵特征值|描述|
+|-----|-----|
+|`linalg.eig(a)`|特征值、特征向量（右乘）|
+|`linalg.eigvals(a)`|特征值|
+|`linalg.eigh(a[,UPLO])`|*Hermitian*（共轭对称）或实对称矩阵特征值、特征向量|
+|`linalg.eigvalsh(a[,UPLO])`|*Hermitian*（共轭对称）或实对称矩阵特征值|
+
+|矩阵范数等标量值|描述|
+|-----|-----|
+|`np.trace(a[,offset,axis1,axis2,dtype,out])`|迹|
+|`linalg.det(a)`|行列式|
+|`linalg.slogdet(a)`|行列式的符号、自然对数|
+|`linalg.norm(x[,ord,axis,keepdims])`|矩阵、向量范数|
+|`linalg.matrix_rank(M[,tol,hermitian])`|使用 *SVD* 方法计算矩阵秩|
+|`linalg.cond(x[,p])`|矩阵 *p* 范数的条件数|
+
+|方程求解、逆矩阵|描述|
+|-----|-----|
+|`linalg.lstsq(a,b[,rcond])`|最小二乘解|
+|`linalg.solve(a,b)`|线程方程组求解|
+|`linalg.tensorsolve(a,b[,axes])`|张量方程组求解|
+|`linalg.inv(a)`|矩阵逆|
+|`linalg.pinv(a[,rcond,hermitian])`|Moore-Penrose伪逆|
+|`linalg.tensorrinv(a[,ind])`|张量逆|
+
+###	（快速）傅里叶变换 `np.fft`
+
+> - *NumPy 1.18* 傅里叶变换：<https://www.numpy.org.cn/reference/routines/fft.html>
+> - *NumPy 1.24 FFT Routines*：<https://numpy.org/1.24/reference/routines.fft.html>
+
+####	*Standard FFTs*
+
+|标准傅里叶变换|描述|
+|-----|-----|
+|`fft.fft(a[,n,axis,norm])`|1维离散傅里叶变换|
+|`fft.fft2(a[,n,axes,norm])`|2维离散 *FFT*|
+|`fft.fftn(a[,n,axes,norm])`|N维离散 *FFT*|
+|`fft.ifft(a[,n,axis,norm])`|1维离散逆 *FFT*|
+|`fft.ifft2(a[,n,axes,norm])`|2维离散逆 *FFT*|
+|`fft.ifftn(a[,n,axes,norm])`|N维离散逆 *FFT*|
+
+####	*Real FFTs*
+
+|实傅里叶变换|描述|
+|-----|-----|
+|`fft.rfft(a[,n,axis,norm])`|1维离散傅里叶变换|
+|`fft.rfft2(a[,n,axes,norm])`|2维离散 *FFT*|
+|`fft.rfftn(a[,n,axes,norm])`|N维离散 *FFT*|
+|`fft.irfft(a[,n,axis,norm])`|1维逆离散 *FFT*|
+|`fft.irfft2(a[,n,axes,norm])`|2维离散逆 *FFT*|
+|`fft.irfftn(a[,n,axes,norm])`|N维离散逆 *FFT*|
+
+####	*Hermitian FFTs*
+
+|*Hermitian* 傅里叶变换|描述|
+|-----|-----|
+|`fft.hfft(a[,n,axis,norm])`|Hermitian对称（实谱）的信号的 *FFT*|
+|`fft.ihfft(a[,n,axis,norm])`|Hermitian对称（实谱）的信号的逆 *FFT*|
+
+####	帮助函数
+
+|帮助函数|描述|
+|-----|-----|
+|`fft.fftfreq(n[,d])`|离散FFT样本频率|
+|`fft.rfftfreq(n[,d])`| |
+|`fft.fftshift(x[,axes])`|平移0频成分到频谱中间|
+|`fft.ifftshift(x[,axes])`| |
 
 ##	*IO*、转入、转出
 
@@ -1416,6 +1550,23 @@ np.choose(a,choices) == np.array([choices[a[I]][I] for I in np.ndindex(a.shape)]
 
 ###	数据类型信息
 
+|数据类型转换|描述|
+|-----|-----|
+|`np.can_cast(from_,to[,casting])`|是否可根据转换规则转换类型|
+|`np.promote_types (type1,type2)`|最小可转换数据类型|
+|`np.min_scalar_type(a)`|可保存标量值得最小数据类型|
+|`np.result_type(*array_and_dtypes)`|应用类型提升规则|
+|`np.common_type(*arrays)`|通用标量类型|
+|`np.obj2sctype(rep[,default])`|获取对象数据类型|
+
+|数据类型检查|描述|
+|-----|-----|
+|`np.issctype(rep)`|是否可代表标量数据类型|
+|`np.issubdtype(arg1,arg2)`|层次关系|
+|`np.issubsctype(arg1,arg2)`|继承关系|
+|`np.issubclass_(arg1,arg2)`|继承关系|
+|`find_common_type(array_types,scalar_types)`|按标准强制转换规则确定数据类型|
+
 |获取类型信息|描述|
 |-----|-----|
 |`np.iinfo(int_type)`|整数类型的取值范围等信息|
@@ -1426,25 +1577,38 @@ np.choose(a,choices) == np.array([choices[a[I]][I] for I in np.ndindex(a.shape)]
 |`np.mintypecode(typecharsp[,typeset,default])`|类型可安全转换的最小类型的字符串表示|
 |`np.maximum_sctype(t)`|与输入类型相同精度最高数组标量类型|
 
+> - *NumPy 1.18* 数据类型信息：<https://www.numpy.org.cn/reference/routines/dtype.html>
+> - *NumPy 1.24 Data Type Routines*：<https://numpy.org/1.24/reference/routines.dtype.html>
+
+### 存储
+
 |设置类型属性|描述|
 |-----|-----|
 |`ndarray.view([dtype,type])`|视图投影（创建指定数据类型视图）|
 |`ndarray.getfield(dtype[,offset])`|设置数据类型为指定类型|
 |`ndarray.byteswap([inplace])`|反转字节序|
+|`np.setbuffsize(size)`|设置 *ufunc* 缓冲区（逐线程、单位元素数量）|
 
 -	说明
 	-	`ndarray.view` 可用于返回任意 `np.ndarray`、其子类视图
 
-###	*UFunc* 相关函数
+###	函数应用
 
 |Function|Desc|
 |-----|-----|
-|`setbuffsize(size)`|设置 *ufunc* 缓冲区（逐线程、单位元素数量）|
-|`apply_along_axis(func1d,axis,arr,*args,...)`|沿给定轴应用函数|
-|`apply_over_axes(func,a,axes)`|依次沿给定轴应用函数`func(a,axis)`|
-|`frompyfunc(func,nin,nout[,identity])`|创建ufunc，指定输入、输出数量|
-|`vertorize(pyfunc[,otypes,doc,excluded,cache,signature])`|创建ufunc，较`frompyfunc`提供更多特性|
-|`piecewise(x,condlist,funclist,*args,**kw)`|按照`condlist`中索引，对应应用`funclist`中函数|
+|`np.apply_along_axis(func1d,axis,arr,*args,...)`|沿给定轴应用函数|
+|`np.apply_over_axes(func,a,axes)`|依次沿给定轴应用函数 `func(a,axis)`|
+|`np.frompyfunc(func,nin,nout[,identity])`|创建 *ufunc*，指定输入、输出数量|
+|`np.vertorize(pyfunc[,otypes,doc,excluded,cache,signature])`|创建 *ufunc*，较`frompyfunc`提供更多特性|
+|`np.piecewise(x,condlist,funclist,*args,**kw)`|按照`condlist`中索引，对应应用`funclist`中函数|
+
+-	说明
+	-	`np.apply_over_axes` 行为类似对 `axes` 中轴 `axis`，按顺序执行 `res=func(a, axes)`
+		-	`res` 被用于下次执行 `func` 输入
+		-	`func` 应该保证输出结果 `res` 维数不变、减少 1（此时被插入新轴）
+
+> - *NumPy 1.18* 应用函数：<https://www.numpy.org.cn/reference/routines/functional.html>
+> - *NumPy 1.24 Functional Programming Routines*：<https://numpy.org/1.24/reference/routines.functional.html>
 
 #	标准数组子类
 
@@ -1857,5 +2021,10 @@ def np.ufunc.__callable__(
 > - *NumPy 1.18* 外部函数接口 - 中文参考：<https://www.numpy.org.cn/reference/routines/ctypeslib.html>
 > - *NumPy 1.24 Foreign Function Interface* - 参考：<https://numpy.org/doc/1.24/reference/routines.ctypeslib.html>
 
+##	`np.random`
+
+
+> - *NumPy 1.18* 随机抽样 - 中文参考：<https://www.numpy.org.cn/reference/routines/random.html>
+> - *NumPy 1.24 Random*：<https://numpy.org/1.24/reference/random/index.html>
 
 
