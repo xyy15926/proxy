@@ -10,7 +10,7 @@ tags:
   - Numpy Array
   - Pandas
 date: 2022-07-26 11:28:10
-updated: 2022-12-07 15:56:50
+updated: 2023-04-03 14:43:02
 toc: true
 mathjax: true
 description: 
@@ -323,25 +323,49 @@ df.loc(axis=1)["A": "C"]						# 切换轴向
 
 > - <https://pandas.pydata.org/pandas-docs/stable/reference/frame.html#function-application-groupby-window>
 
-###	*Groupby* 应用
+###	`DataFrameGroupBy` 应用
 
-|*Groupby* 属性、方法|描述|返回值|说明|
+|`DataFrameGroupBy` 属性、方法|描述|返回值|说明|
 |-----|-----|-----|-----|
 |`pd.Grouper(key,level,freq,axis,...)`|创建分组指示器|`Grouper`| |
-|`__iter__()`|迭代| | |
+|`__iter__()`|迭代|`(<GROUP_KEY>, <GROUP>),...`| | |
+|`__getitem__()`|`SeriesGroupBy`，即列 `groupby` 结果| | |
 |`groups`|分组、标签|`{<GROUP>:[LABELS]}`| |
 |`indices`|分组、位序|`{GROUP>:<POS>}`| |
 |`get_group(name[,obj])`|获取指定组别|`S`| |
-|`apply(func,*args,**kwargs)`|逐组应用，合并结果|`D=1`| |
-|`agg(func,*args,**kwargs)`|同 `aggregate`| | |
+|`apply(func,*args[,engine,...])`|逐组（整个子 `DF`）转换|`R,C`|返回结果需与原子 `DF` 广播兼容|
+|`transform(func,*args,**kwargs)`|逐组、逐列应用|`R,C`|返回标量时被广播|
 |`aggregate(func,*args[,engine,...])`|逐组、按列聚集|`R-,C*len(func)`| |
-|`transform(func,*args[,engine,...])`|逐组、按列转换|`R,C*len(func)`|结果广播，即同组结果相同|
+|`agg(func,*args,**kwargs)`|同 `aggregate`| | |
 
--	`aggregate`、`transform` 说明
-	-	支持关键字传参以设置列名
-	-	函数可用 `pd.NamedAgg<"columns","aggfunc">` 封装以仅对特定列应用
+-	`pd.core.groupby.generic.DataFrameGroupBy` 说明
+	-	其中 `aggregate`、`transform` 方法支持设置列名
+		-	对具体列，可通过关键字传参以设置列名
+		-	对 `DF` 整体，可用 `pd.NamedAgg(columns, aggfunc)` 封装以指定应用列
+	-	支持大量预定义聚集函数、分析函数（组内各记录结果不同，即仅适用于 `transform`）
+		-	可直接通过调用方法方式执行，无需调用 `aggregate`、`transform`
+		-	也可通过在 `aggregate`、`transform` 传递函数字符串指定（若无需额外参数）
+
+|`DataFrameGroupBy` 常用聚集函数、分析函数|描述|
+|-----|-----|
+|`mean()`| |
+|`sum()`| |
+|`size()`| |
+|`count()`| |
+|`std()`| |
+|`var()`| |
+|`sem()`|标准误|
+|`describe()`| |
+|`first()`| |
+|`last()`| |
+|`nth(n)`|需要额外参数|
+|`min()`| |
+|`max()`| |
+|`cumcount()`|累计计数|
+|`ngroup([acsending])`|所属组别|
 
 > - *Groupby API*：<https://pandas.pydata.org/pandas-docs/stable/reference/groupby.html>
+> - *Groupby User Guide*：<https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html>
 
 ###	值更新
 
@@ -990,6 +1014,7 @@ pivoted.stack().reset_index()									# 同
 		-	字符串别名
 
 > - 数据类型：<https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html#dtypes>
+> - 数据类型 *API*：<https://pandas.pydata.org/pandas-docs/stable/reference/arrays.html>
 
 ###	*Categorical Data*
 
@@ -1103,6 +1128,20 @@ pivoted.stack().reset_index()									# 同
 		-	鸭子类型，仅存储区间端点类型、开闭类型
 
 > - `Interval` 类型：<https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Interval.html>
+
+### `pd.api.types`
+
+|`pd.api.types` 方法、属性|描述|返回值|说明|
+|-----|-----|-----|-----|
+|`api.types.union_categorical(to_union[,...])`|合并分类型数组| | |
+|`api.types.infer_dtype()`|返回数组的数据类型标签|`str`|遍历数据确定|
+|`api.types.pandas_dtype(dtype)`|转换为 *Pandas*、*Numpy* 数据类型对象| | |
+
+-   `pd.api.types` 中包含推断、判断类型的接口，其中
+    -   `is_<XXXX>_dtype()` 函数仅通过 `Series.dtype` 字段判断类型，不会真实检测其中数据的实际数据类型
+    -   `infer_dtype()` 则会遍历数据元素确定数据类型
+
+> - 数据类型工具：<https://pandas.pydata.org/pandas-docs/stable/reference/arrays.html#utilities>
 
 ##	*Pandas* 设置
 

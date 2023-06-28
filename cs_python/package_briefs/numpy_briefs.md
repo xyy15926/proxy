@@ -1599,11 +1599,11 @@ np.choose(a,choices) == np.array([choices[a[I]][I] for I in np.ndindex(a.shape)]
 |`np.apply_along_axis(func1d,axis,arr,*args,...)`|沿给定轴应用函数|
 |`np.apply_over_axes(func,a,axes)`|依次沿给定轴应用函数 `func(a,axis)`|
 |`np.frompyfunc(func,nin,nout[,identity])`|创建 *ufunc*，指定输入、输出数量|
-|`np.vertorize(pyfunc[,otypes,doc,excluded,cache,signature])`|创建 *ufunc*，较`frompyfunc`提供更多特性|
+|`np.vectorize(pyfunc[,otypes,doc,excluded,cache,signature])`|创建 *ufunc*，较`frompyfunc`提供更多特性|
 |`np.piecewise(x,condlist,funclist,*args,**kw)`|按照`condlist`中索引，对应应用`funclist`中函数|
 
 -	说明
-	-	`np.apply_over_axes` 行为类似对 `axes` 中轴 `axis`，按顺序执行 `res=func(a, axes)`
+	-	`np.apply_over_axes` 行为类似对 `axes` 中轴 `axis`，依次执行 `res=func(a, axis)`
 		-	`res` 被用于下次执行 `func` 输入
 		-	`func` 应该保证输出结果 `res` 维数不变、减少 1（此时被插入新轴）
 

@@ -11,7 +11,7 @@ tags:
   - Scipy
   - Scikit-Learn
 date: 2022-12-19 14:04:39
-updated: 2023-01-09 18:16:32
+updated: 2023-04-18 12:21:46
 toc: true
 mathjax: true
 description: 
@@ -276,23 +276,32 @@ description:
 |`tree.export_text(decision_tree,...)`|文本格式决策树|
 |`tree.plot_tree(decision_tree,...)`|绘制决策树|
 
--   `DecisionTree.tree_` 存储决策树的树结构
-    -   `tree_` 通过数组存储、组织节点信息
-        -   `tree_.node_count`：节点数量
-        -   `tree_.children_left`、`tree_.children_right`：各节点左、右儿子编号
-            -   `shape=(node_count, )`
-            -   叶子节点取常量 `TREE_LEAF=-1`
-        -   `tree_.feature`、`tree_.threshold`：各节点分裂所用特征、阈值
-            -   `shape=(node_count, )`
-            -   叶子节点取常量 `-2`、`-2`
-        -   `tree_.values`：各节点中各类样本（加权）数量
-            -   `shape=(node_count, n_output, max_n_classes)`
-        -   `tree_.impurity`：各节点分裂指标值
-            -   `shape=(node_count, )`
-            -   对 `entropy` 取 `log2`
-
 > - *Scikit-Learn 0.24* 决策树指南 - 中文：<https://scikit-learn.org.cn/view/89.html>
 > - *Scikit-Learn 1.2.0* 决策树指南：<https://scikit-learn.org/1.2/modules/tree.html#tree>
+> - *Scikit-Learn 1.2.0 API - Tree* ：<https://scikit-learn.org/1.2/modules/classes.html#module-sklearn.tree>
+
+####    `sklearn.tree._tree.Tree`
+
+|`sklearn.tree._tree.Tree` 属性|描述|*Shape*|
+|-----|-----|-----|
+|`Tree.node_count`|节点数量| |
+|`child_left`|节点左儿子编号（叶子取常量 `-1`）|`(node_count,)`|
+|`child_right`|节点右儿子编号（叶子取常量 `-1`）|`(node_count,)`|
+|`feature`|节点分裂所用特征（叶子取常量 `-2`）|`(node_count,)`|
+|`threshold`|节点分裂阈值|`(node_count,)`|
+|`impurity`|节点分裂指标值（熵取 `lg2`）|`(node_count,)`|
+|`value`|（实际训练时）节点各类样本（加权）数量|`(node_count, n_output, max_n_classes)`|
+
+
+-   `sklearn.tree._tree.Tree`：通过数组存储、组织节点信息，存储决策树的树结构
+    -   常作为 `DecisionTree.tree_` 属性
+
+-   说明
+    -   `values` 存储实际训练时各节点中各类样本的加权数量
+        -   对普通决策树，训练集即实际训练所用样本
+        -   在随机森林等自举场合，各树训练所用样本为训练集子集，即训练集整体实际决策路径与树存储结果有差异
+
+> - *Scikit-Learn 1.2.0 Tree Structure* ：<https://scikit-learn.org/1.2/auto_examples/tree/plot_unveil_tree_structure.html>
 
 ###	`sklearn.neural_networks`
 
